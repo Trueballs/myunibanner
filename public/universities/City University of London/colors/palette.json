@@ -1,0 +1,23 @@
+{
+  "university": "City University of London",
+  "colors": [
+    {
+      "hex": "#d4002a",
+      "name": "City Red",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#1d1d1b",
+      "name": "Black",
+      "role": "dark",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

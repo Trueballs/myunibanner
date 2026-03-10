@@ -1,0 +1,23 @@
+{
+  "university": "University of Southampton",
+  "colors": [
+    {
+      "hex": "#003865",
+      "name": "Southampton Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#005eb8",
+      "name": "Light Blue",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

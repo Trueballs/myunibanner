@@ -1,0 +1,23 @@
+{
+  "university": "Glasgow Caledonian University",
+  "colors": [
+    {
+      "hex": "#003965",
+      "name": "GCU Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#e4002b",
+      "name": "Red",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

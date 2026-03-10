@@ -1,0 +1,23 @@
+{
+  "university": "Sheffield Hallam University",
+  "colors": [
+    {
+      "hex": "#7d0057",
+      "name": "SHU Purple",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 2
+    },
+    {
+      "hex": "#1d1d1b",
+      "name": "Black",
+      "role": "dark",
+      "weight": 3
+    }
+  ]
+}

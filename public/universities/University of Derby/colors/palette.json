@@ -1,0 +1,23 @@
+{
+  "university": "University of Derby",
+  "colors": [
+    {
+      "hex": "#640032",
+      "name": "Derby Burgundy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#009c8f",
+      "name": "Teal",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "university": "University College London",
+  "colors": [
+    {
+      "hex": "#002147",
+      "name": "UCL Dark Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#d4145a",
+      "name": "UCL Pink",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    },
+    {
+      "hex": "#f5c400",
+      "name": "Yellow",
+      "role": "accent",
+      "weight": 4
+    }
+  ]
+}

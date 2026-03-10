@@ -1,0 +1,23 @@
+{
+  "university": "University of Bedfordshire",
+  "colors": [
+    {
+      "hex": "#0088a9",
+      "name": "Beds Teal",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#f5a623",
+      "name": "Orange",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

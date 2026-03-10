@@ -1,0 +1,23 @@
+{
+  "university": "St George's University of London",
+  "colors": [
+    {
+      "hex": "#003865",
+      "name": "StG Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#c8a000",
+      "name": "Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

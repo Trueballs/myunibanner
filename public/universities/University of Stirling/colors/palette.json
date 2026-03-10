@@ -1,0 +1,23 @@
+{
+  "university": "University of Stirling",
+  "colors": [
+    {
+      "hex": "#1d2a57",
+      "name": "Stirling Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#c8a327",
+      "name": "Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

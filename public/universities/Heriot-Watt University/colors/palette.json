@@ -1,0 +1,23 @@
+{
+  "university": "Heriot-Watt University",
+  "colors": [
+    {
+      "hex": "#002147",
+      "name": "HW Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#0082b4",
+      "name": "HW Blue",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

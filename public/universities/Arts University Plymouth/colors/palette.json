@@ -1,0 +1,23 @@
+{
+  "university": "Arts University Plymouth",
+  "colors": [
+    {
+      "hex": "#0057a8",
+      "name": "Plymouth Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 2
+    },
+    {
+      "hex": "#1a1a1a",
+      "name": "Dark",
+      "role": "dark",
+      "weight": 3
+    }
+  ]
+}

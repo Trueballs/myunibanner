@@ -1,0 +1,23 @@
+{
+  "university": "Cardiff Metropolitan University",
+  "colors": [
+    {
+      "hex": "#006272",
+      "name": "Cardiff Met Teal",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#f5a800",
+      "name": "Amber",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "university": "University of Bolton",
+  "colors": [
+    {
+      "hex": "#003366",
+      "name": "Bolton Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#e30613",
+      "name": "Red",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

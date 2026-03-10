@@ -1,0 +1,23 @@
+{
+  "university": "Middlesex University",
+  "colors": [
+    {
+      "hex": "#d4293b",
+      "name": "MDX Red",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#003865",
+      "name": "Navy",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

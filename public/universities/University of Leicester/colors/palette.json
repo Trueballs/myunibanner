@@ -1,0 +1,23 @@
+{
+  "university": "University of Leicester",
+  "colors": [
+    {
+      "hex": "#003e74",
+      "name": "Leicester Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#c8a800",
+      "name": "Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

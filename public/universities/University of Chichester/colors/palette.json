@@ -1,0 +1,23 @@
+{
+  "university": "University of Chichester",
+  "colors": [
+    {
+      "hex": "#004b87",
+      "name": "Chichester Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#e4002b",
+      "name": "Red",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

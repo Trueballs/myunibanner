@@ -1,0 +1,23 @@
+{
+  "university": "University of Nottingham",
+  "colors": [
+    {
+      "hex": "#001e62",
+      "name": "Nottingham Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#0082b4",
+      "name": "Nottingham Blue",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

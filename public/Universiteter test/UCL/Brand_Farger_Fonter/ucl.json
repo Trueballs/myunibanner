@@ -1,0 +1,12 @@
+{
+  "university": "University College London",
+  "colors": [
+    {"hex": "#361A54", "name": "UCL Dark Purple", "role": "main", "weight": 1},
+    {"hex": "#30D6FF", "name": "Heritage Blue", "role": "light", "weight": 2},
+    {"hex": "#993BFF", "name": "Bright Purple", "role": "accent", "weight": 3}
+  ],
+  "fonts": [
+    {"name": "UCL Sans", "role": "primary", "type": "sans-serif", "weight": 1, "note": "Custom font based on DM Sans"},
+    {"name": "Aptos", "role": "fallback", "type": "sans-serif", "weight": 2}
+  ]
+}

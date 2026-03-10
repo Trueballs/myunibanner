@@ -1,0 +1,23 @@
+{
+  "university": "University of Surrey",
+  "colors": [
+    {
+      "hex": "#003865",
+      "name": "Surrey Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#009c8f",
+      "name": "Teal",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

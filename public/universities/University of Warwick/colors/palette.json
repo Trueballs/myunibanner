@@ -1,0 +1,23 @@
+{
+  "university": "University of Warwick",
+  "colors": [
+    {
+      "hex": "#4b0082",
+      "name": "Warwick Purple",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#c8a327",
+      "name": "Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

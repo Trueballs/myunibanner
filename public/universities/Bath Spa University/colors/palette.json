@@ -1,0 +1,23 @@
+{
+  "university": "Bath Spa University",
+  "colors": [
+    {
+      "hex": "#e4002b",
+      "name": "Bath Spa Red",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#1a1a1a",
+      "name": "Black",
+      "role": "dark",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

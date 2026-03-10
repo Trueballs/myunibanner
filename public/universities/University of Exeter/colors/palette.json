@@ -1,0 +1,23 @@
+{
+  "university": "University of Exeter",
+  "colors": [
+    {
+      "hex": "#003c57",
+      "name": "Exeter Dark Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#009faf",
+      "name": "Teal",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

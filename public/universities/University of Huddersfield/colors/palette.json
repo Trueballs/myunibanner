@@ -1,0 +1,23 @@
+{
+  "university": "University of Huddersfield",
+  "colors": [
+    {
+      "hex": "#c8102e",
+      "name": "Huddersfield Red",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#1d1d1b",
+      "name": "Black",
+      "role": "dark",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "university": "Bangor University",
+  "colors": [
+    {
+      "hex": "#002060",
+      "name": "Bangor Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#c8922a",
+      "name": "Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

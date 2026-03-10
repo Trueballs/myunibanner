@@ -1,0 +1,23 @@
+{
+  "university": "Arts University Bournemouth",
+  "colors": [
+    {
+      "hex": "#000000",
+      "name": "Black",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#e8001d",
+      "name": "AUB Red",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

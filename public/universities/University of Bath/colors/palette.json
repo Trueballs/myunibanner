@@ -1,0 +1,23 @@
+{
+  "university": "University of Bath",
+  "colors": [
+    {
+      "hex": "#00307a",
+      "name": "Bath Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#d4a200",
+      "name": "Bath Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

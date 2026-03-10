@@ -1,0 +1,23 @@
+{
+  "university": "University of Law",
+  "colors": [
+    {
+      "hex": "#003865",
+      "name": "Law Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#c8a800",
+      "name": "Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

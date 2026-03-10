@@ -1,0 +1,23 @@
+{
+  "university": "Manchester Metropolitan University",
+  "colors": [
+    {
+      "hex": "#742082",
+      "name": "MMU Purple",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#ffe600",
+      "name": "Yellow",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

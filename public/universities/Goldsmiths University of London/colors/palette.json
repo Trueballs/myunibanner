@@ -1,0 +1,23 @@
+{
+  "university": "Goldsmiths University of London",
+  "colors": [
+    {
+      "hex": "#003865",
+      "name": "Goldsmiths Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#d4002a",
+      "name": "Red",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

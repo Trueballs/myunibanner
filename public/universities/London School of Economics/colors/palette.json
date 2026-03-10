@@ -1,0 +1,23 @@
+{
+  "university": "London School of Economics",
+  "colors": [
+    {
+      "hex": "#c8102e",
+      "name": "LSE Red",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#231f20",
+      "name": "Black",
+      "role": "dark",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

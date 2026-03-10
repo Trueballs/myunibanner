@@ -1,0 +1,23 @@
+{
+  "university": "BPP University",
+  "colors": [
+    {
+      "hex": "#0076a3",
+      "name": "BPP Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#f5a623",
+      "name": "Orange",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

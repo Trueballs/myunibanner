@@ -1,0 +1,23 @@
+{
+  "university": "University of Gloucestershire",
+  "colors": [
+    {
+      "hex": "#005eb8",
+      "name": "Glos Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#00a651",
+      "name": "Green",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

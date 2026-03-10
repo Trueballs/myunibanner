@@ -1,0 +1,23 @@
+{
+  "university": "University of St Andrews",
+  "colors": [
+    {
+      "hex": "#001e62",
+      "name": "St Andrews Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#c8a800",
+      "name": "St Andrews Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

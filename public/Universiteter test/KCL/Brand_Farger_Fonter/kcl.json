@@ -1,0 +1,12 @@
+{
+  "university": "King's College London",
+  "colors": [
+    {"hex": "#E5003A", "name": "King's Red", "role": "main", "weight": 1},
+    {"hex": "#ffffff", "name": "White", "role": "light", "weight": 2},
+    {"hex": "#03224C", "name": "King's Blue", "role": "dark", "weight": 3}
+  ],
+  "fonts": [
+    {"name": "King's Caslon", "role": "primary", "type": "serif", "weight": 1, "note": "Custom typeface by Dalton Maag"},
+    {"name": "Helvetica Neue", "role": "secondary", "type": "sans-serif", "weight": 2}
+  ]
+}

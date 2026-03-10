@@ -1,0 +1,23 @@
+{
+  "university": "Birkbeck University of London",
+  "colors": [
+    {
+      "hex": "#c8172b",
+      "name": "Birkbeck Red",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#1c1c1c",
+      "name": "Black",
+      "role": "dark",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

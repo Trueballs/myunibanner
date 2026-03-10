@@ -1,0 +1,29 @@
+{
+  "university": "Imperial College London",
+  "colors": [
+    {
+      "hex": "#003e74",
+      "name": "Imperial Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#00b3e3",
+      "name": "Imperial Light Blue",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    },
+    {
+      "hex": "#d4145a",
+      "name": "Pink",
+      "role": "accent",
+      "weight": 4
+    }
+  ]
+}

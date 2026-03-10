@@ -1,0 +1,23 @@
+{
+  "university": "Falmouth University",
+  "colors": [
+    {
+      "hex": "#004a51",
+      "name": "Falmouth Dark Teal",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#d4002a",
+      "name": "Red",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

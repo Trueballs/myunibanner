@@ -1,0 +1,29 @@
+{
+  "university": "University of Oxford",
+  "colors": [
+    {
+      "hex": "#002147",
+      "name": "Oxford Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#be0000",
+      "name": "Oxford Red",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#c8a327",
+      "name": "Gold",
+      "role": "accent",
+      "weight": 3
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 4
+    }
+  ]
+}

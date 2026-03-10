@@ -1,0 +1,23 @@
+{
+  "university": "University of the West of England",
+  "colors": [
+    {
+      "hex": "#003865",
+      "name": "UWE Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#009faf",
+      "name": "Teal",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

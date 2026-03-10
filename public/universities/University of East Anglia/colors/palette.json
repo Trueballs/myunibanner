@@ -1,0 +1,23 @@
+{
+  "university": "University of East Anglia",
+  "colors": [
+    {
+      "hex": "#005b8e",
+      "name": "UEA Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#a18c5a",
+      "name": "Bronze",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

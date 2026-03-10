@@ -1,0 +1,23 @@
+{
+  "university": "University of Dundee",
+  "colors": [
+    {
+      "hex": "#001e62",
+      "name": "Dundee Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#bb9900",
+      "name": "Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

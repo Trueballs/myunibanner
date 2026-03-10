@@ -1,0 +1,23 @@
+{
+  "university": "University of Suffolk",
+  "colors": [
+    {
+      "hex": "#005eb8",
+      "name": "Suffolk Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#e4007c",
+      "name": "Pink",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

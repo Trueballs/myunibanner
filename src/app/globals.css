@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+:root {
+  --background: #F3F2EF;
+  /* LinkedIn background color */
+  --foreground: rgba(0, 0, 0, 0.9);
+
+  --card: #ffffff;
+  --card-foreground: rgba(0, 0, 0, 0.9);
+
+  --linkedin-blue: #0A66C2;
+  --linkedin-blue-hover: #004182;
+
+  --border: rgba(0, 0, 0, 0.08);
+  /* Subtle lines like LinkedIn */
+  --input: #eef3f8;
+  /* LinkedIn search background */
+  --ring: #0A66C2;
+
+  --radius: 0.8rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-linkedin: var(--linkedin-blue);
+  --color-linkedin-hover: var(--linkedin-blue-hover);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-sm: calc(var(--radius) - 8px);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* LinkedIn Card utilities */
+.linkedin-card {
+  background-color: var(--card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+/* Base styles for hiding scrollbar but keeping functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

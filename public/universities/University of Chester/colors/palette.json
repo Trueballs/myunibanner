@@ -1,0 +1,23 @@
+{
+  "university": "University of Chester",
+  "colors": [
+    {
+      "hex": "#002147",
+      "name": "Chester Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#bf8f00",
+      "name": "Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "university": "University of Aberdeen",
+  "colors": [
+    {
+      "hex": "#1e3a5f",
+      "name": "Aberdeen Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#c8b400",
+      "name": "Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    },
+    {
+      "hex": "#0d1f34",
+      "name": "Dark Navy",
+      "role": "dark",
+      "weight": 4
+    }
+  ]
+}

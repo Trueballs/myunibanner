@@ -1,0 +1,23 @@
+{
+  "university": "De Montfort University",
+  "colors": [
+    {
+      "hex": "#007a6c",
+      "name": "DMU Teal",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#d4002a",
+      "name": "Red",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "university": "University of Manchester",
+  "colors": [
+    {
+      "hex": "#660099",
+      "name": "Manchester Purple",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#f5a623",
+      "name": "Yellow",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

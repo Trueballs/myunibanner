@@ -1,0 +1,23 @@
+{
+  "university": "University of Reading",
+  "colors": [
+    {
+      "hex": "#1d4696",
+      "name": "Reading Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#c8a800",
+      "name": "Reading Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

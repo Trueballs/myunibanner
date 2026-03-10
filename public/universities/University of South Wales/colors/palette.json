@@ -1,0 +1,23 @@
+{
+  "university": "University of South Wales",
+  "colors": [
+    {
+      "hex": "#003865",
+      "name": "USW Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#e4002b",
+      "name": "Red",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

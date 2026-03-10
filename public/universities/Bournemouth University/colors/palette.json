@@ -1,0 +1,29 @@
+{
+  "university": "Bournemouth University",
+  "colors": [
+    {
+      "hex": "#7D2060",
+      "name": "BU Magenta",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 2
+    },
+    {
+      "hex": "#1a1a1a",
+      "name": "Dark",
+      "role": "dark",
+      "weight": 3
+    },
+    {
+      "hex": "#d4a0c8",
+      "name": "Light Magenta",
+      "role": "accent",
+      "weight": 4
+    }
+  ]
+}

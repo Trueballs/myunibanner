@@ -1,0 +1,23 @@
+{
+  "university": "University of Buckingham",
+  "colors": [
+    {
+      "hex": "#003f7f",
+      "name": "Buckingham Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#c8a84b",
+      "name": "Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

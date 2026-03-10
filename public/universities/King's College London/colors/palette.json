@@ -1,0 +1,29 @@
+{
+  "university": "King's College London",
+  "colors": [
+    {
+      "hex": "#6f1635",
+      "name": "Kings Burgundy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#c8a800",
+      "name": "Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#1a1a1a",
+      "name": "Black",
+      "role": "dark",
+      "weight": 3
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 4
+    }
+  ]
+}

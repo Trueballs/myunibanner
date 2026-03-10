@@ -1,0 +1,23 @@
+{
+  "university": "University of Northampton",
+  "colors": [
+    {
+      "hex": "#741fa3",
+      "name": "Northampton Purple",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 2
+    },
+    {
+      "hex": "#1a1a1a",
+      "name": "Dark",
+      "role": "dark",
+      "weight": 3
+    }
+  ]
+}

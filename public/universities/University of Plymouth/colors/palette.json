@@ -1,0 +1,23 @@
+{
+  "university": "University of Plymouth",
+  "colors": [
+    {
+      "hex": "#007a3d",
+      "name": "Plymouth Green",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#1c3c6e",
+      "name": "Navy",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

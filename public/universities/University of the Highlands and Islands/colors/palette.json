@@ -1,0 +1,23 @@
+{
+  "university": "University of the Highlands and Islands",
+  "colors": [
+    {
+      "hex": "#003865",
+      "name": "UHI Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#c8a000",
+      "name": "Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

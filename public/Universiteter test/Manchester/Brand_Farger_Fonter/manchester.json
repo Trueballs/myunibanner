@@ -1,0 +1,13 @@
+{
+  "university": "University of Manchester",
+  "colors": [
+    {"hex": "#660099", "name": "Manchester Purple", "role": "main", "weight": 1},
+    {"hex": "#FFCC33", "name": "Manchester Yellow", "role": "accent", "weight": 2},
+    {"hex": "#999999", "name": "Grey", "role": "dark", "weight": 3}
+  ],
+  "fonts": [
+    {"name": "Effra", "role": "display", "type": "sans-serif", "weight": 1},
+    {"name": "Minion", "role": "body-print", "type": "serif", "weight": 2},
+    {"name": "Open Sans", "role": "digital", "type": "sans-serif", "weight": 3}
+  ]
+}

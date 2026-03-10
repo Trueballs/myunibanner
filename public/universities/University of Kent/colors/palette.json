@@ -1,0 +1,23 @@
+{
+  "university": "University of Kent",
+  "colors": [
+    {
+      "hex": "#012169",
+      "name": "Kent Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#c8a800",
+      "name": "Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

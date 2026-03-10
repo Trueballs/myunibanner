@@ -1,0 +1,23 @@
+{
+  "university": "University of Central Lancashire",
+  "colors": [
+    {
+      "hex": "#003262",
+      "name": "UCLan Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#e4002b",
+      "name": "Red",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "university": "Leeds Arts University",
+  "colors": [
+    {
+      "hex": "#1a1a1a",
+      "name": "Black",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#e4002b",
+      "name": "Red",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#f5f5f5",
+      "name": "Light Grey",
+      "role": "accent",
+      "weight": 3
+    }
+  ]
+}

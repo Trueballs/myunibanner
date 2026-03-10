@@ -1,0 +1,23 @@
+{
+  "university": "Liverpool John Moores University",
+  "colors": [
+    {
+      "hex": "#006272",
+      "name": "LJMU Teal",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 2
+    },
+    {
+      "hex": "#1a1a1a",
+      "name": "Dark",
+      "role": "dark",
+      "weight": 3
+    }
+  ]
+}

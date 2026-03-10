@@ -1,0 +1,23 @@
+{
+  "university": "Brunel University London",
+  "colors": [
+    {
+      "hex": "#003d6b",
+      "name": "Brunel Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#c8a327",
+      "name": "Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

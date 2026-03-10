@@ -1,0 +1,23 @@
+{
+  "university": "Anglia Ruskin University",
+  "colors": [
+    {
+      "hex": "#4a1259",
+      "name": "ARU Purple",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#f5a623",
+      "name": "Amber",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

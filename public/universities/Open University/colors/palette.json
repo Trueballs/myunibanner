@@ -1,0 +1,23 @@
+{
+  "university": "Open University",
+  "colors": [
+    {
+      "hex": "#002147",
+      "name": "OU Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#0082b4",
+      "name": "OU Blue",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "university": "Edinburgh Napier University",
+  "colors": [
+    {
+      "hex": "#6a1a53",
+      "name": "Napier Purple",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#00b4a0",
+      "name": "Teal",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

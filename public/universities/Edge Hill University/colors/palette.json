@@ -1,0 +1,23 @@
+{
+  "university": "Edge Hill University",
+  "colors": [
+    {
+      "hex": "#d30d4c",
+      "name": "Edge Hill Pink",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#1a1a1a",
+      "name": "Black",
+      "role": "dark",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}
