@@ -5,7 +5,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const folder = searchParams.get('folder') || '';
     const file = searchParams.get('file') || '';
-    const root = searchParams.get('root') || 'Universiteter test';
+    const root = searchParams.get('root') || 'uk-universities';
 
     if (!folder || !file) return new Response('Missing params', { status: 400 });
 

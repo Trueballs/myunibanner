@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation";
 import { Menu, X, ArrowLeft, Globe, ChevronDown, Check, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const LANGUAGES = ["English", "Spanish", "Chinese", "Hindi", "Arabic", "French", "Portuguese"];
+import { useLanguage } from "@/context/LanguageContext";
+
+const LANGUAGES = ["English", "Norwegian"];
 const COUNTRIES = ["United Kingdom", "Norway"];
 
 interface HeaderProps {
@@ -16,11 +18,11 @@ interface HeaderProps {
 export default function Header({ showStartButton = false, activeBrand = null }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [selectedLang, setSelectedLang] = useState("English");
   const [selectedCountry, setSelectedCountry] = useState("United Kingdom");
   const [searchQuery, setSearchQuery] = useState("");
   const settingsRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { language: selectedLang, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -34,13 +36,10 @@ export default function Header({ showStartButton = false, activeBrand = null }: 
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    
-    // Initial read
     const savedData = localStorage.getItem("lnbg_user_data");
     if (savedData) {
       try {
         const parsed = JSON.parse(savedData);
-        if (parsed.language) setSelectedLang(parsed.language);
         if (parsed.country) setSelectedCountry(parsed.country);
       } catch (e) {}
     }
@@ -48,7 +47,6 @@ export default function Header({ showStartButton = false, activeBrand = null }: 
     const handleUserDataUpdate = (e: Event) => {
       const customEvent = e as CustomEvent;
       if (customEvent.detail) {
-        if (customEvent.detail.language) setSelectedLang(customEvent.detail.language);
         if (customEvent.detail.country) setSelectedCountry(customEvent.detail.country);
       }
     };
@@ -58,14 +56,8 @@ export default function Header({ showStartButton = false, activeBrand = null }: 
   }, []);
 
   const handleLangSelect = (lang: string) => {
-    setSelectedLang(lang);
-    if (typeof window !== "undefined") {
-      const existing = localStorage.getItem("lnbg_user_data");
-      const data = existing ? JSON.parse(existing) : {};
-      data.language = lang;
-      localStorage.setItem("lnbg_user_data", JSON.stringify(data));
-      window.dispatchEvent(new CustomEvent("lnbg_user_data_updated", { detail: data }));
-    }
+    setLanguage(lang as "English" | "Norwegian");
+    setIsSettingsOpen(false);
   };
 
   const handleCountrySelect = (country: string) => {
@@ -88,8 +80,12 @@ export default function Header({ showStartButton = false, activeBrand = null }: 
           <span className="text-white font-black text-2xl md:text-3xl lg:text-[32px] tracking-[0.2em] leading-none mb-[-2px] mr-4 cursor-pointer" onClick={() => router.push("/")}>LNBG</span>
           
           <nav className="hidden lg:flex items-center gap-6">
-            <button onClick={() => router.push("/about")} className="text-white/70 hover:text-white text-[11px] font-black uppercase tracking-widest transition-colors">About Us</button>
-            <button onClick={() => router.push("/universities")} className="text-white/70 hover:text-white text-[11px] font-black uppercase tracking-widest transition-colors">For Universities</button>
+            <div className="flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#4ECBA8] animate-pulse" />
+              <span className="text-white/70 text-[10px] font-black uppercase tracking-[0.15em] whitespace-nowrap">
+                {t("header.badge")}
+              </span>
+            </div>
           </nav>
         </div>
 
@@ -115,20 +111,18 @@ export default function Header({ showStartButton = false, activeBrand = null }: 
             </div>
           )}
 
-          {/* Region / Language Settings */}
+          {/* Country / Flag Selector */}
           <div className="relative" ref={settingsRef}>
             <button
               onClick={() => setIsSettingsOpen(!isSettingsOpen)}
               className={`flex items-center gap-2 px-3 py-2 rounded-xl transition-colors border ${isSettingsOpen ? 'bg-white/10 border-white/20' : 'border-transparent hover:bg-white/5'} text-white/90`}
             >
-              <Globe className="w-4 h-4" />
-              <span className="text-[11px] font-black uppercase tracking-widest hidden sm:block">
-                {selectedLang}
+              <span className="text-xl leading-none">
+                {selectedCountry === "Norway" ? "🇳🇴" : "🇬🇧"}
               </span>
               <ChevronDown className={`w-3 h-3 transition-transform ${isSettingsOpen ? 'rotate-180' : ''}`} />
             </button>
 
-            {/* Desktop Settings Dropdown */}
             <AnimatePresence>
               {isSettingsOpen && (
                 <motion.div
@@ -136,49 +130,24 @@ export default function Header({ showStartButton = false, activeBrand = null }: 
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
                   transition={{ duration: 0.15, ease: "easeOut" }}
-                  className="absolute right-0 top-full mt-3 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-[102]"
+                  className="absolute right-0 top-full mt-3 w-52 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-[102]"
                 >
-                  <div className="p-4 bg-gray-50 border-b border-gray-100">
-                    <h3 className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-3">Language</h3>
-                    <div className="grid grid-cols-2 gap-1.5">
-                      {LANGUAGES.map(lang => (
-                        <button
-                          key={lang}
-                          onClick={() => handleLangSelect(lang)}
-                          className={`text-left px-3 py-2 rounded-lg text-xs font-bold transition-colors ${selectedLang === lang ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-100'}`}
-                        >
-                          {lang}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-3">Country of Study</h3>
-                    <div className="relative mb-3">
-                      <Search className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-gray-400" />
-                      <input
-                        type="text"
-                        placeholder="Search countries..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-8 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1 max-h-40 overflow-y-auto">
-                      {COUNTRIES.filter(c => c.toLowerCase().includes(searchQuery.toLowerCase())).map(country => (
-                        <button
-                          key={country}
-                          onClick={() => handleCountrySelect(country)}
-                          className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold transition-colors ${selectedCountry === country ? 'bg-gray-100 text-[#111827]' : 'text-gray-500 hover:bg-gray-50'}`}
-                        >
-                          {country}
-                          {selectedCountry === country && <Check className="w-3.5 h-3.5 text-blue-600" />}
-                        </button>
-                      ))}
-                      {COUNTRIES.filter(c => c.toLowerCase().includes(searchQuery.toLowerCase())).length === 0 && (
-                        <p className="text-xs text-center text-gray-400 py-2 italic font-medium">No countries found.</p>
-                      )}
-                    </div>
+                  <div className="p-3">
+                    <h3 className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2 px-1">Country of Study</h3>
+                    {[
+                      { name: "United Kingdom", flag: "🇬🇧" },
+                      { name: "Norway", flag: "🇳🇴" },
+                    ].map(({ name, flag }) => (
+                      <button
+                        key={name}
+                        onClick={() => handleCountrySelect(name)}
+                        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-colors ${selectedCountry === name ? 'bg-[#1e2d78]/8 text-[#1e2d78]' : 'text-gray-600 hover:bg-gray-50'}`}
+                      >
+                        <span className="text-2xl leading-none">{flag}</span>
+                        <span>{name}</span>
+                        {selectedCountry === name && <Check className="w-3.5 h-3.5 text-[#1e2d78] ml-auto" />}
+                      </button>
+                    ))}
                   </div>
                 </motion.div>
               )}
@@ -203,18 +172,6 @@ export default function Header({ showStartButton = false, activeBrand = null }: 
               exit={{ opacity: 0, y: -20 }}
               className="absolute top-full left-0 right-0 mt-2 bg-[#1e2d78] rounded-2xl p-6 shadow-2xl lg:hidden flex flex-col gap-4 border border-white/10 z-[101]"
             >
-              <button 
-                onClick={() => { setIsMenuOpen(false); router.push("/about"); }}
-                className="text-white/90 text-left font-bold uppercase tracking-widest py-3 border-b border-white/10"
-              >
-                About Us
-              </button>
-              <button 
-                onClick={() => { setIsMenuOpen(false); router.push("/universities"); }}
-                className="text-white/90 text-left font-bold uppercase tracking-widest py-3"
-              >
-                For Universities
-              </button>
             </motion.div>
           )}
         </AnimatePresence>

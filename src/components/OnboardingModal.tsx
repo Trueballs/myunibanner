@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { searchUniversities, University } from "@/data/universities";
 
 const LANGUAGES = ["English", "Spanish", "Chinese", "Hindi", "Arabic", "French", "Portuguese"];
-const COUNTRIES = ["United Kingdom", "Norway", "United States", "Canada", "Australia", "New Zealand", "Ireland"];
+const COUNTRIES = ["United Kingdom", "Norway"];
 const DEGREES = ["Bachelor (BA)", "BSc", "Master (MA)", "MSc", "MBA", "PhD", "Exchange", "Other"];
 const YEARS = ["1st Year", "2nd Year", "3rd / Final Year", "Alumni / Grad"];
 const INDUSTRIES = ["Tech & IT", "Finance & Banking", "Consulting", "Marketing", "Law", "Healthcare", "Engineering", "Other"];
@@ -30,6 +30,7 @@ export default function OnboardingModal() {
     degree: "",
     year: "",
     industry: "",
+    industryOther: "",
   });
 
   useEffect(() => {
@@ -206,22 +207,6 @@ export default function OnboardingModal() {
                     ))}
                   </div>
                 </div>
-
-                {/* Language (Secondary) */}
-                <div>
-                  <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">Platform Language</p>
-                  <div className="flex flex-wrap gap-2">
-                    {LANGUAGES.map(lang => (
-                      <button
-                        key={lang}
-                        onClick={() => setData({ ...data, language: lang })}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${data.language === lang ? 'bg-[#1e2d78] text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-                      >
-                        {lang}
-                      </button>
-                    ))}
-                  </div>
-                </div>
               </div>
             )}
 
@@ -285,19 +270,29 @@ export default function OnboardingModal() {
                       </button>
                     ))}
                   </div>
+                  {data.industry === "Other" && (
+                    <input
+                      type="text"
+                      autoFocus
+                      placeholder="Tell us more..."
+                      value={data.industryOther ?? ""}
+                      onChange={(e) => setData({ ...data, industryOther: e.target.value })}
+                      className="mt-3 w-full px-4 py-3 bg-white border-2 border-[#4ECBA8] rounded-xl text-sm font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-[#4ECBA8]/20 transition-all"
+                    />
+                  )}
                 </div>
               </div>
             )}
 
             {step === 4 && (
-              <div className="space-y-6 h-[320px] flex flex-col">
+              <div className="space-y-4 h-[360px] flex flex-col">
                 <div>
                   <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] tracking-tight mb-2">Which school do you go to?</h2>
                   <p className="text-gray-500 text-sm">Search for your university to generate a custom banner.</p>
                 </div>
 
-                <div className="relative z-50 flex-1 flex flex-col">
-                  <div className="relative">
+                <div className="relative z-50 flex-1 flex flex-col min-h-0">
+                  <div className="relative shrink-0">
                     <Search className="absolute left-4 top-3.5 w-5 h-5 text-[#1e2d78]" />
                     <input
                       type="text"
@@ -314,27 +309,27 @@ export default function OnboardingModal() {
                           else goToBuild(uniQuery.trim());
                         }
                       }}
-                      className="w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-200 rounded-xl text-[15px] font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-[#1e2d78] transition-all shrink-0"
+                      className="w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-200 rounded-xl text-[15px] font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-[#1e2d78] transition-all"
                     />
                   </div>
-                  
-                  {uniSuggestions && uniSuggestions.length > 0 && (
-                    <div className="bg-white border border-gray-200 rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-50 overflow-y-auto mt-2 max-h-[192px]">
-                      {uniSuggestions.map((uni) => {
+
+                  <div className="overflow-y-auto mt-2 flex-1 rounded-xl border border-gray-100">
+                    {uniSuggestions && uniSuggestions.length > 0 ? (
+                      // Search results
+                      uniSuggestions.map((uni) => {
                         if (!uni || !uni.domain || !uni.name) return null;
                         return (
                           <button
                             key={uni.domain}
                             onClick={() => handleUniSubmit(uni)}
-                            className="w-full flex items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-blue-50/60 border-b border-gray-50 last:border-0"
+                            className="w-full flex items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-blue-50/60 border-b border-gray-50 last:border-0 bg-white"
                           >
                             <div className="w-8 h-8 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center overflow-hidden flex-shrink-0">
                               <img
-                                src={`/${uni.root || ""}/${uni.folder || ""}/logo-search/${uni.logoSearch || ""}`}
+                                src={`/${(uni.root || "").split("/").map(encodeURIComponent).join("/")}/${encodeURIComponent(uni.folder || "")}/logo-search/${encodeURIComponent(uni.logoSearch || "")}`}
                                 alt={uni.name}
                                 className="w-5 h-5 object-contain"
                                 onError={(e) => {
-                                  // Fallback to clearbit if local fails
                                   const target = e.target as HTMLImageElement;
                                   if (!target.src.includes('clearbit')) {
                                     target.src = `https://logo.clearbit.com/${uni.domain}`;
@@ -350,19 +345,54 @@ export default function OnboardingModal() {
                             </div>
                           </button>
                         );
-                      })}
-                    </div>
+                      })
+                    ) : uniQuery.trim() ? (
+                      // No results
+                      <div className="px-4 py-3 text-sm text-gray-400 font-medium bg-white">No universities found for "{uniQuery}"</div>
+                    ) : (
+                      // Pre-search: show all available schools
+                      searchUniversities("a", data.country || undefined, 20).concat(
+                        searchUniversities("u", data.country || undefined, 20)
+                      ).filter((u, i, arr) => arr.findIndex(x => x.domain === u.domain) === i)
+                      .map((uni) => (
+                        <button
+                          key={uni.domain}
+                          onClick={() => handleUniSubmit(uni)}
+                          className="w-full flex items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-blue-50/60 border-b border-gray-50 last:border-0 bg-white"
+                        >
+                          <div className="w-8 h-8 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center overflow-hidden flex-shrink-0">
+                            <img
+                              src={`/${(uni.root || "").split("/").map(encodeURIComponent).join("/")}/${encodeURIComponent(uni.folder || "")}/logo-search/${encodeURIComponent(uni.logoSearch || "")}`}
+                              alt={uni.name}
+                              className="w-5 h-5 object-contain"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                if (!target.src.includes('clearbit')) {
+                                  target.src = `https://logo.clearbit.com/${uni.domain}`;
+                                } else {
+                                  target.style.display = 'none';
+                                }
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <div className="font-bold text-[13px] text-[#111827] leading-tight">{uni.name}</div>
+                            <div className="text-[11px] text-gray-500 font-medium">{uni.domain}</div>
+                          </div>
+                        </button>
+                      ))
+                    )}
+                  </div>
+
+                  {uniQuery.trim() && uniSuggestions.length === 0 && (
+                    <button
+                      onClick={() => goToBuild(uniQuery.trim())}
+                      className="w-full mt-2 bg-[#1e2d78] text-white px-4 py-3 rounded-xl text-sm font-bold shadow-md hover:bg-blue-900 transition-colors shrink-0"
+                    >
+                      Continue with "{uniQuery}"
+                    </button>
                   )}
                 </div>
-                
-                {uniQuery.trim() && uniSuggestions.length === 0 && (
-                  <button 
-                    onClick={() => goToBuild(uniQuery.trim())}
-                    className="w-full mt-4 bg-[#1e2d78] text-white px-4 py-3 rounded-xl text-sm font-bold shadow-md hover:bg-blue-900 transition-colors"
-                  >
-                    Continue with "{uniQuery}"
-                  </button>
-                )}
               </div>
             )}
             {step === 5 && selectedCampusUni && (

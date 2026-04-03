@@ -115,11 +115,20 @@ async function getLogoColor(filePath: string): Promise<string | null> {
     } catch { return null; }
 }
 
-async function getAllLogos(basePath: string, folder: string, domain: string): Promise<Array<{
+async function getAllLogos(basePath: string, folder: string, domain: string, campus?: string | null): Promise<Array<{
     url: string; hasBg: boolean; isIcon: boolean; isText: boolean; score: number; filename: string; isLight: boolean; logoColor: string | null;
 }>> {
-    const logoDir = join(basePath, folder, 'Logo');
-    if (!existsSync(logoDir)) return [];
+    const rootLogoDir = join(basePath, folder, 'Logo');
+    if (!existsSync(rootLogoDir)) return [];
+
+    let logoDir = rootLogoDir;
+    if (campus) {
+        const campusLogoPath = join(rootLogoDir, campus);
+        if (campusLogoPath.startsWith(rootLogoDir) && existsSync(campusLogoPath)) {
+            logoDir = campusLogoPath;
+        }
+    }
+
     const files = readdirSync(logoDir)
         .filter(f => /\.(png|svg|webp|jpg|jpeg)$/i.test(f) && !f.startsWith('.'))
         .filter(f => scoreFile(f) > -500);
@@ -139,10 +148,16 @@ async function getAllLogos(basePath: string, folder: string, domain: string): Pr
         let preferredBg: string | null = null;
         if (f.toLowerCase().includes('hvit teskt')) {
             preferredBg = '#575756'; // Specifically for NTNU's request
+        } else if (f.toLowerCase().includes('henley') && f.toLowerCase().includes('white')) {
+            preferredBg = '#1E3582'; // Henley Blue (Jacksons Purple) for Henley white logos
         }
 
+        // We only want the relative filename to re-fetch via api/full-logo
+        // But if it's in a subfolder, we need that path segment
+        const fileParam = campus ? join(campus, f) : f;
+
         return {
-            url: `/api/full-logo?domain=${domain}&file=${encodeURIComponent(f)}&v=${Date.now()}`,
+            url: `/api/full-logo?domain=${domain}&file=${encodeURIComponent(fileParam)}&v=${Date.now()}`,
             hasBg, isLight, logoColor, isIcon, isText: !isIcon, score: scoreFile(f), filename: f,
             preferredBg
         };
@@ -208,7 +223,7 @@ export async function GET(request: Request) {
     const basePath = join(process.cwd(), 'public', match.root);
     const brand = getBrand(basePath, match.folder);
     const images = getImageFiles(basePath, match.folder, campus);
-    const logos = await getAllLogos(basePath, match.folder, match.domain);
+    const logos = await getAllLogos(basePath, match.folder, match.domain, campus);
     const colors: string[] = brand?.colors?.map((c: { hex: string }) => c.hex) ?? ['#003865'];
     const fonts: string[] = brand?.fonts?.map((f: { name: string }) => f.name) ?? ['Inter'];
 

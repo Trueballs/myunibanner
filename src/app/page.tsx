@@ -7,10 +7,12 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Home() {
   const router = useRouter();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   const handleOpenOnboarding = () => {
     if (typeof window !== "undefined") {
@@ -42,9 +44,9 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h1 className="font-black leading-[1.1] tracking-tighter text-[#1e2d78] uppercase w-full max-w-3xl mx-auto
-                  text-4xl md:text-5xl lg:text-5xl">
-                  Stop looking like every other graduate.
+                <h1 className="font-black leading-[1.1] tracking-tighter text-black uppercase w-full max-w-4xl mx-auto
+                  text-4xl md:text-5xl lg:text-5xl relative">
+                  {t("hero.headline")}
                 </h1>
               </motion.div>
 
@@ -60,9 +62,9 @@ export default function Home() {
                     transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <div className="relative shadow-[0_12px_40px_rgba(30,45,120,0.1)] rounded-[1.25rem] w-[240px] md:w-[380px] aspect-[4/3] flex-shrink-0 bg-white border border-gray-100/50 scale-[0.85] md:scale-100">
-                      <div className="absolute -top-10 left-2 z-40 inline-flex items-center gap-2 bg-[#FFF8E6] text-[10px] md:text-sm font-bold px-4 md:px-6 py-1.5 md:py-2 rounded-full shadow-sm">
+                      <div className="absolute -top-10 left-2 z-40 inline-flex items-center gap-2 bg-[#FFD1D4] text-[10px] md:text-sm font-bold px-4 md:px-6 py-1.5 md:py-2 rounded-full shadow-sm">
                         <span className="w-2 h-2 rounded-full bg-[#FF4D54]" />
-                        <span className="text-[#FF4D54] leading-none">Before</span>
+                        <span className="text-[#FF4D54] leading-none">{t("hero.before")}</span>
                       </div>
                       <div className="rounded-[1.25rem] overflow-hidden bg-white flex flex-col h-full">
                         <div className="h-[44px] md:h-[60px] relative flex-shrink-0" style={{ background: "linear-gradient(135deg, #b0bec5, #cfd8dc)" }}>
@@ -90,9 +92,9 @@ export default function Home() {
                     transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <div className="relative shadow-[0_32px_80px_rgba(30,45,120,0.3)] rounded-[1.25rem] w-[240px] md:w-[380px] aspect-[4/3] flex-shrink-0 bg-white ring-1 ring-[#1e2d78]/5 scale-[0.95] md:scale-110 translate-y-[-10px]">
-                      <div className="absolute -top-10 left-12 z-40 inline-flex items-center gap-2 bg-[#e0f7f0] text-[10px] md:text-sm font-bold px-4 md:px-6 py-1.5 md:py-2 rounded-full shadow-sm">
-                        <span className="w-2 h-2 rounded-full bg-[#4ECBA8]" />
-                        <span className="text-[#4ECBA8] leading-none">After</span>
+                      <div className="absolute -top-10 left-12 z-40 inline-flex items-center gap-2 bg-[#C5E8D3] text-[10px] md:text-sm font-bold px-4 md:px-6 py-1.5 md:py-2 rounded-full shadow-sm">
+                        <span className="w-2 h-2 rounded-full bg-[#34A853]" />
+                        <span className="text-[#34A853] leading-none">{t("hero.after")}</span>
                       </div>
                       <div className="rounded-[1.25rem] overflow-hidden bg-white h-full flex flex-col border border-gray-100">
                         <div className="h-[44px] md:h-[60px] relative flex-shrink-0" style={{ background: "#1d4696" }}>
@@ -137,34 +139,51 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
                 <p className="text-[14px] sm:text-[16px] md:text-[17px] text-gray-500 font-medium !text-center max-w-[420px] mx-auto mb-6 md:mb-8 leading-relaxed px-4">
-                  Get your custom LinkedIn banner in seconds.
+                  Join 10,000+ students who finally stand out.
                 </p>
 
-                <div className="w-full max-w-[280px] mx-auto flex flex-col px-4">
+                <div className="w-full max-w-[280px] mx-auto flex flex-col px-4 relative">
+                  <style jsx global>{`
+                    @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+                    .handwritten-text {
+                      font-family: 'Caveat', cursive;
+                    }
+                  `}</style>
+                  
+                  {/* Handwritten Sideways Text - Pointing slightly more upwards at button center */}
+                  <div className="absolute top-1/2 -left-12 -translate-x-full -translate-y-1/2 hidden md:block select-none pointer-events-none w-max">
+                    <p className="handwritten-text text-[#1e2d78] text-3xl rotate-[-2deg] opacity-80 leading-none">
+                      {t("hero.annotation")}
+                    </p>
+                    <div className="mt-1 flex justify-end pr-2">
+                       <svg width="130" height="50" viewBox="0 0 130 50" fill="none" className="opacity-40">
+                         {/* Path curves slightly upwards at the end (y=15 instead of y=22) */}
+                         <path d="M10 25C40 25 90 20 120 15" stroke="#1e2d78" strokeWidth="2.5" strokeLinecap="round"/>
+                         {/* Arrow head pointing UPWARDS and RIGHT into the button */}
+                         <path d="M108 5L120 15L108 25" stroke="#1e2d78" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                       </svg>
+                    </div>
+                  </div>
+
                   <button
                     onClick={handleOpenOnboarding}
-                    className="px-8 py-4 sm:py-5 bg-[#4ECBA8] text-white font-black text-[13px] md:text-[15px] uppercase tracking-[0.15em] rounded-full hover:bg-[#4ECBA8] hover:shadow-[0_8px_30px_rgba(78,203,168,0.4)] active:scale-95 active:shadow-md transition-all duration-300 w-full"
+                    className="px-8 py-4 sm:py-5 bg-[#1e2d78] text-white font-black text-[13px] md:text-[15px] uppercase tracking-[0.15em] rounded-full hover:bg-[#1a2663] hover:shadow-[0_8px_30px_rgba(30,45,120,0.3)] active:scale-95 active:shadow-md transition-all duration-300 w-full relative z-10"
                   >
-                    GET MY BANNER
+                    {t("hero.cta")}
                   </button>
                 </div>
 
-                <p className="text-gray-400 text-[11px] font-semibold mt-4 !text-center w-full">
-                  Takes 5 seconds. No account required.
-                </p>
+                <div className="h-8" />
               </motion.div>
-
             </div>
-
           </div>
-
         </section>
 
         {/* ── LOGO MARQUEE STRIP ── */}
         <div className="relative z-10 w-full px-4 md:px-8 pb-12">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-center text-4xl md:text-5xl font-black tracking-tighter text-[#111827] uppercase mb-16">
-              Trusted by students at
+              {t("marquee.heading")}
             </h2>
             <div className="bg-[#1e2d78] w-full rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.1)] overflow-hidden py-6 border border-white/5">
               <div
@@ -197,7 +216,7 @@ export default function Home() {
         <section className="bg-[#F5F4F1] w-full px-4 md:px-8 border-t border-gray-100">
           <div className="max-w-6xl mx-auto py-12">
             <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-[#111827] text-center mb-16 uppercase">
-              HOW TO USE OUR SERVICE
+              {t("how.heading")}
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
@@ -215,14 +234,13 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">
-                  Step 1
+                  {t("how.step1.label")}
                 </p>
                 <h3 className="text-xl font-bold text-[#111827] mb-3">
-                  Find Your University
+                  {t("how.step1.title")}
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed">
-                  Search for your UK university to instantly load the official
-                  logo and brand colors from our database.
+                  {t("how.step1.desc")}
                 </p>
               </div>
 
@@ -238,14 +256,13 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">
-                  Step 2
+                  {t("how.step2.label")}
                 </p>
                 <h3 className="text-xl font-bold text-[#111827] mb-3">
-                  Customize Style
+                  {t("how.step2.title")}
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed">
-                  Choose from professional layout templates and add your
-                  personalized headline to stand out.
+                  {t("how.step2.desc")}
                 </p>
               </div>
 
@@ -262,14 +279,13 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">
-                  Step 3
+                  {t("how.step3.label")}
                 </p>
                 <h3 className="text-xl font-bold text-[#111827] mb-3">
-                  Export Banner
+                  {t("how.step3.title")}
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed">
-                  Once you are happy with the preview, one-click export to get
-                  your high-resolution PNG, ready for LinkedIn.
+                  {t("how.step3.desc")}
                 </p>
               </div>
             </div>
@@ -282,38 +298,19 @@ export default function Home() {
             {/* Left: Heading */}
             <div className="md:w-1/3 pt-4">
               <h2 className="text-7xl md:text-8xl font-black tracking-tighter text-[#111827] uppercase leading-[0.8]">
-                FAQ
+                {t("faq.heading")}
               </h2>
             </div>
 
             {/* Right: Accordion Items */}
             <div className="md:w-2/3 flex flex-col gap-4">
               {[
-                {
-                  q: "How does LNBackground work?",
-                  a: "Search for your university, choose a design, add your headline, and export your banner in one click. Our tool automatically fetches official logos and brand colors so you don't have to design anything manually.",
-                },
-                {
-                  q: "Is the service really free?",
-                  a: "Yes, LNBackground is completely free for students and professionals in the UK who want to upgrade their LinkedIn profile quickly and professionally.",
-                },
-                {
-                  q: "Does it work for my university?",
-                  a: "We currently support over 130 UK universities with their official logos and brand colors integrated directly into our tool.",
-                  button: "Check if your school is registered"
-                },
-                {
-                  q: "What format will I receive the banner in?",
-                  a: "You will receive a high-resolution .png file, perfectly tailored to LinkedIn's official dimensions (1584 x 396 pixels).",
-                },
-                {
-                  q: "Do I need an account to use the tool?",
-                  a: "No, you can generate and download your banner immediately without needing to log in or share any personal data.",
-                },
-                {
-                  q: "Can I use the tool on mobile?",
-                  a: "Absolutely! The site is fully responsive, though we recommend using a desktop for the best overall user experience.",
-                },
+                { q: t("faq.q1"), a: t("faq.a1") },
+                { q: t("faq.q2"), a: t("faq.a2") },
+                { q: t("faq.q3"), a: t("faq.a3"), button: t("faq.q3.button") },
+                { q: t("faq.q4"), a: t("faq.a4") },
+                { q: t("faq.q5"), a: t("faq.a5") },
+                { q: t("faq.q6"), a: t("faq.a6") },
               ].map((item, idx) => (
                 <div
                   key={idx}
@@ -354,7 +351,10 @@ export default function Home() {
                             {item.a}
                           </p>
                           {item.button && (
-                            <button className="px-6 py-2.5 bg-[#4ECBA8] text-white text-sm font-bold rounded-full shadow-sm hover:bg-[#4ECBA8] transition-colors flex items-center gap-2">
+                            <button 
+                              onClick={() => document.getElementById('contact-footer')?.scrollIntoView({ behavior: 'smooth' })}
+                              className="px-6 py-2.5 bg-[#1e2d78] text-white text-sm font-bold rounded-full shadow-sm hover:bg-[#1a2663] transition-colors flex items-center gap-2"
+                            >
                               <span>{item.button}</span>
                               <Search className="w-4 h-4" />
                             </button>
@@ -370,7 +370,7 @@ export default function Home() {
         </section>
 
         {/* ── SECTION 3: FOOTER ── */}
-        <section className="bg-[#F5F4F1] w-full transition-all duration-500 overflow-hidden">
+        <section id="contact-footer" className="bg-[#F5F4F1] w-full transition-all duration-500 overflow-hidden">
           <Footer />
         </section>
       </main>

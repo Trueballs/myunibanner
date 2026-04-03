@@ -2,22 +2,28 @@
   "university": "University of Reading",
   "colors": [
     {
-      "hex": "#D61926",
-      "name": "Reading Crimson",
+      "hex": "#1E3582",
+      "name": "Henley Blue (Jacksons Purple)",
       "role": "main",
       "weight": 1
     },
     {
-      "hex": "#000000",
-      "name": "Black",
-      "role": "dark",
+      "hex": "#FFCD00",
+      "name": "Henley Gold",
+      "role": "accent",
       "weight": 2
+    },
+    {
+      "hex": "#D61926",
+      "name": "Reading Crimson",
+      "role": "secondary",
+      "weight": 3
     },
     {
       "hex": "#FFFFFF",
       "name": "White",
       "role": "light",
-      "weight": 3
+      "weight": 4
     }
   ],
   "fonts": [

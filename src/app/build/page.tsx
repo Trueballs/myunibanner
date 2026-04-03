@@ -8,6 +8,7 @@ import { toBlob, toPng } from "html-to-image";
 import { useSearchParams, useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { ALL_UNIVERSITIES } from "@/data/universities";
 
 /* ═══════════════════════════════════════════════════════════════
    TYPES
@@ -717,12 +718,19 @@ function BuilderContent() {
 
     // Dynamic Google Font Injection (Safe inline method)
     useEffect(() => {
-        if (!brand?.fonts?.[0]) return;
-        const fontUrl = `https://fonts.googleapis.com/css2?family=${brand.fonts[0].replace(/\s+/g, "+")}:wght@400;700;800;900&display=swap`;
+        const fontName = brand?.fonts?.[0];
+        if (!fontName) return;
+        
+        let isMounted = true;
+        const fontUrl = `https://fonts.googleapis.com/css2?family=${fontName.replace(/\s+/g, "+")}:wght@400;700;800;900&display=swap`;
         
         fetch(fontUrl)
-            .then(r => r.text())
+            .then(r => {
+                if (!r.ok) throw new Error("Font fetch failed");
+                return r.text();
+            })
             .then(text => {
+                if (!isMounted) return;
                 // Only apply if it's a valid CSS file (avoiding 400 Bad Request HTML from Google)
                 if (text.includes("@font-face")) {
                     setFontCss(text);
@@ -731,9 +739,12 @@ function BuilderContent() {
                 }
             })
             .catch(e => {
-                console.error("Failed to fetch Google Font:", e);
+                if (!isMounted) return;
+                console.warn("Retrying font fetch via standard link (CORS or network issue)...", e);
                 setFontCss(null);
             });
+            
+        return () => { isMounted = false; };
     }, [brand?.fonts]);
 
     // ── Scale banner to fit container ──────────────────────────
@@ -753,18 +764,40 @@ function BuilderContent() {
         const domain = params.get("domain");
         const campus = params.get("campus");
         if (!domain) return;
+        
+        let isMounted = true;
         setLoading(true);
         let path = `/api/brand?q=${encodeURIComponent(domain)}`;
         if (campus) path += `&campus=${encodeURIComponent(campus)}`;
+        
         fetch(path)
-            .then(r => r.json())
-            .then((data: BrandData) => {
-                setBrand(data);
-                setImgIndex(0);
+            .then(r => {
+                if (!r.ok) throw new Error(`Brand API error: ${r.status}`);
+                return r.json();
             })
-            .catch(console.error)
-            .finally(() => setLoading(false));
+            .then((data: BrandData) => {
+                if (!isMounted) return;
+                setBrand(data);
+                // Only reset indices if brand changes significantly or it's first load
+                setImgIndex(0);
+                setLogoIndex(0);
+            })
+            .catch(err => {
+                if (!isMounted) return;
+                console.error("Critical: Failed to fetch brand data:", err);
+            })
+            .finally(() => {
+                if (isMounted) setLoading(false);
+            });
+
+        return () => { isMounted = false; };
     }, [params]);
+
+    const changeCampus = (campus: string) => {
+        const newParams = new URLSearchParams(params.toString());
+        newParams.set("campus", campus);
+        router.push(`/build?${newParams.toString()}`);
+    };
 
     // ── Layout navigation ─────────────────────────────────────
     const prevLayout = () => setLayout(l => ((l - 1 + LAYOUTS.length) % LAYOUTS.length) as Layout);
@@ -776,12 +809,9 @@ function BuilderContent() {
         if (!brand) return;
         setImgIndex(i => (i + 1) % brand.images.length);
     };
-    const randomImg = () => {
-        if (!brand || brand.images.length <= 1) return;
-        setImgIndex(Math.floor(Math.random() * brand.images.length));
-    };
 
-
+    // Find the university in the data to get available campuses
+    const uniMetadata = ALL_UNIVERSITIES.find(u => u.domain === params.get("domain"));
 
     // ── Download ──────────────────────────────────────────────
     const handleDownload = async () => {

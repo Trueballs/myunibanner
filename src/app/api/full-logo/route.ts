@@ -76,14 +76,33 @@ export async function GET(request: Request) {
         // Normalise both to handle NFD (macOS) vs NFC (Standard/Web)
         const nfcFile = fileParam.normalize('NFC');
         const nfdFile = fileParam.normalize('NFD');
-        const allFiles = readdirSync(logoDir).filter(f => /\.(png|svg|webp|jpg|jpeg)$/i.test(f));
         
-        const match = allFiles.find(f => {
-            const nf = f.normalize('NFC');
-            const nd = f.normalize('NFD');
-            return nf === nfcFile || nd === nfdFile || nf === nfdFile || nd === nfcFile || f === fileParam;
-        });
+        // Recursive search for the file in logoDir
+        function findFileRecursive(dir: string, target: string): string | null {
+            const items = readdirSync(dir, { withFileTypes: true });
+            for (const item of items) {
+                const fullItemPath = join(dir, item.name);
+                if (item.isDirectory()) {
+                    const found = findFileRecursive(fullItemPath, target);
+                    if (found) return found;
+                } else if (/\.(png|svg|webp|jpg|jpeg)$/i.test(item.name)) {
+                    // Check various normalization matches
+                    const nf = item.name.normalize('NFC');
+                    const nd = item.name.normalize('NFD');
+                    const rel = fullItemPath.replace(logoDir + '/', '');
+                    const nfcRel = rel.normalize('NFC');
+                    const nfdRel = rel.normalize('NFD');
 
+                    if (nf === nfcFile || nd === nfdFile || nf === nfdFile || nd === nfcFile || 
+                        item.name === target || rel === target || nfcRel === nfcFile || nfdRel === nfdFile) {
+                        return rel;
+                    }
+                }
+            }
+            return null;
+        }
+
+        const match = findFileRecursive(logoDir, fileParam);
         if (!match) return new Response('File not found', { status: 404 });
         chosen = match;
     } else {
