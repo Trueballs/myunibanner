@@ -53,11 +53,11 @@ export default function UniversitiesPage() {
                         transition={{ duration: 0.5 }}
                         className="w-full flex flex-col items-center"
                     >
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-[#1B2D7A] uppercase tracking-tight leading-[0.95] mb-16">
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-[#1e2d78] uppercase tracking-tight leading-[0.95] mb-16">
                             Add your school <br/>to the system.
                         </h1>
                          {/* ─── INTEGRATED BRAND & ASSET GOVERNANCE ─── */}
-                        <div className="bg-[#1B2D7A] rounded-[2.5rem] p-8 md:p-14 shadow-2xl text-left mb-16 w-full border border-white/10 relative overflow-hidden group">
+                        <div className="bg-[#1e2d78] rounded-[2.5rem] p-8 md:p-14 shadow-2xl text-left mb-16 w-full border border-white/10 relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-8 opacity-[0.05] group-hover:opacity-[0.1] transition-opacity duration-700 pointer-events-none">
                                 <ShieldCheck className="w-96 h-96 -mr-24 -mt-24" />
                             </div>
@@ -183,18 +183,18 @@ export default function UniversitiesPage() {
                         <div className="bg-white rounded-[2.5rem] p-8 md:p-14 shadow-sm border border-gray-100 w-full ring-1 ring-black/[0.02] text-left mb-16 space-y-8">
                             <div>
                                 <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Database Access</h3>
-                                <h2 className="text-xl md:text-2xl font-black text-[#1B2D7A] uppercase tracking-tighter">Check if your school is registered.</h2>
+                                <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] uppercase tracking-tighter">Check if your school is registered.</h2>
                             </div>
                             
                             <div className="flex flex-col gap-6">
                                 <div className="relative group">
-                                    <Layers className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#1B2D7A] transition-colors" />
+                                    <Layers className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#1e2d78] transition-colors" />
                                     <input 
                                         type="text" 
                                         placeholder="Search for university name or domain..."
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="w-full pl-11 pr-4 py-3.5 bg-gray-50/50 border border-gray-100 rounded-2xl text-[14px] font-bold text-[#1B2D7A] focus:outline-none focus:ring-2 focus:ring-[#1B2D7A]/5 focus:border-[#1B2D7A] transition-all placeholder:text-gray-300"
+                                        className="w-full pl-11 pr-4 py-3.5 bg-gray-50/50 border border-gray-100 rounded-2xl text-[14px] font-bold text-[#1e2d78] focus:outline-none focus:ring-2 focus:ring-[#1e2d78]/5 focus:border-[#1e2d78] transition-all placeholder:text-gray-300"
                                     />
                                 </div>
                                 
@@ -209,8 +209,8 @@ export default function UniversitiesPage() {
                                             onClick={() => setSelectedFilterCountry(tab.id as any)}
                                             className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-[12px] font-black uppercase tracking-widest transition-all ${
                                                 selectedFilterCountry === tab.id 
-                                                    ? 'bg-[#1B2D7A] text-white shadow-lg' 
-                                                    : 'text-gray-400 hover:text-[#1B2D7A] hover:bg-white'
+                                                    ? 'bg-[#1e2d78] text-white shadow-lg' 
+                                                    : 'text-gray-400 hover:text-[#1e2d78] hover:bg-white'
                                             }`}
                                         >
                                             <tab.icon className={`w-3.5 h-3.5 ${selectedFilterCountry === tab.id ? 'text-white' : 'text-gray-400'}`} />
@@ -248,12 +248,12 @@ export default function UniversitiesPage() {
                                                 className="w-10 h-10 object-contain"
                                                 onError={(e) => {
                                                     const target = e.target as HTMLImageElement;
-                                                    target.parentElement!.innerHTML = `<div class="font-black text-[10px] text-[#1B2D7A]">${uni.short || uni.name.charAt(0)}</div>`;
+                                                    target.parentElement!.innerHTML = `<div class="font-black text-[10px] text-[#1e2d78]">${uni.short || uni.name.charAt(0)}</div>`;
                                                 }}
                                             />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-[13px] font-black text-[#1B2D7A] uppercase truncate tracking-tight mb-0.5">{uni.short || uni.name}</p>
+                                            <p className="text-[13px] font-black text-[#1e2d78] uppercase truncate tracking-tight mb-0.5">{uni.short || uni.name}</p>
                                             <p className="text-[10px] text-gray-400 font-medium truncate opacity-60 tracking-wider">Active in {uni.country}</p>
                                         </div>
                                     </motion.div>
@@ -265,7 +265,7 @@ export default function UniversitiesPage() {
                                 .filter(u => u.name.toLowerCase().includes(searchQuery.toLowerCase()) || (u.short && u.short.toLowerCase().includes(searchQuery.toLowerCase())) || u.domain.toLowerCase().includes(searchQuery.toLowerCase())).length > 6) && (
                                 <button
                                     onClick={() => setIsExpanded(!isExpanded)}
-                                    className="w-full mt-10 py-4 bg-gray-50/80 hover:bg-gray-100 text-[#1B2D7A] text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl border border-gray-100 transition-all flex items-center justify-center gap-3 group"
+                                    className="w-full mt-10 py-4 bg-gray-50/80 hover:bg-gray-100 text-[#1e2d78] text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl border border-gray-100 transition-all flex items-center justify-center gap-3 group"
                                 >
                                     {isExpanded ? (
                                         <>Show Less <ArrowLeft className="w-3 h-3 rotate-90" /></>

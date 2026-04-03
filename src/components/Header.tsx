@@ -83,7 +83,7 @@ export default function Header({ showStartButton = false, activeBrand = null }: 
 
   return (
     <header className="w-full px-4 md:px-8 z-[100] relative">
-      <div className="w-full bg-[#1B2D7A] rounded-3xl px-4 sm:px-6 md:px-8 py-4 md:py-5 flex items-center justify-between shadow-lg relative mt-3 md:mt-2">
+      <div className="w-full bg-[#1e2d78] rounded-3xl px-4 sm:px-6 md:px-8 py-4 md:py-5 flex items-center justify-between shadow-lg relative mt-3 md:mt-2">
         <div className="flex items-center gap-8">
           <span className="text-white font-black text-2xl md:text-3xl lg:text-[32px] tracking-[0.2em] leading-none mb-[-2px] mr-4 cursor-pointer" onClick={() => router.push("/")}>LNBG</span>
           
@@ -97,7 +97,7 @@ export default function Header({ showStartButton = false, activeBrand = null }: 
           {showStartButton && (
             <button 
               onClick={() => router.push("/")}
-              className="bg-white text-[#1B2D7A] text-[10px] font-black px-4 py-2.5 rounded-full uppercase tracking-wider flex items-center gap-2 hover:bg-blue-50 transition-all active:scale-95 shadow-md flex-shrink-0"
+              className="bg-white text-[#1e2d78] text-[10px] font-black px-4 py-2.5 rounded-full uppercase tracking-wider flex items-center gap-2 hover:bg-blue-50 transition-all active:scale-95 shadow-md flex-shrink-0"
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Start Designing
             </button>
@@ -161,7 +161,7 @@ export default function Header({ showStartButton = false, activeBrand = null }: 
                         placeholder="Search countries..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-8 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-[#0F1629] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                        className="w-full pl-8 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
                       />
                     </div>
                     <div className="flex flex-col gap-1 max-h-40 overflow-y-auto">
@@ -169,7 +169,7 @@ export default function Header({ showStartButton = false, activeBrand = null }: 
                         <button
                           key={country}
                           onClick={() => handleCountrySelect(country)}
-                          className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold transition-colors ${selectedCountry === country ? 'bg-gray-100 text-[#0F1629]' : 'text-gray-500 hover:bg-gray-50'}`}
+                          className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold transition-colors ${selectedCountry === country ? 'bg-gray-100 text-[#111827]' : 'text-gray-500 hover:bg-gray-50'}`}
                         >
                           {country}
                           {selectedCountry === country && <Check className="w-3.5 h-3.5 text-blue-600" />}
@@ -201,7 +201,7 @@ export default function Header({ showStartButton = false, activeBrand = null }: 
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="absolute top-full left-0 right-0 mt-2 bg-[#1B2D7A] rounded-2xl p-6 shadow-2xl lg:hidden flex flex-col gap-4 border border-white/10 z-[101]"
+              className="absolute top-full left-0 right-0 mt-2 bg-[#1e2d78] rounded-2xl p-6 shadow-2xl lg:hidden flex flex-col gap-4 border border-white/10 z-[101]"
             >
               <button 
                 onClick={() => { setIsMenuOpen(false); router.push("/about"); }}

@@ -32,7 +32,7 @@ export default function AboutPage() {
                                 <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Our Mission</h3>
                             </div>
                             
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#1B2D7A] uppercase tracking-tighter leading-[0.95] mb-8">
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#1e2d78] uppercase tracking-tighter leading-[0.95] mb-8">
                                 Leveling the <br/>playing field.
                             </h1>
                             <p className="text-gray-500 font-medium text-lg leading-relaxed max-w-2xl">
@@ -47,7 +47,7 @@ export default function AboutPage() {
                                 ].map((item, i) => (
                                     <div key={i} className="space-y-2">
                                         <item.icon className="w-5 h-5 text-blue-500 mb-2" />
-                                        <h4 className="font-bold text-[#1B2D7A] text-sm uppercase tracking-tight">{item.title}</h4>
+                                        <h4 className="font-bold text-[#1e2d78] text-sm uppercase tracking-tight">{item.title}</h4>
                                         <p className="text-xs text-gray-400 font-medium leading-relaxed">{item.desc}</p>
                                     </div>
                                 ))}
@@ -66,24 +66,24 @@ export default function AboutPage() {
                                 />
                                 <div className="absolute -bottom-3 -right-3 bg-white px-3 py-1.5 rounded-xl shadow-lg border border-gray-100 flex items-center gap-2">
                                     <span className="text-lg leading-none">🇳🇴</span>
-                                    <span className="text-[9px] font-black text-[#1B2D7A] uppercase tracking-widest">Founder</span>
+                                    <span className="text-[9px] font-black text-[#1e2d78] uppercase tracking-widest">Founder</span>
                                 </div>
                             </div>
                             
                             <div className="flex-1 text-center md:text-left relative z-10">
                                 <div className="mb-6">
                                     <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Meet the Founder</h3>
-                                    <h2 className="text-3xl font-black text-[#1B2D7A] uppercase tracking-tighter">Oscar Wold Skaarderud</h2>
+                                    <h2 className="text-3xl font-black text-[#1e2d78] uppercase tracking-tighter">Oscar Wold Skaarderud</h2>
                                 </div>
                                 <p className="text-gray-500 font-medium text-[16px] leading-relaxed mb-8">
-                                    I'm a Norwegian student at <span className="text-[#1B2D7A] font-bold">Henley Business School</span>. I built LNBG to give every student a fair chance at a professional first impression. Your brand is your future—let's make it count.
+                                    I'm a Norwegian student at <span className="text-[#1e2d78] font-bold">Henley Business School</span>. I built LNBG to give every student a fair chance at a professional first impression. Your brand is your future—let's make it count.
                                 </p>
                                 
                                 <div className="flex flex-wrap justify-center md:justify-start gap-4">
                                     <a 
                                         href="https://www.linkedin.com/in/oscar-wold-skaarderud-613644340/" 
                                         target="_blank" rel="noopener noreferrer"
-                                        className="px-8 py-4 bg-[#1B2D7A] text-white rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-[#4ECBA8] transition-all hover:-translate-y-1 shadow-md w-full sm:w-auto"
+                                        className="px-8 py-4 bg-[#1e2d78] text-white rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-[#4ECBA8] transition-all hover:-translate-y-1 shadow-md w-full sm:w-auto"
                                     >
                                         <Linkedin className="w-3.5 h-3.5" /> Follow LinkedIn
                                     </a>

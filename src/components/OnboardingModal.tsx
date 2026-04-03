@@ -139,7 +139,7 @@ export default function OnboardingModal() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[999] bg-[#1B2D7A]/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[999] bg-[#1e2d78]/60 backdrop-blur-sm flex items-center justify-center p-4">
       {/* Click outside background area to close only if step 4 */}
       <div className="absolute inset-0" onClick={() => { if (step === 4) setIsOpen(false); }} />
 
@@ -176,7 +176,7 @@ export default function OnboardingModal() {
             {step === 1 && (
               <div className="space-y-6">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-black text-[#1B2D7A] tracking-tight mb-2">Welcome! Where do you study?</h2>
+                  <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] tracking-tight mb-2">Welcome! Where do you study?</h2>
                   <p className="text-gray-500 text-sm">We use this to curate universities and localize your experience.</p>
                 </div>
 
@@ -190,7 +190,7 @@ export default function OnboardingModal() {
                       placeholder="Search countries..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-[#0F1629] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                      className="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
                     />
                   </div>
                   <div className="flex flex-col gap-1 max-h-32 overflow-y-auto mb-6 pr-2">
@@ -215,7 +215,7 @@ export default function OnboardingModal() {
                       <button
                         key={lang}
                         onClick={() => setData({ ...data, language: lang })}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${data.language === lang ? 'bg-[#1B2D7A] text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${data.language === lang ? 'bg-[#1e2d78] text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
                       >
                         {lang}
                       </button>
@@ -228,7 +228,7 @@ export default function OnboardingModal() {
             {step === 2 && (
               <div className="space-y-6">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-black text-[#1B2D7A] tracking-tight mb-2">Tell us about your studies</h2>
+                  <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] tracking-tight mb-2">Tell us about your studies</h2>
                   <p className="text-gray-500 text-sm">This helps us understand our user base for future features.</p>
                 </div>
 
@@ -254,7 +254,7 @@ export default function OnboardingModal() {
                       <button
                         key={yr}
                         onClick={() => setData({ ...data, year: yr })}
-                        className={`px-3 py-3 rounded-xl text-xs font-bold transition-all border ${data.year === yr ? 'bg-[#1B2D7A] border-[#1B2D7A] text-white shadow-md' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'}`}
+                        className={`px-3 py-3 rounded-xl text-xs font-bold transition-all border ${data.year === yr ? 'bg-[#1e2d78] border-[#1e2d78] text-white shadow-md' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'}`}
                       >
                         {yr}
                       </button>
@@ -267,7 +267,7 @@ export default function OnboardingModal() {
             {step === 3 && (
               <div className="space-y-6">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-black text-[#1B2D7A] tracking-tight mb-2">What's your career goal?</h2>
+                  <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] tracking-tight mb-2">What's your career goal?</h2>
                   <p className="text-gray-500 text-sm">We'll use this to safely match you with relevant career opportunities later.</p>
                 </div>
 
@@ -278,7 +278,7 @@ export default function OnboardingModal() {
                       <button
                         key={ind}
                         onClick={() => setData({ ...data, industry: ind })}
-                        className={`px-3 py-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-between ${data.industry === ind ? 'bg-[#e0f7f0] border-[#4ECBA8] text-[#1B2D7A] shadow-sm' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'}`}
+                        className={`px-3 py-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-between ${data.industry === ind ? 'bg-[#e0f7f0] border-[#4ECBA8] text-[#1e2d78] shadow-sm' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'}`}
                       >
                         {ind}
                         {data.industry === ind && <Check className="w-4 h-4 text-[#4ECBA8]" />}
@@ -292,13 +292,13 @@ export default function OnboardingModal() {
             {step === 4 && (
               <div className="space-y-6 h-[320px] flex flex-col">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-black text-[#1B2D7A] tracking-tight mb-2">Which school do you go to?</h2>
+                  <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] tracking-tight mb-2">Which school do you go to?</h2>
                   <p className="text-gray-500 text-sm">Search for your university to generate a custom banner.</p>
                 </div>
 
                 <div className="relative z-50 flex-1 flex flex-col">
                   <div className="relative">
-                    <Search className="absolute left-4 top-3.5 w-5 h-5 text-[#1B2D7A]" />
+                    <Search className="absolute left-4 top-3.5 w-5 h-5 text-[#1e2d78]" />
                     <input
                       type="text"
                       placeholder="Search for your university..."
@@ -314,7 +314,7 @@ export default function OnboardingModal() {
                           else goToBuild(uniQuery.trim());
                         }
                       }}
-                      className="w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-200 rounded-xl text-[15px] font-semibold text-[#0F1629] placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-[#1B2D7A] transition-all shrink-0"
+                      className="w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-200 rounded-xl text-[15px] font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-[#1e2d78] transition-all shrink-0"
                     />
                   </div>
                   
@@ -345,7 +345,7 @@ export default function OnboardingModal() {
                               />
                             </div>
                             <div>
-                              <div className="font-bold text-[13px] text-[#0F1629] leading-tight">{uni.name}</div>
+                              <div className="font-bold text-[13px] text-[#111827] leading-tight">{uni.name}</div>
                               <div className="text-[11px] text-gray-500 font-medium">{uni.domain}</div>
                             </div>
                           </button>
@@ -358,7 +358,7 @@ export default function OnboardingModal() {
                 {uniQuery.trim() && uniSuggestions.length === 0 && (
                   <button 
                     onClick={() => goToBuild(uniQuery.trim())}
-                    className="w-full mt-4 bg-[#1B2D7A] text-white px-4 py-3 rounded-xl text-sm font-bold shadow-md hover:bg-blue-900 transition-colors"
+                    className="w-full mt-4 bg-[#1e2d78] text-white px-4 py-3 rounded-xl text-sm font-bold shadow-md hover:bg-blue-900 transition-colors"
                   >
                     Continue with "{uniQuery}"
                   </button>
@@ -368,7 +368,7 @@ export default function OnboardingModal() {
             {step === 5 && selectedCampusUni && (
               <div className="space-y-6 flex flex-col">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-black text-[#1B2D7A] tracking-tight mb-2">Which campus or school?</h2>
+                  <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] tracking-tight mb-2">Which campus or school?</h2>
                   <p className="text-gray-500 text-sm">Select your specific branch for {selectedCampusUni.name}.</p>
                 </div>
                 
@@ -377,7 +377,7 @@ export default function OnboardingModal() {
                     <button
                       key={campus}
                       onClick={() => goToBuild(selectedCampusUni.domain, campus)}
-                      className="w-full text-left px-4 py-3 rounded-xl text-[13px] font-bold transition-all border bg-white border-gray-200 text-[#0F1629] hover:border-[#1B2D7A] hover:bg-blue-50/60 shadow-sm flex items-center justify-between"
+                      className="w-full text-left px-4 py-3 rounded-xl text-[13px] font-bold transition-all border bg-white border-gray-200 text-[#111827] hover:border-[#1e2d78] hover:bg-blue-50/60 shadow-sm flex items-center justify-between"
                     >
                       {campus}
                       <ChevronRight className="w-4 h-4 text-gray-400" />
@@ -412,7 +412,7 @@ export default function OnboardingModal() {
                 className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-widest transition-all shadow-md active:scale-95 ${
                   (step === 1 && !data.country) || (step === 2 && (!data.degree || !data.year)) || (step === 3 && !data.industry)
                     ? 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50'
-                    : 'bg-[#1B2D7A] text-white hover:bg-blue-900'
+                    : 'bg-[#1e2d78] text-white hover:bg-blue-900'
                 }`}
                 disabled={(step === 1 && !data.country) || (step === 2 && (!data.degree || !data.year)) || (step === 3 && !data.industry)}
               >

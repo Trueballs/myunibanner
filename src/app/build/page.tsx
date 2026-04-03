@@ -827,7 +827,7 @@ function BuilderContent() {
         }
     };
 
-    const primary = brand?.colors?.[0] ?? "#1B2D7A";
+    const primary = brand?.colors?.[0] ?? "#1e2d78";
     const accent = brand?.colors?.[1] ?? "#88aaff";
     const textOnPrimary = contrastText(primary);
 
@@ -959,7 +959,7 @@ function BuilderContent() {
                                                     maxLength={100}
                                                     rows={1}
                                                     placeholder="Type your headline here..."
-                                                    className="w-full bg-transparent text-[#0F1629] text-sm font-semibold focus:outline-none resize-none placeholder:text-gray-300 min-h-[22px] py-1 pl-1.5 leading-tight"
+                                                    className="w-full bg-transparent text-[#111827] text-sm font-semibold focus:outline-none resize-none placeholder:text-gray-300 min-h-[22px] py-1 pl-1.5 leading-tight"
                                                 />
                                             </div>
 
@@ -1129,12 +1129,12 @@ function BuilderContent() {
                             {/* Header */}
                             <div className="p-6 border-b border-gray-100 flex items-start justify-between">
                                 <div>
-                                    <h3 className="text-2xl font-black text-[#0F1629] flex items-center gap-2 mb-2">
+                                    <h3 className="text-2xl font-black text-[#111827] flex items-center gap-2 mb-2">
                                         <CheckCircle className="w-6 h-6 text-green-500" />
                                         Success!
                                     </h3>
                                     <p className="text-sm text-gray-500 font-medium">
-                                        Your banner has been saved to your <span className="text-[#0F1629] font-bold">Downloads</span> or <span className="text-[#0F1629] font-bold">Photos</span> app.
+                                        Your banner has been saved to your <span className="text-[#111827] font-bold">Downloads</span> or <span className="text-[#111827] font-bold">Photos</span> app.
                                     </p>
                                 </div>
                                 <button
@@ -1153,7 +1153,7 @@ function BuilderContent() {
                                     <div className="flex gap-4">
                                         <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black flex-shrink-0 text-sm">1</div>
                                         <div>
-                                            <p className="font-bold text-[#0F1629]">Go to your LinkedIn profile</p>
+                                            <p className="font-bold text-[#111827]">Go to your LinkedIn profile</p>
                                             <p className="text-sm text-gray-500 mt-0.5">Open the LinkedIn app or website and view your own profile.</p>
                                         </div>
                                     </div>
@@ -1161,7 +1161,7 @@ function BuilderContent() {
                                     <div className="flex gap-4">
                                         <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black flex-shrink-0 text-sm">2</div>
                                         <div className="flex-1">
-                                            <p className="font-bold text-[#0F1629]">Click the pencil icon</p>
+                                            <p className="font-bold text-[#111827]">Click the pencil icon</p>
                                             <p className="text-sm text-gray-500 mt-0.5 mb-3">In the top right corner of your current banner area, click the edit icon.</p>
 
                                             {/* Visual mockup of LinkedIn banner area */}
@@ -1178,7 +1178,7 @@ function BuilderContent() {
                                     <div className="flex gap-4">
                                         <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black flex-shrink-0 text-sm">3</div>
                                         <div>
-                                            <p className="font-bold text-[#0F1629]">Upload and apply</p>
+                                            <p className="font-bold text-[#111827]">Upload and apply</p>
                                             <p className="text-sm text-gray-500 mt-0.5">Select your downloaded image, position it, and click 'Apply'.</p>
                                         </div>
                                     </div>

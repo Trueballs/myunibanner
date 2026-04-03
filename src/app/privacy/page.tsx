@@ -28,13 +28,13 @@ export default function PrivacyPage() {
     return (
         <div className="min-h-screen bg-[#F5F4F1] font-sans flex flex-col items-center w-full">
             <header className="w-full max-w-6xl px-4 md:px-8 z-50 relative mt-4">
-                <div className="w-full bg-[#1B2D7A] rounded-3xl px-6 md:px-8 py-4 md:py-5 flex items-center justify-between shadow-lg">
+                <div className="w-full bg-[#1e2d78] rounded-3xl px-6 md:px-8 py-4 md:py-5 flex items-center justify-between shadow-lg">
                     <button onClick={() => router.push("/")} className="text-white font-black text-2xl md:text-3xl tracking-[0.2em] hover:opacity-80 transition-opacity">
                         LNBG
                     </button>
                     <button 
                         onClick={() => router.push("/")}
-                        className="bg-white text-[#1B2D7A] text-[10px] font-black px-4 py-2.5 rounded-full uppercase tracking-wider flex items-center gap-2"
+                        className="bg-white text-[#1e2d78] text-[10px] font-black px-4 py-2.5 rounded-full uppercase tracking-wider flex items-center gap-2"
                     >
                         <ArrowLeft className="w-3.5 h-3.5" /> Back
                     </button>
@@ -48,7 +48,7 @@ export default function PrivacyPage() {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <h1 className="text-5xl md:text-7xl font-black text-[#1B2D7A] uppercase tracking-tighter mb-4">Privacy Policy</h1>
+                    <h1 className="text-5xl md:text-7xl font-black text-[#1e2d78] uppercase tracking-tighter mb-4">Privacy Policy</h1>
                     <p className="text-gray-500 font-bold uppercase text-xs tracking-[0.3em]">Last Updated: March 2026</p>
                 </motion.div>
 
@@ -61,7 +61,7 @@ export default function PrivacyPage() {
                             transition={{ delay: i * 0.1 }}
                             className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-sm border border-gray-100"
                         >
-                            <div className="flex items-center gap-4 mb-6 text-[#1B2D7A]">
+                            <div className="flex items-center gap-4 mb-6 text-[#1e2d78]">
                                 <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
                                     {sec.icon}
                                 </div>
@@ -74,7 +74,7 @@ export default function PrivacyPage() {
                     ))}
                 </div>
 
-                <div className="mt-16 bg-[#1B2D7A] text-white p-12 rounded-[3rem] w-full text-center">
+                <div className="mt-16 bg-[#1e2d78] text-white p-12 rounded-[3rem] w-full text-center">
                     <h2 className="text-3xl font-black uppercase tracking-tight mb-4 text-blue-200">Got questions?</h2>
                     <p className="text-blue-100/70 mb-8 font-medium">If you have any concerns regarding your privacy at LNBG, reach out directly to Oscar.</p>
                     <a href="mailto:oscar.w.skaarderud@gmail.com" className="inline-flex items-center gap-2 text-white font-black text-xs uppercase tracking-widest border-b-2 border-white pb-1 hover:opacity-80 transition-opacity">

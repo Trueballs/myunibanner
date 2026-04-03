@@ -33,7 +33,7 @@ export default function InstagramPostsPage() {
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-[#0F1629] mb-2">Instagram Posts</h1>
+        <h1 className="text-4xl font-bold text-[#111827] mb-2">Instagram Posts</h1>
         <p className="text-gray-600 mb-8">6 professional posts ready to download and share</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -48,7 +48,7 @@ export default function InstagramPostsPage() {
               </div>
 
               {/* Title */}
-              <h2 className="text-3xl font-black text-[#0F1629] mb-1 leading-tight">Create Your Perfect Banner</h2>
+              <h2 className="text-3xl font-black text-[#111827] mb-1 leading-tight">Create Your Perfect Banner</h2>
               <p className="text-gray-600 text-sm mb-6 font-medium">Professional banners in seconds</p>
 
               {/* Visual Element */}
@@ -95,7 +95,7 @@ export default function InstagramPostsPage() {
               </div>
 
               {/* Title */}
-              <h2 className="text-3xl font-black text-[#0F1629] mb-1 leading-tight">Customize Everything</h2>
+              <h2 className="text-3xl font-black text-[#111827] mb-1 leading-tight">Customize Everything</h2>
               <p className="text-gray-600 text-sm mb-6 font-medium">Make it uniquely yours</p>
 
               {/* Visual Element */}
@@ -142,7 +142,7 @@ export default function InstagramPostsPage() {
               </div>
 
               {/* Title */}
-              <h2 className="text-3xl font-black text-[#0F1629] mb-1 leading-tight">Download & Share</h2>
+              <h2 className="text-3xl font-black text-[#111827] mb-1 leading-tight">Download & Share</h2>
               <p className="text-gray-600 text-sm mb-6 font-medium">Go viral on LinkedIn</p>
 
               {/* Visual Element */}
@@ -188,7 +188,7 @@ export default function InstagramPostsPage() {
               </div>
 
               {/* Title */}
-              <h2 className="text-3xl font-black text-[#0F1629] mb-6 leading-tight">
+              <h2 className="text-3xl font-black text-[#111827] mb-6 leading-tight">
                 Stand Out on <span className="text-[#0A66C2]">LinkedIn</span>
               </h2>
 
@@ -204,21 +204,21 @@ export default function InstagramPostsPage() {
                 <div className="flex gap-3">
                   <span className="text-2xl">✓</span>
                   <div>
-                    <p className="font-bold text-[#0F1629] text-sm">Professional Design</p>
+                    <p className="font-bold text-[#111827] text-sm">Professional Design</p>
                     <p className="text-gray-600 text-xs">Instantly elevate your profile</p>
                   </div>
                 </div>
                 <div className="flex gap-3">
                   <span className="text-2xl">✓</span>
                   <div>
-                    <p className="font-bold text-[#0F1629] text-sm">AI-Powered</p>
+                    <p className="font-bold text-[#111827] text-sm">AI-Powered</p>
                     <p className="text-gray-600 text-xs">Smart recommendations included</p>
                   </div>
                 </div>
                 <div className="flex gap-3">
                   <span className="text-2xl">✓</span>
                   <div>
-                    <p className="font-bold text-[#0F1629] text-sm">Free & Fast</p>
+                    <p className="font-bold text-[#111827] text-sm">Free & Fast</p>
                     <p className="text-gray-600 text-xs">No credit card required</p>
                   </div>
                 </div>
@@ -295,20 +295,20 @@ export default function InstagramPostsPage() {
 
               {/* Testimonial */}
               <div className="text-center mb-auto">
-                <h2 className="text-2xl font-black text-[#0F1629] mb-6">
+                <h2 className="text-2xl font-black text-[#111827] mb-6">
                   What Our Users Say
                 </h2>
                 
                 <div className="space-y-6">
                   <div className="bg-blue-50 rounded-xl p-4 border-l-4 border-[#0A66C2]">
-                    <p className="text-[#0F1629] font-bold text-sm mb-2">
+                    <p className="text-[#111827] font-bold text-sm mb-2">
                       "Increased my LinkedIn engagement by 250% in just one month!"
                     </p>
                     <p className="text-gray-600 text-xs font-semibold">— Marcus S., CEO</p>
                   </div>
 
                   <div className="bg-gray-50 rounded-xl p-4 border-l-4 border-gray-300">
-                    <p className="text-[#0F1629] font-bold text-sm mb-2">
+                    <p className="text-[#111827] font-bold text-sm mb-2">
                       "The fastest way to create professional banners."
                     </p>
                     <p className="text-gray-600 text-xs font-semibold">— Sarah M., Recruiter</p>
@@ -337,7 +337,7 @@ export default function InstagramPostsPage() {
         {/* Info Section */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
           <div className="bg-blue-50 border-l-4 border-[#0A66C2] p-6 rounded-lg">
-            <h3 className="font-bold text-[#0F1629] mb-3">📥 How to Download</h3>
+            <h3 className="font-bold text-[#111827] mb-3">📥 How to Download</h3>
             <ol className="text-gray-700 space-y-2 text-sm">
               <li>✅ Click "Download" button on any post</li>
               <li>✅ Image saves automatically</li>
@@ -347,7 +347,7 @@ export default function InstagramPostsPage() {
           </div>
 
           <div className="bg-green-50 border-l-4 border-green-600 p-6 rounded-lg">
-            <h3 className="font-bold text-[#0F1629] mb-3">💡 Pro Tips</h3>
+            <h3 className="font-bold text-[#111827] mb-3">💡 Pro Tips</h3>
             <ul className="text-gray-700 space-y-2 text-sm">
               <li>✨ Post 3x per week for best results</li>
               <li>🎯 Mix up the post types</li>
@@ -372,7 +372,7 @@ export default function InstagramPostsPage() {
               </div>
 
               {/* Title */}
-              <h2 className="text-3xl font-black text-[#0F1629] mb-1">Set Up Your Profile</h2>
+              <h2 className="text-3xl font-black text-[#111827] mb-1">Set Up Your Profile</h2>
               <p className="text-gray-500 text-sm mb-6">The first step to getting started</p>
 
               {/* Screenshot Placeholder */}
@@ -388,7 +388,7 @@ export default function InstagramPostsPage() {
                 Click the profile icon in the top-right corner, then fill in your details. Choose a strong profile picture to attract collaborators.
               </p>
               <div className="flex items-center gap-2 text-xs text-gray-600 mb-6">
-                <span className="font-bold text-[#0F1629]">💡 Pro tip:</span>
+                <span className="font-bold text-[#111827]">💡 Pro tip:</span>
                 <span>Add a portfolio link for maximum impact</span>
               </div>
 
@@ -411,7 +411,7 @@ export default function InstagramPostsPage() {
               </div>
 
               {/* Title */}
-              <h2 className="text-3xl font-black text-[#0F1629] mb-1">Connect Your Tools</h2>
+              <h2 className="text-3xl font-black text-[#111827] mb-1">Connect Your Tools</h2>
               <p className="text-gray-500 text-sm mb-6">Integrate with your favorite apps</p>
 
               {/* Screenshot Placeholder */}
@@ -427,7 +427,7 @@ export default function InstagramPostsPage() {
                 Navigate to Settings → Integrations and choose from 50+ pre-built connectors. Authenticate your accounts and start syncing data instantly.
               </p>
               <div className="flex items-center gap-2 text-xs text-gray-600 mb-6">
-                <span className="font-bold text-[#0F1629]">🔌 Supported:</span>
+                <span className="font-bold text-[#111827]">🔌 Supported:</span>
                 <span>Slack, Zapier, GitHub, Notion, and more</span>
               </div>
 
@@ -450,7 +450,7 @@ export default function InstagramPostsPage() {
               </div>
 
               {/* Title */}
-              <h2 className="text-3xl font-black text-[#0F1629] mb-1">Start Creating</h2>
+              <h2 className="text-3xl font-black text-[#111827] mb-1">Start Creating</h2>
               <p className="text-gray-500 text-sm mb-6">Launch your first project in minutes</p>
 
               {/* Screenshot Placeholder */}
@@ -466,7 +466,7 @@ export default function InstagramPostsPage() {
                 Click "New Project" and follow the intuitive setup wizard. Customize templates, invite team members, and start collaborating instantly.
               </p>
               <div className="flex items-center gap-2 text-xs text-gray-600 mb-6">
-                <span className="font-bold text-[#0F1629]">🚀 Ready?</span>
+                <span className="font-bold text-[#111827]">🚀 Ready?</span>
                 <span>Check out our docs for advanced features</span>
               </div>
 
@@ -488,7 +488,7 @@ export default function InstagramPostsPage() {
               </div>
 
               {/* Title */}
-              <h2 className="text-2xl font-black text-[#0F1629] mb-6">The Old Way vs. New Way</h2>
+              <h2 className="text-2xl font-black text-[#111827] mb-6">The Old Way vs. New Way</h2>
 
               {/* Problem Section */}
               <div className="mb-4 p-4 bg-red-50 border-2 border-red-200 rounded-lg">
@@ -526,7 +526,7 @@ export default function InstagramPostsPage() {
               </div>
 
               {/* Title */}
-              <h2 className="text-3xl font-black text-[#0F1629] mb-1">
+              <h2 className="text-3xl font-black text-[#111827] mb-1">
                 Automate Your <span className="text-[#0A66C2]">Workflow</span>
               </h2>
               <p className="text-gray-500 text-sm mb-6">In just a few clicks</p>
@@ -541,21 +541,21 @@ export default function InstagramPostsPage() {
                 <div className="flex gap-2">
                   <span className="text-lg">✨</span>
                   <div>
-                    <p className="font-bold text-[#0F1629] text-xs">Save 10+ hours weekly</p>
+                    <p className="font-bold text-[#111827] text-xs">Save 10+ hours weekly</p>
                     <p className="text-gray-600 text-xs">Eliminate repetitive tasks</p>
                   </div>
                 </div>
                 <div className="flex gap-2">
                   <span className="text-lg">🎯</span>
                   <div>
-                    <p className="font-bold text-[#0F1629] text-xs">Zero configuration</p>
+                    <p className="font-bold text-[#111827] text-xs">Zero configuration</p>
                     <p className="text-gray-600 text-xs">Pre-built templates</p>
                   </div>
                 </div>
                 <div className="flex gap-2">
                   <span className="text-lg">🔄</span>
                   <div>
-                    <p className="font-bold text-[#0F1629] text-xs">Real-time sync</p>
+                    <p className="font-bold text-[#111827] text-xs">Real-time sync</p>
                     <p className="text-gray-600 text-xs">Data harmony across tools</p>
                   </div>
                 </div>
@@ -621,7 +621,7 @@ export default function InstagramPostsPage() {
 
         {/* Instructions */}
         <div className="mt-12 bg-blue-50 border-l-4 border-[#0A66C2] p-6 rounded">
-          <h3 className="font-bold text-[#0F1629] mb-3">📋 How to Use These Templates:</h3>
+          <h3 className="font-bold text-[#111827] mb-3">📋 How to Use These Templates:</h3>
           <ul className="text-gray-700 space-y-2 text-sm">
             <li>✅ Each post is 1080×1350px (Instagram portrait aspect ratio)</li>
             <li>✅ Uses your brand's LinkedIn blue (#0A66C2) color</li>

@@ -76,7 +76,7 @@ export default function Footer() {
 
   return (
     <footer className="relative z-10 w-full mt-auto px-4 md:px-8">
-      <div className="bg-[#1B2D7A] w-full pt-10 pb-8 px-6 md:px-8 shadow-2xl flex flex-col rounded-3xl relative">
+      <div className="bg-[#1e2d78] w-full pt-10 pb-8 px-6 md:px-8 shadow-2xl flex flex-col rounded-3xl relative">
         <div className="max-w-6xl mx-auto w-full">
           <div className="flex flex-col xl:flex-row justify-between w-full mb-8 lg:mb-12 gap-16 xl:gap-8">
             {/* Left side: English + Copyright */}
@@ -123,7 +123,7 @@ export default function Footer() {
                             placeholder="Search countries..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-8 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-[#0F1629] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-sans"
+                            className="w-full pl-8 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-sans"
                           />
                         </div>
                         <div className="flex flex-col gap-1 max-h-40 overflow-y-auto">
@@ -131,7 +131,7 @@ export default function Footer() {
                             <button
                               key={country}
                               onClick={() => handleCountrySelect(country)}
-                              className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold transition-colors ${selectedCountry === country ? 'bg-gray-100 text-[#0F1629]' : 'text-gray-500 hover:bg-gray-50'}`}
+                              className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold transition-colors ${selectedCountry === country ? 'bg-gray-100 text-[#111827]' : 'text-gray-500 hover:bg-gray-50'}`}
                             >
                               {country}
                               {selectedCountry === country && <Check className="w-3.5 h-3.5 text-blue-600" />}
