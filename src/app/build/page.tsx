@@ -1,10 +1,13 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback, Suspense } from "react";
-import { Download, RefreshCw, ChevronLeft, ChevronRight, X, Shuffle } from "lucide-react";
+import { Download, RefreshCw, ChevronLeft, ChevronRight, X, Shuffle, CheckCircle, Upload, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { toPng } from "html-to-image";
+import { toBlob, toPng } from "html-to-image";
+
 import { useSearchParams, useRouter } from "next/navigation";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 /* ═══════════════════════════════════════════════════════════════
    TYPES
@@ -17,6 +20,8 @@ type LogoVariant = {
     score: number;
     filename: string;
     isLight?: boolean;
+    logoColor?: string | null;
+    preferredBg?: string | null;
 };
 
 type BrandData = {
@@ -33,7 +38,7 @@ type BrandData = {
     images: string[];
 };
 
-type Layout = 0 | 1 | 2 | 3 | 4 | 5;
+type Layout = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 /* ═══════════════════════════════════════════════════════════════
    LINKEDIN CANVAS CONSTANTS
@@ -87,62 +92,79 @@ function blendHex(a: string, b: string, t: number): string {
     return `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${bl.toString(16).padStart(2, "0")}`;
 }
 
+/** Pick the best contrasting background colour from the brand palette.
+ *  Returns null if no fix is needed (logo already contrasts with panel). */
+function pickContrastPill(
+    logoIsLight: boolean,
+    panelColor: string,
+    brandColors: string[],
+): string | null {
+    const panelLight = !isDark(panelColor);
+    // Logo and panel are the same brightness class → logo invisible
+    const logoBlends = (logoIsLight && panelLight) || (!logoIsLight && isDark(panelColor));
+    if (!logoBlends) return null;
+
+    // Find the brand colour with the maximum luma-distance from the panel
+    let bestColor: string | null = null;
+    let bestDist = 0;
+    const pLuma = luma(panelColor);
+    for (const c of brandColors) {
+        const dist = Math.abs(luma(c) - pLuma);
+        if (dist > bestDist) { bestDist = dist; bestColor = c; }
+    }
+    // Also consider pure white / black as fallbacks
+    if (Math.abs(255 - pLuma) > bestDist) { bestColor = "#ffffff"; bestDist = Math.abs(255 - pLuma); }
+    if (pLuma > bestDist) { bestColor = "#111111"; }
+
+    return bestColor;
+}
+
+/** Check if two colors are too similar to each other */
+function colorsAreSimilar(hex1: string, hex2: string, threshold = 40): boolean {
+    const [r1, g1, b1] = hexToRgb(hex1);
+    const [r2, g2, b2] = hexToRgb(hex2);
+    const dist = Math.sqrt(Math.pow(r2 - r1, 2) + Math.pow(g2 - g1, 2) + Math.pow(b2 - b1, 2));
+    return dist < threshold;
+}
+
 /* ═══════════════════════════════════════════════════════════════
    LOGO RENDERER
-   Handles transparent, opaque-bg, and needs-invert scenarios
+   Handles transparent, opaque-bg, and needs-invert scenarios.
+   NEW RULE: if a transparent logo would be invisible against the
+   panel (same brightness class), wrap it in a contrasting pill
+   using the best brand colour.
 ═══════════════════════════════════════════════════════════════ */
 function SmartLogo({
-    src, hasBg, isLight = true, panelColor, h = 100, maxW = 280,
+    src, hasBg, isLight = true, panelColor, h = 100, maxW = 280, brandColors = [],
 }: {
-    src: string; hasBg?: boolean; isLight?: boolean; panelColor: string; h?: number; maxW?: number;
+    src: string; hasBg?: boolean; isLight?: boolean; panelColor: string; h?: number; maxW?: number; brandColors?: string[];
 }) {
     const [err, setErr] = useState(false);
     if (err || !src) return null;
     const panelDark = isDark(panelColor);
 
-    // Opaque-bg logo: show in a beautiful padded glass badge to prevent rigid ugly boxes
-    if (hasBg) {
-        return (
-            <div style={{
-                background: "rgba(255,255,255,0.95)",
-                padding: "12px 24px",
-                borderRadius: "16px",
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: panelDark ? "0 8px 32px rgba(0,0,0,0.3)" : "0 4px 16px rgba(0,0,0,0.08)",
-                border: "1px solid rgba(255,255,255,0.8)"
-            }}>
-                <img src={src} alt="University logo"
-                    crossOrigin="anonymous"
-                    style={{
-                        height: h * 0.85, width: "auto", maxWidth: maxW,
-                        objectFit: "contain", display: "block",
-                        mixBlendMode: "multiply" // Knocks out the pure white BG of the JPEG perfectly against the card
-                    }}
-                    onError={() => setErr(true)} />
-            </div>
-        );
-    }
-
-    // Transparent logo: invert ONLY IF the panel needs a contrast change
-    // panelDark && !isLight -> make it white
-    // !panelDark && isLight -> make it black
-    let needsInvertWhite = false;
-    let needsInvertBlack = false;
-
-    if (panelDark && !isLight) needsInvertWhite = true;
-    else if (!panelDark && isLight) needsInvertBlack = true;
-
+    // We wrap the logo in a flex container of height 'h' to ensure 
+    // vertical centering is consistent regardless of the logo file's 
+    // internal aspect ratio or whitespace.
     return (
-        <img src={src} alt="University logo"
-            crossOrigin="anonymous"
-            style={{
-                height: h, width: "auto", maxWidth: maxW,
-                objectFit: "contain", display: "block",
-                filter: needsInvertWhite ? "brightness(0) invert(1)" : (needsInvertBlack ? "brightness(0)" : "drop-shadow(0px 2px 2px rgba(0,0,0,0.15))"),
-            }}
-            onError={() => setErr(true)} />
+        <div style={{
+            height: h,
+            width: "fit-content", // Ensure it doesn't collapse to 0 in flex environments
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center", 
+            position: "relative"
+        }}>
+            <img src={src} alt="University logo"
+                crossOrigin="anonymous"
+                style={{
+                    height: "100%", width: "auto", maxWidth: maxW,
+                    objectFit: "contain", display: "block",
+                    mixBlendMode: (hasBg && !panelDark) ? "multiply" : "normal",
+                    filter: !hasBg ? "drop-shadow(0px 2px 2px rgba(0,0,0,0.15))" : "none",
+                }}
+                onError={() => setErr(true)} />
+        </div>
     );
 }
 
@@ -181,6 +203,43 @@ function getFont(fontName?: string) {
     return fontName ? `"${fontName}", sans-serif` : "system-ui, sans-serif";
 }
 
+/* Shared props for all layout components */
+type LayoutProps = {
+    brand: BrandData;
+    text: string;
+    badge?: string;
+    estDate?: string;
+    statusTag?: string;
+    img?: string;
+    logoSrc: string;
+    logoHasBg: boolean;
+    logoIsLight?: boolean;
+    primary: string;
+    secondary: string;
+    headlineColor: string;
+    logoPos?: 'top' | 'bottom';
+    bgStyle?: 'none' | 'brand';
+    tintIndex?: number;
+    bgOpacity?: number; // 0 to 100
+};
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CUSTOM VARIABLE HELPERS
+═══════════════════════════════════════════════════════════════ */
+function BadgeTag({ text, color }: { text?: string, color: string }) {
+    if (!text) return null;
+    return <div style={{ color, border: `1px solid ${color}40`, background: `${color}10`, padding: "6px 14px", borderRadius: 100, fontSize: 10, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: 16, position: "relative", zIndex: 1 }}>{text}</div>;
+}
+function EstDateTag({ text, color }: { text?: string, color: string }) {
+    if (!text) return null;
+    return <div style={{ color, opacity: 0.5, fontSize: 11, fontWeight: 700, letterSpacing: "0.05em", marginTop: 12, position: "relative", zIndex: 1 }}>{text}</div>;
+}
+function StatusTagBadge({ text, bg, color }: { text?: string, bg: string, color: string }) {
+    if (!text) return null;
+    return <div style={{ background: bg, color, padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 800, display: "inline-block", position: "relative", zIndex: 1 }}>{text}</div>;
+}
+
 /* ═══════════════════════════════════════════════════════════════
    LAYOUT 0 — "SPLIT"
    Classic 40/60 vertical split: solid brand panel LEFT (clear
@@ -188,71 +247,37 @@ function getFont(fontName?: string) {
    Logo sits large, centered in the left panel.
    Inspired by: Princeton / Dartmouth
 ═══════════════════════════════════════════════════════════════ */
-function L0({ brand, text, img }: { brand: BrandData; text: string; img?: string }) {
-    const primary = brand.colors[0] ?? "#003865";
-    const accent = brand.colors[1] ?? "#ffffff";
-    const textCol = contrastText(primary);
+function L0({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headlineColor }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
-
-    // Split photo to LEFT (hides part under danger zone), brand panel RIGHT
-    const LEFT_W = 600;
-
-    const textLogo = brand.logos.find(l => l.isText) ?? brand.logos[0];
-    const iconLogo = brand.logos.find(l => l.isIcon);
-    const logoSrc = textLogo?.url ?? brand.fullLogo;
-    const logoHasBg = textLogo?.hasBg ?? brand.logoHasBg;
+    const SPLIT_X = 620;
 
     return (
-        <div className="absolute inset-0 overflow-hidden" style={{ background: primary }}>
+        <div className="absolute inset-0 overflow-hidden flex" style={{ background: primary }}>
+            {/* Left: Campus Photo */}
+            <div className="relative h-full overflow-hidden" style={{ width: SPLIT_X }}>
+                {img ? (
+                    <img src={img} alt="" className="w-full h-full object-cover" crossOrigin="anonymous" />
+                ) : (
+                    <div className="w-full h-full" style={{ background: primary, opacity: 0.1 }} />
+                )}
+            </div>
 
-            {/* Z0 — Campus photo (LEFT side, safely sits under avatar) */}
-            {img && (
-                <div className="absolute top-0 bottom-0 left-0" style={{ width: LEFT_W }}>
-                    <img src={img} alt="" className="w-full h-full object-cover"
-                        crossOrigin="anonymous"
-                        style={{ objectPosition: "center center" }} />
-                    {/* Gradient blend into right panel */}
-                    <div className="absolute inset-0"
-                        style={{ background: `linear-gradient(to left, ${primary} 0%, transparent 40%)` }} />
-                </div>
-            )}
+            {/* Sharp vertical border */}
+            <div className="w-[1px] h-full bg-white/10 z-20" />
 
-            {/* Z1 — Right solid brand panel (100% inside safe zone) */}
-            <div className="absolute top-0 bottom-0 right-0 flex flex-col items-center justify-center gap-6 overflow-hidden"
-                style={{ left: LEFT_W, background: primary, zIndex: 10, padding: "32px 56px" }}>
-
-                {/* Ghost crest — decorative */}
-                <GhostCrest iconLogo={iconLogo} primary={primary} opacity={0.15}
-                    style={{ position: "absolute", bottom: -20, right: -20, height: 380, width: "auto", objectFit: "contain", zIndex: 0 }} />
-
-                {/* DOMINANT logo */}
-                <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={textLogo?.isLight} panelColor={primary} h={130} maxW={400} />
-                </div>
-
-                {/* Accent divider */}
-                <div style={{
-                    height: 4, width: 52,
-                    background: accent === primary ? `rgba(255,255,255,0.4)` : accent,
-                    borderRadius: 4, position: "relative", zIndex: 1,
-                }} />
-
-                {/* Headline text */}
+            {/* Right: Solid Brand Panel */}
+            <div className="flex-1 flex flex-col items-center justify-center p-12 text-center gap-8">
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={150} maxW={480} brandColors={brand.colors} />
+                
                 {text && (
                     <p style={{
-                        color: textCol, fontSize: 22, fontWeight: 800, lineHeight: 1.25,
-                        textAlign: "center", maxWidth: 460, margin: 0,
-                        position: "relative", zIndex: 1, letterSpacing: "-0.01em",
-                        fontFamily: font
+                        color: headlineColor, fontSize: 26, fontWeight: 900, lineHeight: 1.15,
+                        maxWidth: 480, margin: 0, letterSpacing: "-0.02em", fontFamily: font
                     }}>
                         {text}
                     </p>
                 )}
             </div>
-
-            {/* Thin accent seam at panel edge */}
-            <div className="absolute top-0 bottom-0"
-                style={{ left: LEFT_W - 1, width: 6, background: accent === primary ? "rgba(255,255,255,0.2)" : accent, zIndex: 11 }} />
         </div>
     );
 }
@@ -264,65 +289,38 @@ function L0({ brand, text, img }: { brand: BrandData; text: string; img?: string
    Text sits bottom-left (well inside safe zone, clear of avatar).
    Inspired by: UC Berkeley / Oxford
 ═══════════════════════════════════════════════════════════════ */
-function L1({ brand, text, img }: { brand: BrandData; text: string; img?: string }) {
-    const primary = brand.colors[0] ?? "#003b71";
-    const accent = brand.colors[1] ?? "#ffb800";
+function L1({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0 }: LayoutProps) {
+    const tintColor = brand.colors[tintIndex % brand.colors.length] ?? primary;
     const font = getFont(brand.fonts?.[0]);
 
-    // For the overlay: use the dark version of primary
-    const overlayHex = blendHex(primary, "#000000", 0.3);
-
-    const textLogo = brand.logos.find(l => l.isText) ?? brand.logos[0];
-    const iconLogo = brand.logos.find(l => l.isIcon);
-    const logoSrc = textLogo?.url ?? brand.fullLogo;
-    const logoHasBg = textLogo?.hasBg ?? brand.logoHasBg;
-
     return (
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden bg-black">
+            {img ? (
+                <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />
+            ) : (
+                <div className="absolute inset-0" style={{ background: primary }} />
+            )}
 
-            {/* Z0 — Full bleed photo */}
-            {img
-                ? <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover"
-                    style={{ objectPosition: "center center" }} />
-                : <div className="absolute inset-0" style={{ background: primary }} />
-            }
-
-            {/* Z1 — Dual gradient overlay */}
-            <div className="absolute inset-0" style={{
-                background: `
-                    linear-gradient(to top, ${overlayHex}ee 0%, transparent 60%),
-                    linear-gradient(to left, ${primary}f0 0%, ${primary}40 45%, transparent 70%)
-                `,
-                zIndex: 1,
+            {/* Very clean solid right-side panel (No gradient) */}
+            <div className="absolute inset-y-0 right-0 w-[550px] z-1" style={{
+                background: tintColor,
+                opacity: 0.9,
             }} />
 
-            {/* Z2 — Right-side logo zone (safe) */}
-            <div className="absolute top-0 bottom-0 right-0 flex flex-col items-center justify-center gap-5"
-                style={{ width: "38%", zIndex: 3, padding: "24px 40px" }}>
-
-                {/* Ghost crest behind logo */}
-                <GhostCrest iconLogo={iconLogo} primary={primary} opacity={0.3}
-                    style={{ position: "absolute", right: -10, top: -10, height: 320, width: "auto", objectFit: "contain" }} />
-
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={textLogo?.isLight} panelColor={primary} h={140} maxW={460} />
-            </div>
-
-            {/* Z3 — Text: safely positioned CLEAR of 568 danger zone */}
-            {text && (
-                <div className="absolute"
-                    style={{ bottom: 42, left: 600, zIndex: 4, maxWidth: 520 }}>
-                    {/* 7px horizontal accent bar */}
-                    <div style={{ width: 56, height: 6, background: accent, marginBottom: 16 }} />
-                    <p style={{
-                        color: "#ffffff", fontSize: 24, fontWeight: 900,
-                        lineHeight: 1.2, letterSpacing: "-0.02em",
-                        textShadow: "0 2px 12px rgba(0,0,0,0.6)",
-                        margin: 0, fontFamily: font
-                    }}>
-                        {text}
-                    </p>
+            <div className="absolute inset-y-0 right-0 w-[550px] flex flex-col items-center justify-center p-12 z-10">
+                <div className="flex flex-col items-center gap-8">
+                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={tintColor} h={140} maxW={400} brandColors={brand.colors} />
+                    {text && (
+                        <p style={{
+                            color: headlineColor, fontSize: 26, fontWeight: 900,
+                            lineHeight: 1.15, letterSpacing: "-0.02em",
+                            textAlign: "center", maxWidth: 400, margin: 0, fontFamily: font
+                        }}>
+                            {text}
+                        </p>
+                    )}
                 </div>
-            )}
+            </div>
         </div>
     );
 }
@@ -334,71 +332,27 @@ function L1({ brand, text, img }: { brand: BrandData; text: string; img?: string
    Text anchored to the bottom of the panel.
    Inspired by: Edinburgh / Loughborough
 ═══════════════════════════════════════════════════════════════ */
-function L2({ brand, text, img }: { brand: BrandData; text: string; img?: string }) {
-    const primary = brand.colors[0] ?? "#1a1a4b";
-    const accent = brand.colors[1] ?? "#e8c048";
-    const textCol = contrastText(primary);
+function L2({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
-
-    // Panel occupies right 36%, starting safely past X=1000
-    const PANEL_W = 570;
-    const SKEW_PX = 48; // extra width on left for the angled edge
-
-    const textLogo = brand.logos.find(l => l.isText) ?? brand.logos[0];
-    const iconLogo = brand.logos.find(l => l.isIcon);
-    const logoSrc = textLogo?.url ?? brand.fullLogo;
-    const logoHasBg = textLogo?.hasBg ?? brand.logoHasBg;
+    const PANEL_W = 580;
 
     return (
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden bg-black">
+            {img && (
+                <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />
+            )}
 
-            {/* Z0 — Full campus photo */}
-            {img
-                ? <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover"
-                    style={{ objectPosition: "30% center" }} />
-                : <div className="absolute inset-0" style={{ background: "#1e2533" }} />
-            }
-
-            {/* Z1 — Subtle dark scrim over the photo half */}
-            <div className="absolute inset-0" style={{
-                background: "linear-gradient(to right, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 55%, transparent 70%)",
-                zIndex: 1,
-            }} />
-
-            {/* Z2 — Right panel with angled left edge (safely avoids danger zone) */}
-            <div className="absolute top-0 bottom-0 right-0 flex flex-col justify-center overflow-hidden"
+            <div className="absolute inset-y-0 right-0 flex flex-col items-center justify-center gap-8"
                 style={{
-                    width: PANEL_W + SKEW_PX,
-                    background: primary,
-                    clipPath: `polygon(${SKEW_PX}px 0, 100% 0, 100% 100%, 0 100%)`,
-                    zIndex: 10,
-                    padding: `32px 40px 32px ${SKEW_PX + 40}px`,
-                    gap: 20,
+                    width: PANEL_W, background: primary, zIndex: 10, padding: "48px",
+                    clipPath: 'polygon(60px 0, 100% 0, 100% 100%, 0 100%)'
                 }}>
-
-                {/* Ghost crest */}
-                {iconLogo && (
-                    <img src={iconLogo.url} alt="" crossOrigin="anonymous"
-                        style={{
-                            position: "absolute", bottom: 0, right: -10,
-                            height: 340, width: "auto", objectFit: "contain",
-                            opacity: 0.12, filter: isDark(primary) ? "brightness(0) invert(1)" : "none",
-                            zIndex: 0, pointerEvents: "none",
-                        }}
-                        onError={() => { }} />
-                )}
-
-                {/* Logo — dominant */}
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={textLogo?.isLight} panelColor={primary} h={150} maxW={460} />
-
-                {/* Accent divider */}
-                <div style={{ height: 4, width: 56, background: accent === primary ? "rgba(255,255,255,0.4)" : accent, borderRadius: 4 }} />
-
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={150} maxW={420} brandColors={brand.colors} />
+                
                 {text && (
                     <p style={{
-                        color: textCol, fontSize: 20, fontWeight: 800, lineHeight: 1.25,
-                        maxWidth: PANEL_W - 60, margin: 0, letterSpacing: "-0.01em",
-                        fontFamily: font
+                        color: headlineColor, fontSize: 26, fontWeight: 900, lineHeight: 1.15,
+                        textAlign: "center", maxWidth: 440, margin: 0, letterSpacing: "-0.02em", fontFamily: font
                     }}>
                         {text}
                     </p>
@@ -416,82 +370,17 @@ function L2({ brand, text, img }: { brand: BrandData; text: string; img?: string
    Clean, formal, great for institutions without many photos.
    Inspired by: LSE / Imperial
 ═══════════════════════════════════════════════════════════════ */
-function L3({ brand, text, img }: { brand: BrandData; text: string; img?: string }) {
-    const primary = brand.colors[0] ?? "#003865";
-    const secondary = brand.colors[1] ?? "#88bbdd";
-    const accent = brand.colors[2] ?? brand.colors[1] ?? "#ffdd00";
+function L3({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, headlineColor }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
 
-    const rightDark = isDark(secondary);
-
-    // Swap Left/Right logic to avoid Danger Zone
-    // LEFT is photo/secondary panel (will be partially covered by avatar)
-    // RIGHT is pure brand display with Logo + Text (100% safe)
-
-    // Left width exactly covers the danger zone + padding, 
-    // pushing all critical content to the right
-    const LEFT_W = 600;
-
-    const textLogo = brand.logos.find(l => l.isText) ?? brand.logos[0];
-    const iconLogo = brand.logos.find(l => l.isIcon);
-    const logoSrc = textLogo?.url ?? brand.fullLogo;
-    const logoHasBg = textLogo?.hasBg ?? brand.logoHasBg;
-
     return (
-        <div className="absolute inset-0 overflow-hidden flex">
-
-            {/* Z0 — LEFT: Secondary colour / photo panel */}
-            <div className="relative flex flex-col justify-center overflow-hidden flex-shrink-0"
-                style={{ width: LEFT_W, background: secondary }}>
-
-                {/* Optional faint photo strictly on the left */}
-                {img && (
-                    <>
-                        <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover"
-                            style={{ objectPosition: "center center" }} />
-                        <div className="absolute inset-0" style={{ background: `${secondary}d0` }} />
-                    </>
-                )}
-
-                {/* Ghost crest decoration sitting behind where the avatar would be */}
-                <GhostCrest iconLogo={iconLogo} primary={secondary} opacity={0.35}
-                    style={{ position: "absolute", top: 20, right: -40, height: 380, width: "auto", objectFit: "contain", zIndex: 0 }} />
-            </div>
-
-            {/* Accent seam */}
-            <div style={{ width: 6, background: accent === primary ? "rgba(255,255,255,0.25)" : accent, flexShrink: 0, zIndex: 12 }} />
-
-            {/* Z0 — RIGHT: Brand colour logo panel (Fully safe zone) */}
-            <div className="relative flex flex-col items-center justify-center overflow-hidden flex-1"
-                style={{ background: primary, gap: 20, padding: "32px 56px" }}>
-
-                <div style={{
-                    position: "absolute", inset: 0, zIndex: 0,
-                    background: `radial-gradient(circle at 110% 50%, ${isDark(primary) ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.05)"} 0%, transparent 70%)`,
-                }} />
-
-                {/* HUGE logo — safely centered in the right panel */}
-                <div style={{ position: "relative", zIndex: 1 }}>
-                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={textLogo?.isLight} panelColor={primary} h={140} maxW={600} />
-                </div>
-
-                {/* Accent dot-row decoration */}
-                <div style={{ position: "relative", zIndex: 1, display: "flex", gap: 8 }}>
-                    {[0, 1, 2].map(i => (
-                        <div key={i} style={{
-                            width: i === 1 ? 28 : 10, height: 5, borderRadius: 999,
-                            background: accent === primary ? "rgba(255,255,255,0.35)" : accent,
-                        }} />
-                    ))}
-                </div>
-
-                {/* Headline text */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center" style={{ background: primary }}>
+            <div className="flex flex-col items-center gap-8" style={{ width: 660 }}>
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={160} maxW={600} brandColors={brand.colors} />
                 {text && (
                     <p style={{
-                        color: contrastText(primary), fontSize: 24, fontWeight: 800,
-                        lineHeight: 1.15, letterSpacing: "-0.01em", textAlign: "center",
-                        margin: 0, marginTop: 16, maxWidth: 600, position: "relative", zIndex: 1,
-                        fontFamily: font
+                        color: headlineColor, fontSize: 28, fontWeight: 900, lineHeight: 1.15,
+                        width: "100%", margin: 0, letterSpacing: "-0.02em", fontFamily: font
                     }}>
                         {text}
                     </p>
@@ -506,47 +395,32 @@ function L3({ brand, text, img }: { brand: BrandData; text: string; img?: string
    Two frosted glass panes floating over a vibrant, completely
    full-bleed campus image. Premium, polished software feel.
 ═══════════════════════════════════════════════════════════════ */
-function L4({ brand, text, img }: { brand: BrandData; text: string; img?: string }) {
-    const primary = brand.colors[0] ?? "#1a1a4b";
-    const accent = brand.colors[2] ?? brand.colors[1] ?? "#fff";
+function L4({ brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', img, bgStyle = 'none', tintIndex = 0 }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
-
-    const textLogo = brand.logos.find(l => l.isText) ?? brand.logos[0];
-    const iconLogo = brand.logos.find(l => l.isIcon);
-    const logoSrc = textLogo?.url ?? brand.fullLogo;
-    const logoHasBg = textLogo?.hasBg ?? brand.logoHasBg;
-
+    const tintColor = brand.colors[tintIndex % brand.colors.length] ?? brand.colors[0];
+    
     return (
-        <div className="absolute inset-0 overflow-hidden" style={{ background: primary }}>
-            {/* Background Image & Gradient Blur */}
-            {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
-            <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${primary}e6 0%, ${primary}99 100%)`, backdropFilter: "blur(4px)" }} />
+        <div className="absolute inset-0 overflow-hidden bg-black">
+            {/* Background image with configurable style */}
+            {/* Background image - Crisp and clear */}
+            {img && (
+                <div className="absolute inset-0">
+                    <img src={img} alt="" crossOrigin="anonymous" 
+                        className="absolute inset-0 w-full h-full object-cover" />
+                </div>
+            )}
+            
+            {/* Removed vignette for cleaner look */}
 
-            {/* Left Decorative Shape (avoids Danger Zone) */}
-            <div className="absolute left-0 top-0 bottom-0 flex" style={{ width: 568, zIndex: 0 }}>
-                {iconLogo && (
-                    <GhostCrest iconLogo={iconLogo} primary={primary} opacity={0.25}
-                        style={{ position: "absolute", bottom: -50, right: -50, height: 400, width: "auto", objectFit: "contain" }} />
-                )}
-            </div>
-
-            {/* Floating Glass Box on Right (100% safe) */}
-            <div className="absolute right-10 flex flex-col items-center justify-center shadow-xl"
-                style={{
-                    top: 40, bottom: 40, width: 900,
-                    background: isDark(primary) ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.8)",
-                    backdropFilter: "blur(16px)",
-                    borderRadius: 24, border: `1px solid ${isDark(primary) ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.1)"}`,
-                    zIndex: 10, padding: 40, gap: 16
+            {/* University Identity - Locked to the corner for simple minimalist look */}
+            <div className={`absolute z-20 flex items-center gap-6`}
+                style={{ 
+                    right: 40,
+                    [logoPos === 'top' ? 'top' : 'bottom']: 30,
                 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={textLogo?.isLight} panelColor={primary} h={130} maxW={600} />
-                <div style={{ width: 120, height: 3, background: accent, borderRadius: 2, margin: "16px 0" }} />
-                {text && (
-                    <p style={{
-                        color: contrastText(primary), fontSize: 26, fontWeight: 700, margin: 0,
-                        fontFamily: font, letterSpacing: "-0.01em", textAlign: "center"
-                    }}>{text}</p>
-                )}
+                <div className="flex flex-row items-center">
+                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={140} maxW={500} />
+                </div>
             </div>
         </div>
     );
@@ -557,42 +431,79 @@ function L4({ brand, text, img }: { brand: BrandData; text: string; img?: string
    Massive watermark in the middle, and a sharp solid panel splitting the 
    right side cleanly. Very modern.
 ═══════════════════════════════════════════════════════════════ */
-function L5({ brand, text, img }: { brand: BrandData; text: string; img?: string }) {
-    const primary = brand.colors[0] ?? "#000000";
-    const accent = brand.colors[1] ?? "#ffffff";
+function L5({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0 }: LayoutProps) {
+    const tintColor = brand.colors[tintIndex % brand.colors.length] ?? primary;
     const font = getFont(brand.fonts?.[0]);
 
-    const textLogo = brand.logos.find(l => l.isText) ?? brand.logos[0];
-    const iconLogo = brand.logos.find(l => l.isIcon);
-    const logoSrc = textLogo?.url ?? brand.fullLogo;
-    const logoHasBg = textLogo?.hasBg ?? brand.logoHasBg;
+    return (
+        <div className="absolute inset-0 overflow-hidden flex bg-white">
+            <div className="flex-1 relative overflow-hidden bg-black">
+                {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
+            </div>
+
+            <div className="w-[500px] flex flex-col items-center justify-center p-12 text-center gap-10 z-10" style={{ background: primary }}>
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={160} maxW={420} brandColors={brand.colors} />
+                {text && (
+                    <p style={{
+                        color: headlineColor, fontSize: 24, fontWeight: 900, lineHeight: 1.15,
+                        maxWidth: 400, margin: 0, fontFamily: font, letterSpacing: "-0.02em"
+                    }}>{text}</p>
+                )}
+            </div>
+        </div>
+    );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LAYOUT 6 — "DIAGONAL GRADIENT"
+   Full diagonal split with bold gradient on right, photo on left.
+   Inspired by: Modern tech branding
+═══════════════════════════════════════════════════════════════ */
+function L6({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor }: LayoutProps) {
+    const font = getFont(brand.fonts?.[0]);
 
     return (
-        <div className="absolute inset-0 overflow-hidden flex" style={{ background: primary }}>
-            {/* Giant Centered Watermark */}
-            <div className="absolute inset-0 flex items-center justify-center overflow-hidden" style={{ zIndex: 0 }}>
-                {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover opacity-30" />}
-                {iconLogo && <GhostCrest iconLogo={iconLogo} primary={primary} opacity={0.3} style={{ height: "180%", minWidth: 600, objectFit: "contain" }} />}
-                <div className="absolute inset-0" style={{ background: `radial-gradient(circle at center, transparent 30%, ${primary} 90%)` }} />
-            </div>
+        <div className="absolute inset-0 overflow-hidden bg-white">
+            {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-3/5 h-full object-cover" />}
 
-            {/* Right safe zone panel block */}
-            <div className="absolute right-0 top-0 bottom-0 bg-white" style={{ width: 660, zIndex: 10, clipPath: 'polygon(60px 0, 100% 0, 100% 100%, 0 100%)' }}>
-                <div className="w-full h-full flex flex-col justify-center gap-6" style={{ padding: "0 60px 0 100px", zIndex: 10 }}>
-                    <div style={{ paddingLeft: 32, borderLeft: `6px solid ${primary}` }}>
-                        <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={textLogo?.isLight} panelColor={"#ffffff"} h={110} maxW={500} />
-                        {text && (
-                            <p style={{
-                                color: contrastText("#ffffff"), fontSize: 24, fontWeight: 800, margin: 0,
-                                marginTop: 24, fontFamily: font, letterSpacing: "-0.01em"
-                            }}>{text}</p>
-                        )}
-                    </div>
-                </div>
+            <div className="absolute top-0 bottom-0 right-0 flex flex-col items-center justify-center gap-8 p-16"
+                style={{
+                    width: "55%", background: primary, zIndex: 10,
+                    clipPath: 'polygon(120px 0, 100% 0, 100% 100%, 0 100%)'
+                }}>
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={150} maxW={480} brandColors={brand.colors} />
+
+                {text && (
+                    <p style={{
+                        color: headlineColor, fontSize: 26, fontWeight: 900,
+                        lineHeight: 1.15, maxWidth: 440, margin: 0, fontFamily: font,
+                        letterSpacing: "-0.02em", textAlign: "center"
+                    }}>{text}</p>
+                )}
             </div>
-            {/* Accent colored line riding the clipped border */}
-            <div className="absolute right-0 top-0 bottom-0" style={{ width: 660, zIndex: 11, background: 'transparent', clipPath: 'polygon(60px 0, 66px 0, 6px 100%, 0 100%)' }}>
-                <div className="w-full h-full" style={{ background: accent }}></div>
+        </div>
+    );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LAYOUT 7 — "CENTERED LOGO"
+   Full-bleed campus photo with a massive, centered logo.
+   Simplicity and scale for maximum impact.
+═══════════════════════════════════════════════════════════════ */
+function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor }: LayoutProps) {
+    const font = getFont(brand.fonts?.[0]);
+    
+    return (
+        <div className="absolute inset-0 overflow-hidden flex items-center justify-center bg-black">
+            {img && (
+                <div className="absolute inset-0">
+                    <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-black/10" />
+                </div>
+            )}
+            
+            <div className="relative z-10 flex flex-col items-center justify-center">
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={180} maxW={800} brandColors={brand.colors} />
             </div>
         </div>
     );
@@ -603,16 +514,71 @@ function L5({ brand, text, img }: { brand: BrandData; text: string; img?: string
    BANNER WRAPPER — routes to the right layout
 ═══════════════════════════════════════════════════════════════ */
 function BannerCanvas({
-    brand, text, layout, imgIndex,
-    showDangerZone,
+    brand, text, badge, estDate, statusTag, layout, imgIndex, logoIndex,
+    logoPos = 'bottom', bgStyle = 'none', tintIndex = 0, bgOpacity = 100
 }: {
-    brand: BrandData; text: string; layout: Layout; imgIndex: number; showDangerZone?: boolean;
+    brand: BrandData; text: string; badge?: string; estDate?: string; statusTag?: string; layout: Layout; imgIndex: number; logoIndex: number;
+    logoPos?: 'top' | 'bottom';
+    bgStyle?: 'none' | 'brand';
+    tintIndex?: number;
+    bgOpacity?: number;
 }) {
     const img = brand.images.length > 0
         ? brand.images[imgIndex % brand.images.length]
         : undefined;
 
-    const p = { brand, text, img };
+    // Resolve active logo from logoIndex
+    const activeLogo = brand.logos.length > 0
+        ? brand.logos[logoIndex % brand.logos.length]
+        : null;
+    const logoSrc = activeLogo?.url ?? brand.fullLogo;
+    const logoHasBg = activeLogo?.hasBg ?? brand.logoHasBg;
+    const logoIsLight = activeLogo?.isLight !== false;
+    const activeLogoColor = activeLogo?.logoColor;
+
+    let primary = activeLogo?.preferredBg ?? brand.colors[0] ?? "#003865";
+    let secondary = brand.colors[1] ?? (isDark(primary) ? "#ffffff" : "#111111");
+
+    // Ensure secondary isn't same as primary if we used preferredBg
+    if (primary === secondary && brand.colors.length > 1) {
+        secondary = brand.colors.find(c => c !== primary) || secondary;
+    }
+
+    // ── SMART CONTRAST & HUE-SYNC INJECTION ──────────────────────
+    // NEW RULE: If a logo is blue, avoid blue backgrounds. More generally, 
+    // force a switch if the logo color and background are too similar.
+    const bgIsDark = isDark(primary);
+    
+    // Check for logo-background similarity
+    const logoIsSimilar = activeLogoColor ? colorsAreSimilar(activeLogoColor, primary) : (!logoIsLight && isDark(primary)) || (logoIsLight && !isDark(primary));
+
+    if ((!logoIsLight && bgIsDark) || logoIsSimilar) {
+        // Dark logo (blue/black) on dark bg OR similar color -> Force LIGHT background
+        // Prefer brand's own light color if available
+        const brandLight = brand.colors.find(c => !isDark(c));
+        primary = brandLight ?? "#ffffff";
+        secondary = brand.colors.find(c => isDark(c) && c !== brand.colors[0]) ?? brand.colors[0];
+    } else if (logoIsLight && !bgIsDark && !logoHasBg) {
+        // Light logo on light background -> Force DARK background
+        // If we have a preferredBg, we stay there as it's already dark
+        if (!activeLogo?.preferredBg) {
+            const brandDark = brand.colors.find(c => isDark(c));
+            primary = brandDark ?? "#111111";
+            secondary = brand.colors.find(c => !isDark(c) && c !== brand.colors[0]) ?? brand.colors[0];
+        }
+    }
+
+    // ── HEADLINE COLOUR SYNC ──────────────────────────────
+    // Priority: 1. Sampled logo color, 2. Primary brand color, 3. Black/White fallback
+    let headlineColor = logoIsLight ? "#ffffff" : (activeLogoColor || brand.colors[0] || "#111111");
+
+    // Safety: if matching the logo makes the text unreadable against 'primary', 
+    // fall back to pure black/white contrast.
+    if (isDark(headlineColor) === isDark(primary)) {
+        headlineColor = contrastText(primary);
+    }
+
+    const p = { brand, text, badge, estDate, statusTag, img, logoSrc, logoHasBg, logoIsLight, primary, secondary, headlineColor, logoPos, bgStyle, tintIndex, bgOpacity };
 
     return (
         <>
@@ -622,28 +588,8 @@ function BannerCanvas({
             {layout === 3 && <L3 {...p} />}
             {layout === 4 && <L4 {...p} />}
             {layout === 5 && <L5 {...p} />}
-
-            {/* Dev-only: Danger Zone overlay (hidden at export) */}
-            {showDangerZone && (
-                <div
-                    data-no-export="true"
-                    style={{
-                        position: "absolute",
-                        left: DZ_X, top: DZ_Y,
-                        width: DZ_W, height: DZ_H,
-                        border: "2px dashed rgba(255,0,0,0.6)",
-                        background: "rgba(255,0,0,0.08)",
-                        zIndex: 999, pointerEvents: "none",
-                    }}>
-                    <span style={{
-                        position: "absolute", top: 6, left: 10,
-                        color: "rgba(255,0,0,0.7)", fontSize: 11, fontWeight: 700,
-                        fontFamily: "monospace", textTransform: "uppercase",
-                    }}>
-                        ⚠ Avatar Danger Zone
-                    </span>
-                </div>
-            )}
+            {layout === 6 && <L6 {...p} />}
+            {layout === 7 && <L7 {...p} />}
         </>
     );
 }
@@ -657,10 +603,10 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
         preview: (c, a) => (
             <div className="w-full h-full flex overflow-hidden">
                 <div style={{ width: "40%", background: c, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <div style={{ width: "60%", height: 4, background: a, borderRadius: 2, opacity: 0.8 }} />
+
                 </div>
                 <div style={{ flex: 1, background: `${c}22`, position: "relative" }}>
-                    <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, #ddd 0%, #bbb 100%)" }} />
+                    <div style={{ width: "100%", height: "100%", background: `linear-gradient(135deg, ${c}44 0%, ${c}11 100%)` }} />
                 </div>
             </div>
         ),
@@ -668,19 +614,19 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
     {
         label: "Immersive",
         preview: (c, a) => (
-            <div className="w-full h-full overflow-hidden" style={{ position: "relative", background: "#888" }}>
+            <div className="w-full h-full overflow-hidden" style={{ position: "relative", background: c }}>
                 <div style={{ position: "absolute", inset: 0, zIndex: 1, background: `linear-gradient(to left, ${c}ee 30%, transparent 70%)` }} />
-                <div style={{ position: "absolute", right: "15%", top: "50%", transform: "translateY(-50%)", width: "18%", height: 3, background: a, zIndex: 2, borderRadius: 2 }} />
+
             </div>
         ),
     },
     {
         label: "Bold Stripe",
         preview: (c, a) => (
-            <div className="w-full h-full overflow-hidden flex" style={{ background: "#999" }}>
+            <div className="w-full h-full overflow-hidden flex" style={{ background: `${c}33` }}>
                 <div style={{ flex: 1 }} />
                 <div style={{ width: "38%", background: c, clipPath: "polygon(12px 0, 100% 0, 100% 100%, 0 100%)", display: "flex", alignItems: "center", paddingLeft: 16 }}>
-                    <div style={{ width: "50%", height: 3, background: a, borderRadius: 2 }} />
+
                 </div>
             </div>
         ),
@@ -692,21 +638,18 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
                 <div style={{ width: "48%", background: c, display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <div style={{ width: "55%", height: "30%", background: `rgba(255,255,255,0.25)`, borderRadius: 2 }} />
                 </div>
-                <div style={{ width: 2, background: a }} />
+
                 <div style={{ flex: 1, background: a + "44", display: "flex", alignItems: "center", paddingLeft: 10 }}>
-                    <div style={{ width: "60%", height: 4, background: c, borderRadius: 2, opacity: 0.5 }} />
+
                 </div>
             </div>
         ),
     },
     {
-        label: "Glass Panels",
+        label: "Minimalist Photo",
         preview: (c, a) => (
-            <div className="w-full h-full relative overflow-hidden flex items-center justify-end" style={{ background: c }}>
-                <div style={{ position: "absolute", right: 4, top: 4, bottom: 4, width: "60%", background: "rgba(255,255,255,0.4)", borderRadius: 4, border: "1px solid rgba(255,255,255,0.5)", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 2 }}>
-                    <div style={{ width: "50%", height: 2, background: "white", borderRadius: 2 }} />
-                    <div style={{ width: 6, height: 1, background: a, borderRadius: 2 }} />
-                </div>
+            <div className="w-full h-full relative overflow-hidden bg-white">
+                <div style={{ position: "absolute", right: 6, bottom: 6, width: "30%", height: 3, background: c, borderRadius: 2 }} />
             </div>
         ),
     },
@@ -716,9 +659,25 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
             <div className="w-full h-full overflow-hidden flex" style={{ background: c }}>
                 <div style={{ flex: 1 }} />
                 <div style={{ width: "45%", position: "relative", background: "white", clipPath: "polygon(8px 0, 100% 0, 100% 100%, 0 100%)", display: "flex", alignItems: "center", paddingLeft: 16 }}>
-                    <div style={{ width: "50%", height: 2, background: c, borderRadius: 2 }} />
-                    <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 8, background: a, clipPath: "polygon(8px 0, 9px 0, 1px 100%, 0 100%)" }} />
+
                 </div>
+            </div>
+        ),
+    },
+    {
+        label: "Diagonal",
+        preview: (c, a) => (
+            <div className="w-full h-full overflow-hidden" style={{ position: "relative", background: `${c}33` }}>
+                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(125deg, transparent 35%, ${c}ee 50%, ${c} 60%)`, zIndex: 1 }} />
+
+            </div>
+        ),
+    },
+    {
+        label: "Centered Logo",
+        preview: (c, a) => (
+            <div className="w-full h-full relative overflow-hidden bg-white flex items-center justify-center">
+                <div style={{ width: "60%", height: "20%", background: c, borderRadius: 1 }} />
             </div>
         ),
     },
@@ -727,27 +686,55 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
 /* ═══════════════════════════════════════════════════════════════
    MAIN PAGE
 ═══════════════════════════════════════════════════════════════ */
-const LAYOUTS = [0, 1, 2, 3, 4, 5];
+const LAYOUTS = [0, 1, 2, 3, 4, 5, 6, 7];
 
 function BuilderContent() {
     const params = useSearchParams();
     const router = useRouter();
     const bannerRef = useRef<HTMLDivElement>(null);
+    const exportRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
     const [brand, setBrand] = useState<BrandData | null>(null);
-    const [text, setText] = useState("MSc Computer Science");
+    const [text, setText] = useState("");
+    const [badge, setBadge] = useState("");
+    const [estDate, setEstDate] = useState("");
+    const [statusTag, setStatusTag] = useState("");
     const [layout, setLayout] = useState<Layout>(0);
     const [imgIndex, setImgIndex] = useState(0);
+    const [logoIndex, setLogoIndex] = useState(0);
+    const [logoPos, setLogoPos] = useState<'top' | 'bottom'>('bottom');
+    const [bgStyle, setBgStyle] = useState<'none' | 'brand'>('none');
+    const [tintIndex, setTintIndex] = useState(0);
+    const [bgOpacity, setBgOpacity] = useState(100);
     const [scale, setScale] = useState(1);
     const [loading, setLoading] = useState(false);
     const [isDownloading, setIsDownloading] = useState(false);
-    const [showDangerZone, setShowDangerZone] = useState(true);
+    const [showDownloadPopup, setShowDownloadPopup] = useState(false);
+    const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
 
-    // Dynamic Google Font Injection
-    const fontUrl = brand?.fonts?.[0]
-        ? `https://fonts.googleapis.com/css2?family=${brand.fonts[0].replace(/\s+/g, "+")}:wght@400;700;800;900&display=swap`
-        : null;
+    const [fontCss, setFontCss] = useState<string | null>(null);
+
+    // Dynamic Google Font Injection (Safe inline method)
+    useEffect(() => {
+        if (!brand?.fonts?.[0]) return;
+        const fontUrl = `https://fonts.googleapis.com/css2?family=${brand.fonts[0].replace(/\s+/g, "+")}:wght@400;700;800;900&display=swap`;
+        
+        fetch(fontUrl)
+            .then(r => r.text())
+            .then(text => {
+                // Only apply if it's a valid CSS file (avoiding 400 Bad Request HTML from Google)
+                if (text.includes("@font-face")) {
+                    setFontCss(text);
+                } else {
+                    setFontCss(null);
+                }
+            })
+            .catch(e => {
+                console.error("Failed to fetch Google Font:", e);
+                setFontCss(null);
+            });
+    }, [brand?.fonts]);
 
     // ── Scale banner to fit container ──────────────────────────
     useEffect(() => {
@@ -764,9 +751,12 @@ function BuilderContent() {
     // ── Fetch brand on domain param change ────────────────────
     useEffect(() => {
         const domain = params.get("domain");
+        const campus = params.get("campus");
         if (!domain) return;
         setLoading(true);
-        fetch(`/api/brand?q=${encodeURIComponent(domain)}`)
+        let path = `/api/brand?q=${encodeURIComponent(domain)}`;
+        if (campus) path += `&campus=${encodeURIComponent(campus)}`;
+        fetch(path)
             .then(r => r.json())
             .then((data: BrandData) => {
                 setBrand(data);
@@ -791,329 +781,424 @@ function BuilderContent() {
         setImgIndex(Math.floor(Math.random() * brand.images.length));
     };
 
+
+
     // ── Download ──────────────────────────────────────────────
-    const download = useCallback(async () => {
-        if (!bannerRef.current || !brand) return;
+    const handleDownload = async () => {
+        if (!exportRef.current || !brand) return;
         setIsDownloading(true);
         try {
-            // Temporarily hide the danger zone overlay
-            const overlays = bannerRef.current.querySelectorAll("[data-no-export]");
-            overlays.forEach(el => ((el as HTMLElement).style.visibility = "hidden"));
-
-            const url = await toPng(bannerRef.current, {
-                cacheBust: true,
-                pixelRatio: 1,
+            await new Promise(r => setTimeout(r, 100)); // wait for layout paint
+            
+            // Standard pixel ratio creates an image exactly 1584x396. 
+            // This prevents massive 4MB+ Base64 chunks that crash Vercel's Payload limits!
+            const dataUrl = await toPng(exportRef.current, {
+                pixelRatio: 1, 
                 width: W,
                 height: H,
-                style: { transform: "none" },
-                // quality 0.95 keeps it well under LinkedIn's 8 MB limit
+                style: { transform: "none", visibility: "visible", display: "block" },
             });
 
-            overlays.forEach(el => ((el as HTMLElement).style.visibility = ""));
+            // Native Form Submit - Safe from Safari Javascript click-UUID bugs
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = "/api/download-banner";
+            
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "dataUrl";
+            input.value = dataUrl;
+            
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+            setTimeout(() => {
+                if (document.body.contains(form)) {
+                    document.body.removeChild(form);
+                }
+            }, 2000);
 
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = `lnbg-${brand.name.toLowerCase().replace(/[^a-z0-9]/g, "-")}.png`;
-            a.click();
+            setTimeout(() => setShowDownloadPopup(true), 400);
         } catch (e) {
             console.error("Export failed:", e);
+            alert("Download failed — please try again.");
         } finally {
             setIsDownloading(false);
         }
-    }, [brand]);
+    };
 
-    const primary = brand?.colors?.[0] ?? "#1e2d78";
+    const primary = brand?.colors?.[0] ?? "#1B2D7A";
     const accent = brand?.colors?.[1] ?? "#88aaff";
     const textOnPrimary = contrastText(primary);
 
     return (
-        <div className="min-h-screen pb-32" style={{ background: "#f0f2f5" }}>
-            {/* Inject Google Font dynamically so html-to-image can render it */}
-            {fontUrl && <link href={fontUrl} rel="stylesheet" crossOrigin="anonymous" />}
+        <>
+            <div className="min-h-screen bg-[#F5F4F1] font-sans flex justify-center w-full px-4 md:px-8 xl:px-12 py-4 md:py-6 box-border overflow-x-hidden">
+                {/* Safe inline font CSS to prevent html-to-image CORS/SecurityError crashes */}
+                {fontCss && <style dangerouslySetInnerHTML={{ __html: fontCss }} />}
 
-            {/* ── NAV ─────────────────────────────────────────── */}
-            <header className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
-                <button
-                    onClick={() => router.push("/")}
-                    className="font-black text-2xl tracking-[0.15em] hover:opacity-60 transition-opacity"
-                    style={{ color: "#1e2d78" }}>
-                    LNBG
-                </button>
-                {brand && (
-                    <button
-                        onClick={() => router.push("/")}
-                        className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-700 transition-colors">
-                        <X className="w-3.5 h-3.5" /> Start over
-                    </button>
-                )}
-            </header>
+                <main className="w-full xl:w-[60%] mx-auto flex flex-col shrink-0 relative bg-[#F5F4F1]">
 
-            <div className="max-w-6xl mx-auto px-6 space-y-6">
+                {/* ── NAV ─────────────────────────────────────────── */}
+                <Header showStartButton={false} activeBrand={brand} />
 
-                {/* ── BANNER PREVIEW ──────────────────────────── */}
-                <section>
-                    <div className="flex items-center gap-2 mb-3">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Live Preview</span>
-                        <span className="ml-auto text-[10px] text-gray-300 font-mono">1584 × 396 px</span>
-                    </div>
+                <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-3 w-full mt-6 md:mt-8 xl:mt-10 mb-10 md:mb-12 xl:mb-16">
 
-                    <div className="rounded-2xl overflow-hidden shadow-xl ring-1 ring-black/10 bg-white">
-                        {/* Banner canvas */}
-                        <div ref={containerRef}
-                            className="w-full relative"
-                            style={{ height: brand ? H * scale : 160 }}>
-                            {brand ? (
-                                <div style={{
-                                    width: W, height: H,
-                                    transform: `scale(${scale})`,
-                                    transformOrigin: "top left",
-                                    position: "relative",
-                                }}>
-                                    <div ref={bannerRef} className="absolute inset-0">
-                                        <AnimatePresence mode="wait">
-                                            <motion.div
-                                                key={`${layout}-${imgIndex}`}
-                                                className="absolute inset-0"
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                exit={{ opacity: 0 }}
-                                                transition={{ duration: 0.18 }}>
+                    {/* ── BANNER PREVIEW ──────────────────────────── */}
+                    <section className="sticky top-0 xl:top-4 z-40 pt-4 -mt-4 bg-[#F5F4F1]">
+
+
+                        {/* Live Preview Indicator Container */}
+                        <div className="flex items-center justify-end mb-2 mr-1">
+                            <div className="flex items-center gap-2 opacity-60">
+                                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
+                                <span className="text-[10px] font-black uppercase tracking-widest text-red-500">Live Preview</span>
+                            </div>
+                        </div>
+
+                        <div className="rounded-2xl overflow-hidden shadow-xl ring-1 ring-black/10 bg-white">
+                            {/* Banner canvas */}
+                            <div ref={containerRef}
+                                className="w-full relative"
+                                style={{ height: brand ? H * scale : 160 }}>
+                                {brand ? (
+                                    <div style={{
+                                        width: W, height: H,
+                                        transform: `scale(${scale})`,
+                                        transformOrigin: "top left",
+                                        position: "relative",
+                                    }}>
+                                        <div ref={bannerRef} className="absolute inset-0">
+                                            <BannerCanvas
+                                                brand={brand}
+                                                text={text}
+                                                badge={badge}
+                                                estDate={estDate}
+                                                statusTag={statusTag}
+                                                layout={layout}
+                                                imgIndex={imgIndex}
+                                                logoIndex={logoIndex}
+                                                logoPos={logoPos}
+                                                bgStyle={bgStyle}
+                                                tintIndex={tintIndex}
+                                                bgOpacity={bgOpacity}
+                                            />
+                                        </div>
+
+                                        {/* ── MASTER BANNER (FOR EXPORT) ── */}
+                                        {/* Hidden from view, keys ensure it updates instantly with NO transition states */}
+                                        <div style={{ position: 'absolute', top: -9999, left: -9999, pointerEvents: 'none' }}>
+                                            <div 
+                                                ref={exportRef} 
+                                                key={`export-${layout}-${imgIndex}-${logoIndex}`}
+                                                style={{ width: W, height: H, position: 'relative' }}
+                                            >
                                                 <BannerCanvas
                                                     brand={brand}
                                                     text={text}
+                                                    badge={badge}
+                                                    estDate={estDate}
+                                                    statusTag={statusTag}
                                                     layout={layout}
                                                     imgIndex={imgIndex}
-                                                    showDangerZone={showDangerZone}
+                                                    logoIndex={logoIndex}
+                                                    logoPos={logoPos}
+                                                    bgStyle={bgStyle}
+                                                    tintIndex={tintIndex}
+                                                    bgOpacity={bgOpacity}
                                                 />
-                                            </motion.div>
-                                        </AnimatePresence>
-                                    </div>
-                                </div>
-                            ) : (
-                                <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                                    <p className="text-gray-400 text-base italic">
-                                        {loading ? "Loading brand assets…" : "Search for your university to begin"}
-                                    </p>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* LinkedIn profile mock-up */}
-                        <div className="relative px-8 pt-14 pb-6 bg-white border-t border-gray-100">
-                            <div className="absolute left-8 -top-10 w-20 h-20 rounded-full bg-white ring-2 ring-gray-200 shadow overflow-hidden">
-                                <img
-                                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=160&h=160&fit=crop&crop=face"
-                                    alt="" className="w-full h-full object-cover" />
-                            </div>
-                            <div className="flex items-end justify-between flex-wrap gap-3">
-                                <div>
-                                    <p className="font-bold text-gray-900">Your Name <span className="font-normal text-gray-400 text-sm">· 1st</span></p>
-                                    <p className="text-gray-500 text-sm mt-0.5">
-                                        {text || (brand ? `${brand.name} Graduate` : "Your headline here")}
-                                    </p>
-                                    <p className="text-blue-600 text-xs font-semibold mt-1">500+ connections</p>
-                                </div>
-                                <div className="flex gap-2">
-                                    <button className="px-5 py-1.5 rounded-full text-white text-sm font-bold" style={{ background: "#0A66C2" }}>Message</button>
-                                    <button className="px-4 py-1.5 rounded-full border border-gray-300 text-gray-600 text-sm font-bold">More</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* ── CONTROLS ────────────────────────────────── */}
-                <div className="grid md:grid-cols-2 gap-5">
-
-                    {/* LEFT — University & Headline */}
-                    <div className="bg-white rounded-2xl p-7 shadow-sm ring-1 ring-black/5 space-y-6">
-
-                        {/* University selector */}
-                        <div>
-                            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">
-                                <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black"
-                                    style={{ background: primary }}>01</span>
-                                University
-                            </label>
-                            {loading
-                                ? <div className="h-14 rounded-xl bg-gray-100 animate-pulse" />
-                                : brand
-                                    ? (
-                                        <div className="flex items-center gap-3 p-3.5 rounded-xl border border-gray-200 bg-gray-50">
-                                            <div className="w-10 h-10 rounded-lg bg-white border border-gray-200 flex items-center justify-center shadow-sm overflow-hidden flex-shrink-0">
-                                                <img src={brand.logo} alt="" className="w-full h-full object-contain p-1"
-                                                    onError={e => (e.currentTarget.style.display = "none")} />
                                             </div>
-                                            <div className="flex-1 min-w-0">
-                                                <p className="font-bold text-gray-900 text-sm truncate">{brand.fullName}</p>
-                                                <p className="text-gray-400 text-xs">{brand.domain}</p>
-                                            </div>
-                                            <button onClick={() => router.push("/")}
-                                                className="p-1.5 hover:bg-red-50 hover:text-red-400 rounded-lg transition-colors text-gray-300">
-                                                <X className="w-4 h-4" />
-                                            </button>
                                         </div>
-                                    )
-                                    : (
-                                        <button onClick={() => router.push("/")}
-                                            className="w-full h-14 rounded-xl border-2 border-dashed border-gray-200 text-gray-400 text-sm hover:border-gray-400 transition-colors">
-                                            ← Search a university on the home page
-                                        </button>
-                                    )
-                            }
-                        </div>
-
-                        {/* Headline input */}
-                        <AnimatePresence>
-                            {brand && (
-                                <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
-                                    <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">
-                                        <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black"
-                                            style={{ background: primary }}>02</span>
-                                        Your Headline
-                                    </label>
-                                    <textarea
-                                        value={text}
-                                        onChange={e => setText(e.target.value)}
-                                        placeholder={`e.g. MSc Computer Science · ${brand.name}`}
-                                        maxLength={80}
-                                        rows={2}
-                                        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:border-transparent resize-none placeholder:text-gray-300 transition-all"
-                                        style={{ "--tw-ring-color": primary } as React.CSSProperties}
-                                    />
-                                    <p className="text-right text-xs text-gray-300 mt-1">{text.length}/80</p>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-
-                        {/* Brand colours palette */}
-                        {brand?.colors && (
-                            <div>
-                                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Brand Colours</p>
-                                <div className="flex gap-2 flex-wrap">
-                                    {brand.colors.map((c, i) => (
-                                        <div key={i} className="flex flex-col items-center gap-1">
-                                            <div className="w-9 h-9 rounded-xl shadow-sm ring-1 ring-black/10"
-                                                style={{ background: c }} />
-                                            <span className="text-[9px] text-gray-400 font-mono">{c}</span>
-                                        </div>
-                                    ))}
-                                </div>
+                                    </div>
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                                        <p className="text-gray-400 text-base italic">
+                                            {loading ? "Loading brand assets…" : "Search for your university to begin"}
+                                        </p>
+                                    </div>
+                                )}
                             </div>
-                        )}
-                    </div>
 
-                    {/* RIGHT — Layout, Photo, Download */}
-                    <div className="bg-white rounded-2xl p-7 shadow-sm ring-1 ring-black/5 flex flex-col gap-6">
+                        </div>
+                    </section>
 
-                        {brand && (
-                            <>
-                                {/* Layout picker */}
-                                <div>
-                                    <div className="flex items-center justify-between mb-3">
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Layout Style</p>
-                                        <span className="text-xs text-gray-400">{THUMB_CONFIGS[layout].label}</span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <button onClick={prevLayout}
-                                            className="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
-                                            <ChevronLeft className="w-4 h-4" />
-                                        </button>
-                                        <div className="flex flex-1 gap-1">
-                                            {([0, 1, 2, 3, 4, 5] as Layout[]).map(l => (
-                                                <button key={l}
-                                                    onClick={() => setLayout(l)}
-                                                    className="flex-1 aspect-[4/1] rounded-lg overflow-hidden transition-all"
-                                                    style={{
-                                                        outline: layout === l ? `2px solid ${primary}` : "2px solid transparent",
-                                                        outlineOffset: 2,
-                                                    }}>
-                                                    {THUMB_CONFIGS[l].preview(primary, accent)}
-                                                </button>
-                                            ))}
+                    {/* ── CONTROLS ────────────────────────────────── */}
+                    <div className="w-full bg-white rounded-2xl p-6 md:p-8 shadow-sm ring-1 ring-black/5 flex flex-col gap-8">
+    {/* ── UNIFIED CONTROLS ── */}
+    <div className="space-y-6">
+        {/* Headline input */}
+        <AnimatePresence>
+            {brand && (
+                <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
+                    <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">
+                        <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black"
+                            style={{ background: primary }}>01</span>
+                        Personal Branding
+                    </label>
+                                        {/* ── THE HEADLINE ARCHITECT ──────────────── */}
+                                        <div className="space-y-6">
+                                            
+                                            {/* Live Draft Card */}
+                                            <div className="bg-white rounded-xl px-4 py-2 border border-gray-100 relative overflow-hidden shadow-sm">
+                                                <div className="absolute left-0 top-0 bottom-0 w-1" style={{ background: primary }} />
+                                                <div className="flex items-center justify-between mb-0.5 pl-1.5">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="text-[9px] font-black uppercase tracking-[0.1em] text-gray-400">Headline Draft</span>
+                                                        <span className={`text-[9px] font-mono ${text.length === 100 ? 'text-red-500' : 'text-gray-300'}`}>({text.length}/100)</span>
+                                                    </div>
+                                                    <button 
+                                                        onClick={() => setText("")}
+                                                        className="text-[9px] font-black text-gray-300 hover:text-red-400 transition-colors uppercase tracking-widest py-1"
+                                                    >
+                                                        Clear
+                                                    </button>
+                                                </div>
+                                                <textarea
+                                                    value={text}
+                                                    onChange={e => setText(e.target.value)}
+                                                    maxLength={100}
+                                                    rows={1}
+                                                    placeholder="Type your headline here..."
+                                                    className="w-full bg-transparent text-[#0F1629] text-sm font-semibold focus:outline-none resize-none placeholder:text-gray-300 min-h-[22px] py-1 pl-1.5 leading-tight"
+                                                />
+                                            </div>
+
                                         </div>
-                                        <button onClick={nextLayout}
-                                            className="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
-                                            <ChevronRight className="w-4 h-4" />
-                                        </button>
-                                    </div>
-                                    <p className="text-xs text-gray-400 mt-1.5">Style {layout + 1} of {LAYOUTS.length}</p>
-                                </div>
-
-                                {/* Photo picker */}
-                                {brand.images.length > 0 && (
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+    </div>
+    <hr className="border-gray-100" />
+    <div className="flex flex-col gap-6">
+        {brand && (
+                                <>
+                                    {/* Layout picker */}
                                     <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Photo</p>
+                                        <div className="flex items-center justify-between mb-3">
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Layout Style</p>
+                                            <span className="text-xs text-gray-400">{THUMB_CONFIGS[layout].label}</span>
+                                        </div>
                                         <div className="flex items-center gap-2">
-                                            <button onClick={prevImg}
+                                            <button onClick={prevLayout}
                                                 className="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
                                                 <ChevronLeft className="w-4 h-4" />
                                             </button>
-                                            <div className="flex-1 h-14 rounded-xl overflow-hidden border border-gray-200 relative">
-                                                <img
-                                                    src={brand.images[imgIndex % brand.images.length]}
-                                                    alt=""
-                                                    className="w-full h-full object-cover"
-                                                />
+                                            <div className="flex gap-1 flex-1">
+                                                {([0, 1, 2, 3, 4, 5, 6, 7] as Layout[]).map(l => (
+                                                    <button key={l}
+                                                        onClick={() => setLayout(l)}
+                                                        className="flex-1 aspect-[4/1] rounded-lg overflow-hidden transition-all"
+                                                        style={{
+                                                            outline: layout === l ? `2px solid ${primary}` : "2px solid transparent",
+                                                            outlineOffset: 2,
+                                                        }}>
+                                                        {THUMB_CONFIGS[l].preview(primary, accent)}
+                                                    </button>
+                                                ))}
                                             </div>
-                                            {brand.images.length > 1 && (
-                                                <button onClick={randomImg}
-                                                    className="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400"
-                                                    title="Random photo">
-                                                    <Shuffle className="w-3.5 h-3.5" />
-                                                </button>
-                                            )}
-                                            <button onClick={nextImg}
+                                            <button onClick={nextLayout}
                                                 className="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
                                                 <ChevronRight className="w-4 h-4" />
                                             </button>
                                         </div>
-                                        {brand.images.length > 1 && (
+                                        <p className="text-xs text-gray-400 mt-1.5">Style {layout + 1} of {LAYOUTS.length} · {THUMB_CONFIGS[layout].label}</p>
+                                    </div>
+
+                                    {layout === 4 && (
+                                        <div className="space-y-4">
+                                            {/* Logo Position Toggle */}
+                                            <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 animate-in fade-in slide-in-from-top-2">
+                                                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Logo Alignment</p>
+                                                <div className="flex gap-2">
+                                                    {(['top', 'bottom'] as const).map(pos => (
+                                                        <button key={pos}
+                                                            onClick={() => setLogoPos(pos)}
+                                                            className="flex-1 py-2 rounded-lg border-2 text-xs font-bold capitalize transition-all"
+                                                            style={{
+                                                                borderColor: logoPos === pos ? primary : "#e5e7eb",
+                                                                background: logoPos === pos ? `${primary}10` : "white",
+                                                                color: logoPos === pos ? primary : "#6b7280"
+                                                            }}>
+                                                            {pos} Corner
+                                                        </button>
+                                                    ))}
+    </div>
+</div>
+                                        </div>
+                                    )}
+
+                                    {/* Photo picker */}
+                                    {brand.images.length > 0 && (
+                                        <div>
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Photo</p>
+                                            <div className="flex items-center gap-2">
+                                                <button onClick={prevImg}
+                                                    className="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
+                                                    <ChevronLeft className="w-4 h-4" />
+                                                </button>
+                                                <div className="flex-1 h-14 rounded-xl overflow-hidden border border-gray-200 relative">
+                                                    <img
+                                                        src={brand.images[imgIndex % brand.images.length]}
+                                                        alt=""
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                </div>
+                                                <button onClick={nextImg}
+                                                    className="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
+                                                    <ChevronRight className="w-4 h-4" />
+                                                </button>
+                                            </div>
+                                            {brand.images.length > 1 && (
+                                                <p className="text-xs text-gray-400 mt-1.5">
+                                                    Photo {(imgIndex % brand.images.length) + 1} of {brand.images.length}
+                                                </p>
+                                            )}
+                                        </div>
+                                    )}
+
+                                    {/* Logo variant picker */}
+                                    {brand.logos.length > 1 && (
+                                        <div>
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Logo Variant</p>
+                                            <div className="flex gap-2 flex-wrap">
+                                                {brand.logos.map((logo, i) => (
+                                                    <button key={i}
+                                                        onClick={() => setLogoIndex(i)}
+                                                        className="w-16 h-16 rounded-xl border-2 flex items-center justify-center p-1.5 transition-all hover:shadow-md"
+                                                        style={{
+                                                            borderColor: logoIndex === i ? primary : "#e5e7eb",
+                                                            background: logoIndex === i 
+                                                                ? `${primary}10` 
+                                                                : (logo.isLight ? "#333" : "#f9fafb"),
+                                                        }}>
+                                                        <img src={logo.url} alt={`Logo ${i + 1}`}
+                                                            className="w-full h-full object-contain"
+                                                            style={{
+                                                                mixBlendMode: logo.hasBg ? "multiply" : undefined,
+                                                            }}
+                                                            onError={e => (e.currentTarget.style.display = "none")} />
+                                                    </button>
+                                                ))}
+                                            </div>
                                             <p className="text-xs text-gray-400 mt-1.5">
-                                                Photo {(imgIndex % brand.images.length) + 1} of {brand.images.length}
+                                                Logo {logoIndex + 1} of {brand.logos.length} · {brand.logos.length * LAYOUTS.length} total combinations
                                             </p>
-                                        )}
-                                    </div>
-                                )}
+                                        </div>
+                                    )}
+                                </>
+                            )}
 
-                                {/* Dev toggle: danger zone */}
-                                <label className="flex items-center gap-2 cursor-pointer select-none">
-                                    <div className="relative w-8 h-4">
-                                        <input type="checkbox" className="sr-only"
-                                            checked={showDangerZone}
-                                            onChange={e => setShowDangerZone(e.target.checked)} />
-                                        <div className="w-8 h-4 rounded-full transition-colors"
-                                            style={{ background: showDangerZone ? "#ef4444" : "#d1d5db" }} />
-                                        <div className="absolute top-0.5 rounded-full w-3 h-3 bg-white shadow transition-transform"
-                                            style={{ left: showDangerZone ? "calc(100% - 14px)" : 2 }} />
-                                    </div>
-                                    <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                                        Show safe zones
-                                    </span>
-                                </label>
-                            </>
-                        )}
-
-                        {/* Download button */}
-                        <div className="mt-auto space-y-2">
-                            <button
-                                onClick={brand ? download : () => router.push("/")}
-                                disabled={isDownloading}
-                                className="w-full py-4 rounded-xl font-black text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-50 hover:opacity-90 active:scale-[0.98]"
-                                style={{ background: primary, color: textOnPrimary }}>
-                                {isDownloading
-                                    ? <><RefreshCw className="w-4 h-4 animate-spin" /> Generating…</>
-                                    : <><Download className="w-4 h-4" /> Download Banner (.png)</>}
-                            </button>
-                            <p className="text-center text-[11px] text-gray-400">
-                                1584 × 396 px · LinkedIn optimised · Free · Under 8 MB
-                            </p>
+                            {/* Download button - Single True Button */}
+                            <div className="mt-auto space-y-2">
+                                <button
+                                    onClick={brand ? handleDownload : () => router.push("/")}
+                                    disabled={isDownloading}
+                                    className="w-full py-4 rounded-xl font-black text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-50 hover:opacity-90 active:scale-[0.98]"
+                                    style={{ background: primary, color: textOnPrimary }}>
+                                    {isDownloading
+                                        ? <><RefreshCw className="w-4 h-4 animate-spin" /> Processing...</>
+                                        : <><Download className="w-4 h-4" /> Download Banner</>}
+                                </button>
+                                <p className="text-center text-[11px] text-gray-400">
+                                    LinkedIn optimised · Free · Sharp 1584x396 PNG
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <Footer />
+                </main>
             </div>
-        </div>
+
+            {/* DOWNLOAD INSTRUCTION POPUP */}
+            <AnimatePresence>
+                {showDownloadPopup && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.95, y: 10 }}
+                            animate={{ scale: 1, y: 0 }}
+                            exit={{ scale: 0.95, y: 10 }}
+                            className="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden flex flex-col max-h-[90vh]"
+                        >
+                            {/* Header */}
+                            <div className="p-6 border-b border-gray-100 flex items-start justify-between">
+                                <div>
+                                    <h3 className="text-2xl font-black text-[#0F1629] flex items-center gap-2 mb-2">
+                                        <CheckCircle className="w-6 h-6 text-green-500" />
+                                        Success!
+                                    </h3>
+                                    <p className="text-sm text-gray-500 font-medium">
+                                        Your banner has been saved to your <span className="text-[#0F1629] font-bold">Downloads</span> or <span className="text-[#0F1629] font-bold">Photos</span> app.
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={() => setShowDownloadPopup(false)}
+                                    className="p-2 text-gray-400 hover:text-gray-700 bg-gray-50 hover:bg-gray-100 rounded-full transition-colors"
+                                >
+                                    <X className="w-5 h-5" />
+                                </button>
+                            </div>
+
+                            {/* Body */}
+                            <div className="p-6 bg-gray-50 overflow-y-auto space-y-6 flex-1">
+                                <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">How to update your LinkedIn</h4>
+
+                                <div className="space-y-6">
+                                    <div className="flex gap-4">
+                                        <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black flex-shrink-0 text-sm">1</div>
+                                        <div>
+                                            <p className="font-bold text-[#0F1629]">Go to your LinkedIn profile</p>
+                                            <p className="text-sm text-gray-500 mt-0.5">Open the LinkedIn app or website and view your own profile.</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex gap-4">
+                                        <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black flex-shrink-0 text-sm">2</div>
+                                        <div className="flex-1">
+                                            <p className="font-bold text-[#0F1629]">Click the pencil icon</p>
+                                            <p className="text-sm text-gray-500 mt-0.5 mb-3">In the top right corner of your current banner area, click the edit icon.</p>
+
+                                            {/* Visual mockup of LinkedIn banner area */}
+                                            <div className="bg-white rounded-xl border border-gray-200 shadow-sm relative overflow-hidden h-28 select-none">
+                                                <div className="absolute inset-0 bg-blue-50"></div>
+                                                <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center animate-pulse">
+                                                    <svg className="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                                                </div>
+                                                <div className="absolute -bottom-6 left-6 w-16 h-16 rounded-full border-4 border-white bg-gray-200 shadow-sm"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex gap-4">
+                                        <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black flex-shrink-0 text-sm">3</div>
+                                        <div>
+                                            <p className="font-bold text-[#0F1629]">Upload and apply</p>
+                                            <p className="text-sm text-gray-500 mt-0.5">Select your downloaded image, position it, and click 'Apply'.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Footer */}
+                            <div className="p-4 border-t border-gray-100 bg-white">
+                                <button
+                                    onClick={() => setShowDownloadPopup(false)}
+                                    className="w-full py-3.5 rounded-xl font-black text-sm uppercase tracking-widest bg-gray-900 text-white hover:bg-gray-800 transition-colors shadow-lg active:scale-95 transition-transform"
+                                >
+                                    Got it, thanks!
+                                </button>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </>
     );
 }
 

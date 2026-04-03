@@ -81,7 +81,7 @@ const PALETTES = {
     'University of the Highlands and Islands': { primary: '#003865', secondary: '#c8a000', dark: '#001f3a', light: '#fff8e0' },
     'University of Huddersfield': { primary: '#c8102e', secondary: '#1d1d1b', dark: '#8a0b1f', light: '#fce8ea' },
     'University of Hull': { primary: '#d4002a', secondary: '#1d1d1b', dark: '#8c001c', light: '#fce8ea' },
-    'Imperial College London': { primary: '#003e74', secondary: '#00b3e3', dark: '#002245', light: '#e0f7fd' },
+    'Imperial College London': { primary: '#0000ce', secondary: '#00b3e3', dark: '#002245', light: '#e0f7fd' },
     'Keele University': { primary: '#003c76', secondary: '#c8a000', dark: '#002246', light: '#fff8e0' },
     'University of Kent': { primary: '#012169', secondary: '#c8a800', dark: '#000e38', light: '#fff8e0' },
     "King's College London": { primary: '#6f1635', secondary: '#c8a800', dark: '#470e22', light: '#fff8e0' },

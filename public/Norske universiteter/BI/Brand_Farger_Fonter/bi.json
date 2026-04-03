@@ -1,0 +1,26 @@
+{
+  "university": "BI",
+  "name": "Handelshøyskolen BI",
+  "colors": [
+    {
+      "hex": "#002f5f",
+      "name": "BI Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 2
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Arial",
+      "role": "primary",
+      "type": "sans-serif",
+      "weight": 1
+    }
+  ]
+}

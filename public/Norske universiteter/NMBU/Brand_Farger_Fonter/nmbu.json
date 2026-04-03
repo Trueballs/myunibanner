@@ -1,0 +1,32 @@
+{
+  "university": "NMBU",
+  "name": "Norges miljø- og biovitenskapelige universitet",
+  "colors": [
+    {
+      "hex": "#008571",
+      "name": "NMBU Deep Sea",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#B3DED7",
+      "name": "NMBU Aqua",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#FFFFFF",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Inter",
+      "role": "primary",
+      "type": "sans-serif",
+      "weight": 1
+    }
+  ]
+}

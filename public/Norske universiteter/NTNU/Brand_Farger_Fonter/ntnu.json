@@ -1,0 +1,38 @@
+{
+  "university": "NTNU",
+  "name": "Norges teknisk-naturvitenskapelige universitet",
+  "colors": [
+    {
+      "hex": "#00509e",
+      "name": "NTNU Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#575756",
+      "name": "NTNU Grey",
+      "role": "dark",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Open Sans",
+      "role": "primary",
+      "type": "sans-serif",
+      "weight": 1
+    },
+    {
+      "name": "Arial",
+      "role": "fallback",
+      "type": "sans-serif",
+      "weight": 2
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "university": "UiB",
+  "name": "Universitetet i Bergen",
+  "colors": [
+    {
+      "hex": "#D03C3A",
+      "name": "UiB Red",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#071726",
+      "name": "UiB Black Pearl",
+      "role": "dark",
+      "weight": 2
+    },
+    {
+      "hex": "#FFFFFF",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Inter",
+      "role": "primary",
+      "type": "sans-serif",
+      "weight": 1
+    }
+  ]
+}

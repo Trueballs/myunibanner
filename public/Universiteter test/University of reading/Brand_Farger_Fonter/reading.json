@@ -1,0 +1,37 @@
+{
+  "university": "University of Reading",
+  "colors": [
+    {
+      "hex": "#D61926",
+      "name": "Reading Crimson",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#000000",
+      "name": "Black",
+      "role": "dark",
+      "weight": 2
+    },
+    {
+      "hex": "#FFFFFF",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Effra",
+      "role": "primary",
+      "type": "sans-serif",
+      "weight": 1
+    },
+    {
+      "name": "Arial",
+      "role": "fallback",
+      "type": "sans-serif",
+      "weight": 2
+    }
+  ]
+}

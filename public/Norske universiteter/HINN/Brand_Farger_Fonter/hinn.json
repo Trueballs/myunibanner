@@ -1,0 +1,26 @@
+{
+  "university": "HINN",
+  "name": "Universitetet i Innlandet",
+  "colors": [
+    {
+      "hex": "#005826",
+      "name": "HINN Green",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 2
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Roboto",
+      "role": "primary",
+      "type": "sans-serif",
+      "weight": 1
+    }
+  ]
+}

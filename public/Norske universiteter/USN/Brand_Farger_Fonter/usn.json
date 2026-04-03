@@ -1,0 +1,32 @@
+{
+  "university": "USN",
+  "name": "Universitetet i Sørøst-Norge",
+  "colors": [
+    {
+      "hex": "#005696",
+      "name": "USN Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#ffb600",
+      "name": "USN Gold",
+      "role": "accent",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Roboto",
+      "role": "primary",
+      "type": "sans-serif",
+      "weight": 1
+    }
+  ]
+}

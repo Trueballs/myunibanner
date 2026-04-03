@@ -1,12 +1,38 @@
 {
   "university": "Imperial College London",
   "colors": [
-    {"hex": "#003E74", "name": "Imperial Blue", "role": "main", "weight": 1},
-    {"hex": "#EBEEEE", "name": "Light Grey", "role": "light", "weight": 2},
-    {"hex": "#002147", "name": "Navy", "role": "dark", "weight": 3}
+    {
+      "hex": "#0000ce",
+      "name": "Imperial Blue (New 2024)",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#002147",
+      "name": "Navy",
+      "role": "dark",
+      "weight": 2
+    },
+    {
+      "hex": "#EBEEEE",
+      "name": "Light Grey",
+      "role": "light",
+      "weight": 3
+    }
   ],
   "fonts": [
-    {"name": "ITC Stone Sans", "role": "primary", "type": "sans-serif", "weight": 1, "note": "Used in wordmark; 2024 Pentagram rebrand uses custom monospaced-style sans-serif"},
-    {"name": "Arial", "role": "fallback", "type": "sans-serif", "weight": 2}
+    {
+      "name": "ITC Stone Sans",
+      "role": "primary",
+      "type": "sans-serif",
+      "weight": 1,
+      "note": "Used in wordmark; 2024 Pentagram rebrand uses custom monospaced-style sans-serif"
+    },
+    {
+      "name": "Arial",
+      "role": "fallback",
+      "type": "sans-serif",
+      "weight": 2
+    }
   ]
 }

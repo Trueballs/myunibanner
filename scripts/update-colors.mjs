@@ -73,7 +73,7 @@ const PALETTES = {
     'University of the Highlands and Islands': [['#003865', 'UHI Blue', 'main', 1], ['#c8a000', 'Gold', 'secondary', 2], ['#ffffff', 'White', 'light', 3]],
     'University of Huddersfield': [['#c8102e', 'Huddersfield Red', 'main', 1], ['#1d1d1b', 'Black', 'dark', 2], ['#ffffff', 'White', 'light', 3]],
     'University of Hull': [['#d4002a', 'Hull Red', 'main', 1], ['#1d1d1b', 'Black', 'dark', 2], ['#ffffff', 'White', 'light', 3]],
-    'Imperial College London': [['#003e74', 'Imperial Navy', 'main', 1], ['#00b3e3', 'Imperial Light Blue', 'secondary', 2], ['#ffffff', 'White', 'light', 3], ['#d4145a', 'Pink', 'accent', 4]],
+    'Imperial College London': [['#0000ce', 'Imperial Navy', 'main', 1], ['#00b3e3', 'Imperial Light Blue', 'secondary', 2], ['#ffffff', 'White', 'light', 3], ['#d4145a', 'Pink', 'accent', 4]],
     'Keele University': [['#003c76', 'Keele Blue', 'main', 1], ['#c8a000', 'Gold', 'secondary', 2], ['#ffffff', 'White', 'light', 3]],
     'University of Kent': [['#012169', 'Kent Blue', 'main', 1], ['#c8a800', 'Gold', 'secondary', 2], ['#ffffff', 'White', 'light', 3]],
     "King's College London": [['#6f1635', 'Kings Burgundy', 'main', 1], ['#c8a800', 'Gold', 'secondary', 2], ['#1a1a1a', 'Black', 'dark', 3], ['#ffffff', 'White', 'light', 4]],

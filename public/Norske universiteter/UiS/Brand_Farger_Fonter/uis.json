@@ -1,0 +1,26 @@
+{
+  "university": "UiS",
+  "name": "Universitetet i Stavanger",
+  "colors": [
+    {
+      "hex": "#00564f",
+      "name": "UiS Green",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#FFFFFF",
+      "name": "White",
+      "role": "light",
+      "weight": 2
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Inter",
+      "role": "primary",
+      "type": "sans-serif",
+      "weight": 1
+    }
+  ]
+}

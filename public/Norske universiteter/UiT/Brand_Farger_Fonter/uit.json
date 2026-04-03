@@ -1,0 +1,32 @@
+{
+  "university": "UiT",
+  "name": "UiT Norges arktiske universitet",
+  "colors": [
+    {
+      "hex": "#002b49",
+      "name": "UiT Deep Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#007396",
+      "name": "UiT Arctic Blue",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Inter",
+      "role": "primary",
+      "type": "sans-serif",
+      "weight": 1
+    }
+  ]
+}

@@ -1,10 +1,8 @@
 import { NextResponse } from 'next/server';
-import { UK_UNIVERSITIES } from '@/data/universities';
+import { ALL_UNIVERSITIES } from '@/data/universities';
 import { existsSync, readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 import sharp from 'sharp';
-
-const BASE = join(process.cwd(), 'public', 'Universiteter test');
 
 const DEFINITELY_NOT_LOGO = ['wide', 'campus', 'aerial', 'panorama', 'university college london', 'background'];
 const GOOD_LOGO_KEYWORDS = ['tekst', 'text', 'horizontal', 'fullname', 'fullcolour', 'full-colour', 'full colour', 'manchester - logo', 'logo - tekst', 'imperial_logo', 'logo-tekst'];
@@ -26,13 +24,11 @@ function scoreFile(f: string): number {
     return s;
 }
 
-/** Detect if a raster image (PNG/WebP) has a solid background via corner alpha sampling */
 async function rasterHasBg(filePath: string): Promise<boolean> {
     try {
         const img = sharp(filePath);
         const { width, height, channels } = await img.metadata();
         if (!width || !height) return false;
-
         const PATCH = 6;
         const corners = [
             { left: 0, top: 0 },
@@ -40,13 +36,8 @@ async function rasterHasBg(filePath: string): Promise<boolean> {
             { left: 0, top: Math.max(0, height - PATCH) },
             { left: Math.max(0, width - PATCH), top: Math.max(0, height - PATCH) },
         ];
-
-        // No alpha channel = has an opaque background
         const hasAlphaChannel = channels && channels >= 4;
-
         let totalAlpha = 0;
-        let totalR = 0, totalG = 0, totalB = 0;
-
         for (const corner of corners) {
             const raw = await sharp(filePath)
                 .extract({ left: corner.left, top: corner.top, width: PATCH, height: PATCH })
@@ -57,107 +48,141 @@ async function rasterHasBg(filePath: string): Promise<boolean> {
             const pixCount = data.length / stride;
             let patchAlpha = 0;
             for (let i = 0; i < data.length; i += stride) {
-                totalR += data[i];
-                totalG += data[i + 1];
-                totalB += data[i + 2];
                 patchAlpha += hasAlphaChannel ? data[i + 3] : 255;
             }
             totalAlpha += patchAlpha / pixCount;
         }
-
         const avgAlpha = totalAlpha / corners.length;
-        const isOpaque = !hasAlphaChannel || avgAlpha >= 240;
-        return isOpaque; // opaque corners = has background, show logo as-is
-    } catch {
-        return false;
-    }
+        return !hasAlphaChannel || avgAlpha >= 240;
+    } catch { return false; }
 }
 
-/** Detect if a logo is primarily "light" colored (meaning it looks good on dark backgrounds without modifying it) */
 async function imageIsLight(filePath: string): Promise<boolean> {
     try {
         const raw = await sharp(filePath).resize(32, 32, { fit: 'fill' }).raw().toBuffer({ resolveWithObject: true });
         const data = raw.data;
-        const info = raw.info;
-        const stride = info.channels;
-
+        const stride = raw.info.channels;
         let totalLuma = 0;
         let count = 0;
-
+        let diffs = 0;
+        let lastLuma = -1;
+        
         for (let i = 0; i < data.length; i += stride) {
-            const r = data[i];
-            const g = data[i + 1];
-            const b = data[i + 2];
-            const a = stride >= 4 ? data[i + 3] : 255;
-
-            // Only count pixels that are reasonably opaque
-            if (a > 50) {
-                const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+            const r = data[i], g = data[i+1], b = data[i+2], a = stride >= 4 ? data[i+3] : 255;
+            if (a > 20) { // Slight alpha threshold
+                const luma = (0.299 * r + 0.587 * g + 0.114 * b);
                 totalLuma += luma;
                 count++;
+                if (lastLuma !== -1) diffs += Math.abs(luma - lastLuma);
+                lastLuma = luma;
             }
         }
+        
+        // If the image is basically one solid color (no variation), it might be "empty" or a background block
+        if (count > 0 && diffs === 0 && (totalLuma / count) > 250) return true; // Pure white square
 
-        if (count === 0) return true; // empty transparent image? default to true
-        const avgLuma = totalLuma / count;
-        return avgLuma > 125; // if avg brightness > 125, it's considered a "light" logo
+        return count === 0 ? true : (totalLuma / count) > 130;
     } catch {
-        // Fallback or SVG parsing error
         const f = filePath.toLowerCase();
-        if (f.includes('white') || f.includes('light') || f.includes('inv')) return true;
-        if (f.includes('black') || f.includes('dark')) return false;
-        return true;
+        return f.includes('white') || f.includes('light') || f.includes('inv') || f.includes('hvit');
     }
 }
 
+async function isLogoEmpty(filePath: string): Promise<boolean> {
+    try {
+        const stats = await sharp(filePath).stats();
+        // If standard deviation is extremely low across all channels
+        const totalStdev = stats.channels.reduce((acc, c) => acc + c.stdev, 0);
+        if (totalStdev < 1) return true; // Less than 1 is basically a solid block
+        return false;
+    } catch { return false; }
+}
 
+async function getLogoColor(filePath: string): Promise<string | null> {
+    try {
+        const { data, info } = await sharp(filePath).resize(100, 100, { fit: 'inside' }).raw().toBuffer({ resolveWithObject: true });
+        const stride = info.channels;
+        const colorCounts: Record<string, number> = {};
+        for (let i = 0; i < data.length; i += stride) {
+            const r = data[i], g = data[i+1], b = data[i+2], a = stride >= 4 ? data[i+3] : 255;
+            if (a < 128) continue;
+            if (r > 240 && g > 240 && b > 240) continue;
+            const hex = `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+            colorCounts[hex] = (colorCounts[hex] || 0) + 1;
+        }
+        const sorted = Object.entries(colorCounts).sort((a,b) => b[1] - a[1]);
+        return sorted[0]?.[0] || null;
+    } catch { return null; }
+}
 
-async function getAllLogos(folder: string, domain: string): Promise<Array<{
-    url: string; hasBg: boolean; isIcon: boolean; isText: boolean; score: number; filename: string;
+async function getAllLogos(basePath: string, folder: string, domain: string): Promise<Array<{
+    url: string; hasBg: boolean; isIcon: boolean; isText: boolean; score: number; filename: string; isLight: boolean; logoColor: string | null;
 }>> {
-    const logoDir = join(BASE, folder, 'Logo');
+    const logoDir = join(basePath, folder, 'Logo');
     if (!existsSync(logoDir)) return [];
     const files = readdirSync(logoDir)
         .filter(f => /\.(png|svg|webp|jpg|jpeg)$/i.test(f) && !f.startsWith('.'))
         .filter(f => scoreFile(f) > -500);
 
     const results = await Promise.all(files.map(async (f) => {
-        const fl = f.toLowerCase();
+        const logoPath = join(logoDir, f);
+        if (await isLogoEmpty(logoPath)) return null;
+
         const ext = f.split('.').pop()?.toLowerCase() ?? '';
-        const isIcon = fl.includes('icon') || fl.includes('crest') || fl.includes('incon');
-        const isText = !isIcon;
-
+        const isIcon = f.toLowerCase().includes('icon') || f.toLowerCase().includes('crest');
         let hasBg = ext === 'jpg' || ext === 'jpeg';
-        if (!hasBg && (ext === 'png' || ext === 'webp')) {
-            hasBg = await rasterHasBg(join(logoDir, f));
+        if (!hasBg && (ext === 'png' || ext === 'webp')) hasBg = await rasterHasBg(logoPath);
+        const isLight = await imageIsLight(logoPath);
+        const logoColor = await getLogoColor(logoPath);
+        
+        // Let's add a smart hint for background preferences
+        let preferredBg: string | null = null;
+        if (f.toLowerCase().includes('hvit teskt')) {
+            preferredBg = '#575756'; // Specifically for NTNU's request
         }
-
-        const isLight = await imageIsLight(join(logoDir, f));
 
         return {
             url: `/api/full-logo?domain=${domain}&file=${encodeURIComponent(f)}&v=${Date.now()}`,
-            hasBg,
-            isLight,
-            isIcon,
-            isText,
-            score: scoreFile(f),
-            filename: f,
+            hasBg, isLight, logoColor, isIcon, isText: !isIcon, score: scoreFile(f), filename: f,
+            preferredBg
         };
     }));
-
-    return results.sort((a, b) => b.score - a.score);
+    return (results.filter(r => r !== null) as any[]).sort((a, b) => b.score - a.score);
 }
 
-function getImageFiles(folder: string): string[] {
-    const dir = join(BASE, folder, 'Bilder_HighRez');
-    if (!existsSync(dir)) return [];
-    return readdirSync(dir)
-        .filter(f => /\.(jpe?g|png|webp|avif)$/i.test(f) && !f.toLowerCase().includes('with logo'))
-        .map(f => `/api/uni-image?folder=${encodeURIComponent(folder)}&file=${encodeURIComponent(f)}`);
+function getImageFiles(basePath: string, folder: string, campus?: string | null): string[] {
+    const rootDir = join(basePath, folder, 'Bilder_HighRez');
+    if (!existsSync(rootDir)) return [];
+    
+    let targetDir = rootDir;
+    if (campus) {
+        const campusPath = join(rootDir, campus);
+        if (campusPath.startsWith(rootDir) && existsSync(campusPath)) {
+            targetDir = campusPath;
+        }
+    }
+    
+    function walk(d: string): string[] {
+        let results: string[] = [];
+        const items = readdirSync(d, { withFileTypes: true });
+        for (const item of items) {
+            const fullPath = join(d, item.name);
+            if (item.isDirectory()) {
+                results = results.concat(walk(fullPath));
+            } else if (/\.(jpe?g|png|webp|avif)$/i.test(item.name) && !item.name.toLowerCase().includes('with logo')) {
+                // Get the path relative to rootDir to reconstruct the file param
+                const relPath = fullPath.replace(rootDir + '/', '');
+                results.push(`/api/uni-image?folder=${encodeURIComponent(folder)}&file=${encodeURIComponent(relPath)}&root=${encodeURIComponent(basePath.split('/').pop() || '')}`);
+            }
+        }
+        return results;
+    }
+    
+    return walk(targetDir);
 }
 
-function getBrand(folder: string) {
-    const jsonDir = join(BASE, folder, 'Brand_Farger_Fonter');
+function getBrand(basePath: string, folder: string) {
+    const jsonDir = join(basePath, folder, 'Brand_Farger_Fonter');
     if (!existsSync(jsonDir)) return null;
     const file = readdirSync(jsonDir).find(f => f.endsWith('.json'));
     if (!file) return null;
@@ -168,28 +193,22 @@ function getBrand(folder: string) {
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
-    const query = searchParams.get('q')?.toLowerCase().trim() || '';
+    const query = searchParams.get('domain')?.toLowerCase().trim() || searchParams.get('q')?.toLowerCase().trim() || '';
+    const campus = searchParams.get('campus');
     if (!query) return NextResponse.json({ error: 'No query' }, { status: 400 });
 
-    const match =
-        UK_UNIVERSITIES.find(u =>
-            u.domain === query ||
-            u.name.toLowerCase() === query ||
-            u.short?.toLowerCase() === query
-        ) ??
-        UK_UNIVERSITIES.find(u =>
-            u.name.toLowerCase().includes(query) ||
-            u.short?.toLowerCase().includes(query) ||
-            u.domain.toLowerCase().includes(query)
-        );
+    const match = ALL_UNIVERSITIES.find(u =>
+        u.domain === query || u.name.toLowerCase() === query || u.short?.toLowerCase() === query
+    ) ?? ALL_UNIVERSITIES.find(u =>
+        u.name.toLowerCase().includes(query) || u.short?.toLowerCase().includes(query) || u.domain.toLowerCase().includes(query)
+    );
 
-    if (!match) {
-        return NextResponse.json({ error: 'University not found' }, { status: 404 });
-    }
+    if (!match) return NextResponse.json({ error: 'University not found' }, { status: 404 });
 
-    const brand = getBrand(match.folder);
-    const images = getImageFiles(match.folder);
-    const logos = await getAllLogos(match.folder, match.domain);
+    const basePath = join(process.cwd(), 'public', match.root);
+    const brand = getBrand(basePath, match.folder);
+    const images = getImageFiles(basePath, match.folder, campus);
+    const logos = await getAllLogos(basePath, match.folder, match.domain);
     const colors: string[] = brand?.colors?.map((c: { hex: string }) => c.hex) ?? ['#003865'];
     const fonts: string[] = brand?.fonts?.map((f: { name: string }) => f.name) ?? ['Inter'];
 
@@ -201,13 +220,11 @@ export async function GET(request: Request) {
         fullName: match.name,
         domain: match.domain,
         folder: match.folder,
+        root: match.root,
         logo: `/api/logo?domain=${match.domain}`,
         fullLogo: bestTextLogo?.url ?? `/api/full-logo?domain=${match.domain}&v=${Date.now()}`,
         iconLogo: bestIconLogo?.url,
         logoHasBg: bestTextLogo?.hasBg ?? false,
-        logos,
-        colors,
-        fonts,
-        images,
+        logos, colors, fonts, images,
     });
 }

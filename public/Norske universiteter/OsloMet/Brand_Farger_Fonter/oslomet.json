@@ -1,0 +1,32 @@
+{
+  "university": "OsloMet",
+  "name": "OsloMet (Storbyuniversitetet)",
+  "colors": [
+    {
+      "hex": "#fddc34",
+      "name": "OsloMet Yellow",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#000000",
+      "name": "OsloMet Black",
+      "role": "accent",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Inter",
+      "role": "primary",
+      "type": "sans-serif",
+      "weight": 1
+    }
+  ]
+}

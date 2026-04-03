@@ -1,0 +1,32 @@
+{
+  "university": "Nord",
+  "name": "Nord universitet",
+  "colors": [
+    {
+      "hex": "#003e5c",
+      "name": "Nord Dark Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#a7a9ac",
+      "name": "Nord Silver",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Outfit",
+      "role": "primary",
+      "type": "sans-serif",
+      "weight": 1
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { existsSync, readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
-import { UK_UNIVERSITIES } from '@/data/universities';
+import { ALL_UNIVERSITIES } from '@/data/universities';
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
@@ -11,12 +11,12 @@ export async function GET(request: Request) {
         return new Response('No domain', { status: 400 });
     }
 
-    const uni = UK_UNIVERSITIES.find(u => u.domain === domain);
+    const uni = ALL_UNIVERSITIES.find(u => u.domain === domain);
     if (!uni) {
         return NextResponse.redirect(`https://logo.clearbit.com/${domain}`);
     }
 
-    const logoDir = join(process.cwd(), 'public', 'Universiteter test', uni.folder, 'logo-search');
+    const logoDir = join(process.cwd(), 'public', uni.root, uni.folder, 'logo-search');
 
     if (existsSync(logoDir)) {
         // Find any image file in the logo-search folder

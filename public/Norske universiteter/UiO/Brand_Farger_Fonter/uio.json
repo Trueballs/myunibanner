@@ -1,0 +1,32 @@
+{
+  "university": "UiO",
+  "name": "Universitetet i Oslo",
+  "colors": [
+    {
+      "hex": "#B60000",
+      "name": "UiO Red",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#101528",
+      "name": "UiO Ebony",
+      "role": "dark",
+      "weight": 2
+    },
+    {
+      "hex": "#FFFFFF",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Inter",
+      "role": "primary",
+      "type": "sans-serif",
+      "weight": 1
+    }
+  ]
+}
