@@ -93,6 +93,7 @@ export default function Header({ showStartButton = false, showBackButton = false
           )}
         </div>
       </div>
+      <div className="w-full border-b border-gray-300 shadow-sm" />
     </header>
   );
 }
