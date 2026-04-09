@@ -1,30 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// Removed unused Geist_Mono import
 import "./globals.css";
 import OnboardingModal from "@/components/OnboardingModal";
 import { LanguageProvider } from "@/context/LanguageContext";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+import { Geist, Outfit } from "next/font/google";
+
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
-});
-
-import { Caveat, Bricolage_Grotesque } from 'next/font/google';
-const caveat = Caveat({
-  variable: '--font-caveat',
-  subsets: ['latin'],
-});
-
-const playful = Bricolage_Grotesque({
-  variable: '--font-playful',
-  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
@@ -53,7 +44,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} ${playful.variable} antialiased`}
+        className={`${geist.variable} ${outfit.variable} antialiased`}
       >
         <OnboardingModal />
         <LanguageProvider>

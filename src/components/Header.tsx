@@ -47,7 +47,7 @@ export default function Header({ showStartButton = false, showBackButton = false
     <header className="w-full z-[100] relative">
       <div className="w-full px-0 py-2 sm:py-3 flex items-center justify-between relative">
         <div className="flex items-center">
-          <span className="text-[#1e2d78] font-black text-xl md:text-2xl lg:text-[24px] tracking-[0.05em] leading-none cursor-pointer" onClick={() => router.push("/")}>Myunibanner</span>
+          <span className="text-[#1e2d78] font-black font-outfit text-xl md:text-2xl lg:text-[24px] tracking-[0.05em] leading-none cursor-pointer" onClick={() => router.push("/")}>Myunibanner</span>
         </div>
 
         <div className="flex items-center gap-4">
@@ -68,7 +68,7 @@ export default function Header({ showStartButton = false, showBackButton = false
 
             <a 
               href="mailto:oscar.w.skaarderud@gmail.com"
-              className="bg-white border border-gray-200 text-[#1e2d78] text-[10px] font-black px-4 py-2.5 rounded-xl uppercase tracking-wider flex items-center justify-center hover:border-[#1e2d78] hover:bg-[#1e2d78]/5 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 active:scale-95 shadow-sm flex-shrink-0"
+              className="bg-white border border-gray-200 text-[#1e2d78] text-[10px] font-black font-outfit px-4 py-2.5 rounded-xl uppercase tracking-wider flex items-center justify-center hover:border-[#1e2d78] hover:bg-[#1e2d78]/5 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 active:scale-95 shadow-sm flex-shrink-0"
             >
               Contact
             </a>
