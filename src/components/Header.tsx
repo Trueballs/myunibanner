@@ -51,16 +51,7 @@ export default function Header({ showStartButton = false, showBackButton = false
         </div>
 
         <div className="flex items-center gap-4">
-          {!showBackButton && (
-            <nav className="hidden lg:flex items-center">
-              <div className="flex items-center gap-2 bg-[#1e2d78]/5 border border-[#1e2d78]/10 px-3 py-1.5 rounded-full">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#4ECBA8] animate-pulse" />
-                <span className="text-[#1e2d78]/70 text-[10px] font-black uppercase tracking-[0.15em] whitespace-nowrap">
-                  {t("header.badge")}
-                </span>
-              </div>
-            </nav>
-          )}
+
 
           <div className="flex items-center gap-3 md:gap-4 ml-2">
             <div className="hidden sm:flex items-center gap-3 mr-2">
