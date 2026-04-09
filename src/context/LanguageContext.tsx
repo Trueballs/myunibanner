@@ -16,7 +16,7 @@ const translations: Record<Language, Record<string, string>> = {
     "header.badge": "100% Free · No account required",
 
     // Hero
-    "hero.headline": "The LinkedIn banner that makes recruiters stop scrolling.",
+    "hero.headline": "Wear your uni with pride",
     "hero.subtext": "Join 10,000+ students who finally stand out.",
     "hero.cta": "GET MY BANNER",
     "hero.takes": "Takes 5 seconds. No account required.",
@@ -28,7 +28,7 @@ const translations: Record<Language, Record<string, string>> = {
     "marquee.heading": "Trusted by students at",
 
     // How it works
-    "how.heading": "HOW TO USE OUR SERVICE",
+    "how.heading": "How to use our service",
     "how.step1.label": "Step 1",
     "how.step1.title": "Find Your University",
     "how.step1.desc": "Search for your UK university to instantly load the official logo and brand colors from our database.",
@@ -41,10 +41,10 @@ const translations: Record<Language, Record<string, string>> = {
 
     // FAQ
     "faq.heading": "FAQ",
-    "faq.q1": "How does LNBackground work?",
+    "faq.q1": "How does Myunibanner work?",
     "faq.a1": "Search for your university, choose a design, add your headline, and export your banner in one click. Our tool automatically fetches official logos and brand colors so you don't have to design anything manually.",
     "faq.q2": "Is the service really free?",
-    "faq.a2": "Yes, LNBackground is completely free for students and professionals in the UK who want to upgrade their LinkedIn profile quickly and professionally.",
+    "faq.a2": "Yes, Myunibanner is completely free for students and professionals in the UK who want to upgrade their LinkedIn profile quickly and professionally.",
     "faq.q3": "Does it work for my university?",
     "faq.a3": "We support a wide range of UK universities with their official logos and brand colors. If your school is missing, we would love to add it for you!",
     "faq.q3.button": "Request your school (Contact us)",
@@ -92,10 +92,10 @@ const translations: Record<Language, Record<string, string>> = {
 
     // FAQ
     "faq.heading": "Spørsmål & Svar",
-    "faq.q1": "Hvordan fungerer LNBackground?",
+    "faq.q1": "Hvordan fungerer Myunibanner?",
     "faq.a1": "Søk etter ditt universitet, velg et design, legg til din overskrift og eksporter banneret med ett klikk. Verktøyet henter automatisk offisielle logoer og merkefarger.",
     "faq.q2": "Er tjenesten virkelig gratis?",
-    "faq.a2": "Ja, LNBackground er helt gratis for studenter og fagfolk som ønsker å oppgradere LinkedIn-profilen sin raskt og profesjonelt.",
+    "faq.a2": "Ja, Myunibanner er helt gratis for studenter og fagfolk som ønsker å oppgradere LinkedIn-profilen sin raskt og profesjonelt.",
     "faq.q3": "Fungerer det for mitt universitet?",
     "faq.a3": "Vi støtter et bredt utvalg av norske og britiske universiteter med offisielle logoer og merkefarger. Hvis skolen din mangler, legger vi den gjerne til!",
     "faq.q3.button": "Be om din skole (Kontakt oss)",

@@ -1,0 +1,9 @@
+{
+  "colors": [
+    { "hex": "#002D5A", "name": "NHH Blue", "type": "primary" },
+    { "hex": "#FFFFFF", "name": "White", "type": "primary" }
+  ],
+  "fonts": [
+    { "name": "Inter" }
+  ]
+}

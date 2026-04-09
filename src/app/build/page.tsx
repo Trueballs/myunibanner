@@ -268,7 +268,7 @@ function L0({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headli
 
             {/* Right: Solid Brand Panel */}
             <div className="flex-1 flex flex-col items-center justify-center p-12 text-center gap-8">
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={150} maxW={480} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={600} brandColors={brand.colors} />
                 
                 {text && (
                     <p style={{
@@ -310,7 +310,7 @@ function L1({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 
             <div className="absolute inset-y-0 right-0 w-[550px] flex flex-col items-center justify-center p-12 z-10">
                 <div className="flex flex-col items-center gap-8">
-                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={tintColor} h={140} maxW={400} brandColors={brand.colors} />
+                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={tintColor} h={200} maxW={500} brandColors={brand.colors} />
                     {text && (
                         <p style={{
                             color: headlineColor, fontSize: 26, fontWeight: 900,
@@ -348,7 +348,7 @@ function L2({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
                     width: PANEL_W, background: primary, zIndex: 10, padding: "48px",
                     clipPath: 'polygon(60px 0, 100% 0, 100% 100%, 0 100%)'
                 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={150} maxW={420} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={210} maxW={520} brandColors={brand.colors} />
                 
                 {text && (
                     <p style={{
@@ -377,7 +377,7 @@ function L3({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, headlineCol
     return (
         <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center" style={{ background: primary }}>
             <div className="flex flex-col items-center gap-8" style={{ width: 660 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={160} maxW={600} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={240} maxW={800} brandColors={brand.colors} />
                 {text && (
                     <p style={{
                         color: headlineColor, fontSize: 28, fontWeight: 900, lineHeight: 1.15,
@@ -420,7 +420,7 @@ function L4({ brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', 
                     [logoPos === 'top' ? 'top' : 'bottom']: 30,
                 }}>
                 <div className="flex flex-row items-center">
-                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={140} maxW={500} />
+                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={180} maxW={600} />
                 </div>
             </div>
         </div>
@@ -443,7 +443,7 @@ function L5({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
             </div>
 
             <div className="w-[500px] flex flex-col items-center justify-center p-12 text-center gap-10 z-10" style={{ background: primary }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={160} maxW={420} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={500} brandColors={brand.colors} />
                 {text && (
                     <p style={{
                         color: headlineColor, fontSize: 24, fontWeight: 900, lineHeight: 1.15,
@@ -472,7 +472,7 @@ function L6({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
                     width: "55%", background: primary, zIndex: 10,
                     clipPath: 'polygon(120px 0, 100% 0, 100% 100%, 0 100%)'
                 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={150} maxW={480} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={210} maxW={580} brandColors={brand.colors} />
 
                 {text && (
                     <p style={{
@@ -504,7 +504,7 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
             )}
             
             <div className="relative z-10 flex flex-col items-center justify-center">
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={180} maxW={800} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={240} maxW={1000} brandColors={brand.colors} />
             </div>
         </div>
     );
@@ -516,23 +516,27 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 ═══════════════════════════════════════════════════════════════ */
 function BannerCanvas({
     brand, text, badge, estDate, statusTag, layout, imgIndex, logoIndex,
-    logoPos = 'bottom', bgStyle = 'none', tintIndex = 0, bgOpacity = 100
+    logoPos = 'bottom', bgStyle = 'none', tintIndex = 0, bgOpacity = 100, dataUrlCache = new Map()
 }: {
     brand: BrandData; text: string; badge?: string; estDate?: string; statusTag?: string; layout: Layout; imgIndex: number; logoIndex: number;
     logoPos?: 'top' | 'bottom';
     bgStyle?: 'none' | 'brand';
     tintIndex?: number;
     bgOpacity?: number;
+    dataUrlCache?: Map<string, string>;
 }) {
+    // Use cached Base64 data URL when available (iOS Safari canvas taint fix)
+    const resolve = (url: string | undefined): string => url ? (dataUrlCache.get(url) ?? url) : '';
+
     const img = brand.images.length > 0
-        ? brand.images[imgIndex % brand.images.length]
+        ? resolve(brand.images[imgIndex % brand.images.length])
         : undefined;
 
     // Resolve active logo from logoIndex
     const activeLogo = brand.logos.length > 0
         ? brand.logos[logoIndex % brand.logos.length]
         : null;
-    const logoSrc = activeLogo?.url ?? brand.fullLogo;
+    const logoSrc = resolve(activeLogo?.url ?? brand.fullLogo);
     const logoHasBg = activeLogo?.hasBg ?? brand.logoHasBg;
     const logoIsLight = activeLogo?.isLight !== false;
     const activeLogoColor = activeLogo?.logoColor;
@@ -713,6 +717,8 @@ function BuilderContent() {
     const [isDownloading, setIsDownloading] = useState(false);
     const [showDownloadPopup, setShowDownloadPopup] = useState(false);
     const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
+    // Pre-fetched Base64 Data URLs keyed by original URL (iOS Safari fix)
+    const [dataUrlCache, setDataUrlCache] = useState<Map<string, string>>(new Map());
 
     const [fontCss, setFontCss] = useState<string | null>(null);
 
@@ -770,17 +776,42 @@ function BuilderContent() {
         let path = `/api/brand?q=${encodeURIComponent(domain)}`;
         if (campus) path += `&campus=${encodeURIComponent(campus)}`;
         
+        const toDataUrl = async (url: string): Promise<string> => {
+            try {
+                const r = await fetch(url);
+                if (!r.ok) return url;
+                const blob = await r.blob();
+                return await new Promise<string>((res) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => res(reader.result as string);
+                    reader.readAsDataURL(blob);
+                });
+            } catch { return url; }
+        };
+
         fetch(path)
             .then(r => {
                 if (!r.ok) throw new Error(`Brand API error: ${r.status}`);
                 return r.json();
             })
-            .then((data: BrandData) => {
+            .then(async (data: BrandData) => {
                 if (!isMounted) return;
                 setBrand(data);
-                // Only reset indices if brand changes significantly or it's first load
                 setImgIndex(0);
                 setLogoIndex(0);
+
+                // Pre-fetch all images as Base64 so iOS Safari canvas never taints them
+                const urlsToCache = [
+                    ...data.images,
+                    ...data.logos.map((l: any) => l.url),
+                    data.fullLogo,
+                    data.iconLogo,
+                ].filter(Boolean) as string[];
+
+                const entries = await Promise.all(
+                    urlsToCache.map(async (url) => [url, await toDataUrl(url)] as [string, string])
+                );
+                if (isMounted) setDataUrlCache(new Map(entries));
             })
             .catch(err => {
                 if (!isMounted) return;
@@ -818,40 +849,85 @@ function BuilderContent() {
         if (!exportRef.current || !brand) return;
         setIsDownloading(true);
         try {
-            await new Promise(r => setTimeout(r, 100)); // wait for layout paint
-            
-            // Standard pixel ratio creates an image exactly 1584x396. 
-            // This prevents massive 4MB+ Base64 chunks that crash Vercel's Payload limits!
-            const dataUrl = await toPng(exportRef.current, {
-                pixelRatio: 1, 
-                width: W,
-                height: H,
-                style: { transform: "none", visibility: "visible", display: "block" },
-            });
+            const { saveAs } = await import("file-saver");
+            const filename = `linkedin-banner-${brand.name.toLowerCase().replace(/\s+/g, '-')}.png`;
 
-            // Native Form Submit - Safe from Safari Javascript click-UUID bugs
-            const form = document.createElement("form");
-            form.method = "POST";
-            form.action = "/api/download-banner";
-            
-            const input = document.createElement("input");
-            input.type = "hidden";
-            input.name = "dataUrl";
-            input.value = dataUrl;
-            
-            form.appendChild(input);
-            document.body.appendChild(form);
-            form.submit();
-            setTimeout(() => {
-                if (document.body.contains(form)) {
-                    document.body.removeChild(form);
+            // Detect iOS — WKWebView powers both Safari and Chrome on iPhone/iPad
+            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+            if (isIOS) {
+                // ── SERVER-SIDE RENDER (iOS) ─────────────────────────────────
+                // html-to-image uses SVG foreignObject which iOS WebKit cannot render.
+                // Solution: send parameters to our server, which fetches images
+                // server-side (no CORS), composites with Sharp, returns a real PNG.
+
+                const activeLogo = brand.logos.length > 0
+                    ? brand.logos[logoIndex % brand.logos.length]
+                    : null;
+
+                // Mirror the primary-color contrast logic from BannerCanvas
+                let primaryHex = activeLogo?.preferredBg ?? brand.colors[0] ?? '#003865';
+                const logoIsLight = activeLogo?.isLight !== false;
+                const logoHasBg = activeLogo?.hasBg ?? brand.logoHasBg;
+                if (!logoIsLight && isDark(primaryHex)) {
+                    primaryHex = brand.colors.find(c => !isDark(c)) ?? '#ffffff';
+                } else if (logoIsLight && !isDark(primaryHex) && !logoHasBg && !activeLogo?.preferredBg) {
+                    primaryHex = brand.colors.find(c => isDark(c)) ?? '#111111';
                 }
-            }, 2000);
 
-            setTimeout(() => setShowDownloadPopup(true), 400);
+                const imageUrl = brand.images.length > 0
+                    ? brand.images[imgIndex % brand.images.length]
+                    : null;
+                const logoUrl = activeLogo?.url ?? brand.fullLogo ?? null;
+
+                // Determine headline color to pass to API
+                const activeLogoColor = activeLogo?.logoColor;
+                let headlineColor = logoIsLight ? "#ffffff" : (activeLogoColor || brand.colors[0] || "#111111");
+                if (isDark(headlineColor) === isDark(primaryHex)) {
+                    headlineColor = isDark(primaryHex) ? "#ffffff" : "#111111"; // manual contrastText fallback
+                }
+
+                const response = await fetch('/api/render-banner', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        imageUrl, 
+                        logoUrl, 
+                        primaryHex, 
+                        layout, 
+                        text,
+                        headlineColor,
+                        logoIsLight
+                    }),
+                });
+
+                if (!response.ok) {
+                    const err = await response.text();
+                    throw new Error(`Server render failed: ${err}`);
+                }
+
+                const blob = await response.blob();
+                saveAs(blob, filename);
+
+            } else {
+                // ── CLIENT-SIDE RENDER (PC / Mac) ────────────────────────────
+                await new Promise(r => setTimeout(r, 400));
+
+                const blob = await toBlob(exportRef.current, {
+                    pixelRatio: 2, // 2x resolution (Retina quality) for PC/Mac
+                    width: W,
+                    height: H,
+                    style: { transform: 'none', visibility: 'visible', display: 'block' },
+                });
+
+                if (!blob) throw new Error("Canvas generation returned no data.");
+                saveAs(blob, filename);
+            }
+
+            setTimeout(() => setShowDownloadPopup(true), 800);
         } catch (e) {
             console.error("Export failed:", e);
-            alert("Download failed — please try again.");
+            alert("Download failed: " + (e instanceof Error ? e.message : String(e)));
         } finally {
             setIsDownloading(false);
         }
@@ -863,16 +939,16 @@ function BuilderContent() {
 
     return (
         <>
-            <div className="min-h-screen bg-[#F5F4F1] font-sans flex justify-center w-full px-4 md:px-8 xl:px-12 py-4 md:py-6 box-border overflow-x-hidden">
-                {/* Safe inline font CSS to prevent html-to-image CORS/SecurityError crashes */}
-                {fontCss && <style dangerouslySetInnerHTML={{ __html: fontCss }} />}
+        <div className="min-h-screen bg-[#F5F4F1] font-sans flex justify-center w-full px-4 md:px-8 xl:px-12 py-4 md:py-6 gap-6 xl:gap-8 box-border overflow-x-hidden">
+            {/* Safe inline font CSS to prevent html-to-image CORS/SecurityError crashes */}
+            {fontCss && <style dangerouslySetInnerHTML={{ __html: fontCss }} />}
 
-                <main className="w-full xl:w-[60%] mx-auto flex flex-col shrink-0 relative bg-[#F5F4F1]">
+            <main className="w-full xl:w-[60%] flex flex-col shrink-0 relative bg-[#F5F4F1]">
 
                 {/* ── NAV ─────────────────────────────────────────── */}
-                <Header showStartButton={false} activeBrand={brand} />
+                <Header showStartButton={false} showBackButton activeBrand={brand} />
 
-                <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-3 w-full mt-6 md:mt-8 xl:mt-10 mb-10 md:mb-12 xl:mb-16">
+                <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-6 w-full mt-2 md:mt-4 mb-10 md:mb-12 xl:mb-16">
 
                     {/* ── BANNER PREVIEW ──────────────────────────── */}
                     <section className="sticky top-0 xl:top-4 z-40 pt-4 -mt-4 bg-[#F5F4F1]">
@@ -912,6 +988,7 @@ function BuilderContent() {
                                                 bgStyle={bgStyle}
                                                 tintIndex={tintIndex}
                                                 bgOpacity={bgOpacity}
+                                                dataUrlCache={dataUrlCache}
                                             />
                                         </div>
 
@@ -936,6 +1013,7 @@ function BuilderContent() {
                                                     bgStyle={bgStyle}
                                                     tintIndex={tintIndex}
                                                     bgOpacity={bgOpacity}
+                                                    dataUrlCache={dataUrlCache}
                                                 />
                                             </div>
                                         </div>
@@ -963,7 +1041,7 @@ function BuilderContent() {
                     <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">
                         <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black"
                             style={{ background: primary }}>01</span>
-                        Personal Branding
+                        Personal Headline
                     </label>
                                         {/* ── THE HEADLINE ARCHITECT ──────────────── */}
                                         <div className="space-y-6">
@@ -998,8 +1076,8 @@ function BuilderContent() {
                                 )}
                             </AnimatePresence>
     </div>
-    <hr className="border-gray-100" />
-    <div className="flex flex-col gap-6">
+
+    <div className="flex flex-col gap-8">
         {brand && (
                                 <>
                                     {/* Layout picker */}
@@ -1218,7 +1296,7 @@ function BuilderContent() {
                             {/* Footer */}
                             <div className="p-4 border-t border-gray-100 bg-white">
                                 <button
-                                    onClick={() => setShowDownloadPopup(false)}
+                                    onClick={() => router.push('/')}
                                     className="w-full py-3.5 rounded-xl font-black text-sm uppercase tracking-widest bg-gray-900 text-white hover:bg-gray-800 transition-colors shadow-lg active:scale-95 transition-transform"
                                 >
                                     Got it, thanks!

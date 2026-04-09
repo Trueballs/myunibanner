@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+
+export const dynamic = 'force-dynamic';
 import { existsSync, readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 import { ALL_UNIVERSITIES } from '@/data/universities';
@@ -35,6 +37,8 @@ export async function GET(request: Request) {
                 headers: {
                     'Content-Type': contentType,
                     'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, OPTIONS',
                 },
             });
         }

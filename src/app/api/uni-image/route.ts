@@ -1,5 +1,8 @@
 import { existsSync, readFileSync } from 'fs';
+
+export const dynamic = 'force-dynamic';
 import { join } from 'path';
+import sharp from 'sharp';
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
@@ -27,10 +30,39 @@ export async function GET(request: Request) {
                     'image/jpeg';
 
     const buf = readFileSync(filePath);
-    return new Response(buf, {
+
+    // OPTIMIZATION: If width is provided, resize the image for faster loading
+    const w = searchParams.get('w');
+    if (w) {
+        try {
+            const width = parseInt(w);
+            if (!isNaN(width) && width > 0) {
+                const optimized = await sharp(buf)
+                    .resize(width, null, { withoutEnlargement: true })
+                    .sharpen(0.5) // Simplified sharpening to fix lint/type error
+                    .webp({ quality: 95, lossless: false, smartSubsample: true })
+                    .toBuffer();
+                
+                return new Response(new Uint8Array(optimized), {
+                    headers: {
+                        'Content-Type': 'image/webp',
+                        'Cache-Control': 'public, max-age=3600',
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+                    },
+                });
+            }
+        } catch (e) {
+            console.error('Image optimization failed:', e);
+        }
+    }
+
+    return new Response(new Uint8Array(buf), {
         headers: {
             'Content-Type': contentType,
             'Cache-Control': 'public, max-age=3600',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, OPTIONS',
         },
     });
 }

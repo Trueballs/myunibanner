@@ -24,12 +24,19 @@ export default function OnboardingModal() {
   const [selectedCampusUni, setSelectedCampusUni] = useState<University | null>(null);
 
   // Data
-  const [data, setData] = useState({
+  const [data, setData] = useState<{
+    country: string;
+    language: string;
+    degree: string;
+    year: string;
+    industry: string[];
+    industryOther: string;
+  }>({
     country: "",
     language: "English",
     degree: "",
     year: "",
-    industry: "",
+    industry: [],
     industryOther: "",
   });
 
@@ -39,15 +46,11 @@ export default function OnboardingModal() {
     if (savedData) {
       try {
         const parsed = JSON.parse(savedData);
+        if (typeof parsed.industry === "string") {
+            parsed.industry = parsed.industry ? [parsed.industry] : [];
+        }
         setData(prev => ({ ...prev, ...parsed }));
       } catch (e) {}
-    }
-
-    // 2. Auto-open logic for NEW users
-    const hasCompleted = localStorage.getItem("lnbg_onboarding_done");
-    let timer: NodeJS.Timeout;
-    if (!hasCompleted) {
-      timer = setTimeout(() => setIsOpen(true), 1500);
     }
 
     // 3. Manual open logic (clicking the button)
@@ -55,7 +58,13 @@ export default function OnboardingModal() {
       // Re-load data when manually opened to be sure it's fresh
       const freshData = localStorage.getItem("lnbg_user_data");
       if (freshData) {
-        try { setData(prev => ({ ...prev, ...JSON.parse(freshData) })); } catch (e) {}
+        try { 
+            const parsed = JSON.parse(freshData);
+            if (typeof parsed.industry === "string") {
+                parsed.industry = parsed.industry ? [parsed.industry] : [];
+            }
+            setData(prev => ({ ...prev, ...parsed })); 
+        } catch (e) {}
       }
       setUniQuery("");
       setUniSuggestions([]);
@@ -67,7 +76,11 @@ export default function OnboardingModal() {
     const handleUpdate = (e: Event) => {
       const customEvent = e as CustomEvent;
       if (customEvent.detail) {
-        setData(prev => ({ ...prev, ...customEvent.detail }));
+        const detail = { ...customEvent.detail };
+        if (typeof detail.industry === "string") {
+            detail.industry = detail.industry ? [detail.industry] : [];
+        }
+        setData(prev => ({ ...prev, ...detail }));
       }
     };
 
@@ -75,7 +88,6 @@ export default function OnboardingModal() {
     window.addEventListener("lnbg_user_data_updated", handleUpdate as EventListener);
     
     return () => {
-      if (timer) clearTimeout(timer);
       window.removeEventListener("lnbg_open_onboarding", handleOpen);
       window.removeEventListener("lnbg_user_data_updated", handleUpdate as EventListener);
     };
@@ -257,26 +269,46 @@ export default function OnboardingModal() {
                 </div>
 
                 <div>
-                  <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">Target Industry</p>
-                  <div className="grid grid-cols-2 gap-2">
-                    {INDUSTRIES.map(ind => (
-                      <button
-                        key={ind}
-                        onClick={() => setData({ ...data, industry: ind })}
-                        className={`px-3 py-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-between ${data.industry === ind ? 'bg-[#e0f7f0] border-[#4ECBA8] text-[#1e2d78] shadow-sm' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'}`}
-                      >
-                        {ind}
-                        {data.industry === ind && <Check className="w-4 h-4 text-[#4ECBA8]" />}
-                      </button>
-                    ))}
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Target Industry</p>
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{(() => {
+                      const arr = Array.isArray(data.industry) ? data.industry : [];
+                      return arr.length;
+                    })()}/3 selected</p>
                   </div>
-                  {data.industry === "Other" && (
+                  <div className="grid grid-cols-2 gap-2">
+                    {INDUSTRIES.map(ind => {
+                      const currentIndustries = Array.isArray(data.industry) ? data.industry : [];
+                      const isSelected = currentIndustries.includes(ind);
+                      return (
+                        <button
+                          key={ind}
+                          onClick={() => {
+                            setData(prev => {
+                              const current = Array.isArray(prev.industry) ? prev.industry : [];
+                              if (current.includes(ind)) {
+                                return { ...prev, industry: current.filter(i => i !== ind) };
+                              } else {
+                                if (current.length >= 3) return prev;
+                                return { ...prev, industry: [...current, ind] };
+                              }
+                            });
+                          }}
+                          className={`px-3 py-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-between ${isSelected ? 'bg-[#e0f7f0] border-[#4ECBA8] text-[#1e2d78] shadow-sm' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'}`}
+                        >
+                          {ind}
+                          {isSelected && <Check className="w-4 h-4 text-[#4ECBA8]" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {(Array.isArray(data.industry) ? data.industry : []).includes("Other") && (
                     <input
                       type="text"
                       autoFocus
                       placeholder="Tell us more..."
                       value={data.industryOther ?? ""}
-                      onChange={(e) => setData({ ...data, industryOther: e.target.value })}
+                      onChange={(e) => setData(prev => ({ ...prev, industryOther: e.target.value }))}
                       className="mt-3 w-full px-4 py-3 bg-white border-2 border-[#4ECBA8] rounded-xl text-sm font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-[#4ECBA8]/20 transition-all"
                     />
                   )}
@@ -440,11 +472,11 @@ export default function OnboardingModal() {
               <button
                 onClick={nextStep}
                 className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-widest transition-all shadow-md active:scale-95 ${
-                  (step === 1 && !data.country) || (step === 2 && (!data.degree || !data.year)) || (step === 3 && !data.industry)
+                  (step === 1 && !data.country) || (step === 2 && (!data.degree || !data.year)) || (step === 3 && (!Array.isArray(data.industry) || data.industry.length === 0))
                     ? 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50'
                     : 'bg-[#1e2d78] text-white hover:bg-blue-900'
                 }`}
-                disabled={(step === 1 && !data.country) || (step === 2 && (!data.degree || !data.year)) || (step === 3 && !data.industry)}
+                disabled={(step === 1 && !data.country) || (step === 2 && (!data.degree || !data.year)) || (step === 3 && (!Array.isArray(data.industry) || data.industry.length === 0))}
               >
                 Continue <ChevronRight className="w-4 h-4" />
               </button>

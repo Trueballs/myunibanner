@@ -44,9 +44,9 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h1 className="font-black leading-[1.1] tracking-tighter text-black uppercase w-full max-w-4xl mx-auto
-                  text-4xl md:text-5xl lg:text-5xl relative">
-                  {t("hero.headline")}
+                <h1 className="font-[family-name:var(--font-playful)] font-black leading-[1.1] tracking-tight text-black w-full max-w-4xl mx-auto
+                  text-4xl md:text-5xl lg:text-5xl xl:text-6xl relative">
+                  Wear your uni with pride.
                 </h1>
               </motion.div>
 
@@ -182,7 +182,7 @@ export default function Home() {
         {/* ── LOGO MARQUEE STRIP ── */}
         <div className="relative z-10 w-full px-4 md:px-8 pb-12">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-center text-4xl md:text-5xl font-black tracking-tighter text-[#111827] uppercase mb-16">
+            <h2 className="text-center text-4xl md:text-5xl font-black tracking-tight text-[#111827] font-[family-name:var(--font-playful)] mb-16">
               {t("marquee.heading")}
             </h2>
             <div className="bg-[#1e2d78] w-full rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.1)] overflow-hidden py-6 border border-white/5">
@@ -199,11 +199,11 @@ export default function Home() {
                 `}</style>
                 <div className="marquee-track">
                   {[
-                    { slug: "loughborough", h: 80 }, { slug: "durham", h: 150 }, { slug: "exeter", h: 150 }, { slug: "oxford", h: 100 }, { slug: "lse", h: 170 },
-                    { slug: "loughborough", h: 80 }, { slug: "durham", h: 150 }, { slug: "exeter", h: 150 }, { slug: "oxford", h: 100 }, { slug: "lse", h: 170 },
+                    { slug: "loughborough", h: 80 }, { slug: "uio", h: 100 }, { slug: "durham", h: 130 }, { slug: "bi", h: 100 }, { slug: "exeter", h: 140 }, { slug: "nhh", h: 120 }, { slug: "oxford", h: 100 }, { slug: "nmbu", h: 100 }, { slug: "lse", h: 170 }, { slug: "ntnu", h: 100 },
+                    { slug: "loughborough", h: 80 }, { slug: "uio", h: 100 }, { slug: "durham", h: 130 }, { slug: "bi", h: 100 }, { slug: "exeter", h: 140 }, { slug: "nhh", h: 120 }, { slug: "oxford", h: 100 }, { slug: "nmbu", h: 100 }, { slug: "lse", h: 170 }, { slug: "ntnu", h: 100 },
                   ].map((item, i) => (
                     <div key={i} className="flex items-center justify-center flex-shrink-0 w-[240px] md:w-[calc((100vw-4rem)/3)] xl:w-[384px] px-8" style={{ height: 130 }}>
-                      <img src={`/marquee-logos/${item.slug}.png`} alt={item.slug} style={{ height: item.h > 130 ? 130 : item.h, width: "auto", maxWidth: "100%", objectFit: "contain", opacity: 1 }} />
+                      <img src={`/marquee-logos/${item.slug}.png?v=${Date.now()}`} alt={item.slug} style={{ height: item.h > 130 ? 130 : item.h, width: "auto", maxWidth: "100%", objectFit: "contain", opacity: 1 }} />
                     </div>
                   ))}
                 </div>
@@ -215,7 +215,7 @@ export default function Home() {
         {/* ── SECTION 2.25: HOW IT WORKS ── */}
         <section className="bg-[#F5F4F1] w-full px-4 md:px-8 border-t border-gray-100">
           <div className="max-w-6xl mx-auto py-12">
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-[#111827] text-center mb-16 uppercase">
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-[#111827] font-[family-name:var(--font-playful)] text-center mb-16">
               {t("how.heading")}
             </h2>
 
@@ -294,10 +294,10 @@ export default function Home() {
 
         {/* ── SECTION 2.75: FAQ ── */}
         <section className="bg-[#F5F4F1] w-full px-4 md:px-8 overflow-hidden">
-          <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 md:gap-24 pt-12 pb-24">
+          <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 md:gap-24 pt-12 pb-8">
             {/* Left: Heading */}
             <div className="md:w-1/3 pt-4">
-              <h2 className="text-7xl md:text-8xl font-black tracking-tighter text-[#111827] uppercase leading-[0.8]">
+              <h2 className="text-7xl md:text-8xl font-black tracking-tight text-[#111827] font-[family-name:var(--font-playful)] leading-[0.8]">
                 {t("faq.heading")}
               </h2>
             </div>

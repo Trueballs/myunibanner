@@ -1,4 +1,6 @@
 import { existsSync, readFileSync, readdirSync } from 'fs';
+
+export const dynamic = 'force-dynamic';
 import { join } from 'path';
 import { ALL_UNIVERSITIES } from '@/data/universities';
 import sharp from 'sharp';
@@ -133,10 +135,38 @@ export async function GET(request: Request) {
     }
 
     const buf = readFileSync(filePath);
-    return new Response(buf, {
+
+    // OPTIMIZATION: If width is provided, resize the logo for faster loading
+    const w = searchParams.get('w');
+    if (w) {
+        try {
+            const width = parseInt(w);
+            if (!isNaN(width) && width > 0) {
+                const optimized = await sharp(buf)
+                    .resize(width, null, { withoutEnlargement: true })
+                    .webp({ quality: 85 })
+                    .toBuffer();
+                
+                return new Response(new Uint8Array(optimized), {
+                    headers: {
+                        'Content-Type': 'image/webp',
+                        'Cache-Control': 'public, max-age=3600',
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+                    },
+                });
+            }
+        } catch (e) {
+            console.error('Logo optimization failed:', e);
+        }
+    }
+
+    return new Response(new Uint8Array(buf), {
         headers: {
             'Content-Type': contentType,
             'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, OPTIONS',
         },
     });
 }

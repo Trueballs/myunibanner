@@ -1,5 +1,5 @@
 {
-  "name": "temp-app",
+  "name": "myunibanner",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,16 +9,20 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@shopify/storefront-api-client": "^1.0.10",
     "@types/file-saver": "^2.0.7",
+    "@vercel/analytics": "^2.0.1",
     "clsx": "^2.1.1",
     "file-saver": "^2.0.5",
     "framer-motion": "^12.34.3",
     "html-to-image": "^1.11.13",
+    "html2canvas": "^1.4.1",
     "lucide-react": "^0.575.0",
     "next": "16.1.6",
     "playwright": "^1.58.2",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "sharp": "^0.34.5",
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {

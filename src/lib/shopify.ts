@@ -1,11 +1,21 @@
 // src/lib/shopify.ts
 import { createStorefrontApiClient } from '@shopify/storefront-api-client';
 
-export const shopify = createStorefrontApiClient({
-  storeDomain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_URL || '',
-  apiVersion: '2026-01',
-  publicAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN || '',
-});
+let cachedClient: any = null;
+
+function getShopifyClient() {
+  if (cachedClient) return cachedClient;
+  
+  const storeDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_URL || 'placeholder.myshopify.com';
+  const publicAccessToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN || 'placeholder_token';
+
+  cachedClient = createStorefrontApiClient({
+    storeDomain,
+    apiVersion: '2026-01',
+    publicAccessToken,
+  });
+  return cachedClient;
+}
 
 // Track customer data with Helium Custom Fields
 export async function trackCustomerData(customerId: string, schoolName: string, university: string) {
@@ -106,7 +116,7 @@ export async function getShopInfo() {
   `;
 
   try {
-    const response = await shopify.request(query);
+    const response = await getShopifyClient().request(query);
     return response.data?.shop;
   } catch (error) {
     console.error('Error fetching shop info:', error);

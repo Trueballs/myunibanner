@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
+
+export const dynamic = 'force-dynamic';
 import { ALL_UNIVERSITIES } from '@/data/universities';
 import { existsSync, readFileSync, readdirSync } from 'fs';
+
 import { join } from 'path';
 import sharp from 'sharp';
 
@@ -154,7 +157,7 @@ async function getAllLogos(basePath: string, folder: string, domain: string, cam
 
         // We only want the relative filename to re-fetch via api/full-logo
         // But if it's in a subfolder, we need that path segment
-        const fileParam = campus ? join(campus, f) : f;
+        const fileParam = (logoDir !== rootLogoDir && campus) ? join(campus, f) : f;
 
         return {
             url: `/api/full-logo?domain=${domain}&file=${encodeURIComponent(fileParam)}&v=${Date.now()}`,
@@ -237,9 +240,12 @@ export async function GET(request: Request) {
         folder: match.folder,
         root: match.root,
         logo: `/api/logo?domain=${match.domain}`,
-        fullLogo: bestTextLogo?.url ?? `/api/full-logo?domain=${match.domain}&v=${Date.now()}`,
-        iconLogo: bestIconLogo?.url,
+        fullLogo: (bestTextLogo?.url ?? `/api/full-logo?domain=${match.domain}&v=${Date.now()}`) + "&w=800",
+        iconLogo: bestIconLogo?.url ? (bestIconLogo.url + "&w=800") : undefined,
         logoHasBg: bestTextLogo?.hasBg ?? false,
-        logos, colors, fonts, images,
+        logos: logos.map(l => ({ ...l, url: l.url + "&w=800" })), 
+        colors, 
+        fonts, 
+        images: images.map(img => img + "&w=2400"),
     });
 }

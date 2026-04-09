@@ -2,6 +2,8 @@
 import { trackCustomerData } from '@/lib/shopify';
 import { NextRequest, NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * POST /api/shopify-sync
  * Syncs student registration data with Shopify Customer Fields
