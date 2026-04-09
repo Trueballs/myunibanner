@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Menu, X, ArrowLeft, Search } from "lucide-react";
+import { Menu, X, ArrowLeft, Search, Linkedin, Twitter, Instagram } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { useLanguage } from "@/context/LanguageContext";
@@ -61,6 +61,27 @@ export default function Header({ showStartButton = false, showBackButton = false
               </div>
             </nav>
           )}
+
+          <div className="flex items-center gap-3 md:gap-4 ml-2">
+            <div className="hidden sm:flex items-center gap-3 mr-2">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-[#1e2d78]/70 hover:text-[#1e2d78] transition-all duration-300 hover:-translate-y-1 hover:scale-110 active:scale-95">
+                <Linkedin className="w-4 h-4 md:w-5 md:h-5" />
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-[#1e2d78]/70 hover:text-[#1e2d78] transition-all duration-300 hover:-translate-y-1 hover:scale-110 active:scale-95">
+                <Twitter className="w-4 h-4 md:w-5 md:h-5" />
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-[#1e2d78]/70 hover:text-[#1e2d78] transition-all duration-300 hover:-translate-y-1 hover:scale-110 active:scale-95">
+                <Instagram className="w-4 h-4 md:w-5 md:h-5" />
+              </a>
+            </div>
+
+            <a 
+              href="mailto:oscar.w.skaarderud@gmail.com"
+              className="bg-white border border-gray-200 text-[#1e2d78] text-[10px] font-black px-4 py-2.5 rounded-xl uppercase tracking-wider flex items-center justify-center hover:border-[#1e2d78] hover:bg-[#1e2d78]/5 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 active:scale-95 shadow-sm flex-shrink-0"
+            >
+              Contact
+            </a>
+          </div>
 
           {showBackButton && (
             <button 

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Globe, ChevronDown, Check, Search } from "lucide-react";
+import { Globe, ChevronDown, Check, Search, Linkedin, Twitter, Instagram } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -94,6 +94,18 @@ export default function Footer() {
             className="border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-opacity cursor-pointer font-medium"
           >
             Contact
+          </a>
+        </div>
+
+        <div className="flex items-center gap-4 ml-0 md:ml-4 text-[#1a1a1a]">
+          <a href="#" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-all duration-300 hover:-translate-y-1 hover:scale-110 active:scale-95">
+            <Linkedin className="w-5 h-5" />
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-all duration-300 hover:-translate-y-1 hover:scale-110 active:scale-95">
+            <Twitter className="w-5 h-5" />
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-all duration-300 hover:-translate-y-1 hover:scale-110 active:scale-95">
+            <Instagram className="w-5 h-5" />
           </a>
         </div>
       </div>
