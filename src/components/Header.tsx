@@ -68,7 +68,7 @@ export default function Header({ showStartButton = false, showBackButton = false
 
             <a 
               href="mailto:oscar.w.skaarderud@gmail.com"
-              className="bg-white border border-gray-200 text-[#1e2d78] text-[10px] font-semibold font-sans px-4 py-2.5 rounded-xl uppercase tracking-wider flex items-center justify-center hover:border-[#1e2d78] hover:bg-[#1e2d78]/5 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 active:scale-95 shadow-sm flex-shrink-0"
+              className="bg-white border border-gray-200 text-[#1e2d78] text-[10px] font-black font-outfit px-4 py-2.5 rounded-xl uppercase tracking-wider flex items-center justify-center hover:border-[#1e2d78] hover:bg-[#1e2d78]/5 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 active:scale-95 shadow-sm flex-shrink-0"
             >
               Contact
             </a>
@@ -77,7 +77,7 @@ export default function Header({ showStartButton = false, showBackButton = false
           {showBackButton && (
             <button 
               onClick={() => router.push("/")}
-              className="bg-white border border-gray-200 text-[#1e2d78] text-[10px] font-semibold font-sans px-4 py-2.5 rounded-xl uppercase tracking-wider flex items-center gap-2 hover:border-[#1e2d78] transition-all active:scale-95 shadow-sm flex-shrink-0"
+              className="bg-white border border-gray-200 text-[#1e2d78] text-[10px] font-black font-outfit px-4 py-2.5 rounded-xl uppercase tracking-wider flex items-center gap-2 hover:border-[#1e2d78] transition-all active:scale-95 shadow-sm flex-shrink-0"
             >
               <ArrowLeft className="w-3.5 h-3.5 text-[#1e2d78]" /> Back
             </button>
@@ -86,7 +86,7 @@ export default function Header({ showStartButton = false, showBackButton = false
           {showStartButton && (
             <button 
               onClick={() => router.push("/")}
-              className="bg-white border border-gray-200 text-[#1e2d78] text-[10px] font-semibold font-sans px-4 py-2.5 rounded-xl uppercase tracking-wider flex items-center gap-2 hover:border-[#1e2d78] transition-all active:scale-95 shadow-sm flex-shrink-0"
+              className="bg-white border border-gray-200 text-[#1e2d78] text-[10px] font-black font-outfit px-4 py-2.5 rounded-xl uppercase tracking-wider flex items-center gap-2 hover:border-[#1e2d78] transition-all active:scale-95 shadow-sm flex-shrink-0"
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Start Designing
             </button>
