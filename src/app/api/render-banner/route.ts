@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import sharp from 'sharp';
+import { ImageResponse } from 'next/og';
+import React from 'react';
 
 const W = 1584, H = 396;
 
@@ -185,23 +187,66 @@ export async function POST(req: NextRequest) {
             const finalLines = lines.slice(0, 3);
             let centerX = panelW > 0 ? (panelX + (panelW / 2) + (layout === 2 ? 30 : layout === 6 ? 60 : 0)) : (W / 2);
             let centerY = [0, 1, 2, 5, 6].includes(layout) ? 320 : layout === 3 ? 340 : 310;
-            const startY = centerY - (finalLines.length - 1) * 18;
             
-            const tspans = finalLines.map((line, i) => 
-                `<tspan x="${centerX}" dy="${i === 0 ? 0 : '1.1em'}">${line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</tspan>`
-            ).join('');
-
             const hColor = body.headlineColor || (body.logoIsLight ? '#ffffff' : '#111111');
             console.log(`Rendering text: "${text}" with color: ${hColor} at center: ${centerX},${centerY}`);
 
-            const textSvg = Buffer.from(
-                `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
-                    <text x="${centerX}" y="${startY}" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="900" fill="${hColor}" text-anchor="middle" dominant-baseline="auto">
-                        ${tspans}
-                    </text>
-                </svg>`
-            );
-            composites.push({ input: textSvg, top: 0, left: 0 });
+            const textWidth = Math.floor(panelW > 0 ? panelW + 100 : W);
+            const textHeight = 150;
+            const textLeft = Math.floor(centerX - textWidth / 2);
+            const textTop = Math.floor(centerY - textHeight / 2) - 10;
+
+            try {
+                // Satori strictly requires an explicit font in Node API environments!
+                // Fetching a fast, reliable bold TTF from Google Fonts to guarantee text renders.
+                const fontRes = await fetch('https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmYUtfBBc9.ttf');
+                const fontData = await fontRes.arrayBuffer();
+
+                const textImageRes = new ImageResponse(
+                    React.createElement('div', {
+                        style: {
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: textWidth,
+                            height: textHeight,
+                            color: hColor,
+                            fontSize: 30, // Increased slighty to match Sharp sizing
+                            fontWeight: 900,
+                            lineHeight: 1.15,
+                            letterSpacing: '-0.02em',
+                            textAlign: 'center',
+                            fontFamily: '"Roboto"',
+                            background: 'transparent'
+                        }
+                    }, finalLines.map((line, i) => React.createElement('div', {
+                        key: i,
+                        style: { display: 'flex' }
+                    }, line))),
+                    { 
+                        width: textWidth, 
+                        height: textHeight,
+                        fonts: [{
+                            name: 'Roboto',
+                            data: fontData,
+                            weight: 900,
+                            style: 'normal',
+                        }]
+                    }
+                );
+
+                const textImgBuffer = Buffer.from(await textImageRes.arrayBuffer());
+                
+                // Only composite if we got a valid image buffer
+                if (textImgBuffer.length > 100) {
+                    composites.push({ input: textImgBuffer, top: textTop, left: textLeft, blend: 'over' });
+                } else {
+                    console.error('ImageResponse produced an empty image buffer');
+                }
+            } catch (textErr) {
+                console.error('Text overlay generation failed via ImageResponse:', textErr);
+            }
         } else {
             console.log('Skipping text overlay: text is empty or missing.');
         }
