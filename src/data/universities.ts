@@ -40,9 +40,6 @@ export const ALL_UNIVERSITIES = [...UK_UNIVERSITIES, ...NORWAY_UNIVERSITIES];
 export function searchUniversities(query: string, country?: string, limit = 6): University[] {
     try {
         const trimmed = query?.trim()?.toLowerCase() || "";
-        if (!trimmed) return [];
-        
-        // Handle country detection
         let currentCountry = country;
         if (!country && typeof window !== "undefined") {
             try {
@@ -54,18 +51,22 @@ export function searchUniversities(query: string, country?: string, limit = 6): 
                     }
                 }
             } catch (e) {
-                // Silently fail - continue with default
                 console.debug("Failed to parse user data from localStorage");
             }
         }
-        // Final fallback for sorting priority
-        const priorityCountry = currentCountry || "United Kingdom";
+
+        // Strictly filter the pool by the selected country
+        const pool = currentCountry 
+            ? ALL_UNIVERSITIES.filter(u => u.country === currentCountry)
+            : ALL_UNIVERSITIES;
+
+        if (!trimmed) {
+            return pool.slice(0, limit);
+        }
 
         const queryWords = trimmed.split(/\s+/).filter(Boolean);
-        
-        if (queryWords.length === 0) return [];
 
-        const results = ALL_UNIVERSITIES.filter(u => {
+        const results = pool.filter(u => {
             try {
                 const searchableText = [
                     u?.name || "",
@@ -107,10 +108,6 @@ export function searchUniversities(query: string, country?: string, limit = 6): 
                 const bExactName = bNameLower === trimmed;
                 if (aExactName && !bExactName) return -1;
                 if (!aExactName && bExactName) return 1;
-
-                // Priority country
-                if (a?.country === priorityCountry && b?.country !== priorityCountry) return -1;
-                if (a?.country !== priorityCountry && b?.country === priorityCountry) return 1;
 
                 return aNameLower.localeCompare(bNameLower);
             } catch (e) {

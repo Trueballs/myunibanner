@@ -383,9 +383,7 @@ export default function OnboardingModal() {
                       <div className="px-4 py-3 text-sm text-gray-400 font-medium bg-white">No universities found for "{uniQuery}"</div>
                     ) : (
                       // Pre-search: show all available schools
-                      searchUniversities("a", data.country || undefined, 20).concat(
-                        searchUniversities("u", data.country || undefined, 20)
-                      ).filter((u, i, arr) => arr.findIndex(x => x.domain === u.domain) === i)
+                      searchUniversities("", data.country || undefined, 50)
                       .map((uni) => (
                         <button
                           key={uni.domain}
