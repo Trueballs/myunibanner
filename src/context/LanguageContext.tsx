@@ -25,13 +25,13 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.after": "After",
 
     // Marquee
-    "marquee.heading": "Trusted by students at",
+    "marquee.heading": "Trusted by students worldwide",
 
     // How it works
     "how.heading": "How to use our service",
     "how.step1.label": "Step 1",
     "how.step1.title": "Find Your University",
-    "how.step1.desc": "Search for your UK university to instantly load the official logo and brand colors from our database.",
+    "how.step1.desc": "Search for your university to instantly load the official logo and brand colors from our database.",
     "how.step2.label": "Step 2",
     "how.step2.title": "Customize Style",
     "how.step2.desc": "Choose from professional layout templates and add your personalized headline to stand out.",
@@ -68,7 +68,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Hero
     "hero.headline": "LinkedIn-banneret som får rekrutterere til å stoppe.",
-    "hero.subtext": "Bli med 10 000+ studenter som endelig skiller seg ut.",
+    "hero.subtext": "Bli med studenter over hele verden som endelig skiller seg ut.",
     "hero.cta": "FÅ MITT BANNER",
     "hero.takes": "Tar 5 sekunder. Ingen konto nødvendig.",
     "hero.annotation": "Ingen designerfaring nødvendig",
@@ -76,7 +76,7 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.after": "Etter",
 
     // Marquee
-    "marquee.heading": "Brukt av studenter ved",
+    "marquee.heading": "Brukt av studenter over hele verden",
 
     // How it works
     "how.heading": "SLIK BRUKER DU TJENESTEN",

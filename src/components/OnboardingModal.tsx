@@ -93,6 +93,17 @@ export default function OnboardingModal() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   const completeOnboardingData = () => {
     localStorage.setItem("lnbg_onboarding_done", "true");
     localStorage.setItem("lnbg_user_data", JSON.stringify(data));
@@ -163,7 +174,7 @@ export default function OnboardingModal() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -30, scale: 0.95 }}
           transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-          className="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-y-auto max-h-[90vh] relative flex flex-col"
+          className="bg-white rounded-3xl w-full max-w-lg h-[580px] shadow-2xl relative flex flex-col overflow-hidden"
         >
           {/* Header */}
           {step < 4 && (
@@ -185,7 +196,7 @@ export default function OnboardingModal() {
             </div>
           )}
 
-          <div className="p-6 md:p-8">
+          <div className="p-6 flex-1 overflow-y-auto">
             {step === 1 && (
               <div className="space-y-6">
                 <div>
@@ -203,7 +214,7 @@ export default function OnboardingModal() {
                       placeholder="Search countries..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                      className="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
                     />
                   </div>
                   <div className="flex flex-col gap-1 max-h-32 overflow-y-auto mb-6 pr-2">
@@ -211,7 +222,7 @@ export default function OnboardingModal() {
                       <button
                         key={country}
                         onClick={() => setData({ ...data, country })}
-                        className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${data.country === country ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-100'}`}
+                        className={`flex items-center justify-between px-4 py-2.5 rounded-full text-xs font-bold transition-all ${data.country === country ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-100'}`}
                       >
                         {country}
                         {data.country === country && <Check className="w-4 h-4 text-white" />}
@@ -223,20 +234,20 @@ export default function OnboardingModal() {
             )}
 
             {step === 2 && (
-              <div className="space-y-6">
+              <div className="space-y-3">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] tracking-tight mb-2">Tell us about your studies</h2>
+                  <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] tracking-tight mb-1">Tell us about your studies</h2>
                   <p className="text-gray-500 text-sm">This helps us understand our user base for future features.</p>
                 </div>
 
                 <div>
                   <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">Degree Type</p>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-2">
                     {DEGREES.map(deg => (
                       <button
                         key={deg}
                         onClick={() => setData({ ...data, degree: deg })}
-                        className={`px-3 py-3 rounded-xl text-xs font-bold transition-all border ${data.degree === deg ? 'bg-blue-50 border-blue-600 text-blue-700 shadow-sm' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'}`}
+                        className={`px-3 py-2.5 rounded-full text-xs font-bold transition-all border ${data.degree === deg ? 'bg-blue-50 border-blue-600 text-blue-700 shadow-sm' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'}`}
                       >
                         {deg}
                       </button>
@@ -251,7 +262,7 @@ export default function OnboardingModal() {
                       <button
                         key={yr}
                         onClick={() => setData({ ...data, year: yr })}
-                        className={`px-3 py-3 rounded-xl text-xs font-bold transition-all border ${data.year === yr ? 'bg-[#1e2d78] border-[#1e2d78] text-white shadow-md' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'}`}
+                        className={`px-3 py-2.5 rounded-full text-xs font-bold transition-all border ${data.year === yr ? 'bg-[#1e2d78] border-[#1e2d78] text-white shadow-md' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'}`}
                       >
                         {yr}
                       </button>
@@ -262,10 +273,10 @@ export default function OnboardingModal() {
             )}
 
             {step === 3 && (
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <div>
                   <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] tracking-tight mb-2">What's your career goal?</h2>
-                  <p className="text-gray-500 text-sm">We'll use this to safely match you with relevant career opportunities later.</p>
+                  <p className="text-gray-500 text-sm">Choose up to 3 industries. We'll use this to safely match you with relevant career opportunities later.</p>
                 </div>
 
                 <div>
@@ -276,7 +287,7 @@ export default function OnboardingModal() {
                       return arr.length;
                     })()}/3 selected</p>
                   </div>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {INDUSTRIES.map(ind => {
                       const currentIndustries = Array.isArray(data.industry) ? data.industry : [];
                       const isSelected = currentIndustries.includes(ind);
@@ -294,7 +305,7 @@ export default function OnboardingModal() {
                               }
                             });
                           }}
-                          className={`px-3 py-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-between ${isSelected ? 'bg-[#e0f7f0] border-[#4ECBA8] text-[#1e2d78] shadow-sm' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'}`}
+                          className={`px-4 py-3 rounded-full text-xs font-bold transition-all border flex items-center justify-between ${isSelected ? 'bg-[#e0f7f0] border-[#4ECBA8] text-[#1e2d78] shadow-sm' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'}`}
                         >
                           {ind}
                           {isSelected && <Check className="w-4 h-4 text-[#4ECBA8]" />}
@@ -309,7 +320,7 @@ export default function OnboardingModal() {
                       placeholder="Tell us more..."
                       value={data.industryOther ?? ""}
                       onChange={(e) => setData(prev => ({ ...prev, industryOther: e.target.value }))}
-                      className="mt-3 w-full px-4 py-3 bg-white border-2 border-[#4ECBA8] rounded-xl text-sm font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-[#4ECBA8]/20 transition-all"
+                      className="mt-3 w-full px-4 py-3 bg-white border-2 border-[#4ECBA8] rounded-full text-sm font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-[#4ECBA8]/20 transition-all"
                     />
                   )}
                 </div>
@@ -317,7 +328,7 @@ export default function OnboardingModal() {
             )}
 
             {step === 4 && (
-              <div className="space-y-4 h-[360px] flex flex-col">
+              <div className="space-y-4 flex flex-col h-full">
                 <div>
                   <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] tracking-tight mb-2">Which school do you go to?</h2>
                   <p className="text-gray-500 text-sm">Search for your university to generate a custom banner.</p>
@@ -341,7 +352,7 @@ export default function OnboardingModal() {
                           else goToBuild(uniQuery.trim());
                         }
                       }}
-                      className="w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-200 rounded-xl text-[15px] font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-[#1e2d78] transition-all"
+                      className="w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-200 rounded-full text-[15px] font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-[#1e2d78] transition-all"
                     />
                   </div>
 
@@ -380,7 +391,15 @@ export default function OnboardingModal() {
                       })
                     ) : uniQuery.trim() ? (
                       // No results
-                      <div className="px-4 py-3 text-sm text-gray-400 font-medium bg-white">No universities found for "{uniQuery}"</div>
+                      <div className="px-4 py-3 text-sm text-gray-400 font-medium bg-white">
+                        No universities found for "{uniQuery}".<br />
+                        <button 
+                          onClick={() => window.location.href = 'mailto:oscar.w.skaarderud@gmail.com'}
+                          className="text-blue-600 hover:underline mt-1 font-bold"
+                        >
+                          Request your school (Contact us)
+                        </button>
+                      </div>
                     ) : (
                       // Pre-search: show all available schools
                       searchUniversities("", data.country || undefined, 50)
@@ -417,7 +436,7 @@ export default function OnboardingModal() {
                   {uniQuery.trim() && uniSuggestions.length === 0 && (
                     <button
                       onClick={() => goToBuild(uniQuery.trim())}
-                      className="w-full mt-2 bg-[#1e2d78] text-white px-4 py-3 rounded-xl text-sm font-bold shadow-md hover:bg-blue-900 transition-colors shrink-0"
+                      className="w-full mt-2 bg-[#1e2d78] text-white px-4 py-3 rounded-full text-sm font-bold shadow-md hover:bg-blue-900 transition-colors shrink-0"
                     >
                       Continue with "{uniQuery}"
                     </button>
@@ -437,7 +456,7 @@ export default function OnboardingModal() {
                     <button
                       key={campus}
                       onClick={() => goToBuild(selectedCampusUni.domain, campus)}
-                      className="w-full text-left px-4 py-3 rounded-xl text-[13px] font-bold transition-all border bg-white border-gray-200 text-[#111827] hover:border-[#1e2d78] hover:bg-blue-50/60 shadow-sm flex items-center justify-between"
+                      className="w-full text-left px-4 py-3 rounded-full text-[13px] font-bold transition-all border bg-white border-gray-200 text-[#111827] hover:border-[#1e2d78] hover:bg-blue-50/60 shadow-sm flex items-center justify-between"
                     >
                       {campus}
                       <ChevronRight className="w-4 h-4 text-gray-400" />
@@ -449,7 +468,7 @@ export default function OnboardingModal() {
           </div>
 
           {/* Footer actions */}
-          <div className="p-6 md:p-8 pt-0 mt-4 flex justify-between items-center">
+          <div className="p-6 md:p-8 pt-0 flex items-center justify-between border-t border-gray-100 bg-gray-50/50 rounded-b-3xl">
             {step === 1 ? (
               <button 
                 onClick={() => skipOnboarding()} 
@@ -469,7 +488,7 @@ export default function OnboardingModal() {
             {step < 4 && (
               <button
                 onClick={nextStep}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-widest transition-all shadow-md active:scale-95 ${
+                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-black uppercase tracking-widest transition-all shadow-md active:scale-95 ${
                   (step === 1 && !data.country) || (step === 2 && (!data.degree || !data.year)) || (step === 3 && (!Array.isArray(data.industry) || data.industry.length === 0))
                     ? 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50'
                     : 'bg-[#1e2d78] text-white hover:bg-blue-900'

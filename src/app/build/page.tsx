@@ -943,12 +943,12 @@ function BuilderContent() {
             {/* Safe inline font CSS to prevent html-to-image CORS/SecurityError crashes */}
             {fontCss && <style dangerouslySetInnerHTML={{ __html: fontCss }} />}
 
-            <main className="w-full xl:w-[60%] flex flex-col shrink-0 relative bg-[#F5F4F1]">
+            <main className="w-full xl:w-full flex flex-col shrink-0 relative bg-[#F5F4F1]">
 
                 {/* ── NAV ─────────────────────────────────────────── */}
                 <Header showStartButton={false} showBackButton activeBrand={brand} />
 
-                <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-6 w-full mt-2 md:mt-4 mb-10 md:mb-12 xl:mb-16">
+                <div className="max-w-screen-2xl mx-auto px-4 md:px-8 space-y-6 w-full mt-2 md:mt-4 mb-10 md:mb-12 xl:mb-16">
 
                     {/* ── BANNER PREVIEW ──────────────────────────── */}
                     <section className="sticky top-0 xl:top-4 z-40 pt-4 -mt-4 bg-[#F5F4F1]">
@@ -1088,7 +1088,7 @@ function BuilderContent() {
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <button onClick={prevLayout}
-                                                className="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
+                                                className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
                                                 <ChevronLeft className="w-4 h-4" />
                                             </button>
                                             <div className="flex gap-1 flex-1">
@@ -1105,7 +1105,7 @@ function BuilderContent() {
                                                 ))}
                                             </div>
                                             <button onClick={nextLayout}
-                                                className="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
+                                                className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
                                                 <ChevronRight className="w-4 h-4" />
                                             </button>
                                         </div>
@@ -1121,7 +1121,7 @@ function BuilderContent() {
                                                     {(['top', 'bottom'] as const).map(pos => (
                                                         <button key={pos}
                                                             onClick={() => setLogoPos(pos)}
-                                                            className="flex-1 py-2 rounded-lg border-2 text-xs font-bold capitalize transition-all"
+                                                            className="flex-1 py-2 rounded-full border-2 text-xs font-bold capitalize transition-all"
                                                             style={{
                                                                 borderColor: logoPos === pos ? primary : "#e5e7eb",
                                                                 background: logoPos === pos ? `${primary}10` : "white",
@@ -1141,7 +1141,7 @@ function BuilderContent() {
                                             <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Photo</p>
                                             <div className="flex items-center gap-2">
                                                 <button onClick={prevImg}
-                                                    className="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
+                                                    className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
                                                     <ChevronLeft className="w-4 h-4" />
                                                 </button>
                                                 <div className="flex-1 h-14 rounded-xl overflow-hidden border border-gray-200 relative">
@@ -1152,7 +1152,7 @@ function BuilderContent() {
                                                     />
                                                 </div>
                                                 <button onClick={nextImg}
-                                                    className="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
+                                                    className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
                                                     <ChevronRight className="w-4 h-4" />
                                                 </button>
                                             </div>
@@ -1201,7 +1201,7 @@ function BuilderContent() {
                                 <button
                                     onClick={brand ? handleDownload : () => router.push("/")}
                                     disabled={isDownloading}
-                                    className="w-full py-4 rounded-xl font-black text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-50 hover:opacity-90 active:scale-[0.98]"
+                                    className="w-full py-4 rounded-full font-black text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-50 hover:opacity-90 active:scale-[0.98]"
                                     style={{ background: primary, color: textOnPrimary }}>
                                     {isDownloading
                                         ? <><RefreshCw className="w-4 h-4 animate-spin" /> Processing...</>
@@ -1297,7 +1297,7 @@ function BuilderContent() {
                             <div className="p-4 border-t border-gray-100 bg-white">
                                 <button
                                     onClick={() => router.push('/')}
-                                    className="w-full py-3.5 rounded-xl font-black text-sm uppercase tracking-widest bg-gray-900 text-white hover:bg-gray-800 transition-colors shadow-lg active:scale-95 transition-transform"
+                                    className="w-full py-3.5 rounded-full font-black text-sm uppercase tracking-widest bg-gray-900 text-white hover:bg-gray-800 transition-colors shadow-lg active:scale-95 transition-transform"
                                 >
                                     Got it, thanks!
                                 </button>

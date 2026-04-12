@@ -11,7 +11,7 @@ import { useLanguage } from "@/context/LanguageContext";
 
 export default function Home() {
   const router = useRouter();
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
   const { t } = useLanguage();
 
   const handleOpenOnboarding = () => {
@@ -32,21 +32,21 @@ export default function Home() {
         {/* ─── HERO SECTION ─── */}
         <section className="relative z-20 bg-[#F5F4F1]">
 
-          <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 pt-10 md:pt-12 xl:pt-16 pb-10 md:pb-14">
+          <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-8 pt-10 md:pt-14 pb-10 md:pb-14">
 
             {/* UNIFIED Layout: Heading on top, Animation centered, Search below */}
             <div className="flex flex-col items-center gap-0">
 
               {/* ── TOP CONTENT: MAIN HEADING ── */}
               <motion.div
-                className="w-full text-center mb-12 md:mb-16"
+                className="w-full text-center mb-8 md:mb-10"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h1 className="font-[family-name:var(--font-playful)] font-black leading-[1.1] tracking-tight text-black w-full max-w-4xl mx-auto
-                  text-4xl md:text-5xl lg:text-5xl xl:text-6xl relative">
-                  Wear your uni with pride.
+                <h1 className="font-outfit font-black leading-tight tracking-[-0.03em] text-black w-full max-w-6xl mx-auto text-center
+                  text-[28px] sm:text-[32px] md:text-[38px] lg:text-[42px] xl:text-[46px] mb-4 md:mb-6">
+                  Create a <span className="bg-gradient-to-r from-[#1e2d78] to-[#1e2d78]/70 bg-clip-text text-transparent">stunning</span> LinkedIn banner with your uni&apos;s logo, colors, and <span className="bg-gradient-to-r from-[#1e2d78] to-[#1e2d78]/70 bg-clip-text text-transparent">campus photos</span> — in 60s.
                 </h1>
               </motion.div>
 
@@ -133,16 +133,16 @@ export default function Home() {
 
               {/* ── BOTTOM CONTENT: SUBTEXT & SEARCH ── */}
               <motion.div
-                className="flex flex-col items-center w-full mt-4 md:mt-6"
+                className="flex flex-col items-center w-full mt-2 md:mt-4"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <p className="text-[14px] sm:text-[16px] md:text-[17px] text-gray-500 font-medium !text-center max-w-[420px] mx-auto mb-6 md:mb-8 leading-relaxed px-4">
-                  Join 10,000+ students who finally stand out.
+                <p className="text-[14px] sm:text-[16px] md:text-[17px] text-gray-500 font-medium !text-center max-w-2xl mx-auto mb-4 md:mb-6 leading-relaxed px-4">
+                  {t("hero.subtext")}
                 </p>
 
-                <div className="w-full max-w-[280px] mx-auto flex flex-col px-4 relative">
+                <div className="w-full max-w-md mx-auto flex flex-col px-4 relative">
                   <style jsx global>{`
                     @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
                     .handwritten-text {
@@ -173,49 +173,65 @@ export default function Home() {
                   </button>
                 </div>
 
-                <div className="h-8" />
+                <div className="h-0" />
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* ── LOGO MARQUEE STRIP ── */}
-        <div className="relative z-10 w-full px-4 md:px-8 pb-12">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-center text-4xl md:text-5xl font-black tracking-tight text-[#111827] font-[family-name:var(--font-playful)] mb-16">
-              {t("marquee.heading")}
-            </h2>
-            <div className="bg-[#1e2d78] w-full rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.1)] overflow-hidden py-6 border border-white/5">
-              <div
-                className="relative overflow-hidden w-full flex items-center"
-                style={{
-                  maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
-                  WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
-                }}
-              >
-                <style>{`
-                  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-                  .marquee-track { display: flex; align-items: center; width: max-content; animation: marquee 24s linear infinite; }
-                `}</style>
-                <div className="marquee-track">
-                  {[
-                    { slug: "loughborough", h: 80 }, { slug: "uio", h: 100 }, { slug: "durham", h: 130 }, { slug: "bi", h: 100 }, { slug: "exeter", h: 140 }, { slug: "nhh", h: 120 }, { slug: "oxford", h: 100 }, { slug: "nmbu", h: 100 }, { slug: "lse", h: 170 }, { slug: "ntnu", h: 100 },
-                    { slug: "loughborough", h: 80 }, { slug: "uio", h: 100 }, { slug: "durham", h: 130 }, { slug: "bi", h: 100 }, { slug: "exeter", h: 140 }, { slug: "nhh", h: 120 }, { slug: "oxford", h: 100 }, { slug: "nmbu", h: 100 }, { slug: "lse", h: 170 }, { slug: "ntnu", h: 100 },
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center justify-center flex-shrink-0 w-[240px] md:w-[calc((100vw-4rem)/3)] xl:w-[384px] px-8" style={{ height: 130 }}>
-                      <img src={`/marquee-logos/${item.slug}.png?v=${Date.now()}`} alt={item.slug} style={{ height: item.h > 130 ? 130 : item.h, width: "auto", maxWidth: "100%", objectFit: "contain", opacity: 1 }} />
-                    </div>
-                  ))}
+
+
+        {/* ── TESTIMONIALS ── */}
+        <section className="bg-[#F5F4F1] w-full px-4 md:px-8 py-10 md:py-14 border-t border-gray-100">
+          <div className="max-w-screen-2xl mx-auto">
+             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100">
+                   <div className="flex gap-1 mb-4">
+                      {[1,2,3,4,5].map(i => <Heart key={i} className="w-4 h-4 fill-red-500 text-red-500" />)}
+                   </div>
+                   <p className="text-gray-600 font-medium italic mb-6">"Great for my LinkedIn before internship applications! Took literally 30 seconds."</p>
+                   <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-[#1e2d78]">S</div>
+                      <div>
+                         <p className="font-bold text-[#111827] text-sm">Sarah J.</p>
+                         <p className="text-gray-400 text-xs text-left">London School of Economics</p>
+                      </div>
+                   </div>
                 </div>
-              </div>
-            </div>
+                <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100">
+                   <div className="flex gap-1 mb-4">
+                      {[1,2,3,4,5].map(i => <Heart key={i} className="w-4 h-4 fill-red-500 text-red-500" />)}
+                   </div>
+                   <p className="text-gray-600 font-medium italic mb-6">"Finally a way to show my uni colors without having to use Photoshop. Professional results."</p>
+                   <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center font-bold text-green-700">M</div>
+                      <div>
+                         <p className="font-bold text-[#111827] text-sm">Marcus L.</p>
+                         <p className="text-gray-400 text-xs text-left">NTNU</p>
+                      </div>
+                   </div>
+                </div>
+                <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100">
+                   <div className="flex gap-1 mb-4">
+                      {[1,2,3,4,5].map(i => <Heart key={i} className="w-4 h-4 fill-red-500 text-red-500" />)}
+                   </div>
+                   <p className="text-gray-600 font-medium italic mb-6">"So easy to use. Highly recommend to all students looking to polish their profile."</p>
+                   <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center font-bold text-purple-700">E</div>
+                      <div>
+                         <p className="font-bold text-[#111827] text-sm">Emma W.</p>
+                         <p className="text-gray-400 text-xs text-left">University of Reading</p>
+                      </div>
+                   </div>
+                </div>
+             </div>
           </div>
-        </div>
+        </section>
 
         {/* ── SECTION 2.25: HOW IT WORKS ── */}
-        <section className="bg-[#F5F4F1] w-full px-4 md:px-8 border-t border-gray-100">
-          <div className="max-w-6xl mx-auto py-12">
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-[#111827] font-[family-name:var(--font-playful)] text-center mb-16">
+        <section id="how-it-works" className="bg-[#F5F4F1] w-full px-4 md:px-8 py-10 md:py-14 border-t border-gray-100">
+          <div className="max-w-screen-2xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-[#111827] font-[family-name:var(--font-playful)] text-center mb-12">
               {t("how.heading")}
             </h2>
 
@@ -293,8 +309,8 @@ export default function Home() {
         </section>
 
         {/* ── SECTION 2.75: FAQ ── */}
-        <section className="bg-[#F5F4F1] w-full px-4 md:px-8 overflow-hidden">
-          <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 md:gap-24 pt-12 pb-8">
+        <section id="faq" className="bg-[#F5F4F1] w-full px-4 md:px-8 py-10 md:py-14 overflow-hidden border-t border-gray-100">
+          <div className="max-w-screen-2xl mx-auto flex flex-col md:flex-row gap-12 md:gap-24">
             {/* Left: Heading */}
             <div className="md:w-1/3 pt-4">
               <h2 className="text-7xl md:text-8xl font-black tracking-tight text-[#111827] font-[family-name:var(--font-playful)] leading-[0.8]">
@@ -352,7 +368,7 @@ export default function Home() {
                           </p>
                           {item.button && (
                             <button 
-                              onClick={() => document.getElementById('contact-footer')?.scrollIntoView({ behavior: 'smooth' })}
+                              onClick={() => window.location.href = 'mailto:oscar.w.skaarderud@gmail.com'}
                               className="px-6 py-2.5 bg-[#1e2d78] text-white text-sm font-bold rounded-full shadow-sm hover:bg-[#1a2663] transition-colors flex items-center gap-2"
                             >
                               <span>{item.button}</span>

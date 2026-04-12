@@ -66,49 +66,35 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full px-4 md:px-8 py-4 flex flex-col items-center">
+    <footer className="w-full px-4 md:px-8 py-8 flex flex-col items-center">
       <div className="w-full max-w-5xl border-t border-gray-300 shadow-sm" />
       
-      <div className="mt-6 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-[#1a1a1a] font-normal text-[15px]">
-        <div className="flex items-center gap-2">
-          <button 
-            onClick={() => router.push("/privacy")} 
-            className="border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-opacity cursor-pointer font-medium"
-          >
-            Privacy Policy
-          </button>
-        </div>
+      <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 text-[#1a1a1a] font-normal text-[15px]">
+        <button 
+          onClick={() => router.push("/privacy")} 
+          className="border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-opacity cursor-pointer font-bold"
+        >
+          Privacy Policy
+        </button>
         
-        <div className="flex items-center gap-2">
-          <button 
-            onClick={() => router.push("/terms")} 
-            className="border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-opacity cursor-pointer font-medium"
-          >
-            Terms of Service
-          </button>
-        </div>
+        <button 
+          onClick={() => router.push("/terms")} 
+          className="border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-opacity cursor-pointer font-bold"
+        >
+          Terms of Service
+        </button>
 
-        <div className="flex items-center gap-2">
-          <a 
-            href="mailto:oscar.w.skaarderud@gmail.com" 
-            className="border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-opacity cursor-pointer font-medium"
-          >
-            Contact
-          </a>
-        </div>
-
-        <div className="flex items-center gap-4 ml-0 md:ml-4 text-[#1a1a1a]">
-          <a href="#" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-all duration-300 hover:-translate-y-1 hover:scale-110 active:scale-95">
-            <Linkedin className="w-5 h-5" />
-          </a>
-          <a href="#" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-all duration-300 hover:-translate-y-1 hover:scale-110 active:scale-95">
-            <Twitter className="w-5 h-5" />
-          </a>
-          <a href="#" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-all duration-300 hover:-translate-y-1 hover:scale-110 active:scale-95">
-            <Instagram className="w-5 h-5" />
-          </a>
-        </div>
+        <a 
+          href="mailto:oscar.w.skaarderud@gmail.com" 
+          className="border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-opacity cursor-pointer font-bold"
+        >
+          Contact
+        </a>
       </div>
+
+      <p className="mt-8 text-gray-400 text-[13px] font-medium">
+        © {new Date().getFullYear()} Myunibanner. All rights reserved.
+      </p>
     </footer>
   );
 }
