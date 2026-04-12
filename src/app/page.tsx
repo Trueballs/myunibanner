@@ -21,10 +21,10 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F4F1] font-sans flex justify-center w-full px-4 md:px-8 xl:px-12 py-4 md:py-6 gap-6 xl:gap-8 box-border overflow-x-hidden">
+    <div className="min-h-screen bg-[#F5F4F1] font-sans w-full overflow-x-hidden">
 
-      {/* CENTRAL COLUMN */}
-      <main className="w-full xl:w-[60%] flex flex-col shrink-0 relative bg-[#F5F4F1]">
+      {/* FULL WIDTH COLUMN */}
+      <main className="w-full flex flex-col bg-[#F5F4F1]">
 
         {/* ─── TOP NAVIGATION ─── */}
         <Header />
@@ -32,14 +32,14 @@ export default function Home() {
         {/* ─── HERO SECTION ─── */}
         <section className="relative z-20 bg-[#F5F4F1]">
 
-          <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-8 pt-10 md:pt-14 pb-10 md:pb-14">
+          <div className="w-full px-8 md:px-16 xl:px-24 pt-10 md:pt-12 pb-10 md:pb-12">
 
             {/* UNIFIED Layout: Heading on top, Animation centered, Search below */}
             <div className="flex flex-col items-center gap-0">
 
               {/* ── TOP CONTENT: MAIN HEADING ── */}
               <motion.div
-                className="w-full text-center mb-8 md:mb-10"
+                className="w-full text-center mb-4 md:mb-6"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -51,8 +51,8 @@ export default function Home() {
               </motion.div>
 
               {/* ── MIDDLE CONTENT: OVERLAPPING ANIMATION ── */}
-              <div className="w-full shrink-0 flex justify-center items-center pt-0 pb-0 overflow-visible">
-                <div className="relative flex items-center justify-center scale-75 md:scale-85">
+              <div className="w-full shrink-0 flex justify-center items-center overflow-hidden">
+                <div className="relative flex items-center justify-center scale-75 md:scale-90 lg:scale-100">
                   
                   {/* BEFORE — Bottom layer, shifted left */}
                   <motion.div
@@ -182,8 +182,8 @@ export default function Home() {
 
 
         {/* ── TESTIMONIALS ── */}
-        <section className="bg-[#F5F4F1] w-full px-4 md:px-8 py-10 md:py-14 border-t border-gray-100">
-          <div className="max-w-screen-2xl mx-auto">
+        <section className="bg-[#F5F4F1] w-full px-8 md:px-16 xl:px-24 py-10 md:py-14 border-t border-gray-100">
+          <div className="w-full">
              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100">
                    <div className="flex gap-1 mb-4">
@@ -229,15 +229,15 @@ export default function Home() {
         </section>
 
         {/* ── SECTION 2.25: HOW IT WORKS ── */}
-        <section id="how-it-works" className="bg-[#F5F4F1] w-full px-4 md:px-8 py-10 md:py-14 border-t border-gray-100">
-          <div className="max-w-screen-2xl mx-auto">
+        <section id="how-it-works" className="bg-[#F5F4F1] w-full px-8 md:px-16 xl:px-24 py-10 md:py-14 border-t border-gray-100">
+          <div className="w-full">
             <h2 className="text-4xl md:text-5xl font-black tracking-tight text-[#111827] font-[family-name:var(--font-playful)] text-center mb-12">
               {t("how.heading")}
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 xl:gap-16 w-full">
               {/* Card 1 */}
-              <div className="bg-[#ffffff] rounded-[2rem] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-300">
+              <div className="bg-[#ffffff] rounded-[2rem] p-12 xl:p-14 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-300">
                 <div className="relative w-32 h-24 mx-auto mb-8 mt-2 flex items-center justify-center">
                   <div className="absolute top-2 right-8 w-14 h-14 bg-blue-400 rounded-full" />
                   <div className="absolute bottom-4 left-6 w-16 h-12 bg-[#0A66C2] rounded-full" />
@@ -261,7 +261,7 @@ export default function Home() {
               </div>
 
               {/* Card 2 */}
-              <div className="bg-[#ffffff] rounded-[2rem] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-300">
+              <div className="bg-[#ffffff] rounded-[2rem] p-12 xl:p-14 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-300">
                 <div className="relative w-32 h-24 mx-auto mb-8 mt-2 flex items-center justify-center">
                   <div className="absolute w-20 h-14 bg-gradient-to-r from-blue-500 to-[#0A66C2] rounded-xl shadow-lg" />
                   <div className="absolute w-16 h-10 bg-white/40 backdrop-blur-xl border-2 border-white/50 rounded-lg shadow-[0_8px_32px_rgba(0,0,0,0.1)] flex items-center justify-center z-10">
@@ -283,7 +283,7 @@ export default function Home() {
               </div>
 
               {/* Card 3 */}
-              <div className="bg-[#ffffff] rounded-[2rem] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-300">
+              <div className="bg-[#ffffff] rounded-[2rem] p-12 xl:p-14 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-300">
                 <div className="relative w-32 h-24 mx-auto mb-8 mt-2 flex flex-col items-center justify-center">
                   <div className="absolute top-4 left-6 w-10 h-8 bg-blue-400 rounded-t-lg" />
                   <div className="absolute top-8 w-20 h-14 bg-[#0A66C2] rounded-lg" />
@@ -309,7 +309,7 @@ export default function Home() {
         </section>
 
         {/* ── SECTION 2.75: FAQ ── */}
-        <section id="faq" className="bg-[#F5F4F1] w-full px-4 md:px-8 py-10 md:py-14 overflow-hidden border-t border-gray-100">
+        <section id="faq" className="bg-[#F5F4F1] w-full px-8 md:px-16 xl:px-24 py-10 md:py-14 overflow-hidden border-t border-gray-100">
           <div className="max-w-screen-2xl mx-auto flex flex-col md:flex-row gap-12 md:gap-24">
             {/* Left: Heading */}
             <div className="md:w-1/3 pt-4">

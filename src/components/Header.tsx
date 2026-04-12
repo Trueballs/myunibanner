@@ -46,23 +46,31 @@ export default function Header({ showStartButton = false, showBackButton = false
 
   return (
     <header className="w-full z-[100] relative">
-      <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-8 py-2 sm:py-3 flex items-center justify-between relative">
+      <div className="w-full px-8 md:px-16 xl:px-24 py-4 md:py-5 grid grid-cols-3 items-center">
+        {/* LEFT: Logo */}
         <div className="flex items-center">
-          <span className="text-[#1e2d78] font-black font-outfit uppercase text-xl md:text-2xl lg:text-[24px] tracking-[0.05em] leading-none cursor-pointer" onClick={() => router.push("/")}>MYUNIBANNER</span>
+          <span
+            className="text-[#1e2d78] font-black font-outfit uppercase text-xl md:text-2xl lg:text-[24px] tracking-[0.05em] leading-none cursor-pointer"
+            onClick={() => router.push("/")}
+          >
+            MYUNIBANNER
+          </span>
         </div>
 
-        <div className="flex items-center gap-6">
-          <nav className="hidden md:flex items-center gap-8">
-            <a href="#how-it-works" className="text-[#1a1a1a] text-[14px] font-bold border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-all">How it works</a>
-            <a href="#faq" className="text-[#1a1a1a] text-[14px] font-bold border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-all">FAQ</a>
-            <a 
-              href="mailto:oscar.w.skaarderud@gmail.com"
-              className="text-[#1a1a1a] text-[14px] font-bold border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-all"
-            >
-              Contact
-            </a>
-          </nav>
+        {/* CENTER: Nav links */}
+        <nav className="hidden md:flex items-center justify-center gap-10">
+          <a href="#how-it-works" className="text-[#1a1a1a] text-[14px] font-bold border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-all">How it works</a>
+          <a href="#faq" className="text-[#1a1a1a] text-[14px] font-bold border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-all">FAQ</a>
+          <a
+            href="mailto:oscar.w.skaarderud@gmail.com"
+            className="text-[#1a1a1a] text-[14px] font-bold border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-all"
+          >
+            Contact
+          </a>
+        </nav>
 
+        {/* RIGHT: CTA */}
+        <div className="flex items-center justify-end gap-4">
           {!pathname.startsWith('/build') && (
             <button
               onClick={() => {
@@ -77,7 +85,7 @@ export default function Header({ showStartButton = false, showBackButton = false
           )}
 
           {showBackButton && (
-            <button 
+            <button
               onClick={() => router.push("/")}
               className="bg-white border border-gray-200 text-[#1e2d78] text-[10px] font-black font-outfit px-4 py-2.5 rounded-full uppercase tracking-wider flex items-center gap-2 hover:border-[#1e2d78] transition-all active:scale-95 shadow-sm flex-shrink-0"
             >
@@ -86,7 +94,7 @@ export default function Header({ showStartButton = false, showBackButton = false
           )}
 
           {showStartButton && (
-            <button 
+            <button
               onClick={() => router.push("/")}
               className="bg-white border border-gray-200 text-[#1e2d78] text-[10px] font-black font-outfit px-4 py-2.5 rounded-full uppercase tracking-wider flex items-center gap-2 hover:border-[#1e2d78] transition-all active:scale-95 shadow-sm flex-shrink-0"
             >
