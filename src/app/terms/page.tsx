@@ -28,45 +28,37 @@ export default function TermsPage() {
         <div className="min-h-screen bg-[#F8FAFC] font-sans w-full overflow-x-hidden">
             <Header showBackButton />
             <main className="w-full max-w-7xl mx-auto flex flex-col relative px-6 md:px-12">
-                <div className="w-full pt-12 md:pt-16 pb-24">
+                <div className="w-full max-w-3xl mx-auto pt-16 md:pt-24 pb-24 px-6">
                     <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="text-center mb-16"
+                        className="mb-12 border-b border-slate-200 pb-10"
                     >
-                        <h1 className="text-4xl md:text-[60px] font-extrabold text-slate-900 tracking-tight mb-4 leading-[1.1]">Terms of Service</h1>
-                        <p className="text-slate-500 font-bold uppercase text-xs tracking-[0.3em]">Last Updated: April 2026</p>
+                        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">Terms of Service</h1>
+                        <p className="text-slate-500 font-medium text-sm">Last Updated: April 2026</p>
                     </motion.div>
-
-                    <div className="w-full grid gap-6">
+ 
+                    <div className="space-y-12">
                         {terms.map((term, i) => (
-                            <motion.div 
+                            <motion.section 
                                 key={i}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
                                 transition={{ delay: i * 0.1 }}
-                                className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-sm border border-gray-100"
+                                className="prose prose-slate max-w-none"
                             >
-                                <div className="flex items-center gap-4 mb-6 text-blue-600">
-                                    <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
-                                        {term.icon}
-                                    </div>
-                                    <h3 className="text-xl font-black uppercase tracking-tight">{term.title}</h3>
-                                </div>
-                                <p className="text-gray-600 font-medium leading-relaxed text-lg">
+                                <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-4">{term.title}</h2>
+                                <p className="text-slate-600 leading-relaxed text-base md:text-lg">
                                     {term.content}
                                 </p>
-                            </motion.div>
+                            </motion.section>
                         ))}
                     </div>
 
-                    <div className="mt-16 bg-slate-900 text-white p-12 rounded-[3rem] w-full flex flex-col items-center">
-                        <div className="w-16 h-16 bg-blue-600/30 rounded-full flex items-center justify-center mb-6">
-                            <CheckCircle className="w-8 h-8 text-blue-200" />
-                        </div>
-                        <h2 className="text-3xl font-black uppercase tracking-tight mb-4">Agreement</h2>
-                        <p className="text-blue-100/70 max-w-md font-medium text-center">By continuing to use Myunibanner, you agree to these simplified, student-first terms of service.</p>
+                    <div className="mt-20 pt-10 border-t border-slate-200 text-center">
+                        <p className="text-slate-600 font-medium">
+                            By continuing to use Myunibanner, you agree to these simplified, student-first terms of service.
+                        </p>
                     </div>
                 </div>
 

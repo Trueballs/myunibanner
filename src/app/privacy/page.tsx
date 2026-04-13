@@ -31,44 +31,40 @@ export default function PrivacyPage() {
         <div className="min-h-screen bg-[#F8FAFC] font-sans w-full overflow-x-hidden">
             <Header showBackButton />
             <main className="w-full max-w-7xl mx-auto flex flex-col relative px-6 md:px-12">
-                <div className="w-full pt-12 md:pt-16 pb-24">
+                <div className="w-full max-w-3xl mx-auto pt-16 md:pt-24 pb-24 px-6">
                     <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="text-center mb-16"
+                        className="mb-12 border-b border-slate-200 pb-10"
                     >
-                        <h1 className="text-4xl md:text-[60px] font-extrabold text-slate-900 tracking-tight mb-4 leading-[1.1]">Privacy Policy</h1>
-                        <p className="text-slate-500 font-bold uppercase text-xs tracking-[0.3em]">Last Updated: April 2026</p>
+                        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">Privacy Policy</h1>
+                        <p className="text-slate-500 font-medium text-sm">Last Updated: April 2026</p>
                     </motion.div>
-
-                    <div className="w-full grid gap-6">
+ 
+                    <div className="space-y-12">
                         {sections.map((sec, i) => (
-                            <motion.div 
+                            <motion.section 
                                 key={i}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
                                 transition={{ delay: i * 0.1 }}
-                                className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-sm border border-gray-100"
+                                className="prose prose-slate max-w-none"
                             >
-                                <div className="flex items-center gap-4 mb-6 text-blue-600">
-                                    <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
-                                        {sec.icon}
-                                    </div>
-                                    <h3 className="text-xl font-black uppercase tracking-tight">{sec.title}</h3>
-                                </div>
-                                <p className="text-gray-600 font-medium leading-relaxed text-lg">
+                                <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-4">{sec.title}</h2>
+                                <p className="text-slate-600 leading-relaxed text-base md:text-lg">
                                     {sec.content}
                                 </p>
-                            </motion.div>
+                            </motion.section>
                         ))}
                     </div>
 
-                    <div className="mt-16 bg-slate-900 text-white p-12 rounded-[3rem] w-full text-center">
-                        <h2 className="text-3xl font-black uppercase tracking-tight mb-4 text-blue-200">Got questions?</h2>
-                        <p className="text-blue-100/70 mb-8 font-medium">If you have any concerns regarding your privacy at Myunibanner, reach out directly to Oscar.</p>
-                        <a href="mailto:oscar.w.skaarderud@gmail.com" className="inline-flex items-center gap-2 text-white font-black text-xs uppercase tracking-widest border-b-2 border-white pb-1 hover:opacity-80 transition-opacity">
-                            <Mail className="w-4 h-4" /> oscar.w.skaarderud@gmail.com
+                    <div className="mt-20 pt-10 border-t border-slate-200">
+                        <h2 className="text-xl font-bold text-slate-900 mb-4">Questions?</h2>
+                        <p className="text-slate-600 mb-4">
+                            If you have any concerns regarding your privacy at Myunibanner, reach out directly to Oscar:
+                        </p>
+                        <a href="mailto:oscar.w.skaarderud@gmail.com" className="text-blue-600 font-bold hover:underline">
+                            oscar.w.skaarderud@gmail.com
                         </a>
                     </div>
                 </div>
