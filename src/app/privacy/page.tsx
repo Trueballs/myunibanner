@@ -38,7 +38,7 @@ export default function PrivacyPage() {
                         transition={{ duration: 0.6 }}
                         className="text-center mb-16"
                     >
-                        <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-4">Privacy Policy</h1>
+                        <h1 className="text-4xl md:text-[60px] font-extrabold text-slate-900 tracking-tight mb-4 leading-[1.1]">Privacy Policy</h1>
                         <p className="text-slate-500 font-bold uppercase text-xs tracking-[0.3em]">Last Updated: April 2026</p>
                     </motion.div>
 
