@@ -740,7 +740,7 @@ function BuilderContent() {
     const [bgStyle, setBgStyle] = useState<'none' | 'brand'>('none');
     const [tintIndex, setTintIndex] = useState(0);
     const [bgOpacity, setBgOpacity] = useState(100);
-    const [logoSize, setLogoSize] = useState(180);
+    const [logoSize, setLogoSize] = useState(220);
     const [scale, setScale] = useState(1);
     const [loading, setLoading] = useState(false);
     const [isDownloading, setIsDownloading] = useState(false);
@@ -1233,19 +1233,27 @@ function BuilderContent() {
                                         </div>
 
                                         <div className="mt-4">
-                                            <div className="flex justify-between items-center mb-1.5">
-                                                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Logo Size</p>
-                                                <span className="text-[10px] font-bold text-gray-500">{logoSize}px</span>
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Logo Size</p>
+                                            <div className="flex gap-2">
+                                                {[
+                                                    { label: 'Small', val: 120 },
+                                                    { label: 'Medium', val: 220 },
+                                                    { label: 'Big', val: 340 }
+                                                ].map(size => (
+                                                    <button 
+                                                        key={size.val}
+                                                        onClick={() => setLogoSize(size.val)}
+                                                        className="flex-1 py-2.5 rounded-xl border-2 text-[11px] font-black uppercase tracking-widest transition-all"
+                                                        style={{
+                                                            borderColor: logoSize === size.val ? primary : "#f3f4f6",
+                                                            background: logoSize === size.val ? `${primary}10` : "#f9fafb",
+                                                            color: logoSize === size.val ? primary : "#9ca3af"
+                                                        }}
+                                                    >
+                                                        {size.label}
+                                                    </button>
+                                                ))}
                                             </div>
-                                            <input 
-                                                type="range"
-                                                min="60"
-                                                max="400"
-                                                step="5"
-                                                value={logoSize}
-                                                onChange={(e) => setLogoSize(parseInt(e.target.value))}
-                                                className="w-full h-1.5 bg-gray-100 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                                            />
                                         </div>
                                     </div>
                                 </>
