@@ -167,48 +167,54 @@ export default function Home() {
                       <p className="text-slate-400 text-sm font-medium group-hover:text-white/60 transition-colors uppercase tracking-tight">{t.role}</p>
                     </div>
                   </div>
-                </motion.div>
               ))}
             </div>
           </div>
         </section>
 
         {/* ── BANNERS SHOWCASE ── */}
-        <section className="bg-transparent w-full py-8 md:py-12 overflow-hidden">
+        <section className="bg-transparent w-full py-12 md:py-24 overflow-hidden">
           <div className="w-full max-w-7xl mx-auto px-6 md:px-12 text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
               Banners that <span className="text-blue-600">Myunibanner</span> created
             </h2>
           </div>
           
-          <div className="relative w-full h-[400px] flex items-center justify-center">
-            {/* Inner Wrapper for Centering */}
+          {/* MOBILE: Vertical Stack */}
+          <div className="flex md:hidden flex-col gap-6 px-6">
+            {banners.map((banner) => (
+              <div key={banner.id} className="w-full aspect-[4/1] rounded-2xl overflow-hidden shadow-lg border-2 border-white bg-white">
+                <img src={banner.img} alt={`Banner ${banner.id}`} className="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
+
+          {/* DESKTOP: Animated Carousel */}
+          <div className="hidden md:flex relative w-full h-[400px] items-center justify-center">
             <div className="relative flex items-center justify-center h-full w-full max-w-7xl">
               <AnimatePresence initial={false}>
-                {/* We use virtual slots (-2 to 2) to ensure a perfectly smooth infinite slide */}
                 {[-2, -1, 0, 1, 2].map((offset) => {
                   const virtualIndex = placeholdersIndex + offset;
-                  // Map virtual index to real banner index
                   const bannerIndex = ((virtualIndex % banners.length) + banners.length) % banners.length;
                   const banner = banners[bannerIndex];
                   const isCenter = offset === 0;
 
                   return (
                     <motion.div
-                      key={`${banner.id}-${virtualIndex}`} // Unique key per virtual position
+                      key={`${banner.id}-${virtualIndex}`}
                       initial={false}
                       animate={{ 
                         opacity: isCenter ? 1 : Math.abs(offset) > 1 ? 0 : 0.6, 
                         scale: isCenter ? 1.15 : 0.85,
                         zIndex: isCenter ? 20 : 10,
-                        x: offset * 900, // Dramatically increased spacing
+                        x: offset * 900,
                       }}
                       transition={{
                         duration: 2.5,
                         ease: [0.32, 0.72, 0, 1]
                       }}
                       onClick={() => setPlaceholdersIndex(virtualIndex)}
-                      className="absolute flex-shrink-0 w-[400px] md:w-[800px] aspect-[4/1] rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white bg-white cursor-pointer transition-shadow hover:shadow-blue-100/50"
+                      className="absolute flex-shrink-0 w-[800px] aspect-[4/1] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white bg-white cursor-pointer transition-shadow hover:shadow-blue-100/50"
                     >
                       <img src={banner.img} alt={`Banner ${bannerIndex}`} className="w-full h-full object-cover" />
                     </motion.div>
