@@ -1214,28 +1214,40 @@ function BuilderContent() {
                                         <div>
                                             <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Photo Filter</p>
                                             <div className="flex gap-2">
-                                                {[
-                                                    { label: 'Normal', value: 'none', preview: 'bg-gradient-to-r from-blue-200 to-green-200' },
-                                                    { label: 'B&W', value: 'grayscale(100%)', preview: 'bg-gradient-to-r from-gray-300 to-gray-500' },
-                                                    { label: 'Warm', value: 'sepia(50%) saturate(140%) brightness(105%)', preview: 'bg-gradient-to-r from-amber-200 to-orange-300' },
-                                                    { label: 'Cool', value: 'hue-rotate(200deg) saturate(80%) brightness(105%)', preview: 'bg-gradient-to-r from-blue-300 to-cyan-400' },
-                                                ].map(f => (
-                                                    <button
-                                                        key={f.label}
-                                                        onClick={() => setPhotoFilter(f.value)}
-                                                        className="flex-1 flex flex-col items-center gap-1.5 py-2.5 rounded-xl border-2 transition-all"
-                                                        style={{
-                                                            borderColor: photoFilter === f.value ? primary : '#f3f4f6',
-                                                            background: photoFilter === f.value ? `${primary}10` : '#f9fafb',
-                                                        }}
-                                                    >
-                                                        <div className={`w-6 h-6 rounded-full ${f.preview} ring-1 ring-black/10`} />
-                                                        <span className="text-[9px] font-black uppercase tracking-widest"
-                                                            style={{ color: photoFilter === f.value ? primary : '#9ca3af' }}>
-                                                            {f.label}
-                                                        </span>
-                                                    </button>
-                                                ))}
+                                                {([
+                                                    { label: 'Normal', value: 'none',               icon: '🌄' },
+                                                    { label: 'B&W',    value: 'grayscale(100%)',     icon: '⬛' },
+                                                    { label: 'Warm',   value: 'sepia(60%) saturate(150%) brightness(105%)', icon: '🌅' },
+                                                    { label: 'Cool',   value: 'saturate(70%) hue-rotate(195deg) brightness(108%)', icon: '🧊' },
+                                                ] as { label: string; value: string; icon: string }[]).map(f => {
+                                                    const isActive = photoFilter === f.value;
+                                                    const sampleSrc = brand.images[imgIndex % brand.images.length];
+                                                    return (
+                                                        <button
+                                                            key={f.label}
+                                                            onClick={() => setPhotoFilter(f.value)}
+                                                            className="flex-1 flex flex-col items-center gap-1.5 pb-2 pt-1.5 rounded-xl border-2 transition-all overflow-hidden"
+                                                            style={{
+                                                                borderColor: isActive ? primary : '#f3f4f6',
+                                                                background: isActive ? `${primary}10` : '#f9fafb',
+                                                            }}
+                                                        >
+                                                            {/* Mini photo preview with filter applied */}
+                                                            <div className="w-full h-8 overflow-hidden rounded-md mx-2" style={{ width: 'calc(100% - 8px)' }}>
+                                                                <img
+                                                                    src={sampleSrc}
+                                                                    alt=""
+                                                                    className="w-full h-full object-cover"
+                                                                    style={{ filter: f.value }}
+                                                                />
+                                                            </div>
+                                                            <span className="text-[8px] font-black uppercase tracking-widest"
+                                                                style={{ color: isActive ? primary : '#9ca3af' }}>
+                                                                {f.label}
+                                                            </span>
+                                                        </button>
+                                                    );
+                                                })}
                                             </div>
                                         </div>
                                     )}
