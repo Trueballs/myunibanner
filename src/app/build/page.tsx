@@ -871,23 +871,19 @@ function BuilderContent() {
         if (!exportRef.current || !brand) return;
         setIsDownloading(true);
         try {
-            const { saveAs } = await import("file-saver");
             const filename = `linkedin-banner-${brand.name.toLowerCase().replace(/\s+/g, '-')}.png`;
 
             // Detect iOS — WKWebView powers both Safari and Chrome on iPhone/iPad
             const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
+            let blob: Blob | null = null;
+
             if (isIOS) {
                 // ── SERVER-SIDE RENDER (iOS) ─────────────────────────────────
-                // html-to-image uses SVG foreignObject which iOS WebKit cannot render.
-                // Solution: send parameters to our server, which fetches images
-                // server-side (no CORS), composites with Sharp, returns a real PNG.
-
                 const activeLogo = brand.logos.length > 0
                     ? brand.logos[logoIndex % brand.logos.length]
                     : null;
 
-                // Mirror the primary-color contrast logic from BannerCanvas
                 let primaryHex = activeLogo?.preferredBg ?? brand.colors[0] ?? '#003865';
                 const logoIsLight = activeLogo?.isLight !== false;
                 const logoHasBg = activeLogo?.hasBg ?? brand.logoHasBg;
@@ -902,54 +898,50 @@ function BuilderContent() {
                     : null;
                 const logoUrl = activeLogo?.url ?? brand.fullLogo ?? null;
 
-                // Determine headline color to pass to API
                 const activeLogoColor = activeLogo?.logoColor;
                 let headlineColor = logoIsLight ? "#ffffff" : (activeLogoColor || brand.colors[0] || "#111111");
                 if (isDark(headlineColor) === isDark(primaryHex)) {
-                    headlineColor = isDark(primaryHex) ? "#ffffff" : "#111111"; // manual contrastText fallback
+                    headlineColor = isDark(primaryHex) ? "#ffffff" : "#111111";
                 }
 
                 const response = await fetch('/api/render-banner', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                        imageUrl, 
-                        logoUrl, 
-                        primaryHex, 
-                        layout, 
-                        text,
-                        headlineColor,
-                        logoIsLight
+                        imageUrl, logoUrl, primaryHex, layout, text, headlineColor, logoIsLight
                     }),
                 });
 
-                if (!response.ok) {
-                    const err = await response.text();
-                    throw new Error(`Server render failed: ${err}`);
-                }
-
-                const blob = await response.blob();
-                saveAs(blob, filename);
+                if (!response.ok) throw new Error(`Server render failed`);
+                blob = await response.blob();
 
             } else {
                 // ── CLIENT-SIDE RENDER (PC / Mac) ────────────────────────────
                 await new Promise(r => setTimeout(r, 400));
-
-                const blob = await toBlob(exportRef.current, {
-                    pixelRatio: 2, // 2x resolution (Retina quality) for PC/Mac
+                blob = await toBlob(exportRef.current, {
+                    pixelRatio: 2,
                     width: W,
                     height: H,
                     style: { transform: 'none', visibility: 'visible', display: 'block' },
                 });
-
-                if (!blob) throw new Error("Canvas generation returned no data.");
-                saveAs(blob, filename);
             }
+
+            if (!blob) throw new Error("Canvas generation returned no data.");
+
+            // ── UNIVERSAL DOWNLOAD METHOD ──────────────────────────────
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
 
             setTimeout(() => setShowDownloadPopup(true), 800);
         } catch (e) {
             console.error("Export failed:", e);
-            alert("Download failed: " + (e instanceof Error ? e.message : String(e)));
+            alert("Download failed");
         } finally {
             setIsDownloading(false);
         }
