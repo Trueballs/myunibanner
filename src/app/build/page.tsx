@@ -1217,7 +1217,7 @@ function BuilderContent() {
                                                 {([
                                                     { label: 'Original',  value: 'none' },
                                                     { label: 'Mono',      value: 'grayscale(100%) contrast(110%) brightness(105%)' },
-                                                    { label: 'Cobalt',    value: 'brightness(0.9) contrast(1.1) saturate(1.2) sepia(0.4) hue-rotate(185deg) saturate(2)' },
+                                                    { label: 'Slate',     value: 'contrast(1.1) brightness(1.05) saturate(0.85)' },
                                                     { label: 'Cinematic', value: 'contrast(1.2) brightness(1.1) saturate(0.9) hue-rotate(-10deg) sepia(0.1)' },
                                                 ] as { label: string; value: string }[]).map(f => {
                                                     const isActive = photoFilter === f.value;
