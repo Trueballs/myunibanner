@@ -66,7 +66,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full bg-transparent py-6 border-t border-slate-100 mt-0">
+    <footer className="w-full bg-transparent pt-12 pb-6 md:py-20 border-t border-slate-100 mt-0">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16 text-center md:text-left">
         <div className="text-slate-500 font-medium text-sm md:text-base">
           Created by <a href="https://oscarwoldskaarderud.dev" target="_blank" rel="noopener noreferrer" className="text-slate-900 font-bold hover:text-blue-600 transition-all no-underline">Oscar</a> (oscar.w.skaarderud@gmail.com)

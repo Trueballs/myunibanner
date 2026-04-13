@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import HeroVisualization from "@/components/HeroVisualization";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -251,20 +252,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── FOOTER ── */}
-        <footer className="w-full bg-transparent py-28">
-          <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-16">
-            <div className="text-slate-500 font-medium text-sm md:text-base">
-              Created by <a href="https://oscarwoldskaarderud.dev" target="_blank" rel="noopener noreferrer" className="text-slate-900 font-bold hover:text-blue-600 transition-all no-underline">Oscar</a> (oscar.w.skaarderud@gmail.com)
-            </div>
-            
-            <div className="flex items-center gap-20 text-slate-500 font-medium text-sm md:text-base">
-              <a href="#" className="hover:text-blue-600 transition-colors no-underline">Privacy</a>
-              <a href="#" className="hover:text-blue-600 transition-colors no-underline">Terms</a>
-              <a href="https://www.linkedin.com/in/oscar-wold-skaarderud-613644340" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors no-underline">Contact</a>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </main>
 
       {/* ── ZOOM MODAL ── */}
