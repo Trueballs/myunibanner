@@ -49,7 +49,7 @@ export default function TermsPage() {
                                 transition={{ delay: i * 0.1 }}
                                 className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-sm border border-gray-100"
                             >
-                                <div className="flex items-center gap-4 mb-6 text-[#1e2d78]">
+                                <div className="flex items-center gap-4 mb-6 text-blue-600">
                                     <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
                                         {term.icon}
                                     </div>
@@ -62,7 +62,7 @@ export default function TermsPage() {
                         ))}
                     </div>
 
-                    <div className="mt-16 bg-[#1e2d78] text-white p-12 rounded-[3rem] w-full flex flex-col items-center">
+                    <div className="mt-16 bg-slate-900 text-white p-12 rounded-[3rem] w-full flex flex-col items-center">
                         <div className="w-16 h-16 bg-blue-600/30 rounded-full flex items-center justify-center mb-6">
                             <CheckCircle className="w-8 h-8 text-blue-200" />
                         </div>

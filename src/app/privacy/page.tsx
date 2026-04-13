@@ -52,7 +52,7 @@ export default function PrivacyPage() {
                                 transition={{ delay: i * 0.1 }}
                                 className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-sm border border-gray-100"
                             >
-                                <div className="flex items-center gap-4 mb-6 text-[#1e2d78]">
+                                <div className="flex items-center gap-4 mb-6 text-blue-600">
                                     <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
                                         {sec.icon}
                                     </div>
@@ -65,7 +65,7 @@ export default function PrivacyPage() {
                         ))}
                     </div>
 
-                    <div className="mt-16 bg-[#1e2d78] text-white p-12 rounded-[3rem] w-full text-center">
+                    <div className="mt-16 bg-slate-900 text-white p-12 rounded-[3rem] w-full text-center">
                         <h2 className="text-3xl font-black uppercase tracking-tight mb-4 text-blue-200">Got questions?</h2>
                         <p className="text-blue-100/70 mb-8 font-medium">If you have any concerns regarding your privacy at Myunibanner, reach out directly to Oscar.</p>
                         <a href="mailto:oscar.w.skaarderud@gmail.com" className="inline-flex items-center gap-2 text-white font-black text-xs uppercase tracking-widest border-b-2 border-white pb-1 hover:opacity-80 transition-opacity">
