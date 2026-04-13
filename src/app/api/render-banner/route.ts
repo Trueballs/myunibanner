@@ -90,7 +90,24 @@ export async function POST(req: NextRequest) {
                     .resize(PHOTO_W, PHOTO_H, { fit: 'cover', position: 'center' })
                     .png()
                     .toBuffer();
-                composites.push({ input: bg, top: 0, left: 0 });
+                
+                let top = 0, left = 0;
+                let finalBg = bg;
+
+                if (layout === 8) {
+                    // Executive: Photo is a window on the right
+                    const winW = W - 500 - 48;
+                    const winH = H - 48;
+                    const winPhoto = await sharp(raw)
+                        .resize(winW, winH, { fit: 'cover', position: 'center' })
+                        .png().toBuffer();
+                    
+                    finalBg = winPhoto;
+                    left = 500 + 24;
+                    top = 24;
+                }
+
+                composites.push({ input: finalBg, top: top, left: left });
             } catch (e) {
                 console.error('BG image failed:', e);
             }
@@ -128,27 +145,19 @@ export async function POST(req: NextRequest) {
             composites.push({ input: panelBuffer, top: 0, left: PANEL_X });
         }
 
-        // Layout 8: Premium Card
+        // Layout 8: The Executive
         if (layout === 8) {
-            const cardBuffer = await sharp({ 
+            // Right photo window background (solid white or black frame)
+            const frameBuffer = await sharp({ 
                 create: { 
-                    width: 440, 
-                    height: 280, 
+                    width: W - 500 - 48, 
+                    height: H - 48, 
                     channels: 4, 
-                    background: { r: 255, g: 255, b: 255, alpha: 255 } 
+                    background: { r: 255, g: 255, b: 255, alpha: 25 } 
                 } 
-            })
-            .composite([
-                // Bottom line divider
-                {
-                    input: await sharp({ create: { width: 340, height: 2, channels: 4, background: { r: 241, g: 245, b: 249, alpha: 255 } } }).png().toBuffer(),
-                    top: 140,
-                    left: 50
-                }
-            ])
-            .png().toBuffer();
+            }).png().toBuffer();
             
-            composites.push({ input: cardBuffer, top: Math.floor((H - 280) / 2), left: W - 440 - 80 });
+            composites.push({ input: frameBuffer, top: 24, left: 500 + 24 });
         }
 
         // ── 3. Logo ───────────────────────────────────────────────────
@@ -173,11 +182,9 @@ export async function POST(req: NextRequest) {
                     logoLeft = W - lw - 40;
                     logoTop = H - lh - 30;
                 } else if (layout === 8) {
-                    // Premium Card: Centered in the card (which is at W - 440 - 80)
-                    const cardX = W - 440 - 80;
-                    const cardY = Math.floor((H - 280) / 2);
-                    logoLeft = cardX + Math.floor((440 - lw) / 2);
-                    logoTop = cardY + 40;
+                    // Executive: Centered in the left 500px panel
+                    logoLeft = Math.floor((500 - lw) / 2);
+                    logoTop = Math.floor((H - lh) / 2) - textOffset;
                 } else {
                     // Centered layouts (3, 7)
                     logoLeft = Math.floor((W - lw) / 2);
@@ -220,11 +227,9 @@ export async function POST(req: NextRequest) {
             let textAlign: 'center' | 'right' = 'center';
             
             if (layout === 8) {
-                // Premium Card: In the card
-                const cardX = W - 440 - 80;
-                const cardY = Math.floor((H - 280) / 2);
-                centerX = cardX + 220;
-                centerY = cardY + 210;
+                // Executive: In the left 500px panel
+                centerX = 250;
+                centerY = 310;
                 textAlign = 'center';
             } else {
                 centerX = panelW > 0 ? (panelX + (panelW / 2) + (layout === 2 ? 30 : layout === 6 ? 60 : 0)) : (W / 2);
@@ -295,7 +300,7 @@ export async function POST(req: NextRequest) {
         }
 
         // ── 5. Compose ────────────────────────────────────────────────
-        const usePhotoBase = !![0, 1, 2, 4, 5, 6, 7, 8].includes(layout) && imageUrl;
+        const usePhotoBase = !![0, 1, 2, 4, 5, 6, 7].includes(layout) && imageUrl;
         const baseColor = usePhotoBase ? { r: 0, g: 0, b: 0 } : primary;
 
         const output = await sharp({

@@ -513,35 +513,37 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 
 
 /* ═══════════════════════════════════════════════════════════════
-   LAYOUT 8 — "PREMIUM CARD"
-   Full photo background with an elegant floating white card on the right.
-   High-end, clean, and safe from profile picture overlap.
+   LAYOUT 8 — "THE EXECUTIVE"
+   Solid brand panel on the left with a large photo 'window' on the right.
+   Extremely professional, clean, and safe from profile pic overlap.
 ═══════════════════════════════════════════════════════════════ */
 function L8({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 220 }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
 
     return (
-        <div className="absolute inset-0 overflow-hidden bg-slate-100 flex items-center justify-end pr-24">
-            {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
-            <div className="absolute inset-0 bg-black/5" />
+        <div className="absolute inset-0 overflow-hidden flex" style={{ background: primary }}>
+            {/* Left Brand Panel */}
+            <div className="w-[500px] h-full flex flex-col items-center justify-center p-12 gap-10 z-10">
+                <div className="flex flex-col items-center gap-6">
+                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize * 0.6} maxW={420} brandColors={brand.colors} />
+                    {text && (
+                        <p style={{
+                            color: headlineColor, fontSize: 24, fontWeight: 900,
+                            margin: 0, fontFamily: font, letterSpacing: "-0.02em",
+                            textAlign: "center", lineHeight: 1.2, maxWidth: 400
+                        }}>
+                            {text}
+                        </p>
+                    )}
+                </div>
+            </div>
 
-            {/* Floating Card */}
-            <div className="relative z-10 w-[440px] bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex flex-col items-center p-12 gap-8 border border-white/20">
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={false} panelColor="#ffffff" h={logoSize * 0.55} maxW={360} brandColors={brand.colors} />
-                
-                {text && (
-                    <div className="w-full h-[2px] bg-slate-100" />
-                )}
-
-                {text && (
-                    <p style={{
-                        color: "#111827", fontSize: 22, fontWeight: 900,
-                        margin: 0, fontFamily: font, letterSpacing: "-0.02em",
-                        textAlign: "center", lineHeight: 1.2
-                    }}>
-                        {text}
-                    </p>
-                )}
+            {/* Right Photo Window */}
+            <div className="flex-1 p-6">
+                <div className="w-full h-full rounded-[32px] overflow-hidden relative shadow-2xl border border-white/10">
+                    {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
+                    <div className="absolute inset-0 bg-black/5" />
+                </div>
             </div>
         </div>
     );
@@ -725,13 +727,13 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
         ),
     },
     {
-        label: "Premium Card",
+        label: "Executive",
         preview: (c, a) => (
-            <div className="w-full h-full relative overflow-hidden bg-slate-200 p-2 flex items-center justify-end pr-4">
-                <div className="w-16 h-[70%] bg-white rounded shadow-sm flex flex-col gap-1 p-1">
-                    <div className="w-full h-2 bg-slate-100 rounded-sm" />
-                    <div className="w-full h-1 bg-slate-50 rounded-sm" />
+            <div className="w-full h-full flex overflow-hidden p-1" style={{ background: c }}>
+                <div style={{ width: "40%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <div style={{ width: "60%", height: "20%", background: "white", opacity: 0.3, borderRadius: 1 }} />
                 </div>
+                <div style={{ flex: 1, background: "white", opacity: 0.1, borderRadius: 4 }} />
             </div>
         ),
     },
