@@ -133,7 +133,7 @@ export default function Home() {
                 { name: "Emma W.", role: "Uni Reading", text: "So easy to use. Highly recommend to all students looking to polish their profile." },
                 { name: "Lars B.", role: "OsloMet", text: "The only way to get a high-res uni banner without the hassle. Perfect for careers week." },
                 { name: "Javier M.", role: "Business Admin", text: "Increíble. No necesitas ser diseñador para tener un perfil top. Muy recomendable." },
-                { name: "Sophie T.", role: "Marketing Major", text: "Best AI tool I've used this year. My LinkedIn profile views spiked after the update!" }
+                { name: "Sophie T.", role: "Marketing Major", text: "Best tool I've used this year. My LinkedIn profile views spiked after the update!" }
               ].map((t, i) => (
                 <motion.div
                   key={i} 
