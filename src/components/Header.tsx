@@ -58,11 +58,11 @@ export default function Header({ showStartButton = false, showBackButton = false
         </div>
 
         {/* RIGHT: Actions */}
-        <div className="flex items-center justify-end gap-3 md:gap-6">
+        <div className="flex items-center justify-end gap-3 md:gap-4">
           {showBackButton && (
             <button
               onClick={() => router.push("/")}
-              className="px-4 md:px-6 py-2 md:py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold text-[12px] md:text-sm rounded-xl transition-all flex items-center gap-2 active:scale-95"
+              className="px-5 md:px-7 py-2 md:py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold text-[13px] md:text-sm rounded-full transition-all flex items-center gap-2 active:scale-95 border border-slate-200/50"
             >
               <ArrowLeft className="w-3.5 md:w-4 h-3.5 md:h-4" /> Back
             </button>
@@ -70,7 +70,7 @@ export default function Header({ showStartButton = false, showBackButton = false
 
           <button
             onClick={() => window.open('https://www.linkedin.com/in/oscar-wold-skaarderud-613644340', '_blank')}
-            className="px-4 md:px-6 py-2 md:py-2.5 bg-blue-600 text-white font-bold text-[12px] md:text-sm rounded-xl transition-all shadow-lg hover:bg-blue-700 active:scale-95"
+            className="px-5 md:px-7 py-2 md:py-2.5 bg-blue-600 text-white font-bold text-[13px] md:text-sm rounded-full transition-all shadow-md hover:bg-blue-700 active:scale-95"
           >
             Contact
           </button>
