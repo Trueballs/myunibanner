@@ -1218,7 +1218,7 @@ function BuilderContent() {
                                                     { label: 'Original', value: 'none' },
                                                     { label: 'Mono',     value: 'grayscale(100%) contrast(108%) brightness(103%)' },
                                                     { label: 'Golden',   value: 'brightness(112%) saturate(145%) contrast(88%) hue-rotate(-12deg)' },
-                                                    { label: 'Nordic',   value: 'saturate(75%) brightness(110%) contrast(107%) hue-rotate(192deg)' },
+                                                    { label: 'Matte',    value: 'contrast(82%) brightness(112%) saturate(88%)' },
                                                 ] as { label: string; value: string }[]).map(f => {
                                                     const isActive = photoFilter === f.value;
                                                     const sampleSrc = brand.images[imgIndex % brand.images.length];
