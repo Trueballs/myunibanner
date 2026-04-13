@@ -1116,7 +1116,7 @@ function BuilderContent() {
                                                 <ChevronLeft className="w-4 h-4" />
                                             </button>
                                             <div className="flex gap-1 flex-1">
-                                                {([0, 1, 2, 3, 4, 5, 6, 7, 8] as Layout[]).map(l => (
+                                                {([0, 1, 2, 3, 4, 5, 6, 7] as Layout[]).map(l => (
                                                     <button key={l}
                                                         onClick={() => setLayout(l)}
                                                         className="flex-1 aspect-[4/1] rounded-xl overflow-hidden transition-all hover:scale-105 active:scale-95"
@@ -1258,9 +1258,9 @@ function BuilderContent() {
                     </div>
                 </div>
 
-                <Footer />
-                </main>
-            </div>
+            </main>
+            <Footer />
+        </div>
 
             {/* DOWNLOAD INSTRUCTION POPUP */}
             <AnimatePresence>
