@@ -515,7 +515,7 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 /* ═══════════════════════════════════════════════════════════════
    LAYOUT 8 — "THE FOCUS"
    High-concept circular photo window on a solid brand background.
-   Creative, distinct, and safe from profile picture overlap.
+   Identity on the RIGHT for 100% safety from profile pic overlap.
 ═══════════════════════════════════════════════════════════════ */
 function L8({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 220 }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
@@ -527,26 +527,26 @@ function L8({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
                 <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={true} panelColor={primary} h={800} maxW={1200} />
             </div>
 
-            {/* Left Content */}
-            <div className="relative z-20 w-[600px] pl-16 flex flex-col gap-8">
-                <div className="flex flex-col gap-6">
-                   <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize * 0.55} maxW={500} brandColors={brand.colors} />
+            {/* Left: Circular Photo Window (Intentionally partially behind profile pic) */}
+            <div className="w-[500px] h-full flex items-center justify-center pl-16 relative z-10">
+                <div className="w-[300px] h-[300px] rounded-full overflow-hidden border-8 border-white/20 shadow-2xl relative">
+                    {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
+                </div>
+            </div>
+
+            {/* Right: Identity Content (The Safe Zone) */}
+            <div className="flex-1 pr-16 flex flex-col items-end gap-8 relative z-20">
+                <div className="flex flex-col items-end gap-6 text-right">
+                   <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize * 0.55} maxW={580} brandColors={brand.colors} />
                    {text && (
                        <p style={{
                            color: headlineColor, fontSize: 24, fontWeight: 900,
                            margin: 0, fontFamily: font, letterSpacing: "-0.02em",
-                           lineHeight: 1.2, maxWidth: 460
+                           lineHeight: 1.2, maxWidth: 480
                        }}>
                            {text}
                        </p>
                    )}
-                </div>
-            </div>
-
-            {/* Right: Circular Photo Focus */}
-            <div className="flex-1 h-full flex items-center justify-end pr-16 relative z-10">
-                <div className="w-[320px] h-[320px] rounded-full overflow-hidden border-8 border-white/20 shadow-2xl relative">
-                    {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
                 </div>
             </div>
         </div>
@@ -733,9 +733,9 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
     {
         label: "The Focus",
         preview: (c, a) => (
-            <div className="w-full h-full flex items-center justify-end p-2 pr-4 relative" style={{ background: c }}>
+            <div className="w-full h-full flex items-center justify-start p-2 pl-4 relative" style={{ background: c }}>
                 <div className="w-6 h-6 rounded-full bg-white opacity-20 border border-white/40 shadow-sm" />
-                <div className="absolute left-3 top-3 w-8 h-2 bg-white/30 rounded-full" />
+                <div className="absolute right-3 top-3 w-8 h-2 bg-white/30 rounded-full" />
             </div>
         ),
     },
