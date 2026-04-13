@@ -223,6 +223,7 @@ type LayoutProps = {
     tintIndex?: number;
     bgOpacity?: number; // 0 to 100
     logoSize?: number;
+    photoFilter?: string;
 };
 
 
@@ -249,7 +250,7 @@ function StatusTagBadge({ text, bg, color }: { text?: string, bg: string, color:
    Logo sits large, centered in the left panel.
    Inspired by: Princeton / Dartmouth
 ═══════════════════════════════════════════════════════════════ */
-function L0({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headlineColor, logoSize = 180 }: LayoutProps) {
+function L0({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headlineColor, logoSize = 180, photoFilter = "none" }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
     const SPLIT_X = 620;
 
@@ -258,7 +259,7 @@ function L0({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headli
             {/* Left: Campus Photo */}
             <div className="relative h-full overflow-hidden" style={{ width: SPLIT_X }}>
                 {img ? (
-                    <img src={img} alt="" className="w-full h-full object-cover" crossOrigin="anonymous" />
+                    <img src={img} alt="" className="w-full h-full object-cover" crossOrigin="anonymous" style={{ filter: photoFilter }} />
                 ) : (
                     <div className="w-full h-full" style={{ background: primary, opacity: 0.1 }} />
                 )}
@@ -291,14 +292,14 @@ function L0({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headli
    Text sits bottom-left (well inside safe zone, clear of avatar).
    Inspired by: UC Berkeley / Oxford
 ═══════════════════════════════════════════════════════════════ */
-function L1({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, logoSize = 180 }: LayoutProps) {
+function L1({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, logoSize = 180, photoFilter = "none" }: LayoutProps) {
     const tintColor = brand.colors[tintIndex % brand.colors.length] ?? primary;
     const font = getFont(brand.fonts?.[0]);
 
     return (
         <div className="absolute inset-0 overflow-hidden bg-black">
             {img ? (
-                <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />
+                <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" style={{ filter: photoFilter }} />
             ) : (
                 <div className="absolute inset-0" style={{ background: primary }} />
             )}
@@ -334,14 +335,14 @@ function L1({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
    Text anchored to the bottom of the panel.
    Inspired by: Edinburgh / Loughborough
 ═══════════════════════════════════════════════════════════════ */
-function L2({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 180 }: LayoutProps) {
+function L2({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 180, photoFilter = "none" }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
     const PANEL_W = 580;
 
     return (
         <div className="absolute inset-0 overflow-hidden bg-black">
             {img && (
-                <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />
+                <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" style={{ filter: photoFilter }} />
             )}
 
             <div className="absolute inset-y-0 right-0 flex flex-col items-center justify-center gap-8"
@@ -397,7 +398,7 @@ function L3({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, headlineCol
    Two frosted glass panes floating over a vibrant, completely
    full-bleed campus image. Premium, polished software feel.
 ═══════════════════════════════════════════════════════════════ */
-function L4({ brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', img, bgStyle = 'none', tintIndex = 0, logoSize = 180 }: LayoutProps) {
+function L4({ brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', img, bgStyle = 'none', tintIndex = 0, logoSize = 180, photoFilter = "none" }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
     const tintColor = brand.colors[tintIndex % brand.colors.length] ?? brand.colors[0];
     
@@ -408,7 +409,7 @@ function L4({ brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', 
             {img && (
                 <div className="absolute inset-0">
                     <img src={img} alt="" crossOrigin="anonymous" 
-                        className="absolute inset-0 w-full h-full object-cover" />
+                        className="absolute inset-0 w-full h-full object-cover" style={{ filter: photoFilter }} />
                 </div>
             )}
             
@@ -433,14 +434,14 @@ function L4({ brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', 
    Massive watermark in the middle, and a sharp solid panel splitting the 
    right side cleanly. Very modern.
 ═══════════════════════════════════════════════════════════════ */
-function L5({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, logoSize = 180 }: LayoutProps) {
+function L5({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, logoSize = 180, photoFilter = "none" }: LayoutProps) {
     const tintColor = brand.colors[tintIndex % brand.colors.length] ?? primary;
     const font = getFont(brand.fonts?.[0]);
 
     return (
         <div className="absolute inset-0 overflow-hidden flex bg-white">
             <div className="flex-1 relative overflow-hidden bg-black">
-                {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
+                {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" style={{ filter: photoFilter }} />}
             </div>
 
             <div className="w-[500px] flex flex-col items-center justify-center p-12 text-center gap-10 z-10" style={{ background: primary }}>
@@ -461,12 +462,12 @@ function L5({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
    Full diagonal split with bold gradient on right, photo on left.
    Inspired by: Modern tech branding
 ═══════════════════════════════════════════════════════════════ */
-function L6({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 180 }: LayoutProps) {
+function L6({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 180, photoFilter = "none" }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
 
     return (
         <div className="absolute inset-0 overflow-hidden bg-white">
-            {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-3/5 h-full object-cover" />}
+            {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-3/5 h-full object-cover" style={{ filter: photoFilter }} />}
 
             <div className="absolute top-0 bottom-0 right-0 flex flex-col items-center justify-center gap-8 p-16"
                 style={{
@@ -492,14 +493,14 @@ function L6({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
    Full-bleed campus photo with a massive, centered logo.
    Simplicity and scale for maximum impact.
 ═══════════════════════════════════════════════════════════════ */
-function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 180 }: LayoutProps) {
+function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 180, photoFilter = "none" }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
     
     return (
         <div className="absolute inset-0 overflow-hidden flex items-center justify-center bg-black">
             {img && (
                 <div className="absolute inset-0">
-                    <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />
+                    <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" style={{ filter: photoFilter }} />
                     <div className="absolute inset-0 bg-black/10" />
                 </div>
             )}
@@ -517,7 +518,7 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 ═══════════════════════════════════════════════════════════════ */
 function BannerCanvas({
     brand, text, badge, estDate, statusTag, layout, imgIndex, logoIndex,
-    logoPos = 'bottom', bgStyle = 'none', tintIndex = 0, bgOpacity = 100, logoSize = 180, dataUrlCache = new Map()
+    logoPos = 'bottom', bgStyle = 'none', tintIndex = 0, bgOpacity = 100, logoSize = 180, photoFilter = "none", dataUrlCache = new Map()
 }: {
     brand: BrandData; text: string; badge?: string; estDate?: string; statusTag?: string; layout: Layout; imgIndex: number; logoIndex: number;
     logoPos?: 'top' | 'bottom';
@@ -525,6 +526,7 @@ function BannerCanvas({
     tintIndex?: number;
     bgOpacity?: number;
     logoSize?: number;
+    photoFilter?: string;
     dataUrlCache?: Map<string, string>;
 }) {
     // Use cached Base64 data URL when available (iOS Safari canvas taint fix)
@@ -585,7 +587,7 @@ function BannerCanvas({
         headlineColor = contrastText(primary);
     }
 
-    const p = { brand, text, badge, estDate, statusTag, img, logoSrc, logoHasBg, logoIsLight, primary, secondary, headlineColor, logoPos, bgStyle, tintIndex, bgOpacity, logoSize };
+    const p = { brand, text, badge, estDate, statusTag, img, logoSrc, logoHasBg, logoIsLight, primary, secondary, headlineColor, logoPos, bgStyle, tintIndex, bgOpacity, logoSize, photoFilter };
 
     return (
         <>
@@ -715,6 +717,8 @@ function BuilderContent() {
     const [tintIndex, setTintIndex] = useState(0);
     const [bgOpacity, setBgOpacity] = useState(100);
     const [logoSize, setLogoSize] = useState(220);
+    const [photoFilter, setPhotoFilter] = useState("none");
+
     const [scale, setScale] = useState(1);
     const [loading, setLoading] = useState(false);
     const [isDownloading, setIsDownloading] = useState(false);
@@ -1005,6 +1009,7 @@ function BuilderContent() {
                                                 tintIndex={tintIndex}
                                                 bgOpacity={bgOpacity}
                                                 logoSize={logoSize}
+                                                photoFilter={photoFilter}
                                                 dataUrlCache={dataUrlCache}
                                             />
                                         </div>
@@ -1031,6 +1036,7 @@ function BuilderContent() {
                                                     tintIndex={tintIndex}
                                                     bgOpacity={bgOpacity}
                                                     logoSize={logoSize}
+                                                    photoFilter={photoFilter}
                                                     dataUrlCache={dataUrlCache}
                                                 />
                                             </div>
@@ -1162,29 +1168,75 @@ function BuilderContent() {
                                     {/* Photo picker */}
                                     {brand.images.length > 0 && (
                                         <div>
-                                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Photo</p>
-                                            <div className="flex items-center gap-2">
-                                                <button onClick={prevImg}
-                                                    className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
-                                                    <ChevronLeft className="w-4 h-4" />
-                                                </button>
-                                                <div className="flex-1 h-14 rounded-2xl overflow-hidden border border-slate-100 relative shadow-sm">
-                                                    <img
-                                                        src={brand.images[imgIndex % brand.images.length]}
-                                                        alt=""
-                                                        className="w-full h-full object-cover"
-                                                    />
-                                                </div>
-                                                <button onClick={nextImg}
-                                                    className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
-                                                    <ChevronRight className="w-4 h-4" />
-                                                </button>
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">
+                                                Photo <span className="normal-case font-medium tracking-normal text-gray-300">· hover to preview</span>
+                                            </p>
+                                            {/* Thumbnail strip */}
+                                            <div className="flex gap-2 flex-wrap">
+                                                {brand.images.map((img, i) => (
+                                                    <div
+                                                        key={i}
+                                                        className="relative group"
+                                                        style={{ width: 56, height: 36 }}
+                                                    >
+                                                        {/* Large hover preview */}
+                                                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 pointer-events-none
+                                                            opacity-0 group-hover:opacity-100 transition-all duration-150 ease-out
+                                                            scale-95 group-hover:scale-100
+                                                            w-64 aspect-[4/1] rounded-xl overflow-hidden shadow-2xl border-2 border-white ring-1 ring-black/5">
+                                                            <img src={img} alt={`Photo ${i + 1}`} className="w-full h-full object-cover" />
+                                                        </div>
+                                                        {/* Thumbnail */}
+                                                        <button
+                                                            onClick={() => setImgIndex(i)}
+                                                            className="w-full h-full rounded-lg overflow-hidden transition-all hover:scale-110 active:scale-95"
+                                                            style={{
+                                                                outline: imgIndex === i ? `3px solid #2563EB` : '2px solid transparent',
+                                                                outlineOffset: 2,
+                                                                boxShadow: imgIndex === i ? '0 0 0 1px #2563EB20' : undefined,
+                                                            }}
+                                                        >
+                                                            <img src={img} alt={`Photo ${i + 1}`} className="w-full h-full object-cover" />
+                                                        </button>
+                                                    </div>
+                                                ))}
                                             </div>
                                             {brand.images.length > 1 && (
-                                                <p className="text-xs text-gray-400 mt-1.5">
-                                                    Photo {(imgIndex % brand.images.length) + 1} of {brand.images.length}
+                                                <p className="text-xs text-gray-400 mt-2">
+                                                    Photo {(imgIndex % brand.images.length) + 1} of {brand.images.length} selected
                                                 </p>
                                             )}
+                                        </div>
+                                    )}
+
+                                    {/* Photo Filter — only shown when there are images */}
+                                    {brand.images.length > 0 && (
+                                        <div>
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Photo Filter</p>
+                                            <div className="flex gap-2">
+                                                {[
+                                                    { label: 'Normal', value: 'none', preview: 'bg-gradient-to-r from-blue-200 to-green-200' },
+                                                    { label: 'B&W', value: 'grayscale(100%)', preview: 'bg-gradient-to-r from-gray-300 to-gray-500' },
+                                                    { label: 'Warm', value: 'sepia(50%) saturate(140%) brightness(105%)', preview: 'bg-gradient-to-r from-amber-200 to-orange-300' },
+                                                    { label: 'Cool', value: 'hue-rotate(200deg) saturate(80%) brightness(105%)', preview: 'bg-gradient-to-r from-blue-300 to-cyan-400' },
+                                                ].map(f => (
+                                                    <button
+                                                        key={f.label}
+                                                        onClick={() => setPhotoFilter(f.value)}
+                                                        className="flex-1 flex flex-col items-center gap-1.5 py-2.5 rounded-xl border-2 transition-all"
+                                                        style={{
+                                                            borderColor: photoFilter === f.value ? primary : '#f3f4f6',
+                                                            background: photoFilter === f.value ? `${primary}10` : '#f9fafb',
+                                                        }}
+                                                    >
+                                                        <div className={`w-6 h-6 rounded-full ${f.preview} ring-1 ring-black/10`} />
+                                                        <span className="text-[9px] font-black uppercase tracking-widest"
+                                                            style={{ color: photoFilter === f.value ? primary : '#9ca3af' }}>
+                                                            {f.label}
+                                                        </span>
+                                                    </button>
+                                                ))}
+                                            </div>
                                         </div>
                                     )}
 
