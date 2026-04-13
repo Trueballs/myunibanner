@@ -25,11 +25,10 @@ export default function TermsPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-[#F8FAFC] font-sans flex flex-col items-center w-full">
-            <main className="w-full max-w-7xl flex flex-col relative">
-                <Header showBackButton />
-
-                <div className="w-full px-4 md:px-8 pt-12 md:pt-16 pb-24">
+        <div className="min-h-screen bg-[#F8FAFC] font-sans flex flex-col items-center w-full overflow-x-hidden">
+            <Header showBackButton />
+            <main className="w-full max-w-7xl flex flex-col relative px-4 md:px-8">
+                <div className="w-full pt-12 md:pt-16 pb-24">
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
