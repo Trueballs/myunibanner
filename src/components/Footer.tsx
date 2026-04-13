@@ -67,12 +67,12 @@ export default function Footer() {
 
   return (
     <footer className="w-full bg-transparent py-6 border-t border-slate-100 mt-0">
-      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-16">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16 text-center md:text-left">
         <div className="text-slate-500 font-medium text-sm md:text-base">
           Created by <a href="https://oscarwoldskaarderud.dev" target="_blank" rel="noopener noreferrer" className="text-slate-900 font-bold hover:text-blue-600 transition-all no-underline">Oscar</a> (oscar.w.skaarderud@gmail.com)
         </div>
         
-        <div className="flex items-center gap-20 text-slate-500 font-medium text-sm md:text-base">
+        <div className="flex flex-wrap items-center justify-center md:justify-end gap-6 md:gap-20 text-slate-500 font-medium text-sm md:text-base">
           <a href="#" className="hover:text-blue-600 transition-colors no-underline">Privacy</a>
           <a href="#" className="hover:text-blue-600 transition-colors no-underline">Terms</a>
           <a href="https://www.linkedin.com/in/oscar-wold-skaarderud-613644340" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors no-underline">Contact</a>

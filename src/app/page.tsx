@@ -164,9 +164,9 @@ export default function Home() {
                     </div>
                     <div>
                       <p className="font-bold text-slate-900 text-base group-hover:text-white transition-colors">{t.name}</p>
-                      <p className="text-slate-400 text-sm font-medium group-hover:text-white/60 transition-colors uppercase tracking-tight">{t.role}</p>
                     </div>
                   </div>
+                </motion.div>
               ))}
             </div>
           </div>
