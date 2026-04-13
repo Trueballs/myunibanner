@@ -705,6 +705,14 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
             </div>
         ),
     },
+    {
+        label: "Photo Focus",
+        preview: (c, a) => (
+            <div className="w-full h-full relative overflow-hidden bg-slate-50 flex items-center justify-center">
+                <div style={{ width: "35%", height: "35%", background: c, borderRadius: 2 }} />
+            </div>
+        ),
+    },
 ];
 
 /* ═══════════════════════════════════════════════════════════════
