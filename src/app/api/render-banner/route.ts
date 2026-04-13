@@ -63,8 +63,8 @@ export async function POST(req: NextRequest) {
             primaryHex?: string;
             layout?: number;
             text?: string;
-            headlineColor?: string;
             logoIsLight?: boolean;
+            logoSize?: number;
         };
 
         const primary = hexToRgb(primaryHex);
@@ -130,9 +130,9 @@ export async function POST(req: NextRequest) {
 
         // ── 3. Logo ───────────────────────────────────────────────────
         if (logoUrl) {
-            const isFullWidth = [3, 7].includes(layout);
-            const LOGO_MAX_W = isFullWidth ? 800 : [0, 2, 5, 6].includes(layout) ? 600 : 500;
-            const LOGO_MAX_H = isFullWidth ? 240 : [0, 5, 6].includes(layout) ? 220 : 200;
+            const isFullWidth = [3, 7, 8].includes(layout);
+            const LOGO_MAX_W = logoSize ? Math.min(logoSize * 5, 1200) : (isFullWidth ? 800 : [0, 2, 5, 6].includes(layout) ? 600 : 500);
+            const LOGO_MAX_H = logoSize ? logoSize : (isFullWidth ? 240 : [0, 5, 6].includes(layout) ? 220 : 200);
 
             const logoBuf = await safeFetchPng(logoUrl, LOGO_MAX_W, LOGO_MAX_H, origin);
             if (logoBuf) {
@@ -150,6 +150,7 @@ export async function POST(req: NextRequest) {
                     logoLeft = W - lw - 40;
                     logoTop = H - lh - 30;
                 } else {
+                    // Centered layouts (3, 7, 8)
                     logoLeft = Math.floor((W - lw) / 2);
                     logoTop = Math.floor((H - lh) / 2) - textOffset;
                 }
@@ -252,7 +253,7 @@ export async function POST(req: NextRequest) {
         }
 
         // ── 5. Compose ────────────────────────────────────────────────
-        const usePhotoBase = !![0, 1, 2, 4, 5, 6].includes(layout) && imageUrl;
+        const usePhotoBase = !![0, 1, 2, 4, 5, 6, 7, 8].includes(layout) && imageUrl;
         const baseColor = usePhotoBase ? { r: 0, g: 0, b: 0 } : primary;
 
         const output = await sharp({

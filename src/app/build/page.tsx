@@ -39,7 +39,7 @@ type BrandData = {
     images: string[];
 };
 
-type Layout = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+type Layout = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 /* ═══════════════════════════════════════════════════════════════
    LINKEDIN CANVAS CONSTANTS
@@ -511,7 +511,23 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 }
 
 
-/* ═══════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════/* ═══════════════════════════════════════════════════════════════
+   LAYOUT 8 — "MINIMALIST PHOTO"
+   Logo centered in the middle of a photo. 
+   Clean and high impact.
+═══════════════════════════════════════════════════════════════ */
+function L8({ brand, img, logoSrc, logoHasBg, logoIsLight, logoSize = 180 }: LayoutProps & { logoSize?: number }) {
+    return (
+        <div className="absolute inset-0 overflow-hidden flex items-center justify-center bg-black">
+            {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
+            <div className="absolute inset-0 bg-black/10" />
+            <div className="relative z-10">
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={logoSize} maxW={1100} brandColors={brand.colors} />
+            </div>
+        </div>
+    );
+}
+
    BANNER WRAPPER — routes to the right layout
 ═══════════════════════════════════════════════════════════════ */
 function BannerCanvas({
@@ -523,6 +539,7 @@ function BannerCanvas({
     bgStyle?: 'none' | 'brand';
     tintIndex?: number;
     bgOpacity?: number;
+    logoSize?: number;
     dataUrlCache?: Map<string, string>;
 }) {
     // Use cached Base64 data URL when available (iOS Safari canvas taint fix)
@@ -583,7 +600,7 @@ function BannerCanvas({
         headlineColor = contrastText(primary);
     }
 
-    const p = { brand, text, badge, estDate, statusTag, img, logoSrc, logoHasBg, logoIsLight, primary, secondary, headlineColor, logoPos, bgStyle, tintIndex, bgOpacity };
+    const p = { brand, text, badge, estDate, statusTag, img, logoSrc, logoHasBg, logoIsLight, primary, secondary, headlineColor, logoPos, bgStyle, tintIndex, bgOpacity, logoSize };
 
     return (
         <>
@@ -595,6 +612,7 @@ function BannerCanvas({
             {layout === 5 && <L5 {...p} />}
             {layout === 6 && <L6 {...p} />}
             {layout === 7 && <L7 {...p} />}
+            {layout === 8 && <L8 {...p} />}
         </>
     );
 }
@@ -653,8 +671,8 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
     {
         label: "Minimalist Photo",
         preview: (c, a) => (
-            <div className="w-full h-full relative overflow-hidden bg-white">
-                <div style={{ position: "absolute", right: 6, bottom: 6, width: "30%", height: 3, background: c, borderRadius: 2 }} />
+            <div className="w-full h-full relative overflow-hidden bg-white flex items-center justify-center">
+                <div style={{ width: "40%", height: "40%", background: c, borderRadius: 2 }} />
             </div>
         ),
     },
@@ -691,7 +709,7 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
 /* ═══════════════════════════════════════════════════════════════
    MAIN PAGE
 ═══════════════════════════════════════════════════════════════ */
-const LAYOUTS = [0, 1, 2, 3, 4, 5, 6, 7];
+const LAYOUTS = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 function BuilderContent() {
     const params = useSearchParams();
@@ -712,6 +730,7 @@ function BuilderContent() {
     const [bgStyle, setBgStyle] = useState<'none' | 'brand'>('none');
     const [tintIndex, setTintIndex] = useState(0);
     const [bgOpacity, setBgOpacity] = useState(100);
+    const [logoSize, setLogoSize] = useState(180);
     const [scale, setScale] = useState(1);
     const [loading, setLoading] = useState(false);
     const [isDownloading, setIsDownloading] = useState(false);
@@ -908,7 +927,7 @@ function BuilderContent() {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                        imageUrl, logoUrl, primaryHex, layout, text, headlineColor, logoIsLight
+                        imageUrl, logoUrl, primaryHex, layout, text, headlineColor, logoIsLight, logoSize
                     }),
                 });
 
@@ -1001,6 +1020,7 @@ function BuilderContent() {
                                                 bgStyle={bgStyle}
                                                 tintIndex={tintIndex}
                                                 bgOpacity={bgOpacity}
+                                                logoSize={logoSize}
                                                 dataUrlCache={dataUrlCache}
                                             />
                                         </div>
@@ -1026,6 +1046,7 @@ function BuilderContent() {
                                                     bgStyle={bgStyle}
                                                     tintIndex={tintIndex}
                                                     bgOpacity={bgOpacity}
+                                                    logoSize={logoSize}
                                                     dataUrlCache={dataUrlCache}
                                                 />
                                             </div>
@@ -1105,7 +1126,7 @@ function BuilderContent() {
                                                 <ChevronLeft className="w-4 h-4" />
                                             </button>
                                             <div className="flex gap-1 flex-1">
-                                                {([0, 1, 2, 3, 4, 5, 6, 7] as Layout[]).map(l => (
+                                                {([0, 1, 2, 3, 4, 5, 6, 7, 8] as Layout[]).map(l => (
                                                     <button key={l}
                                                         onClick={() => setLayout(l)}
                                                         className="flex-1 aspect-[4/1] rounded-xl overflow-hidden transition-all hover:scale-105 active:scale-95"
@@ -1177,35 +1198,46 @@ function BuilderContent() {
                                         </div>
                                     )}
 
-                                    {/* Logo variant picker */}
-                                    {brand.logos.length > 1 && (
-                                        <div>
-                                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Logo Variant</p>
-                                            <div className="flex gap-2 flex-wrap">
-                                                {brand.logos.map((logo, i) => (
-                                                    <button key={i}
-                                                        onClick={() => setLogoIndex(i)}
-                                                        className="w-16 h-16 rounded-xl border-2 flex items-center justify-center p-1.5 transition-all hover:shadow-md"
+                                    {/* Logo controls */}
+                                    <div>
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Logo Variant</p>
+                                        <div className="flex gap-2 flex-wrap">
+                                            {brand.logos.map((logo, i) => (
+                                                <button key={i}
+                                                    onClick={() => setLogoIndex(i)}
+                                                    className="w-16 h-16 rounded-xl border-2 flex items-center justify-center p-1.5 transition-all hover:shadow-md"
+                                                    style={{
+                                                        borderColor: logoIndex === i ? primary : "#e5e7eb",
+                                                        background: logoIndex === i 
+                                                            ? `${primary}10` 
+                                                            : (logo.isLight ? "#333" : "#f9fafb"),
+                                                    }}>
+                                                    <img src={logo.url} alt={`Logo ${i + 1}`}
+                                                        className="w-full h-full object-contain"
                                                         style={{
-                                                            borderColor: logoIndex === i ? primary : "#e5e7eb",
-                                                            background: logoIndex === i 
-                                                                ? `${primary}10` 
-                                                                : (logo.isLight ? "#333" : "#f9fafb"),
-                                                        }}>
-                                                        <img src={logo.url} alt={`Logo ${i + 1}`}
-                                                            className="w-full h-full object-contain"
-                                                            style={{
-                                                                mixBlendMode: logo.hasBg ? "multiply" : undefined,
-                                                            }}
-                                                            onError={e => (e.currentTarget.style.display = "none")} />
-                                                    </button>
-                                                ))}
-                                            </div>
-                                            <p className="text-xs text-gray-400 mt-1.5">
-                                                Logo {logoIndex + 1} of {brand.logos.length} · {brand.logos.length * LAYOUTS.length} total combinations
-                                            </p>
+                                                            mixBlendMode: logo.hasBg ? "multiply" : undefined,
+                                                        }}
+                                                        onError={e => (e.currentTarget.style.display = "none")} />
+                                                </button>
+                                            ))}
                                         </div>
-                                    )}
+
+                                        <div className="mt-4">
+                                            <div className="flex justify-between items-center mb-1.5">
+                                                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Logo Size</p>
+                                                <span className="text-[10px] font-bold text-gray-500">{logoSize}px</span>
+                                            </div>
+                                            <input 
+                                                type="range"
+                                                min="60"
+                                                max="400"
+                                                step="5"
+                                                value={logoSize}
+                                                onChange={(e) => setLogoSize(parseInt(e.target.value))}
+                                                className="w-full h-1.5 bg-gray-100 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                                            />
+                                        </div>
+                                    </div>
                                 </>
                             )}
 
