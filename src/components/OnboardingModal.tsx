@@ -163,7 +163,7 @@ export default function OnboardingModal() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[999] bg-[#1e2d78]/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[999] bg-slate-900/40 backdrop-blur-md flex items-center justify-center p-4">
       {/* Click outside background area to close only if step 4 */}
       <div className="absolute inset-0" onClick={() => { if (step === 4) setIsOpen(false); }} />
 
@@ -174,25 +174,25 @@ export default function OnboardingModal() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -30, scale: 0.95 }}
           transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-          className="bg-white rounded-3xl w-full max-w-lg h-[580px] shadow-2xl relative flex flex-col overflow-hidden"
+          className="bg-white rounded-[2.5rem] w-full max-w-lg h-[600px] shadow-[0_40px_100px_rgba(0,0,0,0.15)] relative flex flex-col overflow-hidden border border-slate-100/50"
         >
           {/* Header */}
           {step < 4 && (
-            <div className="bg-gray-50 border-b border-gray-100 flex items-center justify-between px-6 py-4">
-              <div className="flex gap-2">
+            <div className="bg-slate-50 border-b border-slate-100 flex items-center justify-between px-8 py-5">
+              <div className="flex gap-2.5">
                 {[1, 2, 3].map(i => (
-                  <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === step ? 'w-8 bg-blue-600' : i < step ? 'w-4 bg-blue-200' : 'w-4 bg-gray-200'}`} />
+                  <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === step ? 'w-10 bg-blue-600' : i < step ? 'w-4 bg-blue-200' : 'w-4 bg-slate-200'}`} />
                 ))}
               </div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Step {step} of 3</p>
+              <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Step {step} of 3</p>
             </div>
           )}
           {step === 4 && (
-            <div className="bg-gray-50 border-b border-gray-100 flex items-center justify-between px-6 py-4">
-              <div className="flex gap-2">
-                <div className="h-1.5 rounded-full transition-all duration-300 w-8 bg-blue-600" />
+            <div className="bg-slate-50 border-b border-slate-100 flex items-center justify-between px-8 py-5">
+              <div className="flex gap-2.5">
+                <div className="h-1.5 rounded-full transition-all duration-300 w-10 bg-blue-600" />
               </div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Search</p>
+              <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Search</p>
             </div>
           )}
 
@@ -200,32 +200,32 @@ export default function OnboardingModal() {
             {step === 1 && (
               <div className="space-y-6">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] tracking-tight mb-2">Welcome! Where do you study?</h2>
-                  <p className="text-gray-500 text-sm">We use this to curate universities and localize your experience.</p>
+                  <h2 className="text-2xl md:text-3xl font-bold font-lexend text-slate-900 tracking-tight mb-3">Where do you study?</h2>
+                  <p className="text-slate-500 text-sm font-medium leading-relaxed">We use this to curate universities and localize your experience.</p>
                 </div>
 
                 {/* Country Search */}
                 <div>
-                  <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">Country of Study</p>
-                  <div className="relative mb-3">
-                    <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-3 pr-1">Country of Study</p>
+                  <div className="relative mb-4">
+                    <Search className="absolute left-4 top-3.5 w-4 h-4 text-slate-400" />
                     <input
                       type="text"
                       placeholder="Search countries..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                      className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-100 rounded-2xl text-sm font-semibold text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500/30 transition-all"
                     />
                   </div>
-                  <div className="flex flex-col gap-1 max-h-32 overflow-y-auto mb-6 pr-2">
+                  <div className="flex flex-col gap-1.5 max-h-40 overflow-y-auto mb-6 pr-2">
                     {filteredCountries.map(country => (
                       <button
                         key={country}
                         onClick={() => setData({ ...data, country })}
-                        className={`flex items-center justify-between px-4 py-2.5 rounded-full text-xs font-bold transition-all ${data.country === country ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-100'}`}
+                        className={`flex items-center justify-between px-5 py-3 rounded-xl text-sm font-bold transition-all ${data.country === country ? 'bg-blue-600 text-white shadow-xl shadow-blue-500/20' : 'text-slate-600 hover:bg-slate-50 border border-transparent hover:border-slate-100'}`}
                       >
                         {country}
-                        {data.country === country && <Check className="w-4 h-4 text-white" />}
+                        {data.country === country && <Check className="w-5 h-5 text-white" />}
                       </button>
                     ))}
                   </div>
@@ -234,10 +234,10 @@ export default function OnboardingModal() {
             )}
 
             {step === 2 && (
-              <div className="space-y-3">
+              <div className="space-y-6">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] tracking-tight mb-1">Tell us about your studies</h2>
-                  <p className="text-gray-500 text-sm">This helps us understand our user base for future features.</p>
+                  <h2 className="text-2xl md:text-3xl font-bold font-lexend text-slate-900 tracking-tight mb-2">Your studies</h2>
+                  <p className="text-slate-500 text-sm font-medium leading-relaxed">This helps us customize the banner options for you.</p>
                 </div>
 
                 <div>
@@ -247,7 +247,7 @@ export default function OnboardingModal() {
                       <button
                         key={deg}
                         onClick={() => setData({ ...data, degree: deg })}
-                        className={`px-3 py-2.5 rounded-full text-xs font-bold transition-all border ${data.degree === deg ? 'bg-blue-50 border-blue-600 text-blue-700 shadow-sm' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'}`}
+                        className={`px-4 py-3 rounded-xl text-xs font-bold transition-all border ${data.degree === deg ? 'bg-blue-50 border-blue-600 text-blue-700 shadow-sm' : 'bg-white border-slate-100 text-slate-500 hover:border-slate-300'}`}
                       >
                         {deg}
                       </button>
@@ -273,10 +273,10 @@ export default function OnboardingModal() {
             )}
 
             {step === 3 && (
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] tracking-tight mb-2">What's your career goal?</h2>
-                  <p className="text-gray-500 text-sm">Choose up to 3 industries. We'll use this to safely match you with relevant career opportunities later.</p>
+                  <h2 className="text-2xl md:text-3xl font-bold font-lexend text-slate-900 tracking-tight mb-2">Career goals?</h2>
+                  <p className="text-slate-500 text-sm font-medium leading-relaxed">Choose up to 3 industries. We'll match you with relevant career opportunities later.</p>
                 </div>
 
                 <div>
@@ -305,10 +305,10 @@ export default function OnboardingModal() {
                               }
                             });
                           }}
-                          className={`px-4 py-3 rounded-full text-xs font-bold transition-all border flex items-center justify-between ${isSelected ? 'bg-[#e0f7f0] border-[#4ECBA8] text-[#1e2d78] shadow-sm' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'}`}
+                          className={`px-5 py-3.5 rounded-xl text-sm font-bold transition-all border flex items-center justify-between ${isSelected ? 'bg-blue-50 border-blue-200 text-blue-700 shadow-sm' : 'bg-white border-slate-100 text-slate-500 hover:border-slate-300'}`}
                         >
                           {ind}
-                          {isSelected && <Check className="w-4 h-4 text-[#4ECBA8]" />}
+                          {isSelected && <Check className="w-5 h-5 text-blue-600" />}
                         </button>
                       );
                     })}
@@ -320,7 +320,7 @@ export default function OnboardingModal() {
                       placeholder="Tell us more..."
                       value={data.industryOther ?? ""}
                       onChange={(e) => setData(prev => ({ ...prev, industryOther: e.target.value }))}
-                      className="mt-3 w-full px-4 py-3 bg-white border-2 border-[#4ECBA8] rounded-full text-sm font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-[#4ECBA8]/20 transition-all"
+                      className="mt-4 w-full px-5 py-3.5 bg-slate-50 border border-blue-200 rounded-xl text-sm font-semibold text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all"
                     />
                   )}
                 </div>
@@ -328,15 +328,15 @@ export default function OnboardingModal() {
             )}
 
             {step === 4 && (
-              <div className="space-y-4 flex flex-col h-full">
+              <div className="space-y-6 flex flex-col h-full">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] tracking-tight mb-2">Which school do you go to?</h2>
-                  <p className="text-gray-500 text-sm">Search for your university to generate a custom banner.</p>
+                  <h2 className="text-2xl md:text-3xl font-bold font-lexend text-slate-900 tracking-tight mb-2">Find your school</h2>
+                  <p className="text-slate-500 text-sm font-medium leading-relaxed">Search for your university to generate your custom banner.</p>
                 </div>
 
                 <div className="relative z-50 flex-1 flex flex-col min-h-0">
                   <div className="relative shrink-0">
-                    <Search className="absolute left-4 top-3.5 w-5 h-5 text-[#1e2d78]" />
+                    <Search className="absolute left-4 top-4.5 w-5 h-5 text-slate-400" />
                     <input
                       type="text"
                       placeholder="Search for your university..."
@@ -352,11 +352,11 @@ export default function OnboardingModal() {
                           else goToBuild(uniQuery.trim());
                         }
                       }}
-                      className="w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-200 rounded-full text-[15px] font-semibold text-[#111827] placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-[#1e2d78] transition-all"
+                      className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-[15px] font-semibold text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-8 focus:ring-blue-500/5 focus:border-blue-500/20 transition-all shadow-sm"
                     />
                   </div>
 
-                  <div className="overflow-y-auto mt-2 flex-1 rounded-xl border border-gray-100">
+                  <div className="overflow-y-auto mt-3 flex-1 rounded-2xl border border-slate-100/50 bg-slate-50/30">
                     {uniSuggestions && uniSuggestions.length > 0 ? (
                       // Search results
                       uniSuggestions.map((uni) => {
@@ -365,13 +365,13 @@ export default function OnboardingModal() {
                           <button
                             key={uni.domain}
                             onClick={() => handleUniSubmit(uni)}
-                            className="w-full flex items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-blue-50/60 border-b border-gray-50 last:border-0 bg-white"
+                            className="w-full flex items-center gap-4 px-5 py-4 text-left transition-all hover:bg-blue-600 hover:text-white group/item border-b border-slate-100/30 last:border-0 bg-transparent"
                           >
-                            <div className="w-8 h-8 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center overflow-hidden flex-shrink-0">
+                            <div className="w-10 h-10 rounded-xl bg-white shadow-sm border border-slate-100 flex items-center justify-center overflow-hidden flex-shrink-0">
                               <img
                                 src={`/${(uni.root || "").split("/").map(encodeURIComponent).join("/")}/${encodeURIComponent(uni.folder || "")}/logo-search/${encodeURIComponent(uni.logoSearch || "")}`}
                                 alt={uni.name}
-                                className="w-5 h-5 object-contain"
+                                className="w-6 h-6 object-contain"
                                 onError={(e) => {
                                   const target = e.target as HTMLImageElement;
                                   if (!target.src.includes('clearbit')) {
@@ -383,19 +383,19 @@ export default function OnboardingModal() {
                               />
                             </div>
                             <div>
-                              <div className="font-bold text-[13px] text-[#111827] leading-tight">{uni.name}</div>
-                              <div className="text-[11px] text-gray-500 font-medium">{uni.domain}</div>
+                              <div className="font-bold text-[14px] text-slate-900 group-hover/item:text-white leading-tight">{uni.name}</div>
+                              <div className="text-[12px] text-slate-400 group-hover/item:text-white/70 font-medium">{uni.domain}</div>
                             </div>
                           </button>
                         );
                       })
                     ) : uniQuery.trim() ? (
                       // No results
-                      <div className="px-4 py-3 text-sm text-gray-400 font-medium bg-white">
+                      <div className="px-6 py-5 text-sm text-slate-400 font-medium bg-white rounded-2xl">
                         No universities found for "{uniQuery}".<br />
                         <button 
                           onClick={() => window.location.href = 'mailto:oscar.w.skaarderud@gmail.com'}
-                          className="text-blue-600 hover:underline mt-1 font-bold"
+                          className="text-blue-600 hover:underline mt-2 font-bold block"
                         >
                           Request your school (Contact us)
                         </button>
@@ -407,13 +407,13 @@ export default function OnboardingModal() {
                         <button
                           key={uni.domain}
                           onClick={() => handleUniSubmit(uni)}
-                          className="w-full flex items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-blue-50/60 border-b border-gray-50 last:border-0 bg-white"
+                          className="w-full flex items-center gap-4 px-5 py-4 text-left transition-all hover:bg-blue-600 hover:text-white group/item border-b border-slate-100/30 last:border-0 bg-transparent"
                         >
-                          <div className="w-8 h-8 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center overflow-hidden flex-shrink-0">
+                          <div className="w-10 h-10 rounded-xl bg-white shadow-sm border border-slate-100 flex items-center justify-center overflow-hidden flex-shrink-0">
                             <img
                               src={`/${(uni.root || "").split("/").map(encodeURIComponent).join("/")}/${encodeURIComponent(uni.folder || "")}/logo-search/${encodeURIComponent(uni.logoSearch || "")}`}
                               alt={uni.name}
-                              className="w-5 h-5 object-contain"
+                              className="w-6 h-6 object-contain"
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
                                 if (!target.src.includes('clearbit')) {
@@ -425,8 +425,8 @@ export default function OnboardingModal() {
                             />
                           </div>
                           <div>
-                            <div className="font-bold text-[13px] text-[#111827] leading-tight">{uni.name}</div>
-                            <div className="text-[11px] text-gray-500 font-medium">{uni.domain}</div>
+                            <div className="font-bold text-[14px] text-slate-900 group-hover/item:text-white leading-tight">{uni.name}</div>
+                            <div className="text-[12px] text-slate-400 group-hover/item:text-white/70 font-medium">{uni.domain}</div>
                           </div>
                         </button>
                       ))
@@ -436,7 +436,7 @@ export default function OnboardingModal() {
                   {uniQuery.trim() && uniSuggestions.length === 0 && (
                     <button
                       onClick={() => goToBuild(uniQuery.trim())}
-                      className="w-full mt-2 bg-[#1e2d78] text-white px-4 py-3 rounded-full text-sm font-bold shadow-md hover:bg-blue-900 transition-colors shrink-0"
+                      className="w-full mt-3 bg-blue-600 text-white px-6 py-4 rounded-xl text-sm font-bold shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all shrink-0 active:scale-95"
                     >
                       Continue with "{uniQuery}"
                     </button>
@@ -445,21 +445,21 @@ export default function OnboardingModal() {
               </div>
             )}
             {step === 5 && selectedCampusUni && (
-              <div className="space-y-6 flex flex-col">
+              <div className="space-y-6 flex flex-col items-center text-center">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-black text-[#1e2d78] tracking-tight mb-2">Which campus or school?</h2>
-                  <p className="text-gray-500 text-sm">Select your specific branch for {selectedCampusUni.name}.</p>
+                  <h2 className="text-2xl md:text-3xl font-bold font-lexend text-slate-900 tracking-tight mb-2">Select campus</h2>
+                  <p className="text-slate-500 text-sm font-medium leading-relaxed">Select your specific branch for {selectedCampusUni.name}.</p>
                 </div>
                 
-                <div className="grid grid-cols-1 gap-2 overflow-y-auto max-h-[192px]">
+                <div className="grid grid-cols-1 gap-3 w-full overflow-y-auto max-h-[300px] pr-2 mt-4">
                   {selectedCampusUni.campuses?.map(campus => (
                     <button
                       key={campus}
                       onClick={() => goToBuild(selectedCampusUni.domain, campus)}
-                      className="w-full text-left px-4 py-3 rounded-full text-[13px] font-bold transition-all border bg-white border-gray-200 text-[#111827] hover:border-[#1e2d78] hover:bg-blue-50/60 shadow-sm flex items-center justify-between"
+                      className="w-full text-left px-6 py-4 rounded-xl text-[14px] font-bold transition-all border bg-white border-slate-100 text-slate-900 hover:border-blue-600 hover:bg-blue-50/60 shadow-sm flex items-center justify-between group/campus"
                     >
                       {campus}
-                      <ChevronRight className="w-4 h-4 text-gray-400" />
+                      <ChevronRight className="w-5 h-5 text-slate-300 group-hover/campus:text-blue-600 transition-colors" />
                     </button>
                   ))}
                 </div>
@@ -468,18 +468,18 @@ export default function OnboardingModal() {
           </div>
 
           {/* Footer actions */}
-          <div className="p-6 md:p-8 pt-0 flex items-center justify-between border-t border-gray-100 bg-gray-50/50 rounded-b-3xl">
+          <div className="p-8 pt-0 flex items-center justify-between border-t border-slate-100 bg-slate-50/30 rounded-b-[2.5rem]">
             {step === 1 ? (
               <button 
                 onClick={() => skipOnboarding()} 
-                className="text-gray-400 hover:text-gray-600 text-xs font-bold px-2 py-2 transition-colors uppercase tracking-widest"
+                className="text-slate-400 hover:text-slate-600 text-[11px] font-bold px-2 py-2 transition-colors uppercase tracking-widest"
               >
                 Skip
               </button>
             ) : (
               <button 
                 onClick={() => setStep(step - 1)} 
-                className="text-gray-400 hover:text-gray-600 text-xs font-bold px-2 py-2 transition-colors uppercase tracking-widest flex items-center gap-1"
+                className="text-slate-400 hover:text-slate-600 text-[11px] font-bold px-2 py-2 transition-colors uppercase tracking-widest flex items-center gap-1.5"
               >
                 <ChevronRight className="w-4 h-4 rotate-180" /> Back
               </button>
@@ -488,10 +488,10 @@ export default function OnboardingModal() {
             {step < 4 && (
               <button
                 onClick={nextStep}
-                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-black uppercase tracking-widest transition-all shadow-md active:scale-95 ${
+                className={`flex items-center gap-2.5 px-8 py-4 rounded-xl text-xs font-bold uppercase tracking-widest transition-all shadow-xl active:scale-95 ${
                   (step === 1 && !data.country) || (step === 2 && (!data.degree || !data.year)) || (step === 3 && (!Array.isArray(data.industry) || data.industry.length === 0))
-                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50'
-                    : 'bg-[#1e2d78] text-white hover:bg-blue-900'
+                    ? 'bg-slate-200 text-slate-400 cursor-not-allowed opacity-50'
+                    : 'bg-blue-600 text-white shadow-blue-500/20 hover:bg-blue-700'
                 }`}
                 disabled={(step === 1 && !data.country) || (step === 2 && (!data.degree || !data.year)) || (step === 3 && (!Array.isArray(data.industry) || data.industry.length === 0))}
               >

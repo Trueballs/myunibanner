@@ -800,25 +800,47 @@ function BuilderContent() {
                 setImgIndex(0);
                 setLogoIndex(0);
 
-                // Pre-fetch all images as Base64 so iOS Safari canvas never taints them
-                const urlsToCache = [
-                    ...data.images,
-                    ...data.logos.map((l: any) => l.url),
+                const priorityUrls = [
                     data.fullLogo,
                     data.iconLogo,
+                    data.images[0],
+                    data.logos[0]?.url,
+                    data.logos[1]?.url,
                 ].filter(Boolean) as string[];
 
-                const entries = await Promise.all(
-                    urlsToCache.map(async (url) => [url, await toDataUrl(url)] as [string, string])
+                const backgroundUrls = [
+                    ...data.images.slice(1),
+                    ...data.logos.slice(2).map((l: any) => l.url),
+                ].filter(Boolean) as string[];
+
+                // 1. Fetch priority assets immediately
+                const priorityEntries = await Promise.all(
+                    priorityUrls.map(async (url) => [url, await toDataUrl(url)] as [string, string])
                 );
-                if (isMounted) setDataUrlCache(new Map(entries));
+                
+                if (isMounted) {
+                    setDataUrlCache(new Map(priorityEntries));
+                    // 2. SET LOADING FALSE NOW - Page is usable!
+                    setLoading(false);
+                }
+
+                // 3. Fetch the rest in the background
+                const bgEntries = await Promise.all(
+                    backgroundUrls.map(async (url) => [url, await toDataUrl(url)] as [string, string])
+                );
+
+                if (isMounted) {
+                    setDataUrlCache(prev => {
+                        const newCache = new Map(prev);
+                        bgEntries.forEach(([u, d]) => newCache.set(u, d));
+                        return newCache;
+                    });
+                }
             })
             .catch(err => {
                 if (!isMounted) return;
                 console.error("Critical: Failed to fetch brand data:", err);
-            })
-            .finally(() => {
-                if (isMounted) setLoading(false);
+                setLoading(false);
             });
 
         return () => { isMounted = false; };

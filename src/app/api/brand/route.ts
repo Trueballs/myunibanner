@@ -223,6 +223,18 @@ export async function GET(request: Request) {
 
     if (!match) return NextResponse.json({ error: 'University not found' }, { status: 404 });
 
+    const cacheDir = join(process.cwd(), 'src', 'data', 'cache');
+    const cachePath = join(cacheDir, `${match.domain}${campus ? `-${campus}` : ''}.json`);
+
+    // ── CACHE CHECK ──────────────────────────────────────────
+    if (existsSync(cachePath)) {
+        try {
+            const cached = JSON.parse(readFileSync(cachePath, 'utf8'));
+            // Still check for fresh image files (in case they were added) but skip the sharp analysis
+            return NextResponse.json(cached);
+        } catch { /* proceed to re-analyze */ }
+    }
+
     const basePath = join(process.cwd(), 'public', match.root);
     const brand = getBrand(basePath, match.folder);
     const images = getImageFiles(basePath, match.folder, campus);
@@ -233,7 +245,7 @@ export async function GET(request: Request) {
     const bestTextLogo = logos.find(l => l.isText) ?? logos[0];
     const bestIconLogo = logos.find(l => l.isIcon) ?? logos[logos.length - 1] ?? logos[0];
 
-    return NextResponse.json({
+    const finalData = {
         name: match.short || match.name,
         fullName: match.name,
         domain: match.domain,
@@ -247,5 +259,17 @@ export async function GET(request: Request) {
         colors, 
         fonts, 
         images: images.map(img => img + "&w=2400"),
-    });
+    };
+
+    // ── SAVE TO CACHE ───────────────────────────────────────
+    try {
+        if (!existsSync(cacheDir)) {
+          const fs = require('fs');
+          fs.mkdirSync(cacheDir, { recursive: true });
+        }
+        const fs = require('fs');
+        fs.writeFileSync(cachePath, JSON.stringify(finalData), 'utf8');
+    } catch (e) { console.error("Cache write failed:", e); }
+
+    return NextResponse.json(finalData);
 }

@@ -49,12 +49,12 @@ export default function Header({ showStartButton = false, showBackButton = false
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
         {/* LEFT: Logo */}
         <div className="flex items-center justify-start">
-          <span
-            className="text-slate-900 font-extrabold font-lexend text-[22px] md:text-[25px] tracking-tight cursor-pointer lowercase"
+          <img 
+            src="/assets/logo.png" 
+            alt="Myunibanner Logo" 
+            className="h-10 md:h-12 w-auto cursor-pointer object-contain"
             onClick={() => router.push("/")}
-          >
-            myunibanner
-          </span>
+          />
         </div>
 
         {/* RIGHT: Actions */}
