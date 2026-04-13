@@ -25,8 +25,8 @@ export default function TermsPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-[#F5F4F1] font-sans flex justify-center w-full px-4 md:px-8 xl:px-12 py-4 md:py-6 gap-6 xl:gap-8 box-border overflow-x-hidden">
-            <main className="w-full xl:w-[60%] flex flex-col shrink-0 relative bg-[#F5F4F1]">
+        <div className="min-h-screen bg-[#F8FAFC] font-sans flex flex-col items-center w-full">
+            <main className="w-full max-w-7xl flex flex-col relative">
                 <Header showBackButton />
 
                 <div className="w-full px-4 md:px-8 pt-12 md:pt-16 pb-24">
@@ -36,8 +36,8 @@ export default function TermsPage() {
                         transition={{ duration: 0.6 }}
                         className="text-center mb-16"
                     >
-                        <h1 className="text-5xl md:text-7xl font-black text-[#1e2d78] uppercase tracking-tighter mb-4 font-[family-name:var(--font-playful)]">Terms of Service</h1>
-                        <p className="text-gray-500 font-bold uppercase text-xs tracking-[0.3em]">Last Updated: March 2026</p>
+                        <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-4">Terms of Service</h1>
+                        <p className="text-slate-500 font-bold uppercase text-xs tracking-[0.3em]">Last Updated: April 2026</p>
                     </motion.div>
 
                     <div className="w-full grid gap-6">

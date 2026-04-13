@@ -73,8 +73,8 @@ export default function Footer() {
         </div>
         
         <div className="flex flex-wrap items-center justify-center md:justify-end gap-6 md:gap-20 text-slate-500 font-medium text-sm md:text-base">
-          <a href="#" className="hover:text-blue-600 transition-colors no-underline">Privacy</a>
-          <a href="#" className="hover:text-blue-600 transition-colors no-underline">Terms</a>
+          <a href="/privacy" className="hover:text-blue-600 transition-colors no-underline">Privacy</a>
+          <a href="/terms" className="hover:text-blue-600 transition-colors no-underline">Terms</a>
           <a href="https://www.linkedin.com/in/oscar-wold-skaarderud-613644340" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors no-underline">Contact</a>
         </div>
       </div>
