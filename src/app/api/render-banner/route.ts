@@ -128,6 +128,19 @@ export async function POST(req: NextRequest) {
             composites.push({ input: panelBuffer, top: 0, left: PANEL_X });
         }
 
+        // Layout 8: Bottom bar
+        if (layout === 8) {
+            const barBuffer = await sharp({ 
+                create: { 
+                    width: W, 
+                    height: 100, 
+                    channels: 4, 
+                    background: { ...primary, alpha: 255 } 
+                } 
+            }).png().toBuffer();
+            composites.push({ input: barBuffer, top: H - 100, left: 0 });
+        }
+
         // ── 3. Logo ───────────────────────────────────────────────────
         if (logoUrl) {
             const isFullWidth = [3, 7, 8].includes(layout);
@@ -149,8 +162,12 @@ export async function POST(req: NextRequest) {
                 } else if (layout === 4) {
                     logoLeft = W - lw - 40;
                     logoTop = H - lh - 30;
+                } else if (layout === 8) {
+                    // Horizon: Left aligned in bottom bar
+                    logoLeft = 60;
+                    logoTop = H - 100 + Math.floor((100 - lh) / 2);
                 } else {
-                    // Centered layouts (3, 7, 8)
+                    // Centered layouts (3, 7)
                     logoLeft = Math.floor((W - lw) / 2);
                     logoTop = Math.floor((H - lh) / 2) - textOffset;
                 }
@@ -186,8 +203,19 @@ export async function POST(req: NextRequest) {
             if (currentLine) lines.push(currentLine);
 
             const finalLines = lines.slice(0, 3);
-            let centerX = panelW > 0 ? (panelX + (panelW / 2) + (layout === 2 ? 30 : layout === 6 ? 60 : 0)) : (W / 2);
-            let centerY = [0, 1, 2, 5, 6].includes(layout) ? 320 : layout === 3 ? 340 : 310;
+            
+            let centerX: number, centerY: number;
+            let textAlign: 'center' | 'right' = 'center';
+            
+            if (layout === 8) {
+                // Horizon: Right aligned in bottom bar
+                centerX = W - 300; // Offset from right
+                centerY = H - 50;
+                textAlign = 'right';
+            } else {
+                centerX = panelW > 0 ? (panelX + (panelW / 2) + (layout === 2 ? 30 : layout === 6 ? 60 : 0)) : (W / 2);
+                centerY = [0, 1, 2, 5, 6].includes(layout) ? 320 : layout === 3 ? 340 : 310;
+            }
             
             const hColor = body.headlineColor || (body.logoIsLight ? '#ffffff' : '#111111');
             console.log(`Rendering text: "${text}" with color: ${hColor} at center: ${centerX},${centerY}`);
@@ -213,17 +241,17 @@ export async function POST(req: NextRequest) {
                             width: textWidth,
                             height: textHeight,
                             color: hColor,
-                            fontSize: 30, // Increased slighty to match Sharp sizing
+                            fontSize: layout === 8 ? 24 : 30, 
                             fontWeight: 900,
                             lineHeight: 1.15,
                             letterSpacing: '-0.02em',
-                            textAlign: 'center',
+                            textAlign: textAlign,
                             fontFamily: '"Roboto"',
                             background: 'transparent'
                         }
                     }, finalLines.map((line, i) => React.createElement('div', {
                         key: i,
-                        style: { display: 'flex' }
+                        style: { display: 'flex', justifyContent: textAlign === 'right' ? 'flex-end' : 'center' }
                     }, line))),
                     { 
                         width: textWidth, 

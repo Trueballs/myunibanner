@@ -513,17 +513,35 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 
 
 /* ═══════════════════════════════════════════════════════════════
-   LAYOUT 8 — "MINIMALIST PHOTO"
-   Logo centered in the middle of a photo. 
-   Clean and high impact.
+   LAYOUT 8 — "HORIZON"
+   Top 75% Photo, Bottom 25% Solid Panel.
+   Clean, architectural, and very professional.
 ═══════════════════════════════════════════════════════════════ */
-function L8({ brand, img, logoSrc, logoHasBg, logoIsLight, logoSize = 180 }: LayoutProps & { logoSize?: number }) {
+function L8({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 180 }: LayoutProps) {
+    const font = getFont(brand.fonts?.[0]);
+    const BAR_H = 100;
+
     return (
-        <div className="absolute inset-0 overflow-hidden flex items-center justify-center bg-black">
-            {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
-            <div className="absolute inset-0 bg-black/10" />
-            <div className="relative z-10">
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={logoSize} maxW={1100} brandColors={brand.colors} />
+        <div className="absolute inset-0 overflow-hidden flex flex-col bg-black">
+            {/* Top: Photo */}
+            <div className="flex-1 relative overflow-hidden">
+                {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
+            </div>
+
+            {/* Bottom Bar */}
+            <div className="relative flex items-center justify-between px-16" style={{ height: BAR_H, background: primary }}>
+                <div className="flex items-center">
+                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize * 0.5} maxW={400} brandColors={brand.colors} />
+                </div>
+                
+                {text && (
+                    <p style={{
+                        color: headlineColor, fontSize: 20, fontWeight: 900,
+                        margin: 0, fontFamily: font, letterSpacing: "-0.01em"
+                    }}>
+                        {text}
+                    </p>
+                )}
             </div>
         </div>
     );
@@ -707,10 +725,11 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
         ),
     },
     {
-        label: "Photo Focus",
+        label: "Horizon",
         preview: (c, a) => (
-            <div className="w-full h-full relative overflow-hidden bg-slate-50 flex items-center justify-center">
-                <div style={{ width: "35%", height: "35%", background: c, borderRadius: 2 }} />
+            <div className="w-full h-full flex flex-col overflow-hidden bg-white">
+                <div style={{ flex: 1, background: `${c}22` }} />
+                <div style={{ height: "30%", background: c }} />
             </div>
         ),
     },
