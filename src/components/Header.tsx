@@ -62,9 +62,9 @@ export default function Header({ showStartButton = false, showBackButton = false
           {showBackButton && (
             <button
               onClick={() => router.push("/")}
-              className="px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold text-sm rounded-xl transition-all flex items-center gap-2 active:scale-95"
+              className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold text-sm rounded-xl transition-all flex items-center gap-2 active:scale-95"
             >
-              <ArrowLeft className="w-4 h-4" /> Back to home
+              <ArrowLeft className="w-4 h-4" /> Back
             </button>
           )}
 

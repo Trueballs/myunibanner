@@ -975,7 +975,7 @@ function BuilderContent() {
                             </div>
                         </div>
 
-                        <div className="rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-slate-100 bg-white">
+                        <div className="rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-slate-100 bg-white">
                             {/* Banner canvas */}
                             <div ref={containerRef}
                                 className="w-full relative"
@@ -1044,7 +1044,7 @@ function BuilderContent() {
                     </section>
 
                     {/* ── CONTROLS ────────────────────────────────── */}
-                    <div className="w-full bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col gap-10">
+                    <div className="w-full bg-white rounded-2xl p-6 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col gap-8 md:gap-10">
     {/* ── UNIFIED CONTROLS ── */}
     <div className="space-y-6">
         {/* Headline input */}
