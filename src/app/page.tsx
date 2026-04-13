@@ -49,10 +49,12 @@ export default function Home() {
         <Header />
 
         {/* ─── HERO SECTION ─── */}
-        <section className="relative z-20">
+        <section className="relative z-20 overflow-visible">
+          {/* PREMIUM AMBIENT GLOWS */}
+          <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[60%] bg-blue-400/10 blur-[120px] rounded-full pointer-events-none" />
+          <div className="absolute top-[20%] -right-[5%] w-[35%] h-[50%] bg-blue-600/5 blur-[100px] rounded-full pointer-events-none" />
  
           <div className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-20 md:pt-36 pb-16 md:pb-24">
- 
             {/* SIDE-BY-SIDE Layout: Content Left, Comparison Visual Right */}
             <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20 relative">
               
@@ -134,9 +136,13 @@ export default function Home() {
                 { name: "Javier M.", role: "Business Admin", text: "Increíble. No necesitas ser diseñador para tener un perfil top. Muy recomendable." },
                 { name: "Sophie T.", role: "Marketing Major", text: "Best AI tool I've used this year. My LinkedIn profile views spiked after the update!" }
               ].map((t, i) => (
-                <div 
+                <motion.div
                   key={i} 
-                  className="group bg-white p-10 rounded-[2.5rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-slate-100 flex flex-col items-start text-left transition-all duration-300 hover:bg-blue-600 hover:scale-105 hover:z-20 hover:shadow-[0_20px_50px_rgba(37,99,235,0.2)] hover:border-blue-500 cursor-default"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="group bg-white/80 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-white flex flex-col items-start text-left transition-all duration-500 hover:bg-blue-600 hover:scale-[1.03] hover:z-20 hover:shadow-[0_40px_80px_rgba(37,99,235,0.15)] hover:border-blue-500 cursor-default"
                 >
                   <div className="flex gap-1 mb-8">
                     {[1,2,3,4,5].map(star => (
@@ -161,7 +167,7 @@ export default function Home() {
                       <p className="text-slate-400 text-sm font-medium group-hover:text-white/60 transition-colors uppercase tracking-tight">{t.role}</p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
