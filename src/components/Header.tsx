@@ -70,7 +70,7 @@ export default function Header({ showStartButton = false, showBackButton = false
 
           <button
             onClick={() => window.open('https://www.linkedin.com/in/oscar-wold-skaarderud-613644340', '_blank')}
-            className="px-4 md:px-6 py-2 md:py-2.5 bg-blue-600 text-white font-bold text-[12px] md:text-sm rounded-xl transition-all shadow-lg shadow-blue-500/10 hover:bg-blue-700 active:scale-95"
+            className="px-4 md:px-6 py-2 md:py-2.5 bg-blue-600 text-white font-bold text-[12px] md:text-sm rounded-xl transition-all shadow-lg hover:bg-blue-700 active:scale-95"
           >
             Contact
           </button>

@@ -51,9 +51,7 @@ export default function Home() {
 
         {/* ─── HERO SECTION ─── */}
         <section className="relative z-20 overflow-visible">
-          {/* PREMIUM AMBIENT GLOWS */}
-          <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[60%] bg-blue-400/10 blur-[120px] rounded-full pointer-events-none" />
-          <div className="absolute top-[20%] -right-[5%] w-[35%] h-[50%] bg-blue-600/5 blur-[100px] rounded-full pointer-events-none" />
+          {/* Removed ambient glows for cleaner look */}
  
           <div className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-20 md:pt-36 pb-16 md:pb-24">
             {/* SIDE-BY-SIDE Layout: Content Left, Comparison Visual Right */}
@@ -72,7 +70,7 @@ export default function Home() {
                 <div className="w-full lg:w-max flex justify-center lg:justify-start group">
                   <button
                     onClick={handleOpenOnboarding}
-                    className="px-10 md:px-12 py-5 md:py-6 bg-blue-600 text-white font-bold text-[18px] md:text-[20px] rounded-full hover:bg-blue-700 transition-all duration-300 shadow-[0_25px_60px_rgba(37,99,235,0.45)] flex items-center justify-center gap-4 active:scale-95"
+                    className="px-10 md:px-12 py-5 md:py-6 bg-blue-600 text-white font-bold text-[18px] md:text-[20px] rounded-full hover:bg-blue-700 transition-all duration-300 shadow-lg flex items-center justify-center gap-4 active:scale-95"
                   >
                     Create your banner
                     <svg viewBox="0 0 24 24" className="w-6 md:w-7 h-6 md:h-7 fill-none stroke-current stroke-3" strokeWidth={3}>
@@ -143,7 +141,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="group bg-white/80 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-white flex flex-col items-start text-left transition-all duration-500 hover:bg-blue-600 hover:scale-[1.03] hover:z-20 hover:shadow-[0_40px_80px_rgba(37,99,235,0.15)] hover:border-blue-500 cursor-default"
+                  className="group bg-white/80 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-white flex flex-col items-start text-left transition-all duration-500 hover:bg-blue-600 hover:scale-[1.03] hover:z-20 hover:shadow-xl hover:border-blue-500 cursor-default"
                 >
                   <div className="flex gap-1 mb-8">
                     {[1,2,3,4,5].map(star => (
@@ -241,7 +239,7 @@ export default function Home() {
               </p>
               <button
                 onClick={() => window.dispatchEvent(new CustomEvent("lnbg_open_onboarding"))}
-                className="px-12 py-6 bg-blue-600 text-white font-bold text-[20px] rounded-full hover:bg-blue-700 transition-all duration-300 shadow-[0_25px_60px_rgba(37,99,235,0.45)] flex items-center justify-center gap-4 active:scale-95"
+                className="px-12 py-6 bg-blue-600 text-white font-bold text-[20px] rounded-full hover:bg-blue-700 transition-all duration-300 shadow-lg flex items-center justify-center gap-4 active:scale-95"
               >
                 Try it now
                 <svg viewBox="0 0 24 24" className="w-7 h-7 fill-none stroke-current stroke-3" strokeWidth={3}>
