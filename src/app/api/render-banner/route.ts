@@ -195,7 +195,6 @@ export async function POST(req: NextRequest) {
             const finalLines = lines.slice(0, 3);
             
             let centerX: number, centerY: number;
-            let textAlign: 'center' | 'right' = 'center';
             
             centerX = panelW > 0 ? (panelX + (panelW / 2) + (layout === 2 ? 30 : layout === 6 ? 60 : 0)) : (W / 2);
             centerY = [0, 1, 2, 5, 6].includes(layout) ? 320 : layout === 3 ? 340 : 310;
@@ -228,13 +227,13 @@ export async function POST(req: NextRequest) {
                             fontWeight: 900,
                             lineHeight: 1.15,
                             letterSpacing: '-0.02em',
-                            textAlign: textAlign,
+                            textAlign: 'center',
                             fontFamily: '"Roboto"',
                             background: 'transparent'
                         }
                     }, finalLines.map((line, i) => React.createElement('div', {
                         key: i,
-                        style: { display: 'flex', justifyContent: textAlign === 'right' ? 'flex-end' : 'center' }
+                        style: { display: 'flex', justifyContent: 'center' }
                     }, line))),
                     { 
                         width: textWidth, 
