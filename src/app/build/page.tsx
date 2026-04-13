@@ -1215,11 +1215,11 @@ function BuilderContent() {
                                             <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Photo Filter</p>
                                             <div className="flex gap-2">
                                                 {([
-                                                    { label: 'Normal', value: 'none',               icon: '🌄' },
-                                                    { label: 'B&W',    value: 'grayscale(100%)',     icon: '⬛' },
-                                                    { label: 'Warm',   value: 'sepia(60%) saturate(150%) brightness(105%)', icon: '🌅' },
-                                                    { label: 'Cool',   value: 'saturate(70%) hue-rotate(195deg) brightness(108%)', icon: '🧊' },
-                                                ] as { label: string; value: string; icon: string }[]).map(f => {
+                                                    { label: 'Original', value: 'none' },
+                                                    { label: 'Mono',     value: 'grayscale(100%) contrast(108%) brightness(103%)' },
+                                                    { label: 'Golden',   value: 'brightness(112%) saturate(145%) contrast(88%) hue-rotate(-12deg)' },
+                                                    { label: 'Nordic',   value: 'saturate(75%) brightness(110%) contrast(107%) hue-rotate(192deg)' },
+                                                ] as { label: string; value: string }[]).map(f => {
                                                     const isActive = photoFilter === f.value;
                                                     const sampleSrc = brand.images[imgIndex % brand.images.length];
                                                     return (
