@@ -234,20 +234,20 @@ export default function OnboardingModal() {
             )}
 
             {step === 2 && (
-              <div className="space-y-4">
+              <div className="space-y-7">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold font-lexend text-slate-900 tracking-tight mb-1">Your studies</h2>
-                  <p className="text-slate-500 text-[13px] font-medium leading-relaxed">Customize your banner options.</p>
+                  <h2 className="text-2xl md:text-3xl font-bold font-lexend text-slate-900 tracking-tight mb-2">Your studies</h2>
+                  <p className="text-slate-500 text-sm font-medium leading-relaxed">This helps us customize the banner options for you.</p>
                 </div>
 
                 <div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Degree Type</p>
-                  <div className="grid grid-cols-3 md:grid-cols-4 gap-1.5">
+                  <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">Degree Type</p>
+                  <div className="grid grid-cols-3 gap-2.5">
                     {DEGREES.map(deg => (
                       <button
                         key={deg}
                         onClick={() => setData({ ...data, degree: deg })}
-                        className={`px-2 py-2 rounded-xl text-[11px] font-bold transition-all border ${data.degree === deg ? 'bg-blue-50 border-blue-600 text-blue-700 shadow-sm' : 'bg-white border-slate-100 text-slate-500 hover:border-slate-300'}`}
+                        className={`px-3 py-3 rounded-xl text-xs font-bold transition-all border ${data.degree === deg ? 'bg-blue-50 border-blue-600 text-blue-700 shadow-sm' : 'bg-white border-slate-100 text-slate-500 hover:border-slate-300'}`}
                       >
                         {deg}
                       </button>
@@ -256,13 +256,13 @@ export default function OnboardingModal() {
                 </div>
 
                 <div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Current Year</p>
-                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-1.5">
+                  <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">Current Year</p>
+                  <div className="grid grid-cols-2 gap-2.5">
                     {YEARS.map(yr => (
                       <button
                         key={yr}
                         onClick={() => setData({ ...data, year: yr })}
-                        className={`px-2 py-1.5 rounded-full text-[11px] font-bold transition-all border ${data.year === yr ? 'bg-blue-600 border-blue-600 text-white shadow-md' : 'bg-white border-gray-200 text-gray-500 hover:border-gray-300'}`}
+                        className={`px-3 py-3 rounded-full text-xs font-bold transition-all border ${data.year === yr ? 'bg-blue-600 border-blue-600 text-white shadow-md' : 'bg-white border-gray-200 text-gray-500 hover:border-gray-300'}`}
                       >
                         {yr}
                       </button>
