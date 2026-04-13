@@ -94,25 +94,7 @@ export async function POST(req: NextRequest) {
                 let top = 0, left = 0;
                 let finalBg = bg;
 
-                if (layout === 8) {
-                    // Focus: Circular photo on LEFT
-                    const circSize = 300;
-                    const mask = Buffer.from(
-                        `<svg width="${circSize}" height="${circSize}">
-                            <circle cx="${circSize / 2}" cy="${circSize / 2}" r="${circSize / 2}" fill="white" />
-                        </svg>`
-                    );
-                    
-                    const circPhoto = await sharp(raw)
-                        .resize(circSize, circSize, { fit: 'cover', position: 'center' })
-                        .composite([{ input: mask, blend: 'dest-in' }])
-                        .png().toBuffer();
-                    
-                    finalBg = circPhoto;
-                    left = 100; // Left side
-                    top = Math.floor((H - circSize) / 2);
-                }
-
+                // Photo logic removed for L8 as it's full screen
                 composites.push({ input: finalBg, top: top, left: left });
             } catch (e) {
                 console.error('BG image failed:', e);
@@ -151,9 +133,9 @@ export async function POST(req: NextRequest) {
             composites.push({ input: panelBuffer, top: 0, left: PANEL_X });
         }
 
-        // Layout 8: The Focus
+        // Layout 8: Minimalist
         if (layout === 8) {
-            // No background window needed here, we do it in the photo step
+            // Nothing to composite for background here, we use the base photo
         }
 
         // ── 3. Logo ───────────────────────────────────────────────────
@@ -178,10 +160,9 @@ export async function POST(req: NextRequest) {
                     logoLeft = W - lw - 40;
                     logoTop = H - lh - 30;
                 } else if (layout === 8) {
-                    // Focus: RIGHT side, anchored to right (W - 350 roughly)
+                    // Minimalist: TOP-RIGHT (Safest spot)
                     logoLeft = W - lw - 64;
-                    logoTop = Math.floor((H - lh) / 2); 
-                    if (text) logoTop -= 40;
+                    logoTop = 40; 
                 } else {
                     // Centered layouts (3, 7)
                     logoLeft = Math.floor((W - lw) / 2);
@@ -224,9 +205,9 @@ export async function POST(req: NextRequest) {
             let textAlign: 'center' | 'right' = 'center';
             
             if (layout === 8) {
-                // Focus: Below the logo on the RIGHT
+                // Minimalist: Below logo in top-right
                 centerX = W - 300; 
-                centerY = 280;
+                centerY = 140;
                 textAlign = 'right';
             } else {
                 centerX = panelW > 0 ? (panelX + (panelW / 2) + (layout === 2 ? 30 : layout === 6 ? 60 : 0)) : (W / 2);

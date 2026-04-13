@@ -513,47 +513,6 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 
 
 /* ═══════════════════════════════════════════════════════════════
-   LAYOUT 8 — "THE FOCUS"
-   High-concept circular photo window on a solid brand background.
-   Identity on the RIGHT for 100% safety from profile pic overlap.
-═══════════════════════════════════════════════════════════════ */
-function L8({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 220 }: LayoutProps) {
-    const font = getFont(brand.fonts?.[0]);
-
-    return (
-        <div className="absolute inset-0 overflow-hidden flex items-center" style={{ background: primary }}>
-            {/* Background Texture - Subtle crest watermark */}
-            <div className="absolute inset-0 opacity-10 flex items-center justify-center overflow-hidden grayscale brightness-200">
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={true} panelColor={primary} h={800} maxW={1200} />
-            </div>
-
-            {/* Left: Circular Photo Window (Intentionally partially behind profile pic) */}
-            <div className="w-[500px] h-full flex items-center justify-center pl-16 relative z-10">
-                <div className="w-[300px] h-[300px] rounded-full overflow-hidden border-8 border-white/20 shadow-2xl relative">
-                    {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
-                </div>
-            </div>
-
-            {/* Right: Identity Content (The Safe Zone) */}
-            <div className="flex-1 pr-16 flex flex-col items-end gap-8 relative z-20">
-                <div className="flex flex-col items-end gap-6 text-right">
-                   <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize * 0.55} maxW={580} brandColors={brand.colors} />
-                   {text && (
-                       <p style={{
-                           color: headlineColor, fontSize: 24, fontWeight: 900,
-                           margin: 0, fontFamily: font, letterSpacing: "-0.02em",
-                           lineHeight: 1.2, maxWidth: 480
-                       }}>
-                           {text}
-                       </p>
-                   )}
-                </div>
-            </div>
-        </div>
-    );
-}
-
-/* ═══════════════════════════════════════════════════════════════
    BANNER WRAPPER — routes to the right layout
 ═══════════════════════════════════════════════════════════════ */
 function BannerCanvas({
@@ -638,7 +597,6 @@ function BannerCanvas({
             {layout === 5 && <L5 {...p} />}
             {layout === 6 && <L6 {...p} />}
             {layout === 7 && <L7 {...p} />}
-            {layout === 8 && <L8 {...p} />}
         </>
     );
 }
@@ -730,21 +688,12 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
             </div>
         ),
     },
-    {
-        label: "The Focus",
-        preview: (c, a) => (
-            <div className="w-full h-full flex items-center justify-start p-2 pl-4 relative" style={{ background: c }}>
-                <div className="w-6 h-6 rounded-full bg-white opacity-20 border border-white/40 shadow-sm" />
-                <div className="absolute right-3 top-3 w-8 h-2 bg-white/30 rounded-full" />
-            </div>
-        ),
-    },
 ];
 
 /* ═══════════════════════════════════════════════════════════════
    MAIN PAGE
 ═══════════════════════════════════════════════════════════════ */
-const LAYOUTS = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+const LAYOUTS = [0, 1, 2, 3, 4, 5, 6, 7];
 
 function BuilderContent() {
     const params = useSearchParams();
@@ -1105,45 +1054,51 @@ function BuilderContent() {
     <div className="space-y-6">
         {/* Headline input */}
         <AnimatePresence>
-            {brand && (
-                <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
-                    <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">
-                        <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black"
-                            style={{ background: primary }}>01</span>
-                        Personal Headline
-                    </label>
-                                        {/* ── THE HEADLINE ARCHITECT ──────────────── */}
-                                        <div className="space-y-6">
-                                            
-                                            {/* Live Draft Card */}
-                                            <div className="bg-slate-50 rounded-2xl px-6 py-4 border border-slate-100 relative overflow-hidden transition-all focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500/30">
-                                                <div className="absolute left-0 top-0 bottom-0 w-1.5" style={{ background: '#2563EB' }} />
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Headline Draft</span>
-                                                        <span className={`text-[10px] font-mono ${text.length === 100 ? 'text-red-500' : 'text-slate-300'}`}>{text.length}/100</span>
-                                                    </div>
-                                                    <button 
-                                                        onClick={() => setText("")}
-                                                        className="text-[10px] font-bold text-slate-400 hover:text-red-500 transition-colors uppercase tracking-widest"
-                                                    >
-                                                        Clear
-                                                    </button>
-                                                </div>
-                                                <textarea
-                                                    value={text}
-                                                    onChange={e => setText(e.target.value)}
-                                                    maxLength={100}
-                                                    rows={1}
-                                                    placeholder="Type your personal headline..."
-                                                    className="w-full bg-transparent text-slate-900 text-base font-medium focus:outline-none resize-none placeholder:text-slate-300 min-h-[24px] leading-tight"
-                                                />
-                                            </div>
-
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
+            {brand && (() => {
+                const headlineDisabled = layout === 4 || layout === 7;
+                return (
+                    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
+                        <label className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest mb-2 transition-colors ${headlineDisabled ? 'text-gray-300' : 'text-gray-400'}`}>
+                            <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black"
+                                style={{ background: headlineDisabled ? '#d1d5db' : primary }}>01</span>
+                            Personal Headline
+                            {headlineDisabled && (
+                                <span className="ml-1 text-[9px] font-semibold text-gray-300 normal-case tracking-normal">
+                                    — not available in this layout
+                                </span>
+                            )}
+                        </label>
+                        <div className={`space-y-6 transition-opacity duration-200 ${headlineDisabled ? 'opacity-30 pointer-events-none select-none' : ''}`}>
+                            <div className="bg-slate-50 rounded-2xl px-6 py-4 border border-slate-100 relative overflow-hidden transition-all focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500/30">
+                                <div className="absolute left-0 top-0 bottom-0 w-1.5" style={{ background: headlineDisabled ? '#e5e7eb' : '#2563EB' }} />
+                                <div className="flex items-center justify-between mb-2">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Headline Draft</span>
+                                        <span className={`text-[10px] font-mono ${text.length === 100 ? 'text-red-500' : 'text-slate-300'}`}>{text.length}/100</span>
+                                    </div>
+                                    <button 
+                                        onClick={() => setText("")}
+                                        disabled={headlineDisabled}
+                                        className="text-[10px] font-bold text-slate-400 hover:text-red-500 transition-colors uppercase tracking-widest"
+                                    >
+                                        Clear
+                                    </button>
+                                </div>
+                                <textarea
+                                    value={text}
+                                    onChange={e => setText(e.target.value)}
+                                    maxLength={100}
+                                    rows={1}
+                                    disabled={headlineDisabled}
+                                    placeholder={headlineDisabled ? "Not available in this layout" : "Type your personal headline..."}
+                                    className="w-full bg-transparent text-slate-900 text-base font-medium focus:outline-none resize-none placeholder:text-slate-300 min-h-[24px] leading-tight"
+                                />
+                            </div>
+                        </div>
+                    </motion.div>
+                );
+            })()}
+        </AnimatePresence>
     </div>
 
     <div className="flex flex-col gap-8">
