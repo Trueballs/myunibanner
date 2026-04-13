@@ -58,6 +58,7 @@ export async function POST(req: NextRequest) {
             layout = 0,
             text = '',
             logoSize = 220,
+            photoFilter = 'none',
         } = body as {
             imageUrl?: string | null;
             logoUrl?: string | null;
@@ -66,6 +67,7 @@ export async function POST(req: NextRequest) {
             text?: string;
             logoIsLight?: boolean;
             logoSize?: number;
+            photoFilter?: string;
         };
 
         const primary = hexToRgb(primaryHex);
@@ -87,16 +89,48 @@ export async function POST(req: NextRequest) {
         if (imageUrl) {
             try {
                 const raw = await fetchBuf(imageUrl, origin);
-                const bg = await sharp(raw)
-                    .resize(PHOTO_W, PHOTO_H, { fit: 'cover', position: 'center' })
-                    .png()
-                    .toBuffer();
-                
-                let top = 0, left = 0;
-                let finalBg = bg;
+                let pipeline = sharp(raw)
+                    .resize(PHOTO_W, PHOTO_H, { fit: 'cover', position: 'center' });
 
-                // Photo logic removed for L8 as it's full screen
-                composites.push({ input: finalBg, top: top, left: left });
+                // ── APPLY CSS FILTERS ──
+                if (photoFilter && photoFilter !== 'none') {
+                    if (photoFilter.includes('grayscale(100%)')) {
+                        pipeline = pipeline.grayscale();
+                    }
+                    
+                    // Simple regex to extract modulate parameters
+                    const bMatch = photoFilter.match(/brightness\(([\d.]+)\)/);
+                    const sMatch = photoFilter.match(/saturate\(([\d.]+)\)/);
+                    const hMatch = photoFilter.match(/hue-rotate\(([-\d.]+)deg\)/);
+                    const cMatch = photoFilter.match(/contrast\(([\d.]+)\)/);
+                    
+                    const modulate: any = {};
+                    if (bMatch) modulate.brightness = parseFloat(bMatch[1]);
+                    if (sMatch) modulate.saturation = parseFloat(sMatch[1]);
+                    if (hMatch) modulate.hue = parseFloat(hMatch[1]);
+                    
+                    if (Object.keys(modulate).length > 0) {
+                        pipeline = pipeline.modulate(modulate);
+                    }
+
+                    // Sharp's linear(a, b) can simulate contrast(a)
+                    // contrast(X) in CSS is roughly linear(X, -(0.5 * X) + 0.5)
+                    if (cMatch) {
+                        const c = parseFloat(cMatch[1]);
+                        pipeline = pipeline.linear(c, -(128 * c) + 128);
+                    }
+
+                    // Tints (Sepia-like)
+                    if (photoFilter.includes('sepia(')) {
+                        const sepMatch = photoFilter.match(/sepia\(([\d.]+)\)/);
+                        const intensity = sepMatch ? parseFloat(sepMatch[1]) : 0.5;
+                        // Tint with a warm color
+                        pipeline = pipeline.tint({ r: 255, g: 240, b: 200 }); 
+                    }
+                }
+
+                const finalBg = await pipeline.png().toBuffer();
+                composites.push({ input: finalBg, top: 0, left: 0 });
             } catch (e) {
                 console.error('BG image failed:', e);
             }

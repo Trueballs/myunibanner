@@ -915,7 +915,7 @@ function BuilderContent() {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                        imageUrl, logoUrl, primaryHex, layout, text, headlineColor, logoIsLight, logoSize
+                        imageUrl, logoUrl, primaryHex, layout, text, headlineColor, logoIsLight, logoSize, photoFilter
                     }),
                 });
 
@@ -1215,10 +1215,10 @@ function BuilderContent() {
                                             <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Photo Filter</p>
                                             <div className="flex gap-2">
                                                 {([
-                                                    { label: 'Original', value: 'none' },
-                                                    { label: 'Mono',     value: 'grayscale(100%) contrast(108%) brightness(103%)' },
-                                                    { label: 'Golden',   value: 'brightness(112%) saturate(145%) contrast(88%) hue-rotate(-12deg)' },
-                                                    { label: 'Vivid',    value: 'saturate(180%) contrast(118%) brightness(98%)' },
+                                                    { label: 'Original',  value: 'none' },
+                                                    { label: 'Mono',      value: 'grayscale(100%) contrast(110%) brightness(105%)' },
+                                                    { label: 'Cobalt',    value: 'brightness(0.9) contrast(1.1) saturate(1.2) sepia(0.4) hue-rotate(185deg) saturate(2)' },
+                                                    { label: 'Cinematic', value: 'contrast(1.2) brightness(1.1) saturate(0.9) hue-rotate(-10deg) sepia(0.1)' },
                                                 ] as { label: string; value: string }[]).map(f => {
                                                     const isActive = photoFilter === f.value;
                                                     const sampleSrc = brand.images[imgIndex % brand.images.length];
