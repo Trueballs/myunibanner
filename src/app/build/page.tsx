@@ -513,25 +513,20 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 
 
 /* ═══════════════════════════════════════════════════════════════
-   LAYOUT 8 — "HORIZON"
-   Top 75% Photo, Bottom 25% Solid Panel.
-   Clean, architectural, and very professional.
+   LAYOUT 8 — "SKYLIGHT"
+   Solid Brand Bar at the TOP, Photo at the BOTTOM.
+   Safely avoids the LinkedIn profile picture overlap.
 ═══════════════════════════════════════════════════════════════ */
-function L8({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 180 }: LayoutProps) {
+function L8({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 220 }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
-    const BAR_H = 100;
+    const TOP_BAR_H = 100;
 
     return (
         <div className="absolute inset-0 overflow-hidden flex flex-col bg-black">
-            {/* Top: Photo */}
-            <div className="flex-1 relative overflow-hidden">
-                {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
-            </div>
-
-            {/* Bottom Bar */}
-            <div className="relative flex items-center justify-between px-16" style={{ height: BAR_H, background: primary }}>
+            {/* Top Bar: Solid Panel */}
+            <div className="relative flex items-center justify-between px-16 z-20 shadow-lg" style={{ height: TOP_BAR_H, background: primary }}>
                 <div className="flex items-center">
-                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize * 0.5} maxW={400} brandColors={brand.colors} />
+                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize * 0.45} maxW={500} brandColors={brand.colors} />
                 </div>
                 
                 {text && (
@@ -542,6 +537,12 @@ function L8({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
                         {text}
                     </p>
                 )}
+            </div>
+
+            {/* Bottom: Photo */}
+            <div className="flex-1 relative overflow-hidden">
+                {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
+                <div className="absolute inset-0 bg-black/10" />
             </div>
         </div>
     );
@@ -725,11 +726,11 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
         ),
     },
     {
-        label: "Horizon",
+        label: "Skylight",
         preview: (c, a) => (
             <div className="w-full h-full flex flex-col overflow-hidden bg-white">
-                <div style={{ flex: 1, background: `${c}22` }} />
                 <div style={{ height: "30%", background: c }} />
+                <div style={{ flex: 1, background: `${c}22` }} />
             </div>
         ),
     },

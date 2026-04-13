@@ -128,7 +128,7 @@ export async function POST(req: NextRequest) {
             composites.push({ input: panelBuffer, top: 0, left: PANEL_X });
         }
 
-        // Layout 8: Bottom bar
+        // Layout 8: Top bar
         if (layout === 8) {
             const barBuffer = await sharp({ 
                 create: { 
@@ -138,7 +138,7 @@ export async function POST(req: NextRequest) {
                     background: { ...primary, alpha: 255 } 
                 } 
             }).png().toBuffer();
-            composites.push({ input: barBuffer, top: H - 100, left: 0 });
+            composites.push({ input: barBuffer, top: 0, left: 0 });
         }
 
         // ── 3. Logo ───────────────────────────────────────────────────
@@ -163,9 +163,9 @@ export async function POST(req: NextRequest) {
                     logoLeft = W - lw - 40;
                     logoTop = H - lh - 30;
                 } else if (layout === 8) {
-                    // Horizon: Left aligned in bottom bar
+                    // Skylight: Left aligned in top bar
                     logoLeft = 60;
-                    logoTop = H - 100 + Math.floor((100 - lh) / 2);
+                    logoTop = Math.floor((100 - lh) / 2);
                 } else {
                     // Centered layouts (3, 7)
                     logoLeft = Math.floor((W - lw) / 2);
@@ -208,9 +208,9 @@ export async function POST(req: NextRequest) {
             let textAlign: 'center' | 'right' = 'center';
             
             if (layout === 8) {
-                // Horizon: Right aligned in bottom bar
+                // Skylight: Right aligned in top bar
                 centerX = W - 300; // Offset from right
-                centerY = H - 50;
+                centerY = 50;
                 textAlign = 'right';
             } else {
                 centerX = panelW > 0 ? (panelX + (panelW / 2) + (layout === 2 ? 30 : layout === 6 ? 60 : 0)) : (W / 2);
