@@ -182,9 +182,9 @@ export async function POST(req: NextRequest) {
                     logoLeft = W - lw - 40;
                     logoTop = H - lh - 30;
                 } else if (layout === 8) {
-                    // Executive: Centered in the left 500px panel
-                    logoLeft = Math.floor((500 - lw) / 2);
-                    logoTop = Math.floor((H - lh) / 2) - textOffset;
+                    // Executive: Anchored to TOP of the left 480px panel (pt-16 = 64px)
+                    logoLeft = Math.floor((480 - lw) / 2);
+                    logoTop = 64; 
                 } else {
                     // Centered layouts (3, 7)
                     logoLeft = Math.floor((W - lw) / 2);
@@ -227,9 +227,9 @@ export async function POST(req: NextRequest) {
             let textAlign: 'center' | 'right' = 'center';
             
             if (layout === 8) {
-                // Executive: In the left 500px panel
-                centerX = 250;
-                centerY = 310;
+                // Executive: Below the logo in the left panel
+                centerX = 240;
+                centerY = 200; // Increased to be below logo (which is at top: 64)
                 textAlign = 'center';
             } else {
                 centerX = panelW > 0 ? (panelX + (panelW / 2) + (layout === 2 ? 30 : layout === 6 ? 60 : 0)) : (W / 2);

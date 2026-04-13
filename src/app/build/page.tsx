@@ -522,24 +522,22 @@ function L8({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 
     return (
         <div className="absolute inset-0 overflow-hidden flex" style={{ background: primary }}>
-            {/* Left Brand Panel */}
-            <div className="w-[500px] h-full flex flex-col items-center justify-center p-12 gap-10 z-10">
-                <div className="flex flex-col items-center gap-6">
-                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize * 0.6} maxW={420} brandColors={brand.colors} />
-                    {text && (
-                        <p style={{
-                            color: headlineColor, fontSize: 24, fontWeight: 900,
-                            margin: 0, fontFamily: font, letterSpacing: "-0.02em",
-                            textAlign: "center", lineHeight: 1.2, maxWidth: 400
-                        }}>
-                            {text}
-                        </p>
-                    )}
-                </div>
+            {/* Left Brand Panel - Anchored to TOP to avoid profile pic */}
+            <div className="w-[480px] h-full flex flex-col items-center justify-start pt-16 px-10 gap-8 z-10">
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize * 0.5} maxW={400} brandColors={brand.colors} />
+                {text && (
+                    <p style={{
+                        color: headlineColor, fontSize: 22, fontWeight: 900,
+                        margin: 0, fontFamily: font, letterSpacing: "-0.02em",
+                        textAlign: "center", lineHeight: 1.2, maxWidth: 360
+                    }}>
+                        {text}
+                    </p>
+                )}
             </div>
 
             {/* Right Photo Window */}
-            <div className="flex-1 p-6">
+            <div className="flex-1 p-6 pl-0">
                 <div className="w-full h-full rounded-[32px] overflow-hidden relative shadow-2xl border border-white/10">
                     {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
                     <div className="absolute inset-0 bg-black/5" />
