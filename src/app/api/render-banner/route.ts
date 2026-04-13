@@ -95,16 +95,22 @@ export async function POST(req: NextRequest) {
                 let finalBg = bg;
 
                 if (layout === 8) {
-                    // Executive: Photo is a window on the right
-                    const winW = W - 500 - 48;
-                    const winH = H - 48;
-                    const winPhoto = await sharp(raw)
-                        .resize(winW, winH, { fit: 'cover', position: 'center' })
+                    // Focus: Circular photo on right
+                    const circSize = 320;
+                    const mask = Buffer.from(
+                        `<svg width="${circSize}" height="${circSize}">
+                            <circle cx="${circSize / 2}" cy="${circSize / 2}" r="${circSize / 2}" fill="white" />
+                        </svg>`
+                    );
+                    
+                    const circPhoto = await sharp(raw)
+                        .resize(circSize, circSize, { fit: 'cover', position: 'center' })
+                        .composite([{ input: mask, blend: 'dest-in' }])
                         .png().toBuffer();
                     
-                    finalBg = winPhoto;
-                    left = 500 + 24;
-                    top = 24;
+                    finalBg = circPhoto;
+                    left = W - circSize - 64;
+                    top = Math.floor((H - circSize) / 2);
                 }
 
                 composites.push({ input: finalBg, top: top, left: left });
@@ -145,19 +151,9 @@ export async function POST(req: NextRequest) {
             composites.push({ input: panelBuffer, top: 0, left: PANEL_X });
         }
 
-        // Layout 8: The Executive
+        // Layout 8: The Focus
         if (layout === 8) {
-            // Right photo window background (solid white or black frame)
-            const frameBuffer = await sharp({ 
-                create: { 
-                    width: W - 500 - 48, 
-                    height: H - 48, 
-                    channels: 4, 
-                    background: { r: 255, g: 255, b: 255, alpha: 25 } 
-                } 
-            }).png().toBuffer();
-            
-            composites.push({ input: frameBuffer, top: 24, left: 500 + 24 });
+            // No background window needed here, we do it in the photo step
         }
 
         // ── 3. Logo ───────────────────────────────────────────────────
@@ -182,8 +178,8 @@ export async function POST(req: NextRequest) {
                     logoLeft = W - lw - 40;
                     logoTop = H - lh - 30;
                 } else if (layout === 8) {
-                    // Executive: Anchored to TOP of the left 480px panel (pt-16 = 64px)
-                    logoLeft = Math.floor((480 - lw) / 2);
+                    // Focus: Left side, top-anchored (matching pt-16 = 64px)
+                    logoLeft = 64;
                     logoTop = 64; 
                 } else {
                     // Centered layouts (3, 7)
@@ -227,10 +223,10 @@ export async function POST(req: NextRequest) {
             let textAlign: 'center' | 'right' = 'center';
             
             if (layout === 8) {
-                // Executive: Below the logo in the left panel
-                centerX = 240;
-                centerY = 200; // Increased to be below logo (which is at top: 64)
-                textAlign = 'center';
+                // Focus: Below the logo on the left
+                centerX = 64 + 230; // 460 / 2 + offset
+                centerY = 220;
+                textAlign = 'left';
             } else {
                 centerX = panelW > 0 ? (panelX + (panelW / 2) + (layout === 2 ? 30 : layout === 6 ? 60 : 0)) : (W / 2);
                 centerY = [0, 1, 2, 5, 6].includes(layout) ? 320 : layout === 3 ? 340 : 310;

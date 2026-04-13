@@ -513,34 +513,40 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 
 
 /* ═══════════════════════════════════════════════════════════════
-   LAYOUT 8 — "THE EXECUTIVE"
-   Solid brand panel on the left with a large photo 'window' on the right.
-   Extremely professional, clean, and safe from profile pic overlap.
+   LAYOUT 8 — "THE FOCUS"
+   High-concept circular photo window on a solid brand background.
+   Creative, distinct, and safe from profile picture overlap.
 ═══════════════════════════════════════════════════════════════ */
 function L8({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 220 }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
 
     return (
-        <div className="absolute inset-0 overflow-hidden flex" style={{ background: primary }}>
-            {/* Left Brand Panel - Anchored to TOP to avoid profile pic */}
-            <div className="w-[480px] h-full flex flex-col items-center justify-start pt-16 px-10 gap-8 z-10">
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize * 0.5} maxW={400} brandColors={brand.colors} />
-                {text && (
-                    <p style={{
-                        color: headlineColor, fontSize: 22, fontWeight: 900,
-                        margin: 0, fontFamily: font, letterSpacing: "-0.02em",
-                        textAlign: "center", lineHeight: 1.2, maxWidth: 360
-                    }}>
-                        {text}
-                    </p>
-                )}
+        <div className="absolute inset-0 overflow-hidden flex items-center" style={{ background: primary }}>
+            {/* Background Texture - Subtle crest watermark */}
+            <div className="absolute inset-0 opacity-10 flex items-center justify-center overflow-hidden grayscale brightness-200">
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={true} panelColor={primary} h={800} maxW={1200} />
             </div>
 
-            {/* Right Photo Window */}
-            <div className="flex-1 p-6 pl-0">
-                <div className="w-full h-full rounded-[32px] overflow-hidden relative shadow-2xl border border-white/10">
+            {/* Left Content */}
+            <div className="relative z-20 w-[600px] pl-16 flex flex-col gap-8">
+                <div className="flex flex-col gap-6">
+                   <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize * 0.55} maxW={500} brandColors={brand.colors} />
+                   {text && (
+                       <p style={{
+                           color: headlineColor, fontSize: 24, fontWeight: 900,
+                           margin: 0, fontFamily: font, letterSpacing: "-0.02em",
+                           lineHeight: 1.2, maxWidth: 460
+                       }}>
+                           {text}
+                       </p>
+                   )}
+                </div>
+            </div>
+
+            {/* Right: Circular Photo Focus */}
+            <div className="flex-1 h-full flex items-center justify-end pr-16 relative z-10">
+                <div className="w-[320px] h-[320px] rounded-full overflow-hidden border-8 border-white/20 shadow-2xl relative">
                     {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
-                    <div className="absolute inset-0 bg-black/5" />
                 </div>
             </div>
         </div>
@@ -725,13 +731,11 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
         ),
     },
     {
-        label: "Executive",
+        label: "The Focus",
         preview: (c, a) => (
-            <div className="w-full h-full flex overflow-hidden p-1" style={{ background: c }}>
-                <div style={{ width: "40%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <div style={{ width: "60%", height: "20%", background: "white", opacity: 0.3, borderRadius: 1 }} />
-                </div>
-                <div style={{ flex: 1, background: "white", opacity: 0.1, borderRadius: 4 }} />
+            <div className="w-full h-full flex items-center justify-end p-2 pr-4 relative" style={{ background: c }}>
+                <div className="w-6 h-6 rounded-full bg-white opacity-20 border border-white/40 shadow-sm" />
+                <div className="absolute left-3 top-3 w-8 h-2 bg-white/30 rounded-full" />
             </div>
         ),
     },
