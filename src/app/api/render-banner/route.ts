@@ -128,17 +128,27 @@ export async function POST(req: NextRequest) {
             composites.push({ input: panelBuffer, top: 0, left: PANEL_X });
         }
 
-        // Layout 8: Top bar
+        // Layout 8: Premium Card
         if (layout === 8) {
-            const barBuffer = await sharp({ 
+            const cardBuffer = await sharp({ 
                 create: { 
-                    width: W, 
-                    height: 100, 
+                    width: 440, 
+                    height: 280, 
                     channels: 4, 
-                    background: { ...primary, alpha: 255 } 
+                    background: { r: 255, g: 255, b: 255, alpha: 255 } 
                 } 
-            }).png().toBuffer();
-            composites.push({ input: barBuffer, top: 0, left: 0 });
+            })
+            .composite([
+                // Bottom line divider
+                {
+                    input: await sharp({ create: { width: 340, height: 2, channels: 4, background: { r: 241, g: 245, b: 249, alpha: 255 } } }).png().toBuffer(),
+                    top: 140,
+                    left: 50
+                }
+            ])
+            .png().toBuffer();
+            
+            composites.push({ input: cardBuffer, top: Math.floor((H - 280) / 2), left: W - 440 - 80 });
         }
 
         // ── 3. Logo ───────────────────────────────────────────────────
@@ -163,9 +173,11 @@ export async function POST(req: NextRequest) {
                     logoLeft = W - lw - 40;
                     logoTop = H - lh - 30;
                 } else if (layout === 8) {
-                    // Skylight: Left aligned in top bar
-                    logoLeft = 60;
-                    logoTop = Math.floor((100 - lh) / 2);
+                    // Premium Card: Centered in the card (which is at W - 440 - 80)
+                    const cardX = W - 440 - 80;
+                    const cardY = Math.floor((H - 280) / 2);
+                    logoLeft = cardX + Math.floor((440 - lw) / 2);
+                    logoTop = cardY + 40;
                 } else {
                     // Centered layouts (3, 7)
                     logoLeft = Math.floor((W - lw) / 2);
@@ -208,10 +220,12 @@ export async function POST(req: NextRequest) {
             let textAlign: 'center' | 'right' = 'center';
             
             if (layout === 8) {
-                // Skylight: Right aligned in top bar
-                centerX = W - 300; // Offset from right
-                centerY = 50;
-                textAlign = 'right';
+                // Premium Card: In the card
+                const cardX = W - 440 - 80;
+                const cardY = Math.floor((H - 280) / 2);
+                centerX = cardX + 220;
+                centerY = cardY + 210;
+                textAlign = 'center';
             } else {
                 centerX = panelW > 0 ? (panelX + (panelW / 2) + (layout === 2 ? 30 : layout === 6 ? 60 : 0)) : (W / 2);
                 centerY = [0, 1, 2, 5, 6].includes(layout) ? 320 : layout === 3 ? 340 : 310;

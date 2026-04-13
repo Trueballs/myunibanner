@@ -513,36 +513,35 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 
 
 /* ═══════════════════════════════════════════════════════════════
-   LAYOUT 8 — "SKYLIGHT"
-   Solid Brand Bar at the TOP, Photo at the BOTTOM.
-   Safely avoids the LinkedIn profile picture overlap.
+   LAYOUT 8 — "PREMIUM CARD"
+   Full photo background with an elegant floating white card on the right.
+   High-end, clean, and safe from profile picture overlap.
 ═══════════════════════════════════════════════════════════════ */
 function L8({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 220 }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
-    const TOP_BAR_H = 100;
 
     return (
-        <div className="absolute inset-0 overflow-hidden flex flex-col bg-black">
-            {/* Top Bar: Solid Panel */}
-            <div className="relative flex items-center justify-between px-16 z-20 shadow-lg" style={{ height: TOP_BAR_H, background: primary }}>
-                <div className="flex items-center">
-                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize * 0.45} maxW={500} brandColors={brand.colors} />
-                </div>
+        <div className="absolute inset-0 overflow-hidden bg-slate-100 flex items-center justify-end pr-24">
+            {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
+            <div className="absolute inset-0 bg-black/5" />
+
+            {/* Floating Card */}
+            <div className="relative z-10 w-[440px] bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex flex-col items-center p-12 gap-8 border border-white/20">
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={false} panelColor="#ffffff" h={logoSize * 0.55} maxW={360} brandColors={brand.colors} />
                 
                 {text && (
+                    <div className="w-full h-[2px] bg-slate-100" />
+                )}
+
+                {text && (
                     <p style={{
-                        color: headlineColor, fontSize: 20, fontWeight: 900,
-                        margin: 0, fontFamily: font, letterSpacing: "-0.01em"
+                        color: "#111827", fontSize: 22, fontWeight: 900,
+                        margin: 0, fontFamily: font, letterSpacing: "-0.02em",
+                        textAlign: "center", lineHeight: 1.2
                     }}>
                         {text}
                     </p>
                 )}
-            </div>
-
-            {/* Bottom: Photo */}
-            <div className="flex-1 relative overflow-hidden">
-                {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-full h-full object-cover" />}
-                <div className="absolute inset-0 bg-black/10" />
             </div>
         </div>
     );
@@ -726,11 +725,13 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
         ),
     },
     {
-        label: "Skylight",
+        label: "Premium Card",
         preview: (c, a) => (
-            <div className="w-full h-full flex flex-col overflow-hidden bg-white">
-                <div style={{ height: "30%", background: c }} />
-                <div style={{ flex: 1, background: `${c}22` }} />
+            <div className="w-full h-full relative overflow-hidden bg-slate-200 p-2 flex items-center justify-end pr-4">
+                <div className="w-16 h-[70%] bg-white rounded shadow-sm flex flex-col gap-1 p-1">
+                    <div className="w-full h-2 bg-slate-100 rounded-sm" />
+                    <div className="w-full h-1 bg-slate-50 rounded-sm" />
+                </div>
             </div>
         ),
     },
