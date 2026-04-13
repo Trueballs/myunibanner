@@ -511,7 +511,7 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 }
 
 
-/* ═══════════════════════════════════════════════════════════════/* ═══════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
    LAYOUT 8 — "MINIMALIST PHOTO"
    Logo centered in the middle of a photo. 
    Clean and high impact.
@@ -528,6 +528,7 @@ function L8({ brand, img, logoSrc, logoHasBg, logoIsLight, logoSize = 180 }: Lay
     );
 }
 
+/* ═══════════════════════════════════════════════════════════════
    BANNER WRAPPER — routes to the right layout
 ═══════════════════════════════════════════════════════════════ */
 function BannerCanvas({
