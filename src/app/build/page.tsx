@@ -533,7 +533,7 @@ function L8({ brand, img, logoSrc, logoHasBg, logoIsLight, logoSize = 180 }: Lay
 ═══════════════════════════════════════════════════════════════ */
 function BannerCanvas({
     brand, text, badge, estDate, statusTag, layout, imgIndex, logoIndex,
-    logoPos = 'bottom', bgStyle = 'none', tintIndex = 0, bgOpacity = 100, dataUrlCache = new Map()
+    logoPos = 'bottom', bgStyle = 'none', tintIndex = 0, bgOpacity = 100, logoSize = 180, dataUrlCache = new Map()
 }: {
     brand: BrandData; text: string; badge?: string; estDate?: string; statusTag?: string; layout: Layout; imgIndex: number; logoIndex: number;
     logoPos?: 'top' | 'bottom';
