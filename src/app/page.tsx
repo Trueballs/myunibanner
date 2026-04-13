@@ -68,13 +68,13 @@ export default function Home() {
                   for <span className="text-[#0A66C2]">your profile.</span>
                 </h1>
 
-                <div className="w-full lg:w-max group">
+                <div className="w-full lg:w-max flex justify-center lg:justify-start group">
                   <button
                     onClick={handleOpenOnboarding}
-                    className="px-12 py-6 bg-blue-600 text-white font-bold text-[20px] rounded-full hover:bg-blue-700 transition-all duration-300 shadow-[0_25px_60px_rgba(37,99,235,0.45)] flex items-center justify-center gap-4 active:scale-95"
+                    className="px-10 md:px-12 py-5 md:py-6 bg-blue-600 text-white font-bold text-[18px] md:text-[20px] rounded-full hover:bg-blue-700 transition-all duration-300 shadow-[0_25px_60px_rgba(37,99,235,0.45)] flex items-center justify-center gap-4 active:scale-95"
                   >
                     Create your banner
-                    <svg viewBox="0 0 24 24" className="w-7 h-7 fill-none stroke-current stroke-3" strokeWidth={3}>
+                    <svg viewBox="0 0 24 24" className="w-6 md:w-7 h-6 md:h-7 fill-none stroke-current stroke-3" strokeWidth={3}>
                       <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </button>
