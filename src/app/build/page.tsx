@@ -939,30 +939,29 @@ function BuilderContent() {
 
     return (
         <>
-        <div className="min-h-screen bg-[#F5F4F1] font-sans flex justify-center w-full px-4 md:px-8 xl:px-12 py-4 md:py-6 gap-6 xl:gap-8 box-border overflow-x-hidden">
+        <div className="min-h-screen bg-slate-50 flex flex-col items-center w-full overflow-x-hidden">
             {/* Safe inline font CSS to prevent html-to-image CORS/SecurityError crashes */}
             {fontCss && <style dangerouslySetInnerHTML={{ __html: fontCss }} />}
 
-            <main className="w-full xl:w-full flex flex-col shrink-0 relative bg-[#F5F4F1]">
+            {/* ── NAV ─────────────────────────────────────────── */}
+            <Header showStartButton={false} showBackButton activeBrand={brand} />
 
-                {/* ── NAV ─────────────────────────────────────────── */}
-                <Header showStartButton={false} showBackButton activeBrand={brand} />
-
-                <div className="max-w-screen-2xl mx-auto px-4 md:px-8 space-y-6 w-full mt-2 md:mt-4 mb-10 md:mb-12 xl:mb-16">
+            <main className="w-full xl:w-[1280px] flex flex-col shrink-0 relative px-4 md:px-8 xl:px-12 py-4 md:py-6">
+                <div className="max-w-screen-2xl mx-auto space-y-6 w-full mt-2 md:mt-4 mb-10 md:mb-12 xl:mb-16">
 
                     {/* ── BANNER PREVIEW ──────────────────────────── */}
-                    <section className="sticky top-0 xl:top-4 z-40 pt-4 -mt-4 bg-[#F5F4F1]">
+                    <section className="sticky top-0 xl:top-4 z-40 pt-4 -mt-4 bg-slate-50/80 backdrop-blur-sm">
 
 
                         {/* Live Preview Indicator Container */}
-                        <div className="flex items-center justify-end mb-2 mr-1">
-                            <div className="flex items-center gap-2 opacity-60">
-                                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-red-500">Live Preview</span>
+                        <div className="flex items-center justify-end mb-3 mr-1">
+                            <div className="flex items-center gap-2 opacity-80">
+                                <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse shadow-[0_0_8px_rgba(37,99,235,0.6)]" />
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Live Preview</span>
                             </div>
                         </div>
 
-                        <div className="rounded-2xl overflow-hidden shadow-xl ring-1 ring-black/10 bg-white">
+                        <div className="rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-slate-100 bg-white">
                             {/* Banner canvas */}
                             <div ref={containerRef}
                                 className="w-full relative"
@@ -1031,7 +1030,7 @@ function BuilderContent() {
                     </section>
 
                     {/* ── CONTROLS ────────────────────────────────── */}
-                    <div className="w-full bg-white rounded-2xl p-6 md:p-8 shadow-sm ring-1 ring-black/5 flex flex-col gap-8">
+                    <div className="w-full bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col gap-10">
     {/* ── UNIFIED CONTROLS ── */}
     <div className="space-y-6">
         {/* Headline input */}
@@ -1047,16 +1046,16 @@ function BuilderContent() {
                                         <div className="space-y-6">
                                             
                                             {/* Live Draft Card */}
-                                            <div className="bg-white rounded-xl px-4 py-2 border border-gray-100 relative overflow-hidden shadow-sm">
-                                                <div className="absolute left-0 top-0 bottom-0 w-1" style={{ background: primary }} />
-                                                <div className="flex items-center justify-between mb-0.5 pl-1.5">
+                                            <div className="bg-slate-50 rounded-2xl px-6 py-4 border border-slate-100 relative overflow-hidden transition-all focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500/30">
+                                                <div className="absolute left-0 top-0 bottom-0 w-1.5" style={{ background: '#2563EB' }} />
+                                                <div className="flex items-center justify-between mb-2">
                                                     <div className="flex items-center gap-2">
-                                                        <span className="text-[9px] font-black uppercase tracking-[0.1em] text-gray-400">Headline Draft</span>
-                                                        <span className={`text-[9px] font-mono ${text.length === 100 ? 'text-red-500' : 'text-gray-300'}`}>({text.length}/100)</span>
+                                                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Headline Draft</span>
+                                                        <span className={`text-[10px] font-mono ${text.length === 100 ? 'text-red-500' : 'text-slate-300'}`}>{text.length}/100</span>
                                                     </div>
                                                     <button 
                                                         onClick={() => setText("")}
-                                                        className="text-[9px] font-black text-gray-300 hover:text-red-400 transition-colors uppercase tracking-widest py-1"
+                                                        className="text-[10px] font-bold text-slate-400 hover:text-red-500 transition-colors uppercase tracking-widest"
                                                     >
                                                         Clear
                                                     </button>
@@ -1066,8 +1065,8 @@ function BuilderContent() {
                                                     onChange={e => setText(e.target.value)}
                                                     maxLength={100}
                                                     rows={1}
-                                                    placeholder="Type your headline here..."
-                                                    className="w-full bg-transparent text-[#111827] text-sm font-semibold focus:outline-none resize-none placeholder:text-gray-300 min-h-[22px] py-1 pl-1.5 leading-tight"
+                                                    placeholder="Type your personal headline..."
+                                                    className="w-full bg-transparent text-slate-900 text-base font-medium focus:outline-none resize-none placeholder:text-slate-300 min-h-[24px] leading-tight"
                                                 />
                                             </div>
 
@@ -1095,10 +1094,10 @@ function BuilderContent() {
                                                 {([0, 1, 2, 3, 4, 5, 6, 7] as Layout[]).map(l => (
                                                     <button key={l}
                                                         onClick={() => setLayout(l)}
-                                                        className="flex-1 aspect-[4/1] rounded-lg overflow-hidden transition-all"
+                                                        className="flex-1 aspect-[4/1] rounded-xl overflow-hidden transition-all hover:scale-105 active:scale-95"
                                                         style={{
-                                                            outline: layout === l ? `2px solid ${primary}` : "2px solid transparent",
-                                                            outlineOffset: 2,
+                                                            outline: layout === l ? `3px solid #2563EB` : "0px solid transparent",
+                                                            outlineOffset: 3,
                                                         }}>
                                                         {THUMB_CONFIGS[l].preview(primary, accent)}
                                                     </button>
@@ -1144,7 +1143,7 @@ function BuilderContent() {
                                                     className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:border-gray-400 transition-colors text-gray-400">
                                                     <ChevronLeft className="w-4 h-4" />
                                                 </button>
-                                                <div className="flex-1 h-14 rounded-xl overflow-hidden border border-gray-200 relative">
+                                                <div className="flex-1 h-14 rounded-2xl overflow-hidden border border-slate-100 relative shadow-sm">
                                                     <img
                                                         src={brand.images[imgIndex % brand.images.length]}
                                                         alt=""
@@ -1201,11 +1200,11 @@ function BuilderContent() {
                                 <button
                                     onClick={brand ? handleDownload : () => router.push("/")}
                                     disabled={isDownloading}
-                                    className="w-full py-4 rounded-full font-black text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-50 hover:opacity-90 active:scale-[0.98]"
-                                    style={{ background: primary, color: textOnPrimary }}>
+                                    className="w-full py-5 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20 disabled:opacity-50 hover:bg-blue-700 active:scale-95"
+                                    style={{ background: '#2563EB', color: '#ffffff' }}>
                                     {isDownloading
-                                        ? <><RefreshCw className="w-4 h-4 animate-spin" /> Processing...</>
-                                        : <><Download className="w-4 h-4" /> Download Banner</>}
+                                        ? <><RefreshCw className="w-5 h-5 animate-spin" /> Processing...</>
+                                        : <><Download className="w-5 h-5" /> Download Banner</>}
                                 </button>
                                 <p className="text-center text-[11px] text-gray-400">
                                     LinkedIn optimised · Free · Sharp 1584x396 PNG

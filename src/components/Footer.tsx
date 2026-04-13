@@ -66,35 +66,18 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full px-4 md:px-8 py-8 flex flex-col items-center">
-      <div className="w-full max-w-5xl border-t border-gray-300 shadow-sm" />
-      
-      <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 text-[#1a1a1a] font-normal text-[15px]">
-        <button 
-          onClick={() => router.push("/privacy")} 
-          className="border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-opacity cursor-pointer font-bold"
-        >
-          Privacy Policy
-        </button>
+    <footer className="w-full bg-transparent py-6 border-t border-slate-100 mt-0">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-16">
+        <div className="text-slate-500 font-medium text-sm md:text-base">
+          Created by <a href="https://oscarwoldskaarderud.dev" target="_blank" rel="noopener noreferrer" className="text-slate-900 font-bold hover:text-blue-600 transition-all no-underline">Oscar</a> (oscar.w.skaarderud@gmail.com)
+        </div>
         
-        <button 
-          onClick={() => router.push("/terms")} 
-          className="border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-opacity cursor-pointer font-bold"
-        >
-          Terms of Service
-        </button>
-
-        <a 
-          href="mailto:oscar.w.skaarderud@gmail.com" 
-          className="border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-opacity cursor-pointer font-bold"
-        >
-          Contact
-        </a>
+        <div className="flex items-center gap-20 text-slate-500 font-medium text-sm md:text-base">
+          <a href="#" className="hover:text-blue-600 transition-colors no-underline">Privacy</a>
+          <a href="#" className="hover:text-blue-600 transition-colors no-underline">Terms</a>
+          <a href="https://www.linkedin.com/in/oscar-wold-skaarderud-613644340" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors no-underline">Contact</a>
+        </div>
       </div>
-
-      <p className="mt-8 text-gray-400 text-[13px] font-medium">
-        © {new Date().getFullYear()} Myunibanner. All rights reserved.
-      </p>
     </footer>
   );
 }

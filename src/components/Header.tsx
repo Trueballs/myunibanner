@@ -45,62 +45,35 @@ export default function Header({ showStartButton = false, showBackButton = false
 
 
   return (
-    <header className="w-full z-[100] relative">
-      <div className="w-full px-8 md:px-16 xl:px-24 py-4 md:py-5 grid grid-cols-3 items-center">
+    <header className="w-full z-[100] sticky top-0 bg-white/70 backdrop-blur-md border-b-[1px] border-slate-900/15 transition-all">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
         {/* LEFT: Logo */}
-        <div className="flex items-center">
+        <div className="flex items-center justify-start">
           <span
-            className="text-[#1e2d78] font-black font-outfit uppercase text-xl md:text-2xl lg:text-[24px] tracking-[0.05em] leading-none cursor-pointer"
+            className="text-slate-900 font-extrabold font-lexend text-[22px] md:text-[25px] tracking-tight cursor-pointer lowercase"
             onClick={() => router.push("/")}
           >
-            MYUNIBANNER
+            myunibanner
           </span>
         </div>
 
-        {/* CENTER: Nav links */}
-        <nav className="hidden md:flex items-center justify-center gap-10">
-          <a href="#how-it-works" className="text-[#1a1a1a] text-[14px] font-bold border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-all">How it works</a>
-          <a href="#faq" className="text-[#1a1a1a] text-[14px] font-bold border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-all">FAQ</a>
-          <a
-            href="mailto:oscar.w.skaarderud@gmail.com"
-            className="text-[#1a1a1a] text-[14px] font-bold border-b-2 border-[#1a1a1a] pb-0.5 hover:opacity-70 transition-all"
-          >
-            Contact
-          </a>
-        </nav>
-
-        {/* RIGHT: CTA */}
-        <div className="flex items-center justify-end gap-4">
-          {!pathname.startsWith('/build') && (
-            <button
-              onClick={() => {
-                if (typeof window !== "undefined") {
-                  window.dispatchEvent(new CustomEvent("lnbg_open_onboarding"));
-                }
-              }}
-              className="bg-[#1e2d78] text-white text-[12px] font-black font-outfit px-5 py-2.5 rounded-full uppercase tracking-wider hover:bg-[#1a2663] transition-all active:scale-95 shadow-sm"
-            >
-              Get my banner
-            </button>
-          )}
-
+        {/* RIGHT: Actions */}
+        <div className="flex items-center justify-end gap-6">
           {showBackButton && (
             <button
               onClick={() => router.push("/")}
-              className="bg-white border border-gray-200 text-[#1e2d78] text-[10px] font-black font-outfit px-4 py-2.5 rounded-full uppercase tracking-wider flex items-center gap-2 hover:border-[#1e2d78] transition-all active:scale-95 shadow-sm flex-shrink-0"
+              className="px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold text-sm rounded-xl transition-all flex items-center gap-2 active:scale-95"
             >
-              <ArrowLeft className="w-3.5 h-3.5 text-[#1e2d78]" /> Back
+              <ArrowLeft className="w-4 h-4" /> Back to home
             </button>
           )}
 
-          {showStartButton && (
-            <button
-              onClick={() => router.push("/")}
-              className="bg-white border border-gray-200 text-[#1e2d78] text-[10px] font-black font-outfit px-4 py-2.5 rounded-full uppercase tracking-wider flex items-center gap-2 hover:border-[#1e2d78] transition-all active:scale-95 shadow-sm flex-shrink-0"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" /> Start Designing
-            </button>
-          )}
+          <button
+            onClick={() => window.open('https://www.linkedin.com/in/oscar-wold-skaarderud-613644340', '_blank')}
+            className="px-8 py-3 bg-blue-600 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-blue-500/20 hover:bg-blue-700 active:scale-95"
+          >
+            Contact
+          </button>
         </div>
       </div>
     </header>

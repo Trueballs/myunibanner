@@ -6,15 +6,15 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 
-import { Geist, Outfit } from "next/font/google";
+import { Geist, Lexend } from "next/font/google";
 
 const geist = Geist({
   variable: "--font-geist",
   subsets: ["latin"],
 });
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+const lexend = Lexend({
+  variable: "--font-lexend",
   subsets: ["latin"],
 });
 
@@ -44,7 +44,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geist.variable} ${outfit.variable} antialiased`}
+        className={`${geist.variable} ${lexend.variable} font-lexend antialiased`}
       >
         <OnboardingModal />
         <LanguageProvider>

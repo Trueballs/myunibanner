@@ -1,23 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F5F4F1;
-  /* LinkedIn background color */
-  --foreground: rgba(0, 0, 0, 0.9);
-
+  --background: #F8FAFC;
+  --foreground: #111827;
   --card: #ffffff;
-  --card-foreground: rgba(0, 0, 0, 0.9);
-
-  --linkedin-blue: #0A66C2;
-  --linkedin-blue-hover: #004182;
-
-  --border: rgba(0, 0, 0, 0.08);
-  /* Subtle lines like LinkedIn */
-  --input: #eef3f8;
-  /* LinkedIn search background */
-  --ring: #0A66C2;
-
-  --radius: 0.8rem;
+  --card-foreground: #111827;
+  --linkedin-blue: #2563EB;
+  --linkedin-blue-hover: #1D4ED8;
+  --border: rgba(0, 0, 0, 0.05);
+  --ring: #2563EB;
+  --radius: 1.5rem;
 }
 
 @theme inline {
@@ -28,33 +20,31 @@
   --color-linkedin: var(--linkedin-blue);
   --color-linkedin-hover: var(--linkedin-blue-hover);
   --color-border: var(--border);
-  --color-input: var(--input);
   --color-ring: var(--ring);
 
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 4px);
   --radius-sm: calc(var(--radius) - 8px);
   
-  --font-sans: var(--font-geist), sans-serif;
-  --font-outfit: var(--font-outfit), sans-serif;
+  --font-sans: var(--font-lexend), var(--font-geist), sans-serif;
+  --font-lexend: var(--font-lexend), sans-serif;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family: var(--font-lexend);
   -webkit-font-smoothing: antialiased;
 }
 
-/* LinkedIn Card utilities */
-.linkedin-card {
+/* Custom premium card */
+.premium-card {
   background-color: var(--card);
-  border-radius: var(--radius-lg);
+  border-radius: 2.5rem;
   border: 1px solid var(--border);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.05), 0 30px 60px -30px rgba(0, 0, 0, 0.08);
 }
 
-/* Base styles for hiding scrollbar but keeping functionality */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -62,4 +52,18 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 250s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }

@@ -1,18 +1,36 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Download, X, Mail, Heart, Search, Paintbrush, Plus, Minus, User, Menu } from "lucide-react";
+import { Download, X, Mail, Heart, Paintbrush, User, Menu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import HeroVisualization from "@/components/HeroVisualization";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function Home() {
   const router = useRouter();
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
   const { t } = useLanguage();
+
+  const [selectedBanner, setSelectedBanner] = useState<string | null>(null);
+
+  const banners = [
+    { id: 1, img: "/showcase-banners/linkedin-banner (3).png" },
+    { id: 2, img: "/showcase-banners/linkedin-banner (4).png" },
+    { id: 3, img: "/showcase-banners/linkedin-banner-reading.png" },
+    { id: 4, img: "/showcase-banners/lnbg-reading (6).png" },
+  ];
+
+  const [placeholdersIndex, setPlaceholdersIndex] = useState(0);
+  const activeIdx = placeholdersIndex % banners.length;
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPlaceholdersIndex((prev) => prev + 1);
+    }, 25000); // 5x slower: Shift focus every 25 seconds
+    return () => clearInterval(timer);
+  }, []);
 
   const handleOpenOnboarding = () => {
     if (typeof window !== "undefined") {
@@ -21,376 +39,250 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F4F1] font-sans w-full overflow-x-hidden">
+    <div className="min-h-screen bg-[#F8FAFC] font-lexend w-full overflow-x-hidden text-slate-900 selection:bg-blue-100 selection:text-blue-700 relative">
+      
 
       {/* FULL WIDTH COLUMN */}
-      <main className="w-full flex flex-col bg-[#F5F4F1]">
-
+      <main className="w-full flex flex-col bg-transparent relative z-10">
+ 
         {/* ─── TOP NAVIGATION ─── */}
         <Header />
 
         {/* ─── HERO SECTION ─── */}
-        <section className="relative z-20 bg-[#F5F4F1]">
-
-          <div className="w-full px-8 md:px-16 xl:px-24 pt-10 md:pt-12 pb-10 md:pb-12">
-
-            {/* UNIFIED Layout: Heading on top, Animation centered, Search below */}
-            <div className="flex flex-col items-center gap-0">
-
-              {/* ── TOP CONTENT: MAIN HEADING ── */}
-              <motion.div
-                className="w-full text-center mb-4 md:mb-6"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+        <section className="relative z-20">
+ 
+          <div className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-20 md:pt-36 pb-16 md:pb-24">
+ 
+            {/* SIDE-BY-SIDE Layout: Content Left, Comparison Visual Right */}
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20 relative">
+              
+              {/* ── LEFT CONTENT: HEADING & CTA ── */}
+              <div
+                className="flex flex-col items-start text-left max-w-3xl lg:w-[50%] z-10"
               >
-                <h1 className="font-outfit font-black leading-tight tracking-[-0.03em] text-black w-full max-w-6xl mx-auto text-center
-                  text-[28px] sm:text-[32px] md:text-[38px] lg:text-[42px] xl:text-[46px] mb-4 md:mb-6">
-                  Create a <span className="bg-gradient-to-r from-[#1e2d78] to-[#1e2d78]/70 bg-clip-text text-transparent">stunning</span> LinkedIn banner with your uni&apos;s logo, colors, and <span className="bg-gradient-to-r from-[#1e2d78] to-[#1e2d78]/70 bg-clip-text text-transparent">campus photos</span> — in 60s.
+                <h1 className="font-lexend font-extrabold leading-[1.1] tracking-tight text-[#1a1c20]
+                  text-[32px] sm:text-[42px] md:text-[50px] lg:text-[60px] mb-10">
+                  Your LinkedIn profile, <br />
+                  <span className="text-[#0A66C2]">reinvented</span>
                 </h1>
-              </motion.div>
 
-              {/* ── MIDDLE CONTENT: OVERLAPPING ANIMATION ── */}
-              <div className="w-full shrink-0 flex justify-center items-center overflow-hidden">
-                <div className="relative flex items-center justify-center scale-75 md:scale-90 lg:scale-100">
-                  
-                  {/* BEFORE — Bottom layer, shifted left */}
-                  <motion.div
-                    className="z-10 -mr-32 md:-mr-40"
-                    initial={{ opacity: 0, x: -40 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    <div className="relative shadow-[0_12px_40px_rgba(30,45,120,0.1)] rounded-[1.25rem] w-[240px] md:w-[380px] aspect-[4/3] flex-shrink-0 bg-white border border-gray-100/50 scale-[0.85] md:scale-100">
-                      <div className="absolute -top-10 left-2 z-40 inline-flex items-center gap-2 bg-[#FFD1D4] text-[10px] md:text-sm font-bold px-4 md:px-6 py-1.5 md:py-2 rounded-full shadow-sm">
-                        <span className="w-2 h-2 rounded-full bg-[#FF4D54]" />
-                        <span className="text-[#FF4D54] leading-none">{t("hero.before")}</span>
-                      </div>
-                      <div className="rounded-[1.25rem] overflow-hidden bg-white flex flex-col h-full">
-                        <div className="h-[44px] md:h-[60px] relative flex-shrink-0" style={{ background: "linear-gradient(135deg, #b0bec5, #cfd8dc)" }}>
-                          <div className="absolute left-6 bottom-0 translate-y-1/2 w-[40px] md:w-[56px] h-[40px] md:h-[56px] rounded-full bg-white p-1 shadow-sm z-10">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" className="w-full h-full rounded-full object-cover" alt="Profile" />
-                          </div>
-                        </div>
-                        <div className="pt-8 md:pt-10 px-4 md:px-6 pb-3 md:pb-5 flex-1 text-left flex flex-col justify-center">
-                          <p className="font-bold text-[#111827] text-[16px] md:text-[19px] leading-tight">Oliver Smith <span className="font-normal text-gray-400 text-[10px] md:text-[13px]">· 1st</span></p>
-                          <p className="text-gray-300 text-[10px] md:text-[13px] mt-1">--</p>
-                          <p className="text-gray-400 text-[9px] md:text-[12px] mt-3">United Kingdom · <span className="text-[#0A66C2] font-semibold">Contact info</span></p>
-                          <div className="flex gap-2 mt-auto pt-2">
-                            <span className="px-4 md:px-6 py-1.5 md:py-2.5 bg-[#0A66C2] text-white text-[9px] md:text-[12px] rounded-full font-semibold shadow-sm">✈ Message</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* AFTER — Top layer, overlapping significantly */}
-                  <motion.div
-                    className="z-20"
-                    initial={{ opacity: 0, x: 40 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    <div className="relative shadow-[0_32px_80px_rgba(30,45,120,0.3)] rounded-[1.25rem] w-[240px] md:w-[380px] aspect-[4/3] flex-shrink-0 bg-white ring-1 ring-[#1e2d78]/5 scale-[0.95] md:scale-110 translate-y-[-10px]">
-                      <div className="absolute -top-10 left-12 z-40 inline-flex items-center gap-2 bg-[#C5E8D3] text-[10px] md:text-sm font-bold px-4 md:px-6 py-1.5 md:py-2 rounded-full shadow-sm">
-                        <span className="w-2 h-2 rounded-full bg-[#34A853]" />
-                        <span className="text-[#34A853] leading-none">{t("hero.after")}</span>
-                      </div>
-                      <div className="rounded-[1.25rem] overflow-hidden bg-white h-full flex flex-col border border-gray-100">
-                        <div className="h-[44px] md:h-[60px] relative flex-shrink-0" style={{ background: "#1d4696" }}>
-                          <div className="absolute inset-0 flex">
-                            <div className="w-1/2 h-full relative overflow-hidden">
-                              <img src="/henley-building.jpg" alt="Henley" className="absolute inset-0 w-full h-full object-cover" />
-                            </div>
-                            <div className="w-1/2 h-full flex items-center justify-end pr-3" style={{ background: "#1d4696" }}>
-                              <div className="text-right">
-                                <p className="text-white font-extrabold text-[11px] md:text-[14px] leading-tight">Henley</p>
-                                <p className="text-white font-bold text-[8px] md:text-[11px] leading-tight">Business School</p>
-                                <p className="text-blue-100 text-[4px] md:text-[7px] tracking-widest mt-1 uppercase opacity-80">UNIV. OF READING</p>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="absolute top-0 bottom-0 left-1/2 w-[1px]" style={{ background: "#c8a800" }} />
-                          <div className="absolute left-6 bottom-0 translate-y-1/2 w-[40px] md:w-[56px] h-[40px] md:h-[56px] rounded-full bg-white p-1 shadow-md z-20">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" className="w-full h-full rounded-full object-cover" alt="Profile" />
-                          </div>
-                        </div>
-                        <div className="pt-8 md:pt-10 px-4 md:px-6 pb-3 md:pb-5 flex-1 text-left flex flex-col justify-center">
-                          <p className="font-bold text-[#111827] text-[16px] md:text-[19px] leading-tight">Oliver Smith <span className="font-normal text-gray-400 text-[10px] md:text-[13px]">· 1st</span></p>
-                          <p className="text-gray-600 text-[10px] md:text-[13px] mt-1 leading-tight font-medium">MBA Student at Henley Business School</p>
-                          <p className="text-gray-400 text-[9px] md:text-[12px] mt-3">United Kingdom · <span className="text-[#0A66C2] font-semibold">Contact info</span></p>
-                          <div className="flex gap-2 mt-auto pt-2">
-                            <span className="px-4 md:px-6 py-1.5 md:py-2.5 bg-[#0A66C2] text-white text-[9px] md:text-[12px] rounded-full font-semibold shadow-sm">✈ Message</span>
-                            <span className="px-4 md:px-6 py-1.5 md:py-2.5 border-[1.5px] border-gray-300 text-gray-600 text-[9px] md:text-[12px] rounded-full font-semibold">More</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                </div>
-              </div>
-
-              {/* ── BOTTOM CONTENT: SUBTEXT & SEARCH ── */}
-              <motion.div
-                className="flex flex-col items-center w-full mt-2 md:mt-4"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <p className="text-[14px] sm:text-[16px] md:text-[17px] text-gray-500 font-medium !text-center max-w-2xl mx-auto mb-4 md:mb-6 leading-relaxed px-4">
-                  {t("hero.subtext")}
-                </p>
-
-                <div className="w-full max-w-md mx-auto flex flex-col px-4 relative">
-                  <style jsx global>{`
-                    @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
-                    .handwritten-text {
-                      font-family: 'Caveat', cursive;
-                    }
-                  `}</style>
-                  
-                  {/* Handwritten Sideways Text - Pointing slightly more upwards at button center */}
-                  <div className="absolute top-1/2 -left-12 -translate-x-full -translate-y-1/2 hidden md:block select-none pointer-events-none w-max">
-                    <p className="handwritten-text text-[#1e2d78] text-3xl rotate-[-2deg] opacity-80 leading-none">
-                      {t("hero.annotation")}
-                    </p>
-                    <div className="mt-1 flex justify-end pr-2">
-                       <svg width="130" height="50" viewBox="0 0 130 50" fill="none" className="opacity-40">
-                         {/* Path curves slightly upwards at the end (y=15 instead of y=22) */}
-                         <path d="M10 25C40 25 90 20 120 15" stroke="#1e2d78" strokeWidth="2.5" strokeLinecap="round"/>
-                         {/* Arrow head pointing UPWARDS and RIGHT into the button */}
-                         <path d="M108 5L120 15L108 25" stroke="#1e2d78" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                       </svg>
-                    </div>
-                  </div>
-
+                <div className="w-full lg:w-max group">
                   <button
                     onClick={handleOpenOnboarding}
-                    className="px-8 py-4 sm:py-5 bg-[#1e2d78] text-white font-black text-[13px] md:text-[15px] uppercase tracking-[0.15em] rounded-full hover:bg-[#1a2663] hover:shadow-[0_8px_30px_rgba(30,45,120,0.3)] active:scale-95 active:shadow-md transition-all duration-300 w-full relative z-10"
+                    className="px-12 py-6 bg-blue-600 text-white font-bold text-[20px] rounded-full hover:bg-blue-700 transition-all duration-300 shadow-[0_25px_60px_rgba(37,99,235,0.45)] flex items-center justify-center gap-4 active:scale-95"
                   >
-                    {t("hero.cta")}
+                    Create your banner
+                    <svg viewBox="0 0 24 24" className="w-7 h-7 fill-none stroke-current stroke-3" strokeWidth={3}>
+                      <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </button>
                 </div>
-
-                <div className="h-0" />
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-
-
-        {/* ── TESTIMONIALS ── */}
-        <section className="bg-[#F5F4F1] w-full px-8 md:px-16 xl:px-24 py-10 md:py-14 border-t border-gray-100">
-          <div className="w-full">
-             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100">
-                   <div className="flex gap-1 mb-4">
-                      {[1,2,3,4,5].map(i => <Heart key={i} className="w-4 h-4 fill-red-500 text-red-500" />)}
-                   </div>
-                   <p className="text-gray-600 font-medium italic mb-6">"Great for my LinkedIn before internship applications! Took literally 30 seconds."</p>
-                   <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-[#1e2d78]">S</div>
-                      <div>
-                         <p className="font-bold text-[#111827] text-sm">Sarah J.</p>
-                         <p className="text-gray-400 text-xs text-left">London School of Economics</p>
-                      </div>
-                   </div>
-                </div>
-                <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100">
-                   <div className="flex gap-1 mb-4">
-                      {[1,2,3,4,5].map(i => <Heart key={i} className="w-4 h-4 fill-red-500 text-red-500" />)}
-                   </div>
-                   <p className="text-gray-600 font-medium italic mb-6">"Finally a way to show my uni colors without having to use Photoshop. Professional results."</p>
-                   <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center font-bold text-green-700">M</div>
-                      <div>
-                         <p className="font-bold text-[#111827] text-sm">Marcus L.</p>
-                         <p className="text-gray-400 text-xs text-left">NTNU</p>
-                      </div>
-                   </div>
-                </div>
-                <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100">
-                   <div className="flex gap-1 mb-4">
-                      {[1,2,3,4,5].map(i => <Heart key={i} className="w-4 h-4 fill-red-500 text-red-500" />)}
-                   </div>
-                   <p className="text-gray-600 font-medium italic mb-6">"So easy to use. Highly recommend to all students looking to polish their profile."</p>
-                   <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center font-bold text-purple-700">E</div>
-                      <div>
-                         <p className="font-bold text-[#111827] text-sm">Emma W.</p>
-                         <p className="text-gray-400 text-xs text-left">University of Reading</p>
-                      </div>
-                   </div>
-                </div>
-             </div>
-          </div>
-        </section>
-
-        {/* ── SECTION 2.25: HOW IT WORKS ── */}
-        <section id="how-it-works" className="bg-[#F5F4F1] w-full px-8 md:px-16 xl:px-24 py-10 md:py-14 border-t border-gray-100">
-          <div className="w-full">
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-[#111827] font-[family-name:var(--font-playful)] text-center mb-12">
-              {t("how.heading")}
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 xl:gap-16 w-full">
-              {/* Card 1 */}
-              <div className="bg-[#ffffff] rounded-[2rem] p-12 xl:p-14 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-300">
-                <div className="relative w-32 h-24 mx-auto mb-8 mt-2 flex items-center justify-center">
-                  <div className="absolute top-2 right-8 w-14 h-14 bg-blue-400 rounded-full" />
-                  <div className="absolute bottom-4 left-6 w-16 h-12 bg-[#0A66C2] rounded-full" />
-                  <div className="absolute bottom-4 right-6 w-12 h-10 bg-[#0A66C2] rounded-full" />
-                  <div className="absolute bottom-0 right-4 w-12 h-12 bg-white/40 backdrop-blur-xl border-2 border-white/50 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.1)] flex items-center justify-center z-10">
-                    <Search
-                      className="w-5 h-5 text-[#1e2d78]"
-                      strokeWidth={2.5}
-                    />
-                  </div>
-                </div>
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">
-                  {t("how.step1.label")}
-                </p>
-                <h3 className="text-xl font-bold text-[#111827] mb-3">
-                  {t("how.step1.title")}
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed">
-                  {t("how.step1.desc")}
-                </p>
               </div>
 
-              {/* Card 2 */}
-              <div className="bg-[#ffffff] rounded-[2rem] p-12 xl:p-14 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-300">
-                <div className="relative w-32 h-24 mx-auto mb-8 mt-2 flex items-center justify-center">
-                  <div className="absolute w-20 h-14 bg-gradient-to-r from-blue-500 to-[#0A66C2] rounded-xl shadow-lg" />
-                  <div className="absolute w-16 h-10 bg-white/40 backdrop-blur-xl border-2 border-white/50 rounded-lg shadow-[0_8px_32px_rgba(0,0,0,0.1)] flex items-center justify-center z-10">
-                    <Paintbrush
-                      className="w-5 h-5 text-[#1e2d78]"
-                      strokeWidth={2.5}
-                    />
-                  </div>
-                </div>
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">
-                  {t("how.step2.label")}
-                </p>
-                <h3 className="text-xl font-bold text-[#111827] mb-3">
-                  {t("how.step2.title")}
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed">
-                  {t("how.step2.desc")}
-                </p>
-              </div>
-
-              {/* Card 3 */}
-              <div className="bg-[#ffffff] rounded-[2rem] p-12 xl:p-14 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-300">
-                <div className="relative w-32 h-24 mx-auto mb-8 mt-2 flex flex-col items-center justify-center">
-                  <div className="absolute top-4 left-6 w-10 h-8 bg-blue-400 rounded-t-lg" />
-                  <div className="absolute top-8 w-20 h-14 bg-[#0A66C2] rounded-lg" />
-                  <div className="absolute bottom-0 w-24 h-12 bg-white/50 backdrop-blur-xl border-2 border-white/50 rounded-lg shadow-[0_8px_32px_rgba(0,0,0,0.1)] z-10 flex items-center justify-center">
-                    <Download
-                      className="w-5 h-5 text-[#1e2d78]"
-                      strokeWidth={2.5}
-                    />
-                  </div>
-                </div>
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">
-                  {t("how.step3.label")}
-                </p>
-                <h3 className="text-xl font-bold text-[#111827] mb-3">
-                  {t("how.step3.title")}
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed">
-                  {t("how.step3.desc")}
-                </p>
+              {/* ── RIGHT CONTENT: THE VISUALIZATION ── */}
+              <div className="w-full lg:w-[60%] lg:-mr-32 xl:-mr-40 flex justify-center lg:justify-end items-center pointer-events-none">
+                <HeroVisualization />
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── SECTION 2.75: FAQ ── */}
-        <section id="faq" className="bg-[#F5F4F1] w-full px-8 md:px-16 xl:px-24 py-10 md:py-14 overflow-hidden border-t border-gray-100">
-          <div className="max-w-screen-2xl mx-auto flex flex-col md:flex-row gap-12 md:gap-24">
-            {/* Left: Heading */}
-            <div className="md:w-1/3 pt-4">
-              <h2 className="text-7xl md:text-8xl font-black tracking-tight text-[#111827] font-[family-name:var(--font-playful)] leading-[0.8]">
-                {t("faq.heading")}
-              </h2>
-            </div>
-
-            {/* Right: Accordion Items */}
-            <div className="md:w-2/3 flex flex-col gap-4">
+        {/* ── LOGO CLOUD ── */}
+        <section className="w-full bg-transparent overflow-hidden py-0">
+          <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
+            <div className="flex flex-wrap items-center justify-center gap-12 md:gap-20 opacity-30 grayscale contrast-125">
               {[
-                { q: t("faq.q1"), a: t("faq.a1") },
-                { q: t("faq.q2"), a: t("faq.a2") },
-                { q: t("faq.q3"), a: t("faq.a3"), button: t("faq.q3.button") },
-                { q: t("faq.q4"), a: t("faq.a4") },
-                { q: t("faq.q5"), a: t("faq.a5") },
-                { q: t("faq.q6"), a: t("faq.a6") },
-              ].map((item, idx) => (
-                <div
-                  key={idx}
-                  className="bg-[#ffffff] rounded-[1.5rem] md:rounded-[2rem] overflow-hidden transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)] border border-gray-100/50"
-                >
-                  <button
-                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                    className="w-full px-8 py-7 md:py-9 flex items-center justify-between text-left group"
-                  >
-                    <span className="text-lg md:text-xl font-bold text-[#111827] group-hover:text-[#0A66C2] transition-colors pr-8">
-                      {item.q}
-                    </span>
-                    <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
-                      {openFaq === idx ? (
-                        <Minus
-                          className="w-6 h-6 text-gray-400"
-                          strokeWidth={1}
-                        />
-                      ) : (
-                        <Plus className="w-6 h-6 text-gray-400" strokeWidth={1} />
-                      )}
-                    </div>
-                  </button>
-                  <AnimatePresence initial={false}>
-                    {openFaq === idx && (
-                      <motion.div
-                        key="content"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{
-                          duration: 0.3,
-                          ease: [0.04, 0.62, 0.23, 0.98],
-                        }}
-                      >
-                        <div className="px-8 pb-10 md:pb-12 pt-0">
-                          <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-2xl font-medium mb-6">
-                            {item.a}
-                          </p>
-                          {item.button && (
-                            <button 
-                              onClick={() => window.location.href = 'mailto:oscar.w.skaarderud@gmail.com'}
-                              className="px-6 py-2.5 bg-[#1e2d78] text-white text-sm font-bold rounded-full shadow-sm hover:bg-[#1a2663] transition-colors flex items-center gap-2"
-                            >
-                              <span>{item.button}</span>
-                              <Search className="w-4 h-4" />
-                            </button>
-                          )}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                { name: "BI", src: "/logos/bi gray.png" },
+                { name: "Reading", src: "/logos/reading gray.png" },
+                { name: "Imperial", src: "/logos/imper gray .png" },
+                { name: "NTNU", src: "/logos/ntnu gray.png" },
+              ].map((logo) => (
+                <div key={logo.name} className="flex items-center h-24 md:h-48">
+                  <img 
+                    src={logo.src} 
+                    alt={logo.name} 
+                    className="h-full w-auto object-contain max-w-[500px]" 
+                  />
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── SECTION 3: FOOTER ── */}
-        <section id="contact-footer" className="bg-[#F5F4F1] w-full transition-all duration-500 overflow-hidden">
-          <Footer />
+        {/* ── TESTIMONIALS ── */}
+        <section className="bg-transparent w-full pt-16 pb-24 md:pt-20 md:pb-32">
+          <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
+            {/* Header Content */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-16 md:mb-24">
+              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
+                Loved by many <br />
+                <span className="text-blue-600">Worldwide.</span>
+              </h2>
+              <p className="text-slate-500 text-xl md:text-2xl font-medium max-w-md md:text-right leading-relaxed">
+                Join other students building <br />
+                truly professional LinkedIn profiles.
+              </p>
+            </div>
+
+            {/* Testimonials Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                { name: "Sarah J.", role: "LSE Graduate", text: "Great for my LinkedIn before internship applications! Took literally 30 seconds." },
+                { name: "Marcus L.", role: "NTNU Student", text: "Finally a way to show my uni colors without having to use Photoshop. Professional results." },
+                { name: "Emma W.", role: "Uni Reading", text: "So easy to use. Highly recommend to all students looking to polish their profile." },
+                { name: "Lars B.", role: "OsloMet", text: "The only way to get a high-res uni banner without the hassle. Perfect for careers week." },
+                { name: "Javier M.", role: "Business Admin", text: "Increíble. No necesitas ser diseñador para tener un perfil top. Muy recomendable." },
+                { name: "Sophie T.", role: "Marketing Major", text: "Best AI tool I've used this year. My LinkedIn profile views spiked after the update!" }
+              ].map((t, i) => (
+                <div 
+                  key={i} 
+                  className="group bg-white p-10 rounded-[2.5rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-slate-100 flex flex-col items-start text-left transition-all duration-300 hover:bg-blue-600 hover:scale-105 hover:z-20 hover:shadow-[0_20px_50px_rgba(37,99,235,0.2)] hover:border-blue-500 cursor-default"
+                >
+                  <div className="flex gap-1 mb-8">
+                    {[1,2,3,4,5].map(star => (
+                      <svg key={star} className="w-5 h-5 fill-yellow-400" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-slate-600 text-xl font-medium leading-relaxed mb-10 flex-1 group-hover:text-white/90 transition-colors">
+                    "{t.text}"
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-slate-100 overflow-hidden ring-2 ring-slate-50 group-hover:ring-white/30 transition-all">
+                      <img 
+                        src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${t.name}`} 
+                        alt={t.name} 
+                        className="w-full h-full object-cover transition-all" 
+                      />
+                    </div>
+                    <div>
+                      <p className="font-bold text-slate-900 text-base group-hover:text-white transition-colors">{t.name}</p>
+                      <p className="text-slate-400 text-sm font-medium group-hover:text-white/60 transition-colors uppercase tracking-tight">{t.role}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
+
+        {/* ── BANNERS SHOWCASE ── */}
+        <section className="bg-transparent w-full py-8 md:py-12 overflow-hidden">
+          <div className="w-full max-w-7xl mx-auto px-6 md:px-12 text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
+              Banners that <span className="text-blue-600">Myunibanner</span> created
+            </h2>
+          </div>
+          
+          <div className="relative w-full h-[400px] flex items-center justify-center">
+            {/* Inner Wrapper for Centering */}
+            <div className="relative flex items-center justify-center h-full w-full max-w-7xl">
+              <AnimatePresence initial={false}>
+                {/* We use virtual slots (-2 to 2) to ensure a perfectly smooth infinite slide */}
+                {[-2, -1, 0, 1, 2].map((offset) => {
+                  const virtualIndex = placeholdersIndex + offset;
+                  // Map virtual index to real banner index
+                  const bannerIndex = ((virtualIndex % banners.length) + banners.length) % banners.length;
+                  const banner = banners[bannerIndex];
+                  const isCenter = offset === 0;
+
+                  return (
+                    <motion.div
+                      key={`${banner.id}-${virtualIndex}`} // Unique key per virtual position
+                      initial={false}
+                      animate={{ 
+                        opacity: isCenter ? 1 : Math.abs(offset) > 1 ? 0 : 0.6, 
+                        scale: isCenter ? 1.15 : 0.85,
+                        zIndex: isCenter ? 20 : 10,
+                        x: offset * 900, // Dramatically increased spacing
+                      }}
+                      transition={{
+                        duration: 2.5,
+                        ease: [0.32, 0.72, 0, 1]
+                      }}
+                      onClick={() => setPlaceholdersIndex(virtualIndex)}
+                      className="absolute flex-shrink-0 w-[400px] md:w-[800px] aspect-[4/1] rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white bg-white cursor-pointer transition-shadow hover:shadow-blue-100/50"
+                    >
+                      <img src={banner.img} alt={`Banner ${bannerIndex}`} className="w-full h-full object-cover" />
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </div>
+          </div>
+        </section>
+
+        {/* ── FINAL CTA SECTION ── */}
+        <section className="bg-transparent w-full px-6 md:px-12 py-12 md:py-20">
+          <div className="w-full max-w-7xl mx-auto flex flex-col items-center justify-center text-center">
+            {/* Content Only */}
+            <div className="flex flex-col items-center text-center max-w-3xl">
+              <h2 className="text-4xl md:text-[50px] font-extrabold tracking-tight text-slate-900 mb-8 leading-[1.1]">
+                <span className="text-blue-600">Transform your profile</span> <br />
+                with just one click
+              </h2>
+              <p className="text-xl md:text-3xl text-slate-500 font-medium mb-12 leading-relaxed">
+                Join other students building <br />
+                truly professional LinkedIn profiles.
+              </p>
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent("lnbg_open_onboarding"))}
+                className="px-12 py-6 bg-blue-600 text-white font-bold text-[20px] rounded-full hover:bg-blue-700 transition-all duration-300 shadow-[0_25px_60px_rgba(37,99,235,0.45)] flex items-center justify-center gap-4 active:scale-95"
+              >
+                Try it now
+                <svg viewBox="0 0 24 24" className="w-7 h-7 fill-none stroke-current stroke-3" strokeWidth={3}>
+                  <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* ── FOOTER ── */}
+        <footer className="w-full bg-transparent py-28">
+          <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-16">
+            <div className="text-slate-500 font-medium text-sm md:text-base">
+              Created by <a href="https://oscarwoldskaarderud.dev" target="_blank" rel="noopener noreferrer" className="text-slate-900 font-bold hover:text-blue-600 transition-all no-underline">Oscar</a> (oscar.w.skaarderud@gmail.com)
+            </div>
+            
+            <div className="flex items-center gap-20 text-slate-500 font-medium text-sm md:text-base">
+              <a href="#" className="hover:text-blue-600 transition-colors no-underline">Privacy</a>
+              <a href="#" className="hover:text-blue-600 transition-colors no-underline">Terms</a>
+              <a href="https://www.linkedin.com/in/oscar-wold-skaarderud-613644340" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors no-underline">Contact</a>
+            </div>
+          </div>
+        </footer>
       </main>
 
+      {/* ── ZOOM MODAL ── */}
+      <AnimatePresence>
+        {selectedBanner && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedBanner(null)}
+            className="fixed inset-0 z-[999] bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-6 cursor-zoom-out"
+          >
+            <motion.div
+              initial={{ scale: 0.8, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.8, y: 20 }}
+              className="relative w-full max-w-6xl aspect-[3/1] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img src={selectedBanner} alt="Focused Banner" className="w-full h-full object-cover" />
+              <button 
+                onClick={() => setSelectedBanner(null)}
+                className="absolute top-6 right-6 p-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full text-white transition-all hover:scale-110 active:scale-90"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
