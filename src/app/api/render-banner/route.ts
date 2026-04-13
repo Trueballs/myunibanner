@@ -57,6 +57,7 @@ export async function POST(req: NextRequest) {
             primaryHex = '#003865',
             layout = 0,
             text = '',
+            logoSize = 220,
         } = body as {
             imageUrl?: string | null;
             logoUrl?: string | null;
@@ -133,14 +134,10 @@ export async function POST(req: NextRequest) {
             composites.push({ input: panelBuffer, top: 0, left: PANEL_X });
         }
 
-        // Layout 8: Minimalist
-        if (layout === 8) {
-            // Nothing to composite for background here, we use the base photo
-        }
 
         // ── 3. Logo ───────────────────────────────────────────────────
         if (logoUrl) {
-            const isFullWidth = [3, 7, 8].includes(layout);
+            const isFullWidth = [3, 7].includes(layout);
             const LOGO_MAX_W = logoSize ? Math.min(logoSize * 5, 1200) : (isFullWidth ? 800 : [0, 2, 5, 6].includes(layout) ? 600 : 500);
             const LOGO_MAX_H = logoSize ? logoSize : (isFullWidth ? 240 : [0, 5, 6].includes(layout) ? 220 : 200);
 
@@ -159,10 +156,6 @@ export async function POST(req: NextRequest) {
                 } else if (layout === 4) {
                     logoLeft = W - lw - 40;
                     logoTop = H - lh - 30;
-                } else if (layout === 8) {
-                    // Minimalist: TOP-RIGHT (Safest spot)
-                    logoLeft = W - lw - 64;
-                    logoTop = 40; 
                 } else {
                     // Centered layouts (3, 7)
                     logoLeft = Math.floor((W - lw) / 2);
@@ -204,15 +197,8 @@ export async function POST(req: NextRequest) {
             let centerX: number, centerY: number;
             let textAlign: 'center' | 'right' = 'center';
             
-            if (layout === 8) {
-                // Minimalist: Below logo in top-right
-                centerX = W - 300; 
-                centerY = 140;
-                textAlign = 'right';
-            } else {
-                centerX = panelW > 0 ? (panelX + (panelW / 2) + (layout === 2 ? 30 : layout === 6 ? 60 : 0)) : (W / 2);
-                centerY = [0, 1, 2, 5, 6].includes(layout) ? 320 : layout === 3 ? 340 : 310;
-            }
+            centerX = panelW > 0 ? (panelX + (panelW / 2) + (layout === 2 ? 30 : layout === 6 ? 60 : 0)) : (W / 2);
+            centerY = [0, 1, 2, 5, 6].includes(layout) ? 320 : layout === 3 ? 340 : 310;
             
             const hColor = body.headlineColor || (body.logoIsLight ? '#ffffff' : '#111111');
             console.log(`Rendering text: "${text}" with color: ${hColor} at center: ${centerX},${centerY}`);
@@ -238,7 +224,7 @@ export async function POST(req: NextRequest) {
                             width: textWidth,
                             height: textHeight,
                             color: hColor,
-                            fontSize: layout === 8 ? 24 : 30, 
+                            fontSize: 30, 
                             fontWeight: 900,
                             lineHeight: 1.15,
                             letterSpacing: '-0.02em',
