@@ -60,7 +60,7 @@ export default function Home() {
               
               {/* ── LEFT CONTENT: HEADING & CTA ── */}
               <div
-                className="flex flex-col items-start text-left max-w-3xl lg:w-[50%] z-10"
+                className="flex flex-col items-center text-center lg:items-start lg:text-left max-w-3xl lg:w-[50%] z-10"
               >
                 <h1 className="font-lexend font-extrabold leading-[1.1] tracking-tight text-[#1a1c20]
                   text-[32px] sm:text-[42px] md:text-[50px] lg:text-[60px] mb-10">
@@ -115,7 +115,7 @@ export default function Home() {
         <section className="bg-transparent w-full pt-16 pb-24 md:pt-20 md:pb-32">
           <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
             {/* Header Content */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-16 md:mb-24">
+            <div className="flex flex-col md:flex-row justify-between items-center md:items-center gap-8 mb-16 md:mb-24 text-center md:text-left">
               <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
                 Loved by many <br />
                 <span className="text-blue-600">Worldwide.</span>
