@@ -188,9 +188,9 @@ function FrameOverlay() {
 }
 
 function SmartLogo({
-    src, hasBg, isLight = true, panelColor, h = 100, maxW = 280, brandColors = [],
+    src, hasBg, isLight = true, panelColor, h = 100, maxW = 280, brandColors = [], scale = 1,
 }: {
-    src: string; hasBg?: boolean; isLight?: boolean; panelColor: string; h?: number; maxW?: number; brandColors?: string[];
+    src: string; hasBg?: boolean; isLight?: boolean; panelColor: string; h?: number; maxW?: number; brandColors?: string[]; scale?: number;
 }) {
     const [err, setErr] = useState(false);
     if (err || !src) return null;
@@ -201,7 +201,7 @@ function SmartLogo({
     // internal aspect ratio or whitespace.
     return (
         <div style={{
-            height: h,
+            height: h * scale,
             width: "fit-content", // Ensure it doesn't collapse to 0 in flex environments
             display: "flex",
             alignItems: "center",
@@ -211,7 +211,7 @@ function SmartLogo({
             <img src={src} alt="University logo"
                 crossOrigin="anonymous"
                 style={{
-                    height: "100%", width: "auto", maxWidth: maxW,
+                    height: "100%", width: "auto", maxWidth: maxW * scale,
                     objectFit: "contain", display: "block",
                     mixBlendMode: (hasBg && !panelDark) ? "multiply" : "normal",
                     filter: !hasBg ? "drop-shadow(0px 2px 2px rgba(0,0,0,0.15))" : "none",
@@ -275,6 +275,7 @@ type LayoutProps = {
     tintIndex?: number;
     bgOpacity?: number; // 0 to 100
     photoFilter?: string;
+    logoScale?: number;
 };
 
 
@@ -301,7 +302,7 @@ function StatusTagBadge({ text, bg, color }: { text?: string, bg: string, color:
    Logo sits large, centered in the left panel.
    Inspired by: Princeton / Dartmouth
 ═══════════════════════════════════════════════════════════════ */
-function L0({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headlineColor, photoFilter = "none" }: LayoutProps) {
+function L0({ logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headlineColor, photoFilter = "none" }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
     const SPLIT_X = 620;
 
@@ -321,7 +322,7 @@ function L0({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headli
 
             {/* Right: Solid Brand Panel */}
             <div className="flex-1 flex flex-col items-center justify-center p-12 text-center gap-8">
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={380} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={380} brandColors={brand.colors} scale={logoScale} />
                 
                 {text && (
                     <p style={{
@@ -343,7 +344,7 @@ function L0({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headli
    Text sits bottom-left (well inside safe zone, clear of avatar).
    Inspired by: UC Berkeley / Oxford
 ═══════════════════════════════════════════════════════════════ */
-function L1({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, photoFilter = "none" }: LayoutProps) {
+function L1({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, photoFilter = "none" }: LayoutProps) {
     // Use smartly-selected panel color that contrasts with the logo
     const rawTint = brand.colors[tintIndex % brand.colors.length] ?? primary;
     const tintColor = pickBestPanelColor(null, logoIsLight, brand.colors, rawTint);
@@ -365,7 +366,7 @@ function L1({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 
             <div className="absolute inset-y-0 right-0 w-[550px] flex flex-col items-center justify-center p-12 z-10">
                 <div className="flex flex-col items-center gap-8">
-                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={tintColor} h={220} maxW={360} brandColors={brand.colors} />
+                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={tintColor} h={220} maxW={360} brandColors={brand.colors} scale={logoScale} />
                     {text && (
                         <p style={{
                             color: headlineColor, fontSize: 26, fontWeight: 900,
@@ -388,7 +389,7 @@ function L1({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
    Text anchored to the bottom of the panel.
    Inspired by: Edinburgh / Loughborough
 ═══════════════════════════════════════════════════════════════ */
-function L2({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
+function L2({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
     const PANEL_W = 580;
 
@@ -403,7 +404,7 @@ function L2({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
                     width: PANEL_W, background: primary, zIndex: 10, padding: "48px",
                     clipPath: 'polygon(60px 0, 100% 0, 100% 100%, 0 100%)'
                 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={380} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={380} brandColors={brand.colors} scale={logoScale} />
                 
                 {text && (
                     <p style={{
@@ -426,13 +427,13 @@ function L2({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
    Clean, formal, great for institutions without many photos.
    Inspired by: LSE / Imperial
 ═══════════════════════════════════════════════════════════════ */
-function L3({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, headlineColor }: LayoutProps) {
+function L3({ logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, primary, headlineColor }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
 
     return (
         <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center" style={{ background: primary }}>
             <div className="flex flex-col items-center gap-8" style={{ width: 660 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={520} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={520} brandColors={brand.colors} scale={logoScale} />
                 {text && (
                     <p style={{
                         color: headlineColor, fontSize: 28, fontWeight: 900, lineHeight: 1.15,
@@ -451,7 +452,7 @@ function L3({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, headlineCol
    Two frosted glass panes floating over a vibrant, completely
    full-bleed campus image. Premium, polished software feel.
 ═══════════════════════════════════════════════════════════════ */
-function L4({ brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', img, bgStyle = 'none', tintIndex = 0, photoFilter = "none" }: LayoutProps) {
+function L4({ logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', img, bgStyle = 'none', tintIndex = 0, photoFilter = "none" }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
     const tintColor = brand.colors[tintIndex % brand.colors.length] ?? brand.colors[0];
     
@@ -501,7 +502,7 @@ function L4({ brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', 
    Massive watermark in the middle, and a sharp solid panel splitting the 
    right side cleanly. Very modern.
 ═══════════════════════════════════════════════════════════════ */
-function L5({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, photoFilter = "none" }: LayoutProps) {
+function L5({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, photoFilter = "none" }: LayoutProps) {
     const rawTint5 = brand.colors[tintIndex % brand.colors.length] ?? primary;
     const tintColor = pickBestPanelColor(null, logoIsLight, brand.colors, rawTint5);
     const font = getFont(brand.fonts?.[0]);
@@ -513,7 +514,7 @@ function L5({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
             </div>
 
             <div className="w-[500px] flex flex-col items-center justify-center p-12 text-center gap-10 z-10" style={{ background: primary }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={360} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={360} brandColors={brand.colors} scale={logoScale} />
                 {text && (
                     <p style={{
                         color: headlineColor, fontSize: 24, fontWeight: 900, lineHeight: 1.15,
@@ -530,7 +531,7 @@ function L5({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
    Full diagonal split with bold gradient on right, photo on left.
    Inspired by: Modern tech branding
 ═══════════════════════════════════════════════════════════════ */
-function L6({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
+function L6({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
 
     return (
@@ -542,7 +543,7 @@ function L6({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
                     width: "55%", background: primary, zIndex: 10,
                     clipPath: 'polygon(120px 0, 100% 0, 100% 100%, 0 100%)'
                 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={400} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={400} brandColors={brand.colors} scale={logoScale} />
 
                 {text && (
                     <p style={{
@@ -561,7 +562,7 @@ function L6({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
    Full-bleed campus photo with a massive, centered logo.
    Simplicity and scale for maximum impact.
 ═══════════════════════════════════════════════════════════════ */
-function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
+function L7({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
     
     return (
@@ -574,7 +575,7 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
             )}
             
             <div className="relative z-10 flex flex-col items-center justify-center">
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={220} maxW={560} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={220} maxW={560} brandColors={brand.colors} scale={logoScale} />
             </div>
         </div>
     );
@@ -586,7 +587,7 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 ═══════════════════════════════════════════════════════════════ */
 function BannerCanvas({
     brand, text, badge, estDate, statusTag, layout, imgIndex, logoIndex,
-    logoPos = 'bottom', bgStyle = 'none', tintIndex = 0, bgOpacity = 100, photoFilter = "none", dataUrlCache = new Map()
+    logoPos = 'bottom', bgStyle = 'none', tintIndex = 0, bgOpacity = 100, photoFilter = "none", logoScale = 1.0, dataUrlCache = new Map()
 }: {
     brand: BrandData; text: string; badge?: string; estDate?: string; statusTag?: string; layout: Layout; imgIndex: number; logoIndex: number;
     logoPos?: 'top' | 'bottom';
@@ -594,6 +595,7 @@ function BannerCanvas({
     tintIndex?: number;
     bgOpacity?: number;
     photoFilter?: string;
+    logoScale?: number;
     dataUrlCache?: Map<string, string>;
 }) {
     // Use cached Base64 data URL when available (iOS Safari canvas taint fix)
@@ -655,7 +657,7 @@ function BannerCanvas({
         headlineColor = contrastText(primary);
     }
 
-    const p = { brand, text, badge, estDate, statusTag, img, logoSrc, logoHasBg, logoIsLight, primary, secondary, headlineColor, logoPos, bgStyle, tintIndex, bgOpacity, photoFilter };
+    const p = { brand, text, badge, estDate, statusTag, img, logoSrc, logoHasBg, logoIsLight, primary, secondary, headlineColor, logoPos, bgStyle, tintIndex, bgOpacity, photoFilter, logoScale };
 
     return (
         <div className="w-full h-full relative overflow-hidden bg-white">
@@ -788,6 +790,7 @@ function BuilderContent() {
     const [tintIndex, setTintIndex] = useState(-1);
     const [bgOpacity, setBgOpacity] = useState(100);
     const [photoFilter, setPhotoFilter] = useState("none");
+    const [logoScale, setLogoScale] = useState(1.0);
 
     const [scale, setScale] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -1120,6 +1123,7 @@ function BuilderContent() {
                                                     tintIndex={tintIndex}
                                                     bgOpacity={bgOpacity}
                                                     photoFilter={photoFilter}
+                                                    logoScale={logoScale}
                                                     dataUrlCache={dataUrlCache}
                                                 />
                                             </div>
@@ -1318,6 +1322,32 @@ function BuilderContent() {
                                             ))}
                                         </div>
                                     </div>
+                                    {brand && (
+                                        <div>
+                                            <div className="flex items-center justify-between mb-3">
+                                                <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400">
+                                                    <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>07</span>
+                                                    Logo Size
+                                                </label>
+                                                <span className="text-[10px] font-black text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
+                                                    {Math.round(logoScale * 100)}%
+                                                </span>
+                                            </div>
+                                            <div className="flex items-center gap-4 px-1">
+                                                <span className="text-[10px] font-bold text-slate-300">Min</span>
+                                                <input
+                                                    type="range"
+                                                    min="0.6"
+                                                    max="1.4"
+                                                    step="0.05"
+                                                    value={logoScale}
+                                                    onChange={(e) => setLogoScale(parseFloat(e.target.value))}
+                                                    className="flex-1 accent-blue-600 h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer"
+                                                />
+                                                <span className="text-[10px] font-bold text-slate-300">Max</span>
+                                            </div>
+                                        </div>
+                                    )}
                                     <div className="mt-auto pt-6 space-y-2">
                                         <button onClick={brand ? handleDownload : () => router.push("/")} disabled={isDownloading} className="w-full py-5 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20 disabled:opacity-50 hover:bg-blue-700 active:scale-95" style={{ background: '#2563EB', color: '#ffffff' }}>
                                             {isDownloading ? <><RefreshCw className="w-5 h-5 animate-spin" /> Processing...</> : <><Download className="w-5 h-5" /> Download Banner</>}
