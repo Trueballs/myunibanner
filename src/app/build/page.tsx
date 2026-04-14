@@ -134,7 +134,7 @@ function colorsAreSimilar(hex1: string, hex2: string, threshold = 40): boolean {
  * Falls back to white or near-black if no brand color works.
  */
 function pickBestPanelColor(
-    logoColor: string | null,
+    logoColor: string | null | undefined,
     logoIsLight: boolean,
     brandColors: string[],
     fallbackPrimary: string,
@@ -144,17 +144,17 @@ function pickBestPanelColor(
     let bestScore = -Infinity;
 
     for (const c of brandColors) {
-        const lumaDiff = Math.abs(luma(c) - (logoColor ? luma(logoColor) : (logoIsLight ? 200 : 50)));
+        const lumaDiff = Math.abs(luma(c) - ((logoColor ?? null) ? luma(logoColor!) : (logoIsLight ? 200 : 50)));
         // Penalise if the logo color is too close to the panel color
-        const colorDist = logoColor
-            ? (() => { const [r1,g1,b1] = hexToRgb(logoColor); const [r2,g2,b2] = hexToRgb(c); return Math.sqrt((r2-r1)**2+(g2-g1)**2+(b2-b1)**2); })()
+        const colorDist = (logoColor ?? null)
+            ? (() => { const [r1,g1,b1] = hexToRgb(logoColor!); const [r2,g2,b2] = hexToRgb(c); return Math.sqrt((r2-r1)**2+(g2-g1)**2+(b2-b1)**2); })()
             : lumaDiff;
         const score = lumaDiff + colorDist * 0.5;
         if (score > bestScore) { bestScore = score; bestColor = c; }
     }
 
     // Final safety check: if best brand color is still too similar to the logo, use white or dark
-    if (logoColor && colorsAreSimilar(logoColor, bestColor, 60)) {
+    if ((logoColor ?? null) && colorsAreSimilar(logoColor!, bestColor, 60)) {
         bestColor = logoIsLight ? '#111111' : '#ffffff';
     }
     return bestColor;
@@ -657,12 +657,12 @@ function BannerCanvas({
     if (tintIndex === -1) {
         if ((!logoIsLight && bgIsDark) || logoIsSimilar) {
             // Dark logo on dark bg OR similar color → pick best contrasting brand color
-            primary = pickBestPanelColor(activeLogoColor, logoIsLight ?? true, brand.colors, primary);
+            primary = pickBestPanelColor(activeLogoColor ?? null, logoIsLight ?? true, brand.colors, primary);
             secondary = brand.colors.find(c => c !== primary) ?? (isDark(primary) ? "#ffffff" : "#111111");
         } else if (logoIsLight && !bgIsDark && !logoHasBg) {
             // Light logo on light background → Force DARK background
             if (!activeLogo?.preferredBg) {
-                primary = pickBestPanelColor(activeLogoColor, logoIsLight ?? true, brand.colors, primary);
+                primary = pickBestPanelColor(activeLogoColor ?? null, logoIsLight ?? true, brand.colors, primary);
                 secondary = brand.colors.find(c => c !== primary) ?? (isDark(primary) ? "#ffffff" : "#111111");
             }
         }
