@@ -613,7 +613,9 @@ function BannerCanvas({
     const logoIsLight = activeLogo?.isLight !== false;
     const activeLogoColor = activeLogo?.logoColor;
 
-    let primary = activeLogo?.preferredBg ?? brand.colors[0] ?? "#003865";
+    let primary = tintIndex !== -1 
+        ? brand.colors[tintIndex % brand.colors.length]
+        : (activeLogo?.preferredBg ?? brand.colors[0] ?? "#003865");
     let secondary = brand.colors[1] ?? (isDark(primary) ? "#ffffff" : "#111111");
 
     // Ensure secondary isn't same as primary if we used preferredBg
@@ -629,15 +631,17 @@ function BannerCanvas({
     // Check for logo-background similarity
     const logoIsSimilar = activeLogoColor ? colorsAreSimilar(activeLogoColor, primary) : (!logoIsLight && isDark(primary)) || (logoIsLight && !isDark(primary));
 
-    if ((!logoIsLight && bgIsDark) || logoIsSimilar) {
-        // Dark logo on dark bg OR similar color → pick best contrasting brand color
-        primary = pickBestPanelColor(activeLogoColor, logoIsLight, brand.colors, primary);
-        secondary = brand.colors.find(c => c !== primary) ?? (isDark(primary) ? "#ffffff" : "#111111");
-    } else if (logoIsLight && !bgIsDark && !logoHasBg) {
-        // Light logo on light background → Force DARK background
-        if (!activeLogo?.preferredBg) {
+    if (tintIndex === -1) {
+        if ((!logoIsLight && bgIsDark) || logoIsSimilar) {
+            // Dark logo on dark bg OR similar color → pick best contrasting brand color
             primary = pickBestPanelColor(activeLogoColor, logoIsLight, brand.colors, primary);
             secondary = brand.colors.find(c => c !== primary) ?? (isDark(primary) ? "#ffffff" : "#111111");
+        } else if (logoIsLight && !bgIsDark && !logoHasBg) {
+            // Light logo on light background → Force DARK background
+            if (!activeLogo?.preferredBg) {
+                primary = pickBestPanelColor(activeLogoColor, logoIsLight, brand.colors, primary);
+                secondary = brand.colors.find(c => c !== primary) ?? (isDark(primary) ? "#ffffff" : "#111111");
+            }
         }
     }
 
@@ -781,7 +785,7 @@ function BuilderContent() {
     const [logoIndex, setLogoIndex] = useState(0);
     const [logoPos, setLogoPos] = useState<'top' | 'bottom'>('bottom');
     const [bgStyle, setBgStyle] = useState<'none' | 'brand'>('none');
-    const [tintIndex, setTintIndex] = useState(0);
+    const [tintIndex, setTintIndex] = useState(-1);
     const [bgOpacity, setBgOpacity] = useState(100);
     const [photoFilter, setPhotoFilter] = useState("none");
 
@@ -1325,6 +1329,39 @@ function BuilderContent() {
                                                         </button>
                                                     );
                                                 })}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Brand Color Picker */}
+                                    {brand.colors.length > 0 && (
+                                        <div>
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Accent Color</p>
+                                            <div className="flex gap-3 flex-wrap">
+                                                {brand.colors.map((c, i) => {
+                                                    const isActive = tintIndex === i;
+                                                    return (
+                                                        <button
+                                                            key={i}
+                                                            onClick={() => setTintIndex(i)}
+                                                            className="w-10 h-10 rounded-full border-2 transition-all hover:scale-110 active:scale-95 shadow-sm"
+                                                            style={{
+                                                                backgroundColor: c,
+                                                                borderColor: isActive ? 'white' : 'transparent',
+                                                                boxShadow: isActive ? `0 0 0 2px ${c}, 0 4px 12px rgba(0,0,0,0.1)` : '0 2px 4px rgba(0,0,0,0.05)'
+                                                            }}
+                                                            title={`Brand Color ${i + 1}`}
+                                                        />
+                                                    );
+                                                })}
+                                                {/* Reset button to let auto-logic decide */}
+                                                <button
+                                                    onClick={() => setTintIndex(-1)}
+                                                    className="w-10 h-10 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-400 hover:border-gray-400 hover:text-gray-500 transition-all text-[10px] font-bold uppercase"
+                                                    style={{ background: tintIndex === -1 ? '#f3f4f6' : 'transparent' }}
+                                                >
+                                                    Auto
+                                                </button>
                                             </div>
                                         </div>
                                     )}

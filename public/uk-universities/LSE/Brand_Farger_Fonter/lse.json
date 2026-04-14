@@ -1,9 +1,9 @@
 {
   "university": "London School of Economics",
   "colors": [
-    {"hex": "#D50032", "name": "LSE Red", "role": "main", "weight": 1},
-    {"hex": "#ffffff", "name": "White", "role": "light", "weight": 2},
-    {"hex": "#000000", "name": "Black", "role": "dark", "weight": 3}
+    {"hex": "#DA291C", "name": "LSE Red", "role": "main", "weight": 1},
+    {"hex": "#000000", "name": "LSE Black", "role": "primary", "weight": 2},
+    {"hex": "#ffffff", "name": "White", "role": "light", "weight": 3}
   ],
   "fonts": [
     {"name": "Roboto", "role": "heading", "type": "sans-serif", "weight": 1},

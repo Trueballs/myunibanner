@@ -152,7 +152,9 @@ async function getAllLogos(basePath: string, folder: string, domain: string, cam
         if (f.toLowerCase().includes('hvit teskt')) {
             preferredBg = '#575756'; // Specifically for NTNU's request
         } else if (f.toLowerCase().includes('henley') && f.toLowerCase().includes('white')) {
-            preferredBg = '#1E3582'; // Henley Blue (Jacksons Purple) for Henley white logos
+            preferredBg = '#1E3582'; // Henley Blue
+        } else if (folder === 'LSE' && (isLight || f.toLowerCase().includes('white') || f.toLowerCase().includes('light'))) {
+            preferredBg = '#000000'; // Force black background for LSE light logos
         }
 
         // We only want the relative filename to re-fetch via api/full-logo
