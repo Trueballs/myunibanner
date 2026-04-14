@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback, Suspense } from "react";
-import { Download, RefreshCw, ChevronLeft, ChevronRight, X, Shuffle, CheckCircle, Upload, ChevronDown } from "lucide-react";
+import { Download, RefreshCw, ChevronLeft, ChevronRight, X, Shuffle, CheckCircle, Upload, ChevronDown, Ban } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toBlob, toPng } from "html-to-image";
 
@@ -454,21 +454,23 @@ function L4({ brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', 
                     right: 40,
                     [logoPos === 'top' ? 'top' : 'bottom']: 30,
                 }}>
-                <img
-                    src={logoSrc}
-                    alt="University logo"
-                    crossOrigin="anonymous"
-                    style={{
-                        height: 220,
-                        maxHeight: 220,
-                        width: 'auto',
-                        maxWidth: 380,
-                        objectFit: 'contain',
-                        display: 'block',
-                        filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.3))',
-                    }}
-                    onError={e => (e.currentTarget.style.display = 'none')}
-                />
+                {logoSrc && (
+                    <img
+                        src={logoSrc}
+                        alt="University logo"
+                        crossOrigin="anonymous"
+                        style={{
+                            height: 220,
+                            maxHeight: 220,
+                            width: 'auto',
+                            maxWidth: 380,
+                            objectFit: 'contain',
+                            display: 'block',
+                            filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.3))',
+                        }}
+                        onError={e => (e.currentTarget.style.display = 'none')}
+                    />
+                )}
             </div>
         </div>
     );
@@ -582,10 +584,11 @@ function BannerCanvas({
         : undefined;
 
     // Resolve active logo from logoIndex
-    const activeLogo = brand.logos.length > 0
+    const noLogo = logoIndex === -1;
+    const activeLogo = (brand.logos.length > 0 && !noLogo)
         ? brand.logos[logoIndex % brand.logos.length]
         : null;
-    const logoSrc = resolve(activeLogo?.url ?? brand.fullLogo);
+    const logoSrc = noLogo ? "" : resolve(activeLogo?.url ?? brand.fullLogo);
     const logoHasBg = activeLogo?.hasBg ?? brand.logoHasBg;
     const logoIsLight = activeLogo?.isLight !== false;
     const activeLogoColor = activeLogo?.logoColor;
@@ -1307,6 +1310,20 @@ function BuilderContent() {
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Logo Variant</p>
                                         <div className="flex gap-2 flex-wrap">
+                                            {/* No Logo Option */}
+                                            <button
+                                                onClick={() => setLogoIndex(-1)}
+                                                className="w-16 h-16 rounded-xl border-2 flex flex-col items-center justify-center p-1.5 transition-all hover:shadow-md"
+                                                style={{
+                                                    borderColor: logoIndex === -1 ? primary : "#e5e7eb",
+                                                    background: logoIndex === -1 ? `${primary}10` : "#f9fafb",
+                                                    color: logoIndex === -1 ? primary : "#9ca3af"
+                                                }}
+                                            >
+                                                <Ban className="w-5 h-5 mb-0.5" />
+                                                <span className="text-[8px] font-black uppercase tracking-widest">None</span>
+                                            </button>
+
                                             {[...brand.logos]
                                                 // Group: text/wordmark logos first, then icon/crest logos
                                                 .map((logo, i) => ({ logo, i }))
