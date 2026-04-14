@@ -1412,16 +1412,16 @@ function BuilderContent() {
                                                             ? `${primary}10` 
                                                             : "#f9fafb",
                                                     }}>
-                                                    {/* Checkerboard hint for transparent logos if light index is true */}
+                                                    {/* Dark background hint for white logos */}
                                                     {logo.isLight && (
-                                                        <div className="absolute inset-0 opacity-[0.05] pointer-events-none" 
-                                                            style={{ backgroundImage: 'conic-gradient(#000 0 90deg, #fff 0 180deg, #000 0 270deg, #fff 0)', backgroundSize: '8px 8px' }} />
+                                                        <div className="absolute inset-0 bg-slate-700 pointer-events-none" />
                                                     )}
                                                     
                                                     <img src={logo.url} alt={`Logo ${i + 1}`}
                                                         className="w-full h-full object-contain relative z-10"
                                                         style={{
                                                             mixBlendMode: (logo.hasBg && !logo.isLight) ? "multiply" : undefined,
+                                                            filter: logo.isLight ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' : 'none'
                                                         }}
                                                         onError={e => (e.currentTarget.style.display = "none")} />
                                                 </button>
