@@ -167,6 +167,26 @@ function pickBestPanelColor(
    panel (same brightness class), wrap it in a contrasting pill
    using the best brand colour.
 ═══════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════
+   PREMIUM POLISH ELEMENTS
+═══════════════════════════════════════════════════════════════ */
+function GrainOverlay() {
+    return (
+        <div className="absolute inset-0 z-[100] pointer-events-none opacity-[0.03] mix-blend-overlay"
+            style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+                backgroundSize: '150px 150px',
+            }}
+        />
+    );
+}
+
+function FrameOverlay() {
+    return (
+        <div className="absolute inset-[3px] z-[101] pointer-events-none border border-white/10 rounded-sm mix-blend-overlay" />
+    );
+}
+
 function SmartLogo({
     src, hasBg, isLight = true, panelColor, h = 100, maxW = 280, brandColors = [],
 }: {
@@ -263,7 +283,7 @@ type LayoutProps = {
 ═══════════════════════════════════════════════════════════════ */
 function BadgeTag({ text, color }: { text?: string, color: string }) {
     if (!text) return null;
-    return <div style={{ color, border: `1px solid ${color}40`, background: `${color}10`, padding: "6px 14px", borderRadius: 100, fontSize: 10, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: 16, position: "relative", zIndex: 1 }}>{text}</div>;
+    return <div style={{ color, border: `1px solid ${color}40`, background: `${color}10`, padding: "5px 12px", borderRadius: 4, fontSize: 9, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: 16, position: "relative", zIndex: 1 }}>{text}</div>;
 }
 function EstDateTag({ text, color }: { text?: string, color: string }) {
     if (!text) return null;
@@ -634,7 +654,7 @@ function BannerCanvas({
     const p = { brand, text, badge, estDate, statusTag, img, logoSrc, logoHasBg, logoIsLight, primary, secondary, headlineColor, logoPos, bgStyle, tintIndex, bgOpacity, photoFilter };
 
     return (
-        <>
+        <div className="w-full h-full relative overflow-hidden bg-white">
             {layout === 0 && <L0 {...p} />}
             {layout === 1 && <L1 {...p} />}
             {layout === 2 && <L2 {...p} />}
@@ -643,7 +663,10 @@ function BannerCanvas({
             {layout === 5 && <L5 {...p} />}
             {layout === 6 && <L6 {...p} />}
             {layout === 7 && <L7 {...p} />}
-        </>
+            
+            <GrainOverlay />
+            <FrameOverlay />
+        </div>
     );
 }
 
