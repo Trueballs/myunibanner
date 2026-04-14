@@ -1081,6 +1081,7 @@ function BuilderContent() {
                                                 tintIndex={tintIndex}
                                                 bgOpacity={bgOpacity}
                                                 photoFilter={photoFilter}
+                                                logoScale={logoScale}
                                                 dataUrlCache={dataUrlCache}
                                             />
                                         </div>
