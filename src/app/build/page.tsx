@@ -1196,7 +1196,7 @@ function BuilderContent() {
                                     {/* Layout picker */}
                                     <div>
                                         <div className="flex items-center justify-between mb-3">
-                                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Layout Style</p>
+                                            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>02</span>Layout Style</label>
                                             <span className="text-xs text-gray-400">{THUMB_CONFIGS[layout].label}</span>
                                         </div>
                                         <div className="flex items-center gap-2">
@@ -1251,8 +1251,7 @@ function BuilderContent() {
                                     {/* Photo picker */}
                                     {brand.images.length > 0 && (
                                         <div>
-                                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">
-                                                Photo <span className="normal-case font-medium tracking-normal text-gray-300">· hover to preview</span>
+                                            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>03</span>Photo <span className="normal-case font-medium tracking-normal text-gray-300">· hover to preview</span></label> <span className="normal-case font-medium tracking-normal text-gray-300">· hover to preview</span>
                                             </p>
                                             {/* Thumbnail strip */}
                                             <div className="flex gap-2 flex-wrap">
@@ -1295,7 +1294,7 @@ function BuilderContent() {
                                     {/* Photo Filter — only shown when there are images */}
                                     {brand.images.length > 0 && (
                                         <div>
-                                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Photo Filter</p>
+                                            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>04</span>Photo Filter</label>
                                             <div className="flex gap-2">
                                                 {([
                                                     { label: 'Original',  value: 'none' },
@@ -1334,9 +1333,20 @@ function BuilderContent() {
                                     )}
 
                                     {/* Brand Color Picker */}
-                                    {brand.colors.length > 0 && (
-                                        <div>
-                                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Accent Color</p>
+                                    {brand.colors.length > 0 && (() => {
+                                        const accentDisabled = layout === 4 || layout === 7;
+                                        return (
+                                            <div className={accentDisabled ? 'opacity-30 pointer-events-none grayscale' : ''}>
+                                                <label className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest mb-3 transition-colors ${accentDisabled ? 'text-gray-300' : 'text-gray-400'}`}>
+                                                    <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black"
+                                                        style={{ background: accentDisabled ? '#d1d5db' : primary }}>05</span>
+                                                    Accent Color
+                                                    {accentDisabled && (
+                                                        <span className="ml-1 text-[9px] font-semibold text-gray-300 normal-case tracking-normal">
+                                                            — not available in this layout
+                                                        </span>
+                                                    )}
+                                                </label>
                                             <div className="flex gap-3 flex-wrap">
                                                 {brand.colors.map((c, i) => {
                                                     const isActive = tintIndex === i;
@@ -1354,7 +1364,6 @@ function BuilderContent() {
                                                         />
                                                     );
                                                 })}
-                                                {/* Reset button to let auto-logic decide */}
                                                 <button
                                                     onClick={() => setTintIndex(-1)}
                                                     className="w-10 h-10 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-400 hover:border-gray-400 hover:text-gray-500 transition-all text-[10px] font-bold uppercase"
@@ -1364,11 +1373,12 @@ function BuilderContent() {
                                                 </button>
                                             </div>
                                         </div>
-                                    )}
+                                    );
+                                })()}
 
                                     {/* Logo controls */}
                                     <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Logo Variant</p>
+                                        <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>06</span>Logo Variant</label>
                                         <div className="flex gap-2 flex-wrap">
                                             {/* No Logo Option */}
                                             <button

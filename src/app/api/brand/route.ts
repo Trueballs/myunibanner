@@ -154,7 +154,7 @@ async function getAllLogos(basePath: string, folder: string, domain: string, cam
         } else if (f.toLowerCase().includes('henley') && f.toLowerCase().includes('white')) {
             preferredBg = '#1E3582'; // Henley Blue
         } else if (folder === 'LSE' && (isLight || f.toLowerCase().includes('white') || f.toLowerCase().includes('light'))) {
-            preferredBg = '#000000'; // Force black background for LSE light logos
+            preferredBg = '#f33131'; // Force new LSE Red background for LSE light logos
         }
 
         // We only want the relative filename to re-fetch via api/full-logo
