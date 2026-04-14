@@ -475,23 +475,7 @@ function L4({ logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, log
                     right: 40,
                     [logoPos === 'top' ? 'top' : 'bottom']: 30,
                 }}>
-                {logoSrc && (
-                    <img
-                        src={logoSrc}
-                        alt="University logo"
-                        crossOrigin="anonymous"
-                        style={{
-                            height: 220,
-                            maxHeight: 220,
-                            width: 'auto',
-                            maxWidth: 380,
-                            objectFit: 'contain',
-                            display: 'block',
-                            filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.3))',
-                        }}
-                        onError={e => (e.currentTarget.style.display = 'none')}
-                    />
-                )}
+                {logoSrc && <SmartLogo src={logoSrc} hasBg={false} isLight={true} panelColor="#000000" h={220} maxW={380} brandColors={brand.colors} scale={logoScale} /> }
             </div>
         </div>
     );
@@ -1324,27 +1308,27 @@ function BuilderContent() {
                                     </div>
                                     {brand && (
                                         <div>
-                                            <div className="flex items-center justify-between mb-3">
-                                                <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400">
-                                                    <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>07</span>
-                                                    Logo Size
-                                                </label>
-                                                <span className="text-[10px] font-black text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
-                                                    {Math.round(logoScale * 100)}%
-                                                </span>
-                                            </div>
-                                            <div className="flex items-center gap-4 px-1">
-                                                <span className="text-[10px] font-bold text-slate-300">Min</span>
-                                                <input
-                                                    type="range"
-                                                    min="0.6"
-                                                    max="1.4"
-                                                    step="0.05"
-                                                    value={logoScale}
-                                                    onChange={(e) => setLogoScale(parseFloat(e.target.value))}
-                                                    className="flex-1 accent-blue-600 h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer"
-                                                />
-                                                <span className="text-[10px] font-bold text-slate-300">Max</span>
+                                            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">
+                                                <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>07</span>
+                                                Logo Size
+                                            </label>
+                                            <div className="flex gap-2">
+                                                {[
+                                                    { label: 'Small', val: 0.8 },
+                                                    { label: 'Normal', val: 1.0 },
+                                                    { label: 'Large', val: 1.3 }
+                                                ].map(s => (
+                                                    <button key={s.label}
+                                                        onClick={() => setLogoScale(s.val)}
+                                                        className="flex-1 py-2.5 rounded-xl border-2 text-[10px] font-black uppercase tracking-widest transition-all"
+                                                        style={{
+                                                            borderColor: Math.abs(logoScale - s.val) < 0.01 ? primary : "#f3f4f6",
+                                                            background: Math.abs(logoScale - s.val) < 0.01 ? `${primary}10` : "#f9fafb",
+                                                            color: Math.abs(logoScale - s.val) < 0.01 ? primary : "#9ca3af"
+                                                        }}>
+                                                        {s.label}
+                                                    </button>
+                                                ))}
                                             </div>
                                         </div>
                                     )}
