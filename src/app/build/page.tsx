@@ -1425,12 +1425,18 @@ function BuilderContent() {
                             </div>
 
                             {/* Footer */}
-                            <div className="p-4 border-t border-gray-100 bg-white">
+                            <div className="p-4 border-t border-gray-100 bg-white flex gap-3">
+                                <button
+                                    onClick={() => setShowDownloadPopup(false)}
+                                    className="flex-1 py-3.5 rounded-full font-black text-[11px] uppercase tracking-widest border-2 border-gray-100 text-[#111827] hover:bg-gray-50 transition-colors active:scale-95"
+                                >
+                                    Make another
+                                </button>
                                 <button
                                     onClick={() => router.push('/')}
-                                    className="w-full py-3.5 rounded-full font-black text-sm uppercase tracking-widest bg-gray-900 text-white hover:bg-gray-800 transition-colors shadow-lg active:scale-95 transition-transform"
+                                    className="flex-1 py-3.5 rounded-full font-black text-[11px] uppercase tracking-widest bg-gray-900 text-white hover:bg-gray-800 transition-colors shadow-lg active:scale-95"
                                 >
-                                    Got it, thanks!
+                                    Back to Home
                                 </button>
                             </div>
                         </motion.div>
