@@ -1246,10 +1246,6 @@ function BuilderContent() {
                                             )}
                                         </div>
                                     )}
-                                </div>
-
-                                {/* Column 2: Visual Style & Export */}
-                                <div className="space-y-8 flex flex-col pt-4 md:pt-0 pl-1">
                                     {brand.images.length > 0 && (
                                         <div>
                                             <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>04</span>Photo Filter</label>
@@ -1269,6 +1265,11 @@ function BuilderContent() {
                                             </div>
                                         </div>
                                     )}
+                                </div>
+
+                                {/* Column 2: Visual Style & Export */}
+                                <div className="space-y-8 flex flex-col pt-4 md:pt-0 pl-1">
+                                    
                                     {brand.colors.length > 0 && (() => {
                                         const accentDisabled = layout === 4 || layout === 7;
                                         return (
