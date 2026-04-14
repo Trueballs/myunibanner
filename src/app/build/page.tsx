@@ -1331,11 +1331,8 @@ function BuilderContent() {
                                 Search for your university to begin
                             </div>
                         )}
-                    </div>
-
-                    </div>
+                                        </div>
                 </div>
-
             </main>
             <Footer />
         </div>
