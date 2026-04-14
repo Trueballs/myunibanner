@@ -800,6 +800,21 @@ function BuilderContent() {
         return () => { isMounted = false; };
     }, [brand?.fonts]);
 
+    // Prevent background scrolling when modal is open
+    useEffect(() => {
+        if (showDownloadPopup) {
+            document.body.style.overflow = 'hidden';
+            document.body.style.height = '100dvh'; // Lock height for mobile safari
+        } else {
+            document.body.style.overflow = 'unset';
+            document.body.style.height = 'auto';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+            document.body.style.height = 'auto';
+        };
+    }, [showDownloadPopup]);
+
     // ── Scale banner to fit container ──────────────────────────
     useEffect(() => {
         const updateScale = () => {
