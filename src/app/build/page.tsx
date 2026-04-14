@@ -254,7 +254,6 @@ type LayoutProps = {
     bgStyle?: 'none' | 'brand';
     tintIndex?: number;
     bgOpacity?: number; // 0 to 100
-    logoSize?: number;
     photoFilter?: string;
 };
 
@@ -282,7 +281,7 @@ function StatusTagBadge({ text, bg, color }: { text?: string, bg: string, color:
    Logo sits large, centered in the left panel.
    Inspired by: Princeton / Dartmouth
 ═══════════════════════════════════════════════════════════════ */
-function L0({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headlineColor, logoSize = 180, photoFilter = "none" }: LayoutProps) {
+function L0({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headlineColor, photoFilter = "none" }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
     const SPLIT_X = 620;
 
@@ -302,7 +301,7 @@ function L0({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headli
 
             {/* Right: Solid Brand Panel */}
             <div className="flex-1 flex flex-col items-center justify-center p-12 text-center gap-8">
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize} maxW={380} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={380} brandColors={brand.colors} />
                 
                 {text && (
                     <p style={{
@@ -324,7 +323,7 @@ function L0({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headli
    Text sits bottom-left (well inside safe zone, clear of avatar).
    Inspired by: UC Berkeley / Oxford
 ═══════════════════════════════════════════════════════════════ */
-function L1({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, logoSize = 180, photoFilter = "none" }: LayoutProps) {
+function L1({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, photoFilter = "none" }: LayoutProps) {
     // Use smartly-selected panel color that contrasts with the logo
     const rawTint = brand.colors[tintIndex % brand.colors.length] ?? primary;
     const tintColor = pickBestPanelColor(null, logoIsLight, brand.colors, rawTint);
@@ -346,7 +345,7 @@ function L1({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 
             <div className="absolute inset-y-0 right-0 w-[550px] flex flex-col items-center justify-center p-12 z-10">
                 <div className="flex flex-col items-center gap-8">
-                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={tintColor} h={logoSize} maxW={360} brandColors={brand.colors} />
+                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={tintColor} h={220} maxW={360} brandColors={brand.colors} />
                     {text && (
                         <p style={{
                             color: headlineColor, fontSize: 26, fontWeight: 900,
@@ -369,7 +368,7 @@ function L1({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
    Text anchored to the bottom of the panel.
    Inspired by: Edinburgh / Loughborough
 ═══════════════════════════════════════════════════════════════ */
-function L2({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 180, photoFilter = "none" }: LayoutProps) {
+function L2({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
     const PANEL_W = 580;
 
@@ -384,7 +383,7 @@ function L2({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
                     width: PANEL_W, background: primary, zIndex: 10, padding: "48px",
                     clipPath: 'polygon(60px 0, 100% 0, 100% 100%, 0 100%)'
                 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize} maxW={380} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={380} brandColors={brand.colors} />
                 
                 {text && (
                     <p style={{
@@ -407,13 +406,13 @@ function L2({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
    Clean, formal, great for institutions without many photos.
    Inspired by: LSE / Imperial
 ═══════════════════════════════════════════════════════════════ */
-function L3({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 180 }: LayoutProps) {
+function L3({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, headlineColor }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
 
     return (
         <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center" style={{ background: primary }}>
             <div className="flex flex-col items-center gap-8" style={{ width: 660 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize} maxW={520} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={520} brandColors={brand.colors} />
                 {text && (
                     <p style={{
                         color: headlineColor, fontSize: 28, fontWeight: 900, lineHeight: 1.15,
@@ -432,7 +431,7 @@ function L3({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, headlineCol
    Two frosted glass panes floating over a vibrant, completely
    full-bleed campus image. Premium, polished software feel.
 ═══════════════════════════════════════════════════════════════ */
-function L4({ brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', img, bgStyle = 'none', tintIndex = 0, logoSize = 180, photoFilter = "none" }: LayoutProps) {
+function L4({ brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', img, bgStyle = 'none', tintIndex = 0, photoFilter = "none" }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
     const tintColor = brand.colors[tintIndex % brand.colors.length] ?? brand.colors[0];
     
@@ -450,14 +449,26 @@ function L4({ brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', 
             {/* Removed vignette for cleaner look */}
 
             {/* University Identity - Locked to the corner for simple minimalist look */}
-            <div className={`absolute z-20 flex items-center gap-6`}
+            <div className={`absolute z-20 flex items-center`}
                 style={{ 
                     right: 40,
                     [logoPos === 'top' ? 'top' : 'bottom']: 30,
                 }}>
-                <div className="flex flex-row items-center">
-                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={logoSize} maxW={380} />
-                </div>
+                <img
+                    src={logoSrc}
+                    alt="University logo"
+                    crossOrigin="anonymous"
+                    style={{
+                        height: 220,
+                        maxHeight: 220,
+                        width: 'auto',
+                        maxWidth: 380,
+                        objectFit: 'contain',
+                        display: 'block',
+                        filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.3))',
+                    }}
+                    onError={e => (e.currentTarget.style.display = 'none')}
+                />
             </div>
         </div>
     );
@@ -468,7 +479,7 @@ function L4({ brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', 
    Massive watermark in the middle, and a sharp solid panel splitting the 
    right side cleanly. Very modern.
 ═══════════════════════════════════════════════════════════════ */
-function L5({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, logoSize = 180, photoFilter = "none" }: LayoutProps) {
+function L5({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, photoFilter = "none" }: LayoutProps) {
     const rawTint5 = brand.colors[tintIndex % brand.colors.length] ?? primary;
     const tintColor = pickBestPanelColor(null, logoIsLight, brand.colors, rawTint5);
     const font = getFont(brand.fonts?.[0]);
@@ -480,7 +491,7 @@ function L5({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
             </div>
 
             <div className="w-[500px] flex flex-col items-center justify-center p-12 text-center gap-10 z-10" style={{ background: primary }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize} maxW={360} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={360} brandColors={brand.colors} />
                 {text && (
                     <p style={{
                         color: headlineColor, fontSize: 24, fontWeight: 900, lineHeight: 1.15,
@@ -497,7 +508,7 @@ function L5({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
    Full diagonal split with bold gradient on right, photo on left.
    Inspired by: Modern tech branding
 ═══════════════════════════════════════════════════════════════ */
-function L6({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 180, photoFilter = "none" }: LayoutProps) {
+function L6({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
 
     return (
@@ -509,7 +520,7 @@ function L6({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
                     width: "55%", background: primary, zIndex: 10,
                     clipPath: 'polygon(120px 0, 100% 0, 100% 100%, 0 100%)'
                 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize} maxW={400} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={400} brandColors={brand.colors} />
 
                 {text && (
                     <p style={{
@@ -528,7 +539,7 @@ function L6({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
    Full-bleed campus photo with a massive, centered logo.
    Simplicity and scale for maximum impact.
 ═══════════════════════════════════════════════════════════════ */
-function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, logoSize = 180, photoFilter = "none" }: LayoutProps) {
+function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
     const font = getFont(brand.fonts?.[0]);
     
     return (
@@ -541,7 +552,7 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
             )}
             
             <div className="relative z-10 flex flex-col items-center justify-center">
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={logoSize} maxW={560} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={220} maxW={560} brandColors={brand.colors} />
             </div>
         </div>
     );
@@ -553,14 +564,13 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 ═══════════════════════════════════════════════════════════════ */
 function BannerCanvas({
     brand, text, badge, estDate, statusTag, layout, imgIndex, logoIndex,
-    logoPos = 'bottom', bgStyle = 'none', tintIndex = 0, bgOpacity = 100, logoSize = 180, photoFilter = "none", dataUrlCache = new Map()
+    logoPos = 'bottom', bgStyle = 'none', tintIndex = 0, bgOpacity = 100, photoFilter = "none", dataUrlCache = new Map()
 }: {
     brand: BrandData; text: string; badge?: string; estDate?: string; statusTag?: string; layout: Layout; imgIndex: number; logoIndex: number;
     logoPos?: 'top' | 'bottom';
     bgStyle?: 'none' | 'brand';
     tintIndex?: number;
     bgOpacity?: number;
-    logoSize?: number;
     photoFilter?: string;
     dataUrlCache?: Map<string, string>;
 }) {
@@ -618,7 +628,7 @@ function BannerCanvas({
         headlineColor = contrastText(primary);
     }
 
-    const p = { brand, text, badge, estDate, statusTag, img, logoSrc, logoHasBg, logoIsLight, primary, secondary, headlineColor, logoPos, bgStyle, tintIndex, bgOpacity, logoSize, photoFilter };
+    const p = { brand, text, badge, estDate, statusTag, img, logoSrc, logoHasBg, logoIsLight, primary, secondary, headlineColor, logoPos, bgStyle, tintIndex, bgOpacity, photoFilter };
 
     return (
         <>
@@ -747,7 +757,6 @@ function BuilderContent() {
     const [bgStyle, setBgStyle] = useState<'none' | 'brand'>('none');
     const [tintIndex, setTintIndex] = useState(0);
     const [bgOpacity, setBgOpacity] = useState(100);
-    const [logoSize, setLogoSize] = useState(220);
     const [photoFilter, setPhotoFilter] = useState("none");
 
     const [scale, setScale] = useState(1);
@@ -946,7 +955,7 @@ function BuilderContent() {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                        imageUrl, logoUrl, primaryHex, layout, text, headlineColor, logoIsLight, logoSize, photoFilter
+                        imageUrl, logoUrl, primaryHex, layout, text, headlineColor, logoIsLight, photoFilter
                     }),
                 });
 
@@ -1039,7 +1048,6 @@ function BuilderContent() {
                                                 bgStyle={bgStyle}
                                                 tintIndex={tintIndex}
                                                 bgOpacity={bgOpacity}
-                                                logoSize={logoSize}
                                                 photoFilter={photoFilter}
                                                 dataUrlCache={dataUrlCache}
                                             />
@@ -1066,7 +1074,6 @@ function BuilderContent() {
                                                     bgStyle={bgStyle}
                                                     tintIndex={tintIndex}
                                                     bgOpacity={bgOpacity}
-                                                    logoSize={logoSize}
                                                     photoFilter={photoFilter}
                                                     dataUrlCache={dataUrlCache}
                                                 />
@@ -1287,7 +1294,16 @@ function BuilderContent() {
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Logo Variant</p>
                                         <div className="flex gap-2 flex-wrap">
-                                            {brand.logos.map((logo, i) => (
+                                            {[...brand.logos]
+                                                // Group: text/wordmark logos first, then icon/crest logos
+                                                .map((logo, i) => ({ logo, i }))
+                                                .sort((a, b) => {
+                                                    const aIsIcon = a.logo.isIcon ?? false;
+                                                    const bIsIcon = b.logo.isIcon ?? false;
+                                                    if (aIsIcon === bIsIcon) return 0;
+                                                    return aIsIcon ? 1 : -1; // text logos first
+                                                })
+                                                .map(({ logo, i }) => (
                                                 <button key={i}
                                                     onClick={() => setLogoIndex(i)}
                                                     className="w-16 h-16 rounded-xl border-2 flex items-center justify-center p-1.5 transition-all hover:shadow-md"
@@ -1307,29 +1323,6 @@ function BuilderContent() {
                                             ))}
                                         </div>
 
-                                        <div className="mt-4">
-                                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Logo Size</p>
-                                            <div className="flex gap-2">
-                                                {[
-                                                    { label: 'Small', val: 120 },
-                                                    { label: 'Medium', val: 220 },
-                                                    { label: 'Big', val: 340 }
-                                                ].map(size => (
-                                                    <button 
-                                                        key={size.val}
-                                                        onClick={() => setLogoSize(size.val)}
-                                                        className="flex-1 py-2.5 rounded-xl border-2 text-[11px] font-black uppercase tracking-widest transition-all"
-                                                        style={{
-                                                            borderColor: logoSize === size.val ? primary : "#f3f4f6",
-                                                            background: logoSize === size.val ? `${primary}10` : "#f9fafb",
-                                                            color: logoSize === size.val ? primary : "#9ca3af"
-                                                        }}
-                                                    >
-                                                        {size.label}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
                                     </div>
                                 </>
                             )}

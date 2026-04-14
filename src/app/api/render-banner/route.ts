@@ -57,7 +57,6 @@ export async function POST(req: NextRequest) {
             primaryHex = '#003865',
             layout = 0,
             text = '',
-            logoSize = 220,
             photoFilter = 'none',
         } = body as {
             imageUrl?: string | null;
@@ -66,7 +65,6 @@ export async function POST(req: NextRequest) {
             layout?: number;
             text?: string;
             logoIsLight?: boolean;
-            logoSize?: number;
             photoFilter?: string;
         };
 
@@ -172,8 +170,8 @@ export async function POST(req: NextRequest) {
         // ── 3. Logo ───────────────────────────────────────────────────
         if (logoUrl) {
             const isFullWidth = [3, 7].includes(layout);
-            const LOGO_MAX_W = logoSize ? Math.min(logoSize * 5, 1200) : (isFullWidth ? 800 : [0, 2, 5, 6].includes(layout) ? 600 : 500);
-            const LOGO_MAX_H = logoSize ? logoSize : (isFullWidth ? 240 : [0, 5, 6].includes(layout) ? 220 : 200);
+            const LOGO_MAX_W = Math.min(220 * 5, 1200);
+            const LOGO_MAX_H = 220;
 
             const logoBuf = await safeFetchPng(logoUrl, LOGO_MAX_W, LOGO_MAX_H, origin);
             if (logoBuf) {
