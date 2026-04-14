@@ -128,6 +128,38 @@ function colorsAreSimilar(hex1: string, hex2: string, threshold = 40): boolean {
     return dist < threshold;
 }
 
+/**
+ * Pick the brand color that provides the BEST contrast for a logo.
+ * Avoids colors that are too similar to the logo's own color.
+ * Falls back to white or near-black if no brand color works.
+ */
+function pickBestPanelColor(
+    logoColor: string | null,
+    logoIsLight: boolean,
+    brandColors: string[],
+    fallbackPrimary: string,
+): string {
+    // Score each brand color: high score = good contrast with logo
+    let bestColor = fallbackPrimary;
+    let bestScore = -Infinity;
+
+    for (const c of brandColors) {
+        const lumaDiff = Math.abs(luma(c) - (logoColor ? luma(logoColor) : (logoIsLight ? 200 : 50)));
+        // Penalise if the logo color is too close to the panel color
+        const colorDist = logoColor
+            ? (() => { const [r1,g1,b1] = hexToRgb(logoColor); const [r2,g2,b2] = hexToRgb(c); return Math.sqrt((r2-r1)**2+(g2-g1)**2+(b2-b1)**2); })()
+            : lumaDiff;
+        const score = lumaDiff + colorDist * 0.5;
+        if (score > bestScore) { bestScore = score; bestColor = c; }
+    }
+
+    // Final safety check: if best brand color is still too similar to the logo, use white or dark
+    if (logoColor && colorsAreSimilar(logoColor, bestColor, 60)) {
+        bestColor = logoIsLight ? '#111111' : '#ffffff';
+    }
+    return bestColor;
+}
+
 /* ═══════════════════════════════════════════════════════════════
    LOGO RENDERER
    Handles transparent, opaque-bg, and needs-invert scenarios.
@@ -270,7 +302,7 @@ function L0({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headli
 
             {/* Right: Solid Brand Panel */}
             <div className="flex-1 flex flex-col items-center justify-center p-12 text-center gap-8">
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize} maxW={600} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize} maxW={380} brandColors={brand.colors} />
                 
                 {text && (
                     <p style={{
@@ -293,7 +325,9 @@ function L0({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headli
    Inspired by: UC Berkeley / Oxford
 ═══════════════════════════════════════════════════════════════ */
 function L1({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, logoSize = 180, photoFilter = "none" }: LayoutProps) {
-    const tintColor = brand.colors[tintIndex % brand.colors.length] ?? primary;
+    // Use smartly-selected panel color that contrasts with the logo
+    const rawTint = brand.colors[tintIndex % brand.colors.length] ?? primary;
+    const tintColor = pickBestPanelColor(null, logoIsLight, brand.colors, rawTint);
     const font = getFont(brand.fonts?.[0]);
 
     return (
@@ -312,7 +346,7 @@ function L1({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
 
             <div className="absolute inset-y-0 right-0 w-[550px] flex flex-col items-center justify-center p-12 z-10">
                 <div className="flex flex-col items-center gap-8">
-                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={tintColor} h={logoSize} maxW={500} brandColors={brand.colors} />
+                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={tintColor} h={logoSize} maxW={360} brandColors={brand.colors} />
                     {text && (
                         <p style={{
                             color: headlineColor, fontSize: 26, fontWeight: 900,
@@ -350,7 +384,7 @@ function L2({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
                     width: PANEL_W, background: primary, zIndex: 10, padding: "48px",
                     clipPath: 'polygon(60px 0, 100% 0, 100% 100%, 0 100%)'
                 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize} maxW={520} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize} maxW={380} brandColors={brand.colors} />
                 
                 {text && (
                     <p style={{
@@ -379,7 +413,7 @@ function L3({ brand, text, logoSrc, logoHasBg, logoIsLight, primary, headlineCol
     return (
         <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center" style={{ background: primary }}>
             <div className="flex flex-col items-center gap-8" style={{ width: 660 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize} maxW={800} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize} maxW={520} brandColors={brand.colors} />
                 {text && (
                     <p style={{
                         color: headlineColor, fontSize: 28, fontWeight: 900, lineHeight: 1.15,
@@ -422,7 +456,7 @@ function L4({ brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', 
                     [logoPos === 'top' ? 'top' : 'bottom']: 30,
                 }}>
                 <div className="flex flex-row items-center">
-                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={logoSize} maxW={600} />
+                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={logoSize} maxW={380} />
                 </div>
             </div>
         </div>
@@ -435,7 +469,8 @@ function L4({ brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', 
    right side cleanly. Very modern.
 ═══════════════════════════════════════════════════════════════ */
 function L5({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, logoSize = 180, photoFilter = "none" }: LayoutProps) {
-    const tintColor = brand.colors[tintIndex % brand.colors.length] ?? primary;
+    const rawTint5 = brand.colors[tintIndex % brand.colors.length] ?? primary;
+    const tintColor = pickBestPanelColor(null, logoIsLight, brand.colors, rawTint5);
     const font = getFont(brand.fonts?.[0]);
 
     return (
@@ -445,7 +480,7 @@ function L5({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
             </div>
 
             <div className="w-[500px] flex flex-col items-center justify-center p-12 text-center gap-10 z-10" style={{ background: primary }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize} maxW={500} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize} maxW={360} brandColors={brand.colors} />
                 {text && (
                     <p style={{
                         color: headlineColor, fontSize: 24, fontWeight: 900, lineHeight: 1.15,
@@ -474,7 +509,7 @@ function L6({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
                     width: "55%", background: primary, zIndex: 10,
                     clipPath: 'polygon(120px 0, 100% 0, 100% 100%, 0 100%)'
                 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize} maxW={580} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={logoSize} maxW={400} brandColors={brand.colors} />
 
                 {text && (
                     <p style={{
@@ -506,7 +541,7 @@ function L7({ brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headli
             )}
             
             <div className="relative z-10 flex flex-col items-center justify-center">
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={logoSize} maxW={1000} brandColors={brand.colors} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={logoSize} maxW={560} brandColors={brand.colors} />
             </div>
         </div>
     );
@@ -562,18 +597,14 @@ function BannerCanvas({
     const logoIsSimilar = activeLogoColor ? colorsAreSimilar(activeLogoColor, primary) : (!logoIsLight && isDark(primary)) || (logoIsLight && !isDark(primary));
 
     if ((!logoIsLight && bgIsDark) || logoIsSimilar) {
-        // Dark logo (blue/black) on dark bg OR similar color -> Force LIGHT background
-        // Prefer brand's own light color if available
-        const brandLight = brand.colors.find(c => !isDark(c));
-        primary = brandLight ?? "#ffffff";
-        secondary = brand.colors.find(c => isDark(c) && c !== brand.colors[0]) ?? brand.colors[0];
+        // Dark logo on dark bg OR similar color → pick best contrasting brand color
+        primary = pickBestPanelColor(activeLogoColor, logoIsLight, brand.colors, primary);
+        secondary = brand.colors.find(c => c !== primary) ?? (isDark(primary) ? "#ffffff" : "#111111");
     } else if (logoIsLight && !bgIsDark && !logoHasBg) {
-        // Light logo on light background -> Force DARK background
-        // If we have a preferredBg, we stay there as it's already dark
+        // Light logo on light background → Force DARK background
         if (!activeLogo?.preferredBg) {
-            const brandDark = brand.colors.find(c => isDark(c));
-            primary = brandDark ?? "#111111";
-            secondary = brand.colors.find(c => !isDark(c) && c !== brand.colors[0]) ?? brand.colors[0];
+            primary = pickBestPanelColor(activeLogoColor, logoIsLight, brand.colors, primary);
+            secondary = brand.colors.find(c => c !== primary) ?? (isDark(primary) ? "#ffffff" : "#111111");
         }
     }
 
