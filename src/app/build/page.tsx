@@ -134,7 +134,7 @@ function colorsAreSimilar(hex1: string, hex2: string, threshold = 40): boolean {
  * Falls back to white or near-black if no brand color works.
  */
 function pickBestPanelColor(
-    logoColor: string | null | undefined,
+    logoColor: string | null,
     logoIsLight: boolean,
     brandColors: string[],
     fallbackPrimary: string,
@@ -657,12 +657,12 @@ function BannerCanvas({
     if (tintIndex === -1) {
         if ((!logoIsLight && bgIsDark) || logoIsSimilar) {
             // Dark logo on dark bg OR similar color → pick best contrasting brand color
-            primary = pickBestPanelColor(activeLogoColor ?? null, logoIsLight ?? true, brand.colors, primary);
+            primary = pickBestPanelColor(activeLogoColor ?? null, (logoIsLight !== undefined ? logoIsLight : true), brand.colors, primary);
             secondary = brand.colors.find(c => c !== primary) ?? (isDark(primary) ? "#ffffff" : "#111111");
         } else if (logoIsLight && !bgIsDark && !logoHasBg) {
             // Light logo on light background → Force DARK background
             if (!activeLogo?.preferredBg) {
-                primary = pickBestPanelColor(activeLogoColor ?? null, logoIsLight ?? true, brand.colors, primary);
+                primary = pickBestPanelColor(activeLogoColor ?? null, (logoIsLight !== undefined ? logoIsLight : true), brand.colors, primary);
                 secondary = brand.colors.find(c => c !== primary) ?? (isDark(primary) ? "#ffffff" : "#111111");
             }
         }
