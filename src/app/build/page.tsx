@@ -188,9 +188,9 @@ function FrameOverlay() {
 }
 
 function SmartLogo({
-    src, hasBg, isLight = true, panelColor, h = 100, maxW = 280, brandColors = [], scale = 1,
+    src, hasBg, isLight = true, panelColor, h = 100, maxW = 280, brandColors = [], scale = 1, align = "center",
 }: {
-    src: string; hasBg?: boolean; isLight?: boolean; panelColor: string; h?: number; maxW?: number; brandColors?: string[]; scale?: number;
+    src: string; hasBg?: boolean; isLight?: boolean; panelColor: string; h?: number | "auto"; maxW?: number; brandColors?: string[]; scale?: number; align?: "center" | "flex-start" | "flex-end";
 }) {
     const [err, setErr] = useState(false);
     if (err || !src) return null;
@@ -201,10 +201,10 @@ function SmartLogo({
     // internal aspect ratio or whitespace.
     return (
         <div style={{
-            height: h * scale,
+            height: h === "auto" ? "auto" : (h as number) * scale,
             width: "fit-content", // Ensure it doesn't collapse to 0 in flex environments
             display: "flex",
-            alignItems: "center",
+            alignItems: align,
             justifyContent: "center", 
             position: "relative"
         }}>
@@ -325,7 +325,7 @@ function L0({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
 
             {/* Right: Solid Brand Panel */}
             <div className="flex-1 flex flex-col items-center justify-center p-12 text-center gap-8">
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={380} brandColors={brand.colors} scale={logoScale} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={180} maxW={400} brandColors={brand.colors} scale={logoScale} />
                 
                 {text && (
                     <p style={{
@@ -370,7 +370,7 @@ function L1({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
 
             <div className="absolute inset-y-0 right-0 w-[550px] flex flex-col items-center justify-center p-12 z-10">
                 <div className="flex flex-col items-center gap-8">
-                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={tintColor} h={220} maxW={360} brandColors={brand.colors} scale={logoScale} />
+                    <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={tintColor} h={180} maxW={400} brandColors={brand.colors} scale={logoScale} />
                     {text && (
                         <p style={{
                             color: headlineColor, fontSize: 26 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900),
@@ -409,7 +409,7 @@ function L2({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
                     width: PANEL_W, background: primary, zIndex: 10, padding: "48px",
                     clipPath: 'polygon(60px 0, 100% 0, 100% 100%, 0 100%)'
                 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={380} brandColors={brand.colors} scale={logoScale} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={180} maxW={400} brandColors={brand.colors} scale={logoScale} />
                 
                 {text && (
                     <p style={{
@@ -439,7 +439,7 @@ function L3({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
     return (
         <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center" style={{ background: primary }}>
             <div className="flex flex-col items-center gap-8" style={{ width: 660 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={520} brandColors={brand.colors} scale={logoScale} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={180} maxW={400} brandColors={brand.colors} scale={logoScale} />
                 {text && (
                     <p style={{
                         color: headlineColor, fontSize: 28 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900), lineHeight: 1.15,
@@ -461,28 +461,53 @@ function L3({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
 function L4({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', img, bgStyle = 'none', tintIndex = 0, photoFilter = "none" }: LayoutProps) {
     const brandFont = getFont(brand.fonts?.[0]);
     const font = textStyle === "elegant" ? "'Playfair Display', serif" : (textStyle === "mono" ? "'JetBrains Mono', monospace" : "'Inter', sans-serif");
-    const tintColor = brand.colors[tintIndex % brand.colors.length] ?? brand.colors[0];
     
     return (
         <div className="absolute inset-0 overflow-hidden bg-black">
-            {/* Background image with configurable style */}
-            {/* Background image - Crisp and clear */}
             {img && (
                 <div className="absolute inset-0">
                     <img src={img} alt="" crossOrigin="anonymous" 
                         className="absolute inset-0 w-full h-full object-cover" style={{ filter: photoFilter }} />
+                    <div className="absolute inset-0 bg-black/20" />
                 </div>
             )}
             
-            {/* Removed vignette for cleaner look */}
-
-            {/* University Identity - Locked to the corner for simple minimalist look */}
-            <div className={`absolute z-20 flex items-center`}
+            <div className={`absolute z-20 flex flex-row-reverse gap-8 ${logoPos === "top" ? "items-start" : "items-end"}`}
                 style={{ 
                     right: 40,
                     [logoPos === 'top' ? 'top' : 'bottom']: 40,
                 }}>
-                {logoSrc && <SmartLogo src={logoSrc} hasBg={false} isLight={true} panelColor="#000000" h={220} maxW={380} brandColors={brand.colors} scale={logoScale} /> }
+                {logoSrc && (
+                    <SmartLogo 
+                        src={logoSrc} 
+                        hasBg={logoHasBg} 
+                        isLight={logoIsLight} 
+                        panelColor="#000000" 
+                        h={180} 
+                        maxW={400} 
+                        brandColors={brand.colors} 
+                        scale={logoScale} 
+                        align={logoPos === "top" ? "flex-start" : "flex-end"} 
+                    /> 
+                )}
+                
+                {text && (
+                    <div >
+                        <p style={{
+                            color: 'white', 
+                            fontSize: 32 * textSize, 
+                            fontWeight: (textStyle === "elegant" ? 600 : 900),
+                            lineHeight: 1.1, 
+                            letterSpacing: "-0.03em", 
+                            margin: 0, 
+                            fontFamily: font,
+                            textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+                            maxWidth: 800, textAlign: "right"
+                        }}>
+                            {text}
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
     );
@@ -506,7 +531,7 @@ function L5({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
             </div>
 
             <div className="w-[500px] flex flex-col items-center justify-center p-12 text-center gap-10 z-10" style={{ background: primary }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={360} brandColors={brand.colors} scale={logoScale} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={180} maxW={400} brandColors={brand.colors} scale={logoScale} />
                 {text && (
                     <p style={{
                         color: headlineColor, fontSize: 24 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900), lineHeight: 1.15,
@@ -536,7 +561,7 @@ function L6({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
                     width: "55%", background: primary, zIndex: 10,
                     clipPath: 'polygon(120px 0, 100% 0, 100% 100%, 0 100%)'
                 }}>
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={400} brandColors={brand.colors} scale={logoScale} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={180} maxW={400} brandColors={brand.colors} scale={logoScale} />
 
                 {text && (
                     <p style={{
@@ -569,7 +594,7 @@ function L7({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
             )}
             
             <div className="relative z-10 flex flex-col items-center justify-center">
-                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={220} maxW={560} brandColors={brand.colors} scale={logoScale} />
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#000000" h={180} maxW={400} brandColors={brand.colors} scale={logoScale} />
             </div>
         </div>
     );
@@ -1226,7 +1251,7 @@ function BuilderContent() {
                                                 </label>
                                                 <div className="flex gap-1 bg-slate-100 p-1 rounded-xl">
                                                     {[
-                                                        { label: '-', val: 0.8 },
+                                                        { label: '-', val: 0.75 },
                                                         { label: '=', val: 1.0 },
                                                         { label: '+', val: 1.25 }
                                                     ].map(s => (
@@ -1388,9 +1413,9 @@ function BuilderContent() {
                                             </label>
                                             <div className="flex gap-2">
                                                 {[
-                                                    { label: 'Small', val: 0.8 },
+                                                    { label: 'Small', val: 0.75 },
                                                     { label: 'Normal', val: 1.0 },
-                                                    { label: 'Large', val: 1.3 }
+                                                    { label: 'Large', val: 1.25 }
                                                 ].map(s => (
                                                     <button key={s.label}
                                                         onClick={() => setLogoScale(s.val)}
