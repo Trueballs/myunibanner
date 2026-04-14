@@ -306,7 +306,7 @@ function StatusTagBadge({ text, bg, color }: { text?: string, bg: string, color:
 ═══════════════════════════════════════════════════════════════ */
 function L0({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headlineColor, photoFilter = "none" }: LayoutProps) {
     const brandFont = getFont(brand.fonts?.[0]);
-    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
+    const font = textStyle === "elegant" ? "'Playfair Display', serif" : (textStyle === "mono" ? "'JetBrains Mono', monospace" : "'Inter', sans-serif");
     const SPLIT_X = 620;
 
     return (
@@ -352,7 +352,7 @@ function L1({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
     const rawTint = brand.colors[tintIndex % brand.colors.length] ?? primary;
     const tintColor = pickBestPanelColor(null, logoIsLight, brand.colors, rawTint);
     const brandFont = getFont(brand.fonts?.[0]);
-    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
+    const font = textStyle === "elegant" ? "'Playfair Display', serif" : (textStyle === "mono" ? "'JetBrains Mono', monospace" : "'Inter', sans-serif");
 
     return (
         <div className="absolute inset-0 overflow-hidden bg-black">
@@ -395,7 +395,7 @@ function L1({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
 ═══════════════════════════════════════════════════════════════ */
 function L2({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
     const brandFont = getFont(brand.fonts?.[0]);
-    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
+    const font = textStyle === "elegant" ? "'Playfair Display', serif" : (textStyle === "mono" ? "'JetBrains Mono', monospace" : "'Inter', sans-serif");
     const PANEL_W = 580;
 
     return (
@@ -434,7 +434,7 @@ function L2({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
 ═══════════════════════════════════════════════════════════════ */
 function L3({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, primary, headlineColor }: LayoutProps) {
     const brandFont = getFont(brand.fonts?.[0]);
-    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
+    const font = textStyle === "elegant" ? "'Playfair Display', serif" : (textStyle === "mono" ? "'JetBrains Mono', monospace" : "'Inter', sans-serif");
 
     return (
         <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center" style={{ background: primary }}>
@@ -460,7 +460,7 @@ function L3({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
 ═══════════════════════════════════════════════════════════════ */
 function L4({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', img, bgStyle = 'none', tintIndex = 0, photoFilter = "none" }: LayoutProps) {
     const brandFont = getFont(brand.fonts?.[0]);
-    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
+    const font = textStyle === "elegant" ? "'Playfair Display', serif" : (textStyle === "mono" ? "'JetBrains Mono', monospace" : "'Inter', sans-serif");
     const tintColor = brand.colors[tintIndex % brand.colors.length] ?? brand.colors[0];
     
     return (
@@ -497,7 +497,7 @@ function L5({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
     const rawTint5 = brand.colors[tintIndex % brand.colors.length] ?? primary;
     const tintColor = pickBestPanelColor(null, logoIsLight, brand.colors, rawTint5);
     const brandFont = getFont(brand.fonts?.[0]);
-    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
+    const font = textStyle === "elegant" ? "'Playfair Display', serif" : (textStyle === "mono" ? "'JetBrains Mono', monospace" : "'Inter', sans-serif");
 
     return (
         <div className="absolute inset-0 overflow-hidden flex bg-white">
@@ -525,7 +525,7 @@ function L5({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
 ═══════════════════════════════════════════════════════════════ */
 function L6({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
     const brandFont = getFont(brand.fonts?.[0]);
-    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
+    const font = textStyle === "elegant" ? "'Playfair Display', serif" : (textStyle === "mono" ? "'JetBrains Mono', monospace" : "'Inter', sans-serif");
 
     return (
         <div className="absolute inset-0 overflow-hidden bg-white">
@@ -557,7 +557,7 @@ function L6({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
 ═══════════════════════════════════════════════════════════════ */
 function L7({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
     const brandFont = getFont(brand.fonts?.[0]);
-    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
+    const font = textStyle === "elegant" ? "'Playfair Display', serif" : (textStyle === "mono" ? "'JetBrains Mono', monospace" : "'Inter', sans-serif");
     
     return (
         <div className="absolute inset-0 overflow-hidden flex items-center justify-center bg-black">
@@ -806,7 +806,7 @@ function BuilderContent() {
         if (!fontName) return;
         
         let isMounted = true;
-        const fontUrl = `https://fonts.googleapis.com/css2?family=${fontName.replace(/\s+/g, "+")}:wght@400;700;800;900&display=swap`;
+        const fontUrl = `https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=JetBrains+Mono:wght@400;700&family=${fontName.replace(/\s+/g, "+")}:wght@400;700;800;900&display=swap`;
         
         fetch(fontUrl)
             .then(r => {
