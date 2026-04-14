@@ -1193,6 +1193,58 @@ function BuilderContent() {
                                             );
                                         })()}
                                     </AnimatePresence>
+                                    {brand && (
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div>
+                                                <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">
+                                                    <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>08</span>
+                                                    Text Style
+                                                </label>
+                                                <div className="flex gap-1 bg-slate-100 p-1 rounded-xl">
+                                                    {[
+                                                        { id: 'blocky', icon: 'B' },
+                                                        { id: 'elegant', icon: 'E' },
+                                                        { id: 'mono', icon: 'M' }
+                                                    ].map(s => (
+                                                        <button key={s.id}
+                                                            onClick={() => setTextStyle(s.id as any)}
+                                                            className="flex-1 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all"
+                                                            style={{
+                                                                background: textStyle === s.id ? 'white' : 'transparent',
+                                                                color: textStyle === s.id ? primary : '#9ca3af',
+                                                                boxShadow: textStyle === s.id ? '0 2px 4px rgba(0,0,0,0.05)' : 'none'
+                                                            }}>
+                                                            {s.icon}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">
+                                                    <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>09</span>
+                                                    Text Size
+                                                </label>
+                                                <div className="flex gap-1 bg-slate-100 p-1 rounded-xl">
+                                                    {[
+                                                        { label: '-', val: 0.8 },
+                                                        { label: '=', val: 1.0 },
+                                                        { label: '+', val: 1.25 }
+                                                    ].map(s => (
+                                                        <button key={s.label}
+                                                            onClick={() => setTextSize(s.val)}
+                                                            className="flex-1 py-1.5 rounded-lg text-[10px] font-black transition-all"
+                                                            style={{
+                                                                background: textSize === s.val ? 'white' : 'transparent',
+                                                                color: textSize === s.val ? primary : '#9ca3af',
+                                                                boxShadow: textSize === s.val ? '0 2px 4px rgba(0,0,0,0.05)' : 'none'
+                                                            }}>
+                                                            {s.label}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                     <div>
                                         <div className="flex items-center justify-between mb-2">
                                             <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>02</span>Layout Style</label>
@@ -1327,58 +1379,7 @@ function BuilderContent() {
                                             ))}
                                         </div>
                                     </div>
-{brand && (
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                            <div>
-                                                <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">
-                                                    <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>08</span>
-                                                    Text Style
-                                                </label>
-                                                <div className="flex gap-1 bg-slate-100 p-1 rounded-xl">
-                                                    {[
-                                                        { id: 'blocky', icon: 'B' },
-                                                        { id: 'elegant', icon: 'E' },
-                                                        { id: 'mono', icon: 'M' }
-                                                    ].map(s => (
-                                                        <button key={s.id}
-                                                            onClick={() => setTextStyle(s.id as any)}
-                                                            className="flex-1 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all"
-                                                            style={{
-                                                                background: textStyle === s.id ? 'white' : 'transparent',
-                                                                color: textStyle === s.id ? primary : '#9ca3af',
-                                                                boxShadow: textStyle === s.id ? '0 2px 4px rgba(0,0,0,0.05)' : 'none'
-                                                            }}>
-                                                            {s.icon}
-                                                        </button>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">
-                                                    <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>09</span>
-                                                    Text Size
-                                                </label>
-                                                <div className="flex gap-1 bg-slate-100 p-1 rounded-xl">
-                                                    {[
-                                                        { label: '-', val: 0.8 },
-                                                        { label: '=', val: 1.0 },
-                                                        { label: '+', val: 1.25 }
-                                                    ].map(s => (
-                                                        <button key={s.label}
-                                                            onClick={() => setTextSize(s.val)}
-                                                            className="flex-1 py-1.5 rounded-lg text-[10px] font-black transition-all"
-                                                            style={{
-                                                                background: textSize === s.val ? 'white' : 'transparent',
-                                                                color: textSize === s.val ? primary : '#9ca3af',
-                                                                boxShadow: textSize === s.val ? '0 2px 4px rgba(0,0,0,0.05)' : 'none'
-                                                            }}>
-                                                            {s.label}
-                                                        </button>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
+
                                     {brand && (
                                         <div>
                                             <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">
