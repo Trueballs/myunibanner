@@ -1251,8 +1251,7 @@ function BuilderContent() {
                                     {/* Photo picker */}
                                     {brand.images.length > 0 && (
                                         <div>
-                                            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>03</span>Photo <span className="normal-case font-medium tracking-normal text-gray-300">· hover to preview</span></label> <span className="normal-case font-medium tracking-normal text-gray-300">· hover to preview</span>
-                                            </p>
+                                            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>03</span>Photo <span className="normal-case font-medium tracking-normal text-gray-300">· hover to preview</span></label>
                                             {/* Thumbnail strip */}
                                             <div className="flex gap-2 flex-wrap">
                                                 {brand.images.map((img, i) => (
