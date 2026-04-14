@@ -1137,59 +1137,55 @@ function BuilderContent() {
                         </div>
                     </section>
 
+                    
                     {/* ── CONTROLS ────────────────────────────────── */}
                     <div className="w-full bg-white rounded-2xl p-6 md:p-8 shadow-[0_15px_40px_rgba(0,0,0,0.03)] border border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
-    <div className="space-y-8 flex flex-col">
-        <AnimatePresence>
-            {brand && (() => {
-                const headlineDisabled = layout === 4 || layout === 7;
-                return (
-                    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
-                        <label className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest mb-2 transition-colors ${headlineDisabled ? 'text-gray-300' : 'text-gray-400'}`}>
-                            <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black"
-                                style={{ background: headlineDisabled ? '#d1d5db' : primary }}>01</span>
-                            Personal Headline
-                            {headlineDisabled && (
-                                <span className="ml-1 text-[9px] font-semibold text-gray-300 normal-case tracking-normal">
-                                    — not available in this layout
-                                </span>
-                            )}
-                        </label>
-                        <div className={`space-y-4 transition-opacity duration-200 ${headlineDisabled ? 'opacity-30 pointer-events-none select-none' : ''}`}>
-                            <div className="bg-slate-50/50 rounded-xl px-4 py-3 border border-slate-100 relative overflow-hidden transition-all focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500/30">
-                                <div className="absolute left-0 top-0 bottom-0 w-1.5" style={{ background: headlineDisabled ? '#e5e7eb' : '#2563EB' }} />
-                                <div className="flex items-center justify-between mb-2">
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Headline Draft</span>
-                                        <span className={`text-[10px] font-mono ${text.length === 100 ? 'text-red-500' : 'text-slate-300'}`}>{text.length}/100</span>
-                                    </div>
-                                    <button 
-                                        onClick={() => setText("")}
-                                        disabled={headlineDisabled}
-                                        className="text-[10px] font-bold text-slate-400 hover:text-red-500 transition-colors uppercase tracking-widest"
-                                    >
-                                        Clear
-                                    </button>
-                                </div>
-                                <textarea
-                                    value={text}
-                                    onChange={e => setText(e.target.value)}
-                                    maxLength={100}
-                                    rows={1}
-                                    disabled={headlineDisabled}
-                                    placeholder={headlineDisabled ? "Not available in this layout" : "Type your personal headline..."}
-                                    className="w-full bg-transparent text-slate-900 text-base font-medium focus:outline-none resize-none placeholder:text-slate-300 min-h-[20px] leading-tight"
-                                />
-                            </div>
-                        </div>
-                    </motion.div>
-                );
-            })()}
-        </AnimatePresence>
-
-        {brand && (
-                                <>
-                                    {/* Layout picker */}
+                        {brand ? (
+                            <>
+                                {/* Column 1: Primary Settings */}
+                                <div className="space-y-8 flex flex-col">
+                                    <AnimatePresence>
+                                        {brand && (() => {
+                                            const headlineDisabled = layout === 4 || layout === 7;
+                                            return (
+                                                <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+                                                    <label className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest mb-2 transition-colors ${headlineDisabled ? 'text-gray-300' : 'text-gray-400'}`}>
+                                                        <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black"
+                                                            style={{ background: headlineDisabled ? '#d1d5db' : primary }}>01</span>
+                                                        Personal Headline
+                                                        {headlineDisabled && (
+                                                            <span className="ml-1 text-[9px] font-semibold text-gray-300 normal-case tracking-normal">
+                                                                — not available in this layout
+                                                            </span>
+                                                        )}
+                                                    </label>
+                                                    <div className={`space-y-4 transition-opacity duration-200 ${headlineDisabled ? 'opacity-30 pointer-events-none select-none' : ''}`}>
+                                                        <div className="bg-slate-50/50 rounded-xl px-4 py-3 border border-slate-100 relative overflow-hidden transition-all focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500/30">
+                                                            <div className="absolute left-0 top-0 bottom-0 w-1.5" style={{ background: headlineDisabled ? '#e5e7eb' : '#2563EB' }} />
+                                                            <div className="flex items-center justify-between mb-2">
+                                                                <div className="flex items-center gap-2">
+                                                                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Headline Draft</span>
+                                                                    <span className={`text-[10px] font-mono ${text.length === 100 ? 'text-red-500' : 'text-slate-300'}`}>{text.length}/100</span>
+                                                                </div>
+                                                                <button onClick={() => setText("")} disabled={headlineDisabled} className="text-[10px] font-bold text-slate-400 hover:text-red-500 transition-colors uppercase tracking-widest">
+                                                                    Clear
+                                                                </button>
+                                                            </div>
+                                                            <textarea
+                                                                value={text}
+                                                                onChange={e => setText(e.target.value)}
+                                                                maxLength={100}
+                                                                rows={1}
+                                                                disabled={headlineDisabled}
+                                                                placeholder={headlineDisabled ? "Not available in this layout" : "Type your personal headline..."}
+                                                                className="w-full bg-transparent text-slate-900 text-base font-medium focus:outline-none resize-none placeholder:text-slate-300 min-h-[20px] leading-tight"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </motion.div>
+                                            );
+                                        })()}
+                                    </AnimatePresence>
                                     <div>
                                         <div className="flex items-center justify-between mb-2">
                                             <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>02</span>Layout Style</label>
@@ -1220,10 +1216,8 @@ function BuilderContent() {
                                         </div>
                                         <p className="text-xs text-gray-400 mt-1.5">Style {layout + 1} of {LAYOUTS.length} · {THUMB_CONFIGS[layout].label}</p>
                                     </div>
-
                                     {layout === 4 && (
                                         <div className="space-y-4">
-                                            {/* Logo Position Toggle */}
                                             <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 animate-in fade-in slide-in-from-top-2">
                                                 <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Logo Alignment</p>
                                                 <div className="flex gap-2">
@@ -1239,212 +1233,106 @@ function BuilderContent() {
                                                             {pos} Corner
                                                         </button>
                                                     ))}
-    </div>
-</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     )}
-
-                                    {/* Photo picker */}
                                     {brand.images.length > 0 && (
                                         <div>
                                             <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>03</span>Photo <span className="normal-case font-medium tracking-normal text-gray-300">· hover to preview</span></label>
-                                            {/* Thumbnail strip */}
                                             <div className="flex gap-2 flex-wrap">
                                                 {brand.images.map((img, i) => (
-                                                    <div
-                                                        key={i}
-                                                        className="relative group"
-                                                        style={{ width: 44, height: 28 }}
-                                                    >
-                                                        {/* Large hover preview */}
-                                                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 pointer-events-none
-                                                            opacity-0 group-hover:opacity-100 transition-all duration-150 ease-out
-                                                            scale-95 group-hover:scale-100
-                                                            w-64 aspect-[4/1] rounded-xl overflow-hidden shadow-2xl border-2 border-white ring-1 ring-black/5">
-                                                            <img src={img} alt={`Photo ${i + 1}`} className="w-full h-full object-cover" />
+                                                    <div key={i} className="relative group" style={{ width: 44, height: 28 }}>
+                                                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 ease-out scale-95 group-hover:scale-100 w-64 aspect-[4/1] rounded-xl overflow-hidden shadow-2xl border-2 border-white ring-1 ring-black/5">
+                                                            <img src={img} alt="" className="w-full h-full object-cover" />
                                                         </div>
-                                                        {/* Thumbnail */}
-                                                        <button
-                                                            onClick={() => setImgIndex(i)}
-                                                            className="w-full h-full rounded-lg overflow-hidden transition-all hover:scale-110 active:scale-95"
-                                                            style={{
-                                                                outline: imgIndex === i ? `3px solid #2563EB` : '2px solid transparent',
-                                                                outlineOffset: 2,
-                                                                boxShadow: imgIndex === i ? '0 0 0 1px #2563EB20' : undefined,
-                                                            }}
-                                                        >
-                                                            <img src={img} alt={`Photo ${i + 1}`} className="w-full h-full object-cover" />
+                                                        <button onClick={() => setImgIndex(i)} className="w-full h-full rounded-lg overflow-hidden transition-all hover:scale-110 active:scale-95" style={{ outline: imgIndex === i ? `3px solid #2563EB` : '2px solid transparent', outlineOffset: 2 }}>
+                                                            <img src={img} alt="" className="w-full h-full object-cover" />
                                                         </button>
                                                     </div>
                                                 ))}
                                             </div>
                                             {brand.images.length > 1 && (
-                                                <p className="text-xs text-gray-400 mt-2">
-                                                    Photo {(imgIndex % brand.images.length) + 1} of {brand.images.length} selected
-                                                </p>
+                                                <p className="text-xs text-gray-400 mt-2">Photo {(imgIndex % brand.images.length) + 1} of {brand.images.length} selected</p>
                                             )}
                                         </div>
                                     )}
+                                </div>
 
-                                    </div><div className="space-y-8 flex flex-col pt-4 md:pt-0 pl-1">
+                                {/* Column 2: Visual Style & Export */}
+                                <div className="space-y-8 flex flex-col pt-4 md:pt-0 pl-1">
                                     {brand.images.length > 0 && (
                                         <div>
                                             <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>04</span>Photo Filter</label>
                                             <div className="flex gap-2">
-                                                {([
-                                                    { label: 'Original',  value: 'none' },
-                                                    { label: 'Mono',      value: 'grayscale(100%) contrast(110%) brightness(105%)' },
-                                                ] as { label: string; value: string }[]).map(f => {
+                                                {([{ label: 'Original', value: 'none' }, { label: 'Mono', value: 'grayscale(100%) contrast(110%) brightness(105%)' }]).map(f => {
                                                     const isActive = photoFilter === f.value;
                                                     const sampleSrc = brand.images[imgIndex % brand.images.length];
                                                     return (
-                                                        <button
-                                                            key={f.label}
-                                                            onClick={() => setPhotoFilter(f.value)}
-                                                            className="flex-1 flex flex-col items-center gap-1.5 pb-2 pt-1.5 rounded-xl border-2 transition-all overflow-hidden"
-                                                            style={{
-                                                                borderColor: isActive ? primary : '#f3f4f6',
-                                                                background: isActive ? `${primary}10` : '#f9fafb',
-                                                            }}
-                                                        >
-                                                            {/* Mini photo preview with filter applied */}
+                                                        <button key={f.label} onClick={() => setPhotoFilter(f.value)} className="flex-1 flex flex-col items-center gap-1.5 pb-2 pt-1.5 rounded-xl border-2 transition-all overflow-hidden" style={{ borderColor: isActive ? primary : '#f3f4f6', background: isActive ? `${primary}10` : '#f9fafb' }}>
                                                             <div className="w-full h-8 overflow-hidden rounded-md mx-2" style={{ width: 'calc(100% - 8px)' }}>
-                                                                <img
-                                                                    src={sampleSrc}
-                                                                    alt=""
-                                                                    className="w-full h-full object-cover"
-                                                                    style={{ filter: f.value }}
-                                                                />
+                                                                <img src={sampleSrc} alt="" className="w-full h-full object-cover" style={{ filter: f.value }} />
                                                             </div>
-                                                            <span className="text-[8px] font-black uppercase tracking-widest"
-                                                                style={{ color: isActive ? primary : '#9ca3af' }}>
-                                                                {f.label}
-                                                            </span>
+                                                            <span className="text-[8px] font-black uppercase tracking-widest" style={{ color: isActive ? primary : '#9ca3af' }}>{f.label}</span>
                                                         </button>
                                                     );
                                                 })}
                                             </div>
                                         </div>
                                     )}
-
-                                    {/* Brand Color Picker */}
                                     {brand.colors.length > 0 && (() => {
                                         const accentDisabled = layout === 4 || layout === 7;
                                         return (
                                             <div className={accentDisabled ? 'opacity-30 pointer-events-none grayscale' : ''}>
                                                 <label className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest mb-2 transition-colors ${accentDisabled ? 'text-gray-300' : 'text-gray-400'}`}>
-                                                    <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black"
-                                                        style={{ background: accentDisabled ? '#d1d5db' : primary }}>05</span>
+                                                    <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: accentDisabled ? '#d1d5db' : primary }}>05</span>
                                                     Accent Color
-                                                    {accentDisabled && (
-                                                        <span className="ml-1 text-[9px] font-semibold text-gray-300 normal-case tracking-normal">
-                                                            — not available in this layout
-                                                        </span>
-                                                    )}
+                                                    {accentDisabled && <span className="ml-1 text-[9px] font-semibold text-gray-300 normal-case tracking-normal">— not available</span>}
                                                 </label>
-                                            <div className="flex gap-3 flex-wrap">
-                                                {brand.colors.map((c, i) => {
-                                                    const isActive = tintIndex === i;
-                                                    return (
-                                                        <button
-                                                            key={i}
-                                                            onClick={() => setTintIndex(i)}
-                                                            className="w-10 h-10 rounded-full border-2 transition-all hover:scale-110 active:scale-95 shadow-sm"
-                                                            style={{
-                                                                backgroundColor: c,
-                                                                borderColor: isActive ? 'white' : 'transparent',
-                                                                boxShadow: isActive ? `0 0 0 2px ${c}, 0 4px 12px rgba(0,0,0,0.1)` : '0 2px 4px rgba(0,0,0,0.05)'
-                                                            }}
-                                                            title={`Brand Color ${i + 1}`}
-                                                        />
-                                                    );
-                                                })}
-                                                <button
-                                                    onClick={() => setTintIndex(-1)}
-                                                    className="w-10 h-10 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-400 hover:border-gray-400 hover:text-gray-500 transition-all text-[10px] font-bold uppercase"
-                                                    style={{ background: tintIndex === -1 ? '#f3f4f6' : 'transparent' }}
-                                                >
-                                                    Auto
-                                                </button>
+                                                <div className="flex gap-3 flex-wrap">
+                                                    {brand.colors.map((c, i) => (
+                                                        <button key={i} onClick={() => setTintIndex(i)} className="w-10 h-10 rounded-full border-2 transition-all hover:scale-110 active:scale-95 shadow-sm" style={{ backgroundColor: c, borderColor: tintIndex === i ? 'white' : 'transparent', boxShadow: tintIndex === i ? `0 0 0 2px ${c}, 0 4px 12px rgba(0,0,0,0.1)` : '0 2px 4px rgba(0,0,0,0.05)' }} />
+                                                    ))}
+                                                    <button onClick={() => setTintIndex(-1)} className="w-10 h-10 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-400 hover:border-gray-400 hover:text-gray-500 transition-all text-[10px] font-bold uppercase" style={{ background: tintIndex === -1 ? '#f3f4f6' : 'transparent' }}>
+                                                        Auto
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    );
-                                })()}
-
-                                    {/* Logo controls */}
+                                        );
+                                    })()}
                                     <div>
                                         <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>06</span>Logo Variant</label>
                                         <div className="flex gap-2 flex-wrap">
-                                            {/* No Logo Option */}
-                                            <button
-                                                onClick={() => setLogoIndex(-1)}
-                                                className="w-14 h-14 rounded-lg border-2 flex flex-col items-center justify-center p-1.5 transition-all hover:shadow-md"
-                                                style={{
-                                                    borderColor: logoIndex === -1 ? primary : "#e5e7eb",
-                                                    background: logoIndex === -1 ? `${primary}10` : "#f9fafb",
-                                                    color: logoIndex === -1 ? primary : "#9ca3af"
-                                                }}
-                                            >
+                                            <button onClick={() => setLogoIndex(-1)} className="w-14 h-14 rounded-lg border-2 flex flex-col items-center justify-center p-1.5 transition-all hover:shadow-md" style={{ borderColor: logoIndex === -1 ? primary : "#e5e7eb", background: logoIndex === -1 ? `${primary}10` : "#f9fafb", color: logoIndex === -1 ? primary : "#9ca3af" }}>
                                                 <Ban className="w-4 h-4 mb-0.5" />
                                                 <span className="text-[8px] font-black uppercase tracking-widest">None</span>
                                             </button>
-
-                                            {[...brand.logos]
-                                                // Group: text/wordmark logos first, then icon/crest logos
-                                                .map((logo, i) => ({ logo, i }))
-                                                .sort((a, b) => {
-                                                    const aIsIcon = a.logo.isIcon ?? false;
-                                                    const bIsIcon = b.logo.isIcon ?? false;
-                                                    if (aIsIcon === bIsIcon) return 0;
-                                                    return aIsIcon ? 1 : -1; // text logos first
-                                                })
-                                                .map(({ logo, i }) => (
-                                                <button key={i}
-                                                    onClick={() => setLogoIndex(i)}
-                                                    className="w-14 h-14 rounded-lg border-2 flex items-center justify-center p-1.5 transition-all hover:shadow-md relative overflow-hidden"
-                                                    style={{
-                                                        borderColor: logoIndex === i ? primary : "#e5e7eb",
-                                                        background: logoIndex === i 
-                                                            ? `${primary}10` 
-                                                            : "#f9fafb",
-                                                    }}>
-                                                    {/* Dark background hint for white logos */}
-                                                    {logo.isLight && (
-                                                        <div className="absolute inset-0 bg-slate-700 pointer-events-none" />
-                                                    )}
-                                                    
-                                                    <img src={logo.url} alt={`Logo ${i + 1}`}
-                                                        className="w-full h-full object-contain relative z-10"
-                                                        style={{
-                                                            mixBlendMode: (logo.hasBg && !logo.isLight) ? "multiply" : undefined,
-                                                            filter: logo.isLight ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' : 'none'
-                                                        }}
-                                                        onError={e => (e.currentTarget.style.display = "none")} />
+                                            {[...brand.logos].map((logo, i) => ({ logo, i })).sort((a,b) => {
+                                                const ai = a.logo.isIcon ?? false; const bi = b.logo.isIcon ?? false;
+                                                return ai === bi ? 0 : (ai ? 1 : -1);
+                                            }).map(({ logo, i }) => (
+                                                <button key={i} onClick={() => setLogoIndex(i)} className="w-14 h-14 rounded-lg border-2 flex items-center justify-center p-1.5 transition-all hover:shadow-md relative overflow-hidden" style={{ borderColor: logoIndex === i ? primary : "#e5e7eb", background: logoIndex === i ? `${primary}10` : "#f9fafb" }}>
+                                                    {logo.isLight && <div className="absolute inset-0 bg-slate-700 pointer-events-none" />}
+                                                    <img src={logo.url} alt="" className="w-full h-full object-contain relative z-10" style={{ mixBlendMode: (logo.hasBg && !logo.isLight) ? "multiply" : undefined, filter: logo.isLight ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' : 'none' }} onError={e => (e.currentTarget.style.display = "none")} />
                                                 </button>
                                             ))}
                                         </div>
-
                                     </div>
-                                </>
-                            )}
-
-
-                            {/* Download button - Single True Button */}
-                            <div className="mt-auto pt-6 space-y-2">
-                                <button
-                                    onClick={brand ? handleDownload : () => router.push("/")}
-                                    disabled={isDownloading}
-                                    className="w-full py-5 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20 disabled:opacity-50 hover:bg-blue-700 active:scale-95"
-                                    style={{ background: '#2563EB', color: '#ffffff' }}>
-                                    {isDownloading
-                                        ? <><RefreshCw className="w-5 h-5 animate-spin" /> Processing...</>
-                                        : <><Download className="w-5 h-5" /> Download Banner</>}
-                                </button>
-                                <p className="text-center text-[11px] text-gray-400">
-                                    LinkedIn optimised · Free · Sharp 1584x396 PNG
-                                </p>
+                                    <div className="mt-auto pt-6 space-y-2">
+                                        <button onClick={brand ? handleDownload : () => router.push("/")} disabled={isDownloading} className="w-full py-5 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20 disabled:opacity-50 hover:bg-blue-700 active:scale-95" style={{ background: '#2563EB', color: '#ffffff' }}>
+                                            {isDownloading ? <><RefreshCw className="w-5 h-5 animate-spin" /> Processing...</> : <><Download className="w-5 h-5" /> Download Banner</>}
+                                        </button>
+                                        <p className="text-center text-[11px] text-gray-400">LinkedIn optimised · Free · Sharp 1584x396 PNG</p>
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            <div className="md:col-span-2 py-20 text-center text-gray-400 italic">
+                                Search for your university to begin
                             </div>
-                        </div></div>
+                        )}
+                    </div>
+
                     </div>
                 </div>
 
