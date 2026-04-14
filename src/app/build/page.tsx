@@ -480,7 +480,7 @@ function L4({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
             <div className={`absolute z-20 flex items-center`}
                 style={{ 
                     right: 40,
-                    [logoPos === 'top' ? 'top' : 'bottom']: 30,
+                    [logoPos === 'top' ? 'top' : 'bottom']: 40,
                 }}>
                 {logoSrc && <SmartLogo src={logoSrc} hasBg={false} isLight={true} panelColor="#000000" h={220} maxW={380} brandColors={brand.colors} scale={logoScale} /> }
             </div>
