@@ -1138,15 +1138,13 @@ function BuilderContent() {
                     </section>
 
                     {/* ── CONTROLS ────────────────────────────────── */}
-                    <div className="w-full bg-white rounded-2xl p-6 md:p-8 shadow-[0_15px_40px_rgba(0,0,0,0.03)] border border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4">
-    {/* ── UNIFIED CONTROLS ── */}
-    <div className="space-y-4">
-        {/* Headline input */}
+                    <div className="w-full bg-white rounded-2xl p-6 md:p-8 shadow-[0_15px_40px_rgba(0,0,0,0.03)] border border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+    <div className="space-y-8 flex flex-col">
         <AnimatePresence>
             {brand && (() => {
                 const headlineDisabled = layout === 4 || layout === 7;
                 return (
-                    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="md:col-span-2">
+                    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
                         <label className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest mb-2 transition-colors ${headlineDisabled ? 'text-gray-300' : 'text-gray-400'}`}>
                             <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black"
                                 style={{ background: headlineDisabled ? '#d1d5db' : primary }}>01</span>
@@ -1188,9 +1186,7 @@ function BuilderContent() {
                 );
             })()}
         </AnimatePresence>
-    </div>
 
-    <div className="flex flex-col gap-8">
         {brand && (
                                 <>
                                     {/* Layout picker */}
@@ -1290,7 +1286,7 @@ function BuilderContent() {
                                         </div>
                                     )}
 
-                                    {/* Photo Filter — only shown when there are images */}
+                                    </div><div className="space-y-8 flex flex-col pt-4 md:pt-0 pl-1">
                                     {brand.images.length > 0 && (
                                         <div>
                                             <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>04</span>Photo Filter</label>
@@ -1432,8 +1428,9 @@ function BuilderContent() {
                                 </>
                             )}
 
+
                             {/* Download button - Single True Button */}
-                            <div className="md:col-span-2 mt-auto space-y-2">
+                            <div className="mt-auto pt-6 space-y-2">
                                 <button
                                     onClick={brand ? handleDownload : () => router.push("/")}
                                     disabled={isDownloading}
@@ -1447,7 +1444,7 @@ function BuilderContent() {
                                     LinkedIn optimised · Free · Sharp 1584x396 PNG
                                 </p>
                             </div>
-                        </div>
+                        </div></div>
                     </div>
                 </div>
 
