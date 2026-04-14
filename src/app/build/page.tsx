@@ -1359,17 +1359,23 @@ function BuilderContent() {
                                                 .map(({ logo, i }) => (
                                                 <button key={i}
                                                     onClick={() => setLogoIndex(i)}
-                                                    className="w-16 h-16 rounded-xl border-2 flex items-center justify-center p-1.5 transition-all hover:shadow-md"
+                                                    className="w-16 h-16 rounded-xl border-2 flex items-center justify-center p-1.5 transition-all hover:shadow-md relative overflow-hidden"
                                                     style={{
                                                         borderColor: logoIndex === i ? primary : "#e5e7eb",
                                                         background: logoIndex === i 
                                                             ? `${primary}10` 
-                                                            : (logo.isLight ? "#333" : "#f9fafb"),
+                                                            : "#f9fafb",
                                                     }}>
+                                                    {/* Checkerboard hint for transparent logos if light index is true */}
+                                                    {logo.isLight && (
+                                                        <div className="absolute inset-0 opacity-[0.05] pointer-events-none" 
+                                                            style={{ backgroundImage: 'conic-gradient(#000 0 90deg, #fff 0 180deg, #000 0 270deg, #fff 0)', backgroundSize: '8px 8px' }} />
+                                                    )}
+                                                    
                                                     <img src={logo.url} alt={`Logo ${i + 1}`}
-                                                        className="w-full h-full object-contain"
+                                                        className="w-full h-full object-contain relative z-10"
                                                         style={{
-                                                            mixBlendMode: logo.hasBg ? "multiply" : undefined,
+                                                            mixBlendMode: (logo.hasBg && !logo.isLight) ? "multiply" : undefined,
                                                         }}
                                                         onError={e => (e.currentTarget.style.display = "none")} />
                                                 </button>
