@@ -350,7 +350,7 @@ function L0({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
 function L1({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, photoFilter = "none" }: LayoutProps) {
     // Use smartly-selected panel color that contrasts with the logo
     const rawTint = brand.colors[tintIndex % brand.colors.length] ?? primary;
-    const tintColor = pickBestPanelColor(null, logoIsLight, brand.colors, rawTint);
+    const tintColor = pickBestPanelColor(null, logoIsLight ?? true, brand.colors, rawTint);
     const brandFont = getFont(brand.fonts?.[0]);
     const font = textStyle === "elegant" ? "'Playfair Display', serif" : (textStyle === "mono" ? "'JetBrains Mono', monospace" : "'Inter', sans-serif");
 
@@ -520,7 +520,7 @@ function L4({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
 ═══════════════════════════════════════════════════════════════ */
 function L5({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, photoFilter = "none" }: LayoutProps) {
     const rawTint5 = brand.colors[tintIndex % brand.colors.length] ?? primary;
-    const tintColor = pickBestPanelColor(null, logoIsLight, brand.colors, rawTint5);
+    const tintColor = pickBestPanelColor(null, logoIsLight ?? true, brand.colors, rawTint5);
     const brandFont = getFont(brand.fonts?.[0]);
     const font = textStyle === "elegant" ? "'Playfair Display', serif" : (textStyle === "mono" ? "'JetBrains Mono', monospace" : "'Inter', sans-serif");
 
@@ -657,12 +657,12 @@ function BannerCanvas({
     if (tintIndex === -1) {
         if ((!logoIsLight && bgIsDark) || logoIsSimilar) {
             // Dark logo on dark bg OR similar color → pick best contrasting brand color
-            primary = pickBestPanelColor(activeLogoColor, logoIsLight, brand.colors, primary);
+            primary = pickBestPanelColor(activeLogoColor, logoIsLight ?? true, brand.colors, primary);
             secondary = brand.colors.find(c => c !== primary) ?? (isDark(primary) ? "#ffffff" : "#111111");
         } else if (logoIsLight && !bgIsDark && !logoHasBg) {
             // Light logo on light background → Force DARK background
             if (!activeLogo?.preferredBg) {
-                primary = pickBestPanelColor(activeLogoColor, logoIsLight, brand.colors, primary);
+                primary = pickBestPanelColor(activeLogoColor, logoIsLight ?? true, brand.colors, primary);
                 secondary = brand.colors.find(c => c !== primary) ?? (isDark(primary) ? "#ffffff" : "#111111");
             }
         }
