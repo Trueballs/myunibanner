@@ -276,6 +276,8 @@ type LayoutProps = {
     bgOpacity?: number; // 0 to 100
     photoFilter?: string;
     logoScale?: number;
+    textSize?: number;
+    textStyle?: "blocky" | "elegant" | "mono";
 };
 
 
@@ -284,15 +286,15 @@ type LayoutProps = {
 ═══════════════════════════════════════════════════════════════ */
 function BadgeTag({ text, color }: { text?: string, color: string }) {
     if (!text) return null;
-    return <div style={{ color, border: `1px solid ${color}40`, background: `${color}10`, padding: "5px 12px", borderRadius: 4, fontSize: 9, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: 16, position: "relative", zIndex: 1 }}>{text}</div>;
+    return <div style={{ color, border: `1px solid ${color}40`, background: `${color}10`, padding: "5px 12px", borderRadius: 4, fontSize: 9 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900), textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: 16, position: "relative", zIndex: 1 }}>{text}</div>;
 }
 function EstDateTag({ text, color }: { text?: string, color: string }) {
     if (!text) return null;
-    return <div style={{ color, opacity: 0.5, fontSize: 11, fontWeight: 700, letterSpacing: "0.05em", marginTop: 12, position: "relative", zIndex: 1 }}>{text}</div>;
+    return <div style={{ color, opacity: 0.5, fontSize: 11 * textSize, fontWeight: 700, letterSpacing: "0.05em", marginTop: 12, position: "relative", zIndex: 1 }}>{text}</div>;
 }
 function StatusTagBadge({ text, bg, color }: { text?: string, bg: string, color: string }) {
     if (!text) return null;
-    return <div style={{ background: bg, color, padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 800, display: "inline-block", position: "relative", zIndex: 1 }}>{text}</div>;
+    return <div style={{ background: bg, color, padding: "4px 10px", borderRadius: 6, fontSize: 12 * textSize, fontWeight: 800, display: "inline-block", position: "relative", zIndex: 1 }}>{text}</div>;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -302,8 +304,9 @@ function StatusTagBadge({ text, bg, color }: { text?: string, bg: string, color:
    Logo sits large, centered in the left panel.
    Inspired by: Princeton / Dartmouth
 ═══════════════════════════════════════════════════════════════ */
-function L0({ logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headlineColor, photoFilter = "none" }: LayoutProps) {
-    const font = getFont(brand.fonts?.[0]);
+function L0({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, primary, img, headlineColor, photoFilter = "none" }: LayoutProps) {
+    const brandFont = getFont(brand.fonts?.[0]);
+    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
     const SPLIT_X = 620;
 
     return (
@@ -326,7 +329,7 @@ function L0({ logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, pri
                 
                 {text && (
                     <p style={{
-                        color: headlineColor, fontSize: 26, fontWeight: 900, lineHeight: 1.15,
+                        color: headlineColor, fontSize: 26 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900), lineHeight: 1.15,
                         maxWidth: 480, margin: 0, letterSpacing: "-0.02em", fontFamily: font
                     }}>
                         {text}
@@ -344,11 +347,12 @@ function L0({ logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, pri
    Text sits bottom-left (well inside safe zone, clear of avatar).
    Inspired by: UC Berkeley / Oxford
 ═══════════════════════════════════════════════════════════════ */
-function L1({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, photoFilter = "none" }: LayoutProps) {
+function L1({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, photoFilter = "none" }: LayoutProps) {
     // Use smartly-selected panel color that contrasts with the logo
     const rawTint = brand.colors[tintIndex % brand.colors.length] ?? primary;
     const tintColor = pickBestPanelColor(null, logoIsLight, brand.colors, rawTint);
-    const font = getFont(brand.fonts?.[0]);
+    const brandFont = getFont(brand.fonts?.[0]);
+    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
 
     return (
         <div className="absolute inset-0 overflow-hidden bg-black">
@@ -369,7 +373,7 @@ function L1({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight
                     <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={tintColor} h={220} maxW={360} brandColors={brand.colors} scale={logoScale} />
                     {text && (
                         <p style={{
-                            color: headlineColor, fontSize: 26, fontWeight: 900,
+                            color: headlineColor, fontSize: 26 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900),
                             lineHeight: 1.15, letterSpacing: "-0.02em",
                             textAlign: "center", maxWidth: 400, margin: 0, fontFamily: font
                         }}>
@@ -389,8 +393,9 @@ function L1({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight
    Text anchored to the bottom of the panel.
    Inspired by: Edinburgh / Loughborough
 ═══════════════════════════════════════════════════════════════ */
-function L2({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
-    const font = getFont(brand.fonts?.[0]);
+function L2({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
+    const brandFont = getFont(brand.fonts?.[0]);
+    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
     const PANEL_W = 580;
 
     return (
@@ -408,7 +413,7 @@ function L2({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight
                 
                 {text && (
                     <p style={{
-                        color: headlineColor, fontSize: 26, fontWeight: 900, lineHeight: 1.15,
+                        color: headlineColor, fontSize: 26 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900), lineHeight: 1.15,
                         textAlign: "center", maxWidth: 440, margin: 0, letterSpacing: "-0.02em", fontFamily: font
                     }}>
                         {text}
@@ -427,8 +432,9 @@ function L2({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight
    Clean, formal, great for institutions without many photos.
    Inspired by: LSE / Imperial
 ═══════════════════════════════════════════════════════════════ */
-function L3({ logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, primary, headlineColor }: LayoutProps) {
-    const font = getFont(brand.fonts?.[0]);
+function L3({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, primary, headlineColor }: LayoutProps) {
+    const brandFont = getFont(brand.fonts?.[0]);
+    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
 
     return (
         <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center" style={{ background: primary }}>
@@ -436,7 +442,7 @@ function L3({ logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, pri
                 <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={520} brandColors={brand.colors} scale={logoScale} />
                 {text && (
                     <p style={{
-                        color: headlineColor, fontSize: 28, fontWeight: 900, lineHeight: 1.15,
+                        color: headlineColor, fontSize: 28 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900), lineHeight: 1.15,
                         width: "100%", margin: 0, letterSpacing: "-0.02em", fontFamily: font
                     }}>
                         {text}
@@ -452,8 +458,9 @@ function L3({ logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, pri
    Two frosted glass panes floating over a vibrant, completely
    full-bleed campus image. Premium, polished software feel.
 ═══════════════════════════════════════════════════════════════ */
-function L4({ logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', img, bgStyle = 'none', tintIndex = 0, photoFilter = "none" }: LayoutProps) {
-    const font = getFont(brand.fonts?.[0]);
+function L4({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, logoPos = 'bottom', img, bgStyle = 'none', tintIndex = 0, photoFilter = "none" }: LayoutProps) {
+    const brandFont = getFont(brand.fonts?.[0]);
+    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
     const tintColor = brand.colors[tintIndex % brand.colors.length] ?? brand.colors[0];
     
     return (
@@ -486,10 +493,11 @@ function L4({ logoScale = 1.0, brand, text, logoSrc, logoHasBg, logoIsLight, log
    Massive watermark in the middle, and a sharp solid panel splitting the 
    right side cleanly. Very modern.
 ═══════════════════════════════════════════════════════════════ */
-function L5({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, photoFilter = "none" }: LayoutProps) {
+function L5({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, bgOpacity = 100, tintIndex = 0, photoFilter = "none" }: LayoutProps) {
     const rawTint5 = brand.colors[tintIndex % brand.colors.length] ?? primary;
     const tintColor = pickBestPanelColor(null, logoIsLight, brand.colors, rawTint5);
-    const font = getFont(brand.fonts?.[0]);
+    const brandFont = getFont(brand.fonts?.[0]);
+    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
 
     return (
         <div className="absolute inset-0 overflow-hidden flex bg-white">
@@ -501,7 +509,7 @@ function L5({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight
                 <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={220} maxW={360} brandColors={brand.colors} scale={logoScale} />
                 {text && (
                     <p style={{
-                        color: headlineColor, fontSize: 24, fontWeight: 900, lineHeight: 1.15,
+                        color: headlineColor, fontSize: 24 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900), lineHeight: 1.15,
                         maxWidth: 400, margin: 0, fontFamily: font, letterSpacing: "-0.02em"
                     }}>{text}</p>
                 )}
@@ -515,8 +523,9 @@ function L5({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight
    Full diagonal split with bold gradient on right, photo on left.
    Inspired by: Modern tech branding
 ═══════════════════════════════════════════════════════════════ */
-function L6({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
-    const font = getFont(brand.fonts?.[0]);
+function L6({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
+    const brandFont = getFont(brand.fonts?.[0]);
+    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
 
     return (
         <div className="absolute inset-0 overflow-hidden bg-white">
@@ -531,7 +540,7 @@ function L6({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight
 
                 {text && (
                     <p style={{
-                        color: headlineColor, fontSize: 26, fontWeight: 900,
+                        color: headlineColor, fontSize: 26 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900),
                         lineHeight: 1.15, maxWidth: 440, margin: 0, fontFamily: font,
                         letterSpacing: "-0.02em", textAlign: "center"
                     }}>{text}</p>
@@ -546,8 +555,9 @@ function L6({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight
    Full-bleed campus photo with a massive, centered logo.
    Simplicity and scale for maximum impact.
 ═══════════════════════════════════════════════════════════════ */
-function L7({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
-    const font = getFont(brand.fonts?.[0]);
+function L7({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight, primary, headlineColor, photoFilter = "none" }: LayoutProps) {
+    const brandFont = getFont(brand.fonts?.[0]);
+    const font = textStyle === "elegant" ? "Georgia, serif" : (textStyle === "mono" ? "ui-monospace, monospace" : brandFont);
     
     return (
         <div className="absolute inset-0 overflow-hidden flex items-center justify-center bg-black">
@@ -571,7 +581,7 @@ function L7({ logoScale = 1.0, brand, text, img, logoSrc, logoHasBg, logoIsLight
 ═══════════════════════════════════════════════════════════════ */
 function BannerCanvas({
     brand, text, badge, estDate, statusTag, layout, imgIndex, logoIndex,
-    logoPos = 'bottom', bgStyle = 'none', tintIndex = 0, bgOpacity = 100, photoFilter = "none", logoScale = 1.0, dataUrlCache = new Map()
+    logoPos = 'bottom', bgStyle = 'none', tintIndex = 0, bgOpacity = 100, photoFilter = "none", logoScale = 1.0, textSize = 1.0, textStyle = "blocky", dataUrlCache = new Map()
 }: {
     brand: BrandData; text: string; badge?: string; estDate?: string; statusTag?: string; layout: Layout; imgIndex: number; logoIndex: number;
     logoPos?: 'top' | 'bottom';
@@ -580,6 +590,8 @@ function BannerCanvas({
     bgOpacity?: number;
     photoFilter?: string;
     logoScale?: number;
+    textSize?: number;
+    textStyle?: "blocky" | "elegant" | "mono";
     dataUrlCache?: Map<string, string>;
 }) {
     // Use cached Base64 data URL when available (iOS Safari canvas taint fix)
@@ -641,7 +653,7 @@ function BannerCanvas({
         headlineColor = contrastText(primary);
     }
 
-    const p = { brand, text, badge, estDate, statusTag, img, logoSrc, logoHasBg, logoIsLight, primary, secondary, headlineColor, logoPos, bgStyle, tintIndex, bgOpacity, photoFilter, logoScale };
+    const p = { brand, text, badge, estDate, statusTag, img, logoSrc, logoHasBg, logoIsLight, primary, secondary, headlineColor, logoPos, bgStyle, tintIndex, bgOpacity, photoFilter, logoScale, textSize, textStyle };
 
     return (
         <div className="w-full h-full relative overflow-hidden bg-white">
@@ -775,6 +787,8 @@ function BuilderContent() {
     const [bgOpacity, setBgOpacity] = useState(100);
     const [photoFilter, setPhotoFilter] = useState("none");
     const [logoScale, setLogoScale] = useState(1.0);
+    const [textSize, setTextSize] = useState(1.0);
+    const [textStyle, setTextStyle] = useState<"blocky" | "elegant" | "mono">("blocky");
 
     const [scale, setScale] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -1082,6 +1096,8 @@ function BuilderContent() {
                                                 bgOpacity={bgOpacity}
                                                 photoFilter={photoFilter}
                                                 logoScale={logoScale}
+                                                textSize={textSize}
+                                                textStyle={textStyle}
                                                 dataUrlCache={dataUrlCache}
                                             />
                                         </div>
@@ -1109,6 +1125,8 @@ function BuilderContent() {
                                                     bgOpacity={bgOpacity}
                                                     photoFilter={photoFilter}
                                                     logoScale={logoScale}
+                                                    textSize={textSize}
+                                                    textStyle={textStyle}
                                                     dataUrlCache={dataUrlCache}
                                                 />
                                             </div>
@@ -1309,6 +1327,58 @@ function BuilderContent() {
                                             ))}
                                         </div>
                                     </div>
+{brand && (
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div>
+                                                <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">
+                                                    <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>08</span>
+                                                    Text Style
+                                                </label>
+                                                <div className="flex gap-1 bg-slate-100 p-1 rounded-xl">
+                                                    {[
+                                                        { id: 'blocky', icon: 'B' },
+                                                        { id: 'elegant', icon: 'E' },
+                                                        { id: 'mono', icon: 'M' }
+                                                    ].map(s => (
+                                                        <button key={s.id}
+                                                            onClick={() => setTextStyle(s.id as any)}
+                                                            className="flex-1 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all"
+                                                            style={{
+                                                                background: textStyle === s.id ? 'white' : 'transparent',
+                                                                color: textStyle === s.id ? primary : '#9ca3af',
+                                                                boxShadow: textStyle === s.id ? '0 2px 4px rgba(0,0,0,0.05)' : 'none'
+                                                            }}>
+                                                            {s.icon}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">
+                                                    <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>09</span>
+                                                    Text Size
+                                                </label>
+                                                <div className="flex gap-1 bg-slate-100 p-1 rounded-xl">
+                                                    {[
+                                                        { label: '-', val: 0.8 },
+                                                        { label: '=', val: 1.0 },
+                                                        { label: '+', val: 1.25 }
+                                                    ].map(s => (
+                                                        <button key={s.label}
+                                                            onClick={() => setTextSize(s.val)}
+                                                            className="flex-1 py-1.5 rounded-lg text-[10px] font-black transition-all"
+                                                            style={{
+                                                                background: textSize === s.val ? 'white' : 'transparent',
+                                                                color: textSize === s.val ? primary : '#9ca3af',
+                                                                boxShadow: textSize === s.val ? '0 2px 4px rgba(0,0,0,0.05)' : 'none'
+                                                            }}>
+                                                            {s.label}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                     {brand && (
                                         <div>
                                             <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">
