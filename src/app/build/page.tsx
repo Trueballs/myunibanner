@@ -1053,14 +1053,14 @@ function BuilderContent() {
             <Header showStartButton={false} showBackButton activeBrand={brand} />
 
             <main className="w-full xl:w-[1280px] flex flex-col shrink-0 relative px-4 md:px-8 xl:px-12 py-4 md:py-6">
-                <div className="max-w-screen-2xl mx-auto space-y-6 w-full mt-2 md:mt-4 mb-10 md:mb-12 xl:mb-16">
+                <div className="max-w-screen-2xl mx-auto space-y-4 w-full mt-2 md:mt-4 mb-10 md:mb-12 xl:mb-16">
 
                     {/* ── BANNER PREVIEW ──────────────────────────── */}
                     <section className="sticky top-0 xl:top-4 z-40 pt-4 -mt-4 bg-slate-50/80 backdrop-blur-sm">
 
 
                         {/* Live Preview Indicator Container */}
-                        <div className="flex items-center justify-end mb-3 mr-1">
+                        <div className="flex items-center justify-end mb-2 mr-1">
                             <div className="flex items-center gap-2 opacity-80">
                                 <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse shadow-[0_0_8px_rgba(37,99,235,0.6)]" />
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Live Preview</span>
@@ -1138,15 +1138,15 @@ function BuilderContent() {
                     </section>
 
                     {/* ── CONTROLS ────────────────────────────────── */}
-                    <div className="w-full bg-white rounded-2xl p-6 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col gap-8 md:gap-10">
+                    <div className="w-full bg-white rounded-2xl p-6 md:p-8 shadow-[0_15px_40px_rgba(0,0,0,0.03)] border border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4">
     {/* ── UNIFIED CONTROLS ── */}
-    <div className="space-y-6">
+    <div className="space-y-4">
         {/* Headline input */}
         <AnimatePresence>
             {brand && (() => {
                 const headlineDisabled = layout === 4 || layout === 7;
                 return (
-                    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
+                    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="md:col-span-2">
                         <label className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest mb-2 transition-colors ${headlineDisabled ? 'text-gray-300' : 'text-gray-400'}`}>
                             <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black"
                                 style={{ background: headlineDisabled ? '#d1d5db' : primary }}>01</span>
@@ -1157,8 +1157,8 @@ function BuilderContent() {
                                 </span>
                             )}
                         </label>
-                        <div className={`space-y-6 transition-opacity duration-200 ${headlineDisabled ? 'opacity-30 pointer-events-none select-none' : ''}`}>
-                            <div className="bg-slate-50 rounded-2xl px-6 py-4 border border-slate-100 relative overflow-hidden transition-all focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500/30">
+                        <div className={`space-y-4 transition-opacity duration-200 ${headlineDisabled ? 'opacity-30 pointer-events-none select-none' : ''}`}>
+                            <div className="bg-slate-50/50 rounded-xl px-4 py-3 border border-slate-100 relative overflow-hidden transition-all focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500/30">
                                 <div className="absolute left-0 top-0 bottom-0 w-1.5" style={{ background: headlineDisabled ? '#e5e7eb' : '#2563EB' }} />
                                 <div className="flex items-center justify-between mb-2">
                                     <div className="flex items-center gap-2">
@@ -1180,7 +1180,7 @@ function BuilderContent() {
                                     rows={1}
                                     disabled={headlineDisabled}
                                     placeholder={headlineDisabled ? "Not available in this layout" : "Type your personal headline..."}
-                                    className="w-full bg-transparent text-slate-900 text-base font-medium focus:outline-none resize-none placeholder:text-slate-300 min-h-[24px] leading-tight"
+                                    className="w-full bg-transparent text-slate-900 text-base font-medium focus:outline-none resize-none placeholder:text-slate-300 min-h-[20px] leading-tight"
                                 />
                             </div>
                         </div>
@@ -1195,8 +1195,8 @@ function BuilderContent() {
                                 <>
                                     {/* Layout picker */}
                                     <div>
-                                        <div className="flex items-center justify-between mb-3">
-                                            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>02</span>Layout Style</label>
+                                        <div className="flex items-center justify-between mb-2">
+                                            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>02</span>Layout Style</label>
                                             <span className="text-xs text-gray-400">{THUMB_CONFIGS[layout].label}</span>
                                         </div>
                                         <div className="flex items-center gap-2">
@@ -1229,7 +1229,7 @@ function BuilderContent() {
                                         <div className="space-y-4">
                                             {/* Logo Position Toggle */}
                                             <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 animate-in fade-in slide-in-from-top-2">
-                                                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Logo Alignment</p>
+                                                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Logo Alignment</p>
                                                 <div className="flex gap-2">
                                                     {(['top', 'bottom'] as const).map(pos => (
                                                         <button key={pos}
@@ -1251,14 +1251,14 @@ function BuilderContent() {
                                     {/* Photo picker */}
                                     {brand.images.length > 0 && (
                                         <div>
-                                            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>03</span>Photo <span className="normal-case font-medium tracking-normal text-gray-300">· hover to preview</span></label>
+                                            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>03</span>Photo <span className="normal-case font-medium tracking-normal text-gray-300">· hover to preview</span></label>
                                             {/* Thumbnail strip */}
                                             <div className="flex gap-2 flex-wrap">
                                                 {brand.images.map((img, i) => (
                                                     <div
                                                         key={i}
                                                         className="relative group"
-                                                        style={{ width: 56, height: 36 }}
+                                                        style={{ width: 44, height: 28 }}
                                                     >
                                                         {/* Large hover preview */}
                                                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 pointer-events-none
@@ -1293,7 +1293,7 @@ function BuilderContent() {
                                     {/* Photo Filter — only shown when there are images */}
                                     {brand.images.length > 0 && (
                                         <div>
-                                            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>04</span>Photo Filter</label>
+                                            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>04</span>Photo Filter</label>
                                             <div className="flex gap-2">
                                                 {([
                                                     { label: 'Original',  value: 'none' },
@@ -1336,7 +1336,7 @@ function BuilderContent() {
                                         const accentDisabled = layout === 4 || layout === 7;
                                         return (
                                             <div className={accentDisabled ? 'opacity-30 pointer-events-none grayscale' : ''}>
-                                                <label className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest mb-3 transition-colors ${accentDisabled ? 'text-gray-300' : 'text-gray-400'}`}>
+                                                <label className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest mb-2 transition-colors ${accentDisabled ? 'text-gray-300' : 'text-gray-400'}`}>
                                                     <span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black"
                                                         style={{ background: accentDisabled ? '#d1d5db' : primary }}>05</span>
                                                     Accent Color
@@ -1377,19 +1377,19 @@ function BuilderContent() {
 
                                     {/* Logo controls */}
                                     <div>
-                                        <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>06</span>Logo Variant</label>
+                                        <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>06</span>Logo Variant</label>
                                         <div className="flex gap-2 flex-wrap">
                                             {/* No Logo Option */}
                                             <button
                                                 onClick={() => setLogoIndex(-1)}
-                                                className="w-16 h-16 rounded-xl border-2 flex flex-col items-center justify-center p-1.5 transition-all hover:shadow-md"
+                                                className="w-14 h-14 rounded-lg border-2 flex flex-col items-center justify-center p-1.5 transition-all hover:shadow-md"
                                                 style={{
                                                     borderColor: logoIndex === -1 ? primary : "#e5e7eb",
                                                     background: logoIndex === -1 ? `${primary}10` : "#f9fafb",
                                                     color: logoIndex === -1 ? primary : "#9ca3af"
                                                 }}
                                             >
-                                                <Ban className="w-5 h-5 mb-0.5" />
+                                                <Ban className="w-4 h-4 mb-0.5" />
                                                 <span className="text-[8px] font-black uppercase tracking-widest">None</span>
                                             </button>
 
@@ -1405,7 +1405,7 @@ function BuilderContent() {
                                                 .map(({ logo, i }) => (
                                                 <button key={i}
                                                     onClick={() => setLogoIndex(i)}
-                                                    className="w-16 h-16 rounded-xl border-2 flex items-center justify-center p-1.5 transition-all hover:shadow-md relative overflow-hidden"
+                                                    className="w-14 h-14 rounded-lg border-2 flex items-center justify-center p-1.5 transition-all hover:shadow-md relative overflow-hidden"
                                                     style={{
                                                         borderColor: logoIndex === i ? primary : "#e5e7eb",
                                                         background: logoIndex === i 
@@ -1433,7 +1433,7 @@ function BuilderContent() {
                             )}
 
                             {/* Download button - Single True Button */}
-                            <div className="mt-auto space-y-2">
+                            <div className="md:col-span-2 mt-auto space-y-2">
                                 <button
                                     onClick={brand ? handleDownload : () => router.push("/")}
                                     disabled={isDownloading}
@@ -1490,10 +1490,10 @@ function BuilderContent() {
                             </div>
 
                             {/* Body */}
-                            <div className="p-6 bg-gray-50 overflow-y-auto space-y-6 flex-1">
+                            <div className="p-6 bg-gray-50 overflow-y-auto space-y-4 flex-1">
                                 <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">How to update your LinkedIn</h4>
 
-                                <div className="space-y-6">
+                                <div className="space-y-4">
                                     <div className="flex gap-4">
                                         <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black flex-shrink-0 text-sm">1</div>
                                         <div>
@@ -1506,7 +1506,7 @@ function BuilderContent() {
                                         <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black flex-shrink-0 text-sm">2</div>
                                         <div className="flex-1">
                                             <p className="font-bold text-[#111827]">Click the pencil icon</p>
-                                            <p className="text-sm text-gray-500 mt-0.5 mb-3">In the top right corner of your current banner area, click the edit icon.</p>
+                                            <p className="text-sm text-gray-500 mt-0.5 mb-2">In the top right corner of your current banner area, click the edit icon.</p>
 
                                             {/* Visual mockup of LinkedIn banner area */}
                                             <div className="bg-white rounded-xl border border-gray-200 shadow-sm relative overflow-hidden h-28 select-none">
