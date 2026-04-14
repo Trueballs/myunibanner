@@ -172,12 +172,18 @@ function getImageFiles(basePath: string, folder: string, campus?: string | null)
     const rootDir = join(basePath, folder, 'Bilder_HighRez');
     if (!existsSync(rootDir)) return [];
     
-    let targetDir = rootDir;
-    if (campus) {
-        const campusPath = join(rootDir, campus);
-        if (campusPath.startsWith(rootDir) && existsSync(campusPath)) {
-            targetDir = campusPath;
-        }
+    let targetDir = campus 
+        ? join(rootDir, campus)
+        : rootDir;
+
+    // Handle character normalization (NFC vs NFD) for folders like "Ås" or "Bodø"
+    if (!existsSync(targetDir)) {
+        const nfc = targetDir.normalize('NFC');
+        const nfd = targetDir.normalize('NFD');
+        if (existsSync(nfc)) targetDir = nfc;
+        else if (existsSync(nfd)) targetDir = nfd;
+        else if (!campus) return []; // Root doesn't exist even with norm
+        else targetDir = rootDir; // Fallback to root if campus folder literally not found
     }
     
     function walk(d: string): string[] {

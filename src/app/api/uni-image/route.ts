@@ -13,7 +13,15 @@ export async function GET(request: Request) {
     if (!folder || !file) return new Response('Missing params', { status: 400 });
 
     const basePath = join(process.cwd(), 'public', root);
-    const filePath = join(basePath, folder, 'Bilder_HighRez', file);
+    let filePath = join(basePath, folder, 'Bilder_HighRez', file);
+    
+    // Support both NFC and NFD normalizations (for special characters like Å, Ø, Æ)
+    if (!existsSync(filePath)) {
+        const nfc = filePath.normalize('NFC');
+        const nfd = filePath.normalize('NFD');
+        if (existsSync(nfc)) filePath = nfc;
+        else if (existsSync(nfd)) filePath = nfd;
+    }
     
     // SIKKERHETSFIKS: Sikre at path-en faktsik starter med basePath for å forhindre Directory Traversal (LFI)
     if (!filePath.startsWith(basePath)) {
