@@ -286,15 +286,15 @@ type LayoutProps = {
 ═══════════════════════════════════════════════════════════════ */
 function BadgeTag({ text, color }: { text?: string, color: string }) {
     if (!text) return null;
-    return <div style={{ color, border: `1px solid ${color}40`, background: `${color}10`, padding: "5px 12px", borderRadius: 4, fontSize: 9 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900), textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: 16, position: "relative", zIndex: 1 }}>{text}</div>;
+    return <div style={{ color, border: `1px solid ${color}40`, background: `${color}10`, padding: "5px 12px", borderRadius: 4, fontSize: 9, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: 16, position: "relative", zIndex: 1 }}>{text}</div>;
 }
 function EstDateTag({ text, color }: { text?: string, color: string }) {
     if (!text) return null;
-    return <div style={{ color, opacity: 0.5, fontSize: 11 * textSize, fontWeight: 700, letterSpacing: "0.05em", marginTop: 12, position: "relative", zIndex: 1 }}>{text}</div>;
+    return <div style={{ color, opacity: 0.5, fontSize: 11, fontWeight: 700, letterSpacing: "0.05em", marginTop: 12, position: "relative", zIndex: 1 }}>{text}</div>;
 }
 function StatusTagBadge({ text, bg, color }: { text?: string, bg: string, color: string }) {
     if (!text) return null;
-    return <div style={{ background: bg, color, padding: "4px 10px", borderRadius: 6, fontSize: 12 * textSize, fontWeight: 800, display: "inline-block", position: "relative", zIndex: 1 }}>{text}</div>;
+    return <div style={{ background: bg, color, padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 800, display: "inline-block", position: "relative", zIndex: 1 }}>{text}</div>;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -329,7 +329,7 @@ function L0({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
                 
                 {text && (
                     <p style={{
-                        color: headlineColor, fontSize: 26 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900), lineHeight: 1.15,
+                        color: headlineColor, fontSize: 26 * textSize, fontWeight: 900, lineHeight: 1.15,
                         maxWidth: 480, margin: 0, letterSpacing: "-0.02em", fontFamily: font
                     }}>
                         {text}
@@ -373,7 +373,7 @@ function L1({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
                     <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={tintColor} h={180} maxW={400} brandColors={brand.colors} scale={logoScale} />
                     {text && (
                         <p style={{
-                            color: headlineColor, fontSize: 26 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900),
+                            color: headlineColor, fontSize: 26 * textSize, fontWeight: 900,
                             lineHeight: 1.15, letterSpacing: "-0.02em",
                             textAlign: "center", maxWidth: 400, margin: 0, fontFamily: font
                         }}>
@@ -413,7 +413,7 @@ function L2({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
                 
                 {text && (
                     <p style={{
-                        color: headlineColor, fontSize: 26 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900), lineHeight: 1.15,
+                        color: headlineColor, fontSize: 26 * textSize, fontWeight: 900, lineHeight: 1.15,
                         textAlign: "center", maxWidth: 440, margin: 0, letterSpacing: "-0.02em", fontFamily: font
                     }}>
                         {text}
@@ -442,7 +442,7 @@ function L3({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
                 <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={180} maxW={400} brandColors={brand.colors} scale={logoScale} />
                 {text && (
                     <p style={{
-                        color: headlineColor, fontSize: 28 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900), lineHeight: 1.15,
+                        color: headlineColor, fontSize: 28 * textSize, fontWeight: 900, lineHeight: 1.15,
                         width: "100%", margin: 0, letterSpacing: "-0.02em", fontFamily: font
                     }}>
                         {text}
@@ -496,7 +496,7 @@ function L4({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
                         <p style={{
                             color: 'white', 
                             fontSize: 32 * textSize, 
-                            fontWeight: (textStyle === "elegant" ? 600 : 900),
+                            fontWeight: 900,
                             lineHeight: 1.1, 
                             letterSpacing: "-0.03em", 
                             margin: 0, 
@@ -534,7 +534,7 @@ function L5({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
                 <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={primary} h={180} maxW={400} brandColors={brand.colors} scale={logoScale} />
                 {text && (
                     <p style={{
-                        color: headlineColor, fontSize: 24 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900), lineHeight: 1.15,
+                        color: headlineColor, fontSize: 24 * textSize, fontWeight: 900, lineHeight: 1.15,
                         maxWidth: 400, margin: 0, fontFamily: font, letterSpacing: "-0.02em"
                     }}>{text}</p>
                 )}
@@ -565,7 +565,7 @@ function L6({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
 
                 {text && (
                     <p style={{
-                        color: headlineColor, fontSize: 26 * textSize, fontWeight: (textStyle === "elegant" ? 600 : 900),
+                        color: headlineColor, fontSize: 26 * textSize, fontWeight: 900,
                         lineHeight: 1.15, maxWidth: 440, margin: 0, fontFamily: font,
                         letterSpacing: "-0.02em", textAlign: "center"
                     }}>{text}</p>
@@ -1289,7 +1289,7 @@ function BuilderContent() {
                                                             outline: layout === l ? `3px solid #2563EB` : "0px solid transparent",
                                                             outlineOffset: 3,
                                                         }}>
-                                                        {THUMB_CONFIGS[l].preview(primary, accent)}
+                                                        {THUMB_CONFIGS[l].preview(primary, brand.colors[1] || primary)}
                                                     </button>
                                                 ))}
                                             </div>
