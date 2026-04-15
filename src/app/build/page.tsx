@@ -997,6 +997,8 @@ function BuilderContent() {
 
             const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
+            let blob: Blob | null = null;
+
             if (isSafari) {
                 // ── SERVER-SIDE RENDER (Safari/iOS Fix) ───────────────────────
                 const activeLogo = brand.logos.length > 0
