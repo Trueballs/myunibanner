@@ -272,7 +272,7 @@ type LayoutProps = {
     primary: string;
     secondary: string;
     headlineColor: string;
-    logoPos?: 'top' | 'bottom';
+    logoPos?: 'top' | 'bottom' | 'center';
     bgStyle?: 'none' | 'brand';
     tintIndex?: number;
     bgOpacity?: number; // 0 to 100
@@ -474,10 +474,12 @@ function L4({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
                 </div>
             )}
             
-            <div className={`absolute z-20 flex flex-row-reverse gap-8 ${logoPos === "top" ? "items-start" : "items-end"}`}
+            <div className={`absolute z-20 flex flex-row-reverse gap-8 ${logoPos === "top" ? "items-start" : (logoPos === "center" ? "items-center" : "items-end")}`}
                 style={{ 
                     right: 40,
-                    [logoPos === 'top' ? 'top' : 'bottom']: 40,
+                    top: logoPos === 'center' ? '50%' : (logoPos === 'top' ? 40 : 'auto'),
+                    bottom: logoPos === 'bottom' ? 40 : 'auto',
+                    transform: logoPos === 'center' ? 'translateY(-50%)' : 'none'
                 }}>
                 {logoSrc && (
                     <SmartLogo 
@@ -485,11 +487,11 @@ function L4({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
                         hasBg={logoHasBg} 
                         isLight={logoIsLight} 
                         panelColor="#000000" 
-                        h={150} 
+                        h={logoPos === 'center' ? 120 : 150} 
                         maxW={400} 
                         brandColors={brand.colors} 
                         scale={logoScale} 
-                        align={logoPos === "top" ? "flex-start" : "flex-end"} 
+                        align={logoPos === "top" ? "flex-start" : (logoPos === "center" ? "center" : "flex-end")} 
                     /> 
                 )}
                 
@@ -497,7 +499,7 @@ function L4({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
                     <div >
                         <p style={{
                             color: 'white', 
-                            fontSize: 32 * textSize, 
+                            fontSize: (logoPos === 'center' ? 38 : 32) * textSize, 
                             fontWeight: 900,
                             lineHeight: 1.1, 
                             letterSpacing: "-0.03em", 
@@ -611,7 +613,7 @@ function BannerCanvas({
     logoPos = 'bottom', bgStyle = 'none', tintIndex = 0, bgOpacity = 100, photoFilter = "none", logoScale = 1.0, textSize = 1.0, textStyle = "blocky", dataUrlCache = new Map()
 }: {
     brand: BrandData; text: string; badge?: string; estDate?: string; statusTag?: string; layout: Layout; imgIndex: number; logoIndex: number;
-    logoPos?: 'top' | 'bottom';
+    logoPos?: 'top' | 'bottom' | 'center';
     bgStyle?: 'none' | 'brand';
     tintIndex?: number;
     bgOpacity?: number;
@@ -808,7 +810,7 @@ function BuilderContent() {
     const [layout, setLayout] = useState<Layout>(0);
     const [imgIndex, setImgIndex] = useState(0);
     const [logoIndex, setLogoIndex] = useState(0);
-    const [logoPos, setLogoPos] = useState<'top' | 'bottom'>('bottom');
+    const [logoPos, setLogoPos] = useState<'top' | 'bottom' | 'center'>('bottom');
     const [bgStyle, setBgStyle] = useState<'none' | 'brand'>('none');
     const [tintIndex, setTintIndex] = useState(-1);
     const [bgOpacity, setBgOpacity] = useState(100);
@@ -1307,16 +1309,16 @@ function BuilderContent() {
                                             <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 animate-in fade-in slide-in-from-top-2">
                                                 <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Logo Alignment</p>
                                                 <div className="flex gap-2">
-                                                    {(['top', 'bottom'] as const).map(pos => (
+                                                    {(['top', 'center', 'bottom'] as const).map(pos => (
                                                         <button key={pos}
                                                             onClick={() => setLogoPos(pos)}
-                                                            className="flex-1 py-2 rounded-full border-2 text-xs font-bold capitalize transition-all"
+                                                            className="flex-1 py-1.5 rounded-full border-2 text-[10px] font-bold capitalize transition-all"
                                                             style={{
                                                                 borderColor: logoPos === pos ? primary : "#e5e7eb",
                                                                 background: logoPos === pos ? `${primary}10` : "white",
                                                                 color: logoPos === pos ? primary : "#6b7280"
                                                             }}>
-                                                            {pos} Corner
+                                                            {pos === 'top' ? 'Top Corner' : (pos === 'center' ? 'Center Point' : 'Bottom Corner')}
                                                         </button>
                                                     ))}
                                                 </div>
