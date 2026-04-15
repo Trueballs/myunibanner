@@ -487,7 +487,7 @@ function L4({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
                         hasBg={logoHasBg} 
                         isLight={logoIsLight} 
                         panelColor="#000000" 
-                        h={logoPos === 'center' ? 120 : 150} 
+                        h={150} 
                         maxW={400} 
                         brandColors={brand.colors} 
                         scale={logoScale} 
@@ -499,7 +499,7 @@ function L4({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
                     <div >
                         <p style={{
                             color: 'white', 
-                            fontSize: (logoPos === 'center' ? 38 : 32) * textSize, 
+                            fontSize: 32 * textSize, 
                             fontWeight: 900,
                             lineHeight: 1.1, 
                             letterSpacing: "-0.03em", 
