@@ -45,7 +45,7 @@ export default function Header({ showStartButton = false, showBackButton = false
 
 
   return (
-    <header className="w-full z-[100] sticky top-0 bg-white/70 backdrop-blur-md border-b-[1px] border-slate-900/15 transition-all">
+    <header className="w-full z-[100] sticky top-0 backdrop-blur-md border-b-[1px] border-slate-900/15 transition-all" style={{ backgroundColor: 'rgba(248, 250, 252, 0.85)' }}>
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
         {/* LEFT: Logo */}
         <div className="flex items-center justify-start shrink-0">

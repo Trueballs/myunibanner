@@ -66,7 +66,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full bg-white/70 backdrop-blur-md py-6 md:py-12 border-t border-slate-200 mt-0">
+    <footer className="w-full backdrop-blur-md py-6 md:py-12 border-t border-slate-200 mt-0" style={{ backgroundColor: 'rgba(248, 250, 252, 0.85)' }}>
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-16 text-center md:text-left">
         <div className="text-slate-500 font-medium text-sm md:text-base">
           Created by <a href="https://oscarwoldskaarderud.dev" target="_blank" rel="noopener noreferrer" className="text-slate-900 font-bold hover:text-blue-600 transition-all no-underline">Oscar</a> (oscar.w.skaarderud@gmail.com)
