@@ -66,6 +66,7 @@ export async function POST(req: NextRequest) {
             text?: string;
             logoIsLight?: boolean;
             photoFilter?: string;
+            logoPos?: 'top' | 'bottom' | 'center';
         };
 
         const primary = hexToRgb(primaryHex);
@@ -186,8 +187,11 @@ export async function POST(req: NextRequest) {
                     logoLeft = PANEL_X + Math.floor((PANEL_W - lw) / 2) + (layout === 2 ? 30 : layout === 6 ? 60 : 0);
                     logoTop = Math.floor((H - lh) / 2) - textOffset;
                 } else if (layout === 4) {
+                    const lPos = body.logoPos || 'bottom';
                     logoLeft = W - lw - 40;
-                    logoTop = H - lh - 30;
+                    if (lPos === 'top') logoTop = 40;
+                    else if (lPos === 'center') logoTop = Math.floor((H - lh) / 2);
+                    else logoTop = H - lh - 40; // bottom
                 } else {
                     // Centered layouts (3, 7)
                     logoLeft = Math.floor((W - lw) / 2);
@@ -228,8 +232,20 @@ export async function POST(req: NextRequest) {
             
             let centerX: number, centerY: number;
             
-            centerX = panelW > 0 ? (panelX + (panelW / 2) + (layout === 2 ? 30 : layout === 6 ? 60 : 0)) : (W / 2);
-            centerY = [0, 1, 2, 5, 6].includes(layout) ? 320 : layout === 3 ? 340 : 310;
+            if (layout === 4) {
+                const lPos = body.logoPos || 'bottom';
+                const lBuf = composites.find(c => c.input && !c.input.toString().includes('svg'))?.input; // find the logo buffer
+                // For Layout 4, the text should be to the left of the logo
+                // Let's simplify: place it right-aligned with the logo area
+                const LOGO_W_EST = 180; // approximate
+                centerX = W - 40 - (LOGO_W_EST / 2) - 300; // Shifted left to clear logo
+                if (lPos === 'top') centerY = 40 + 60;
+                else if (lPos === 'center') centerY = Math.floor(H / 2);
+                else centerY = H - 40 - 60;
+            } else {
+                centerX = panelW > 0 ? (panelX + (panelW / 2) + (layout === 2 ? 30 : layout === 6 ? 60 : 0)) : (W / 2);
+                centerY = [0, 1, 2, 5, 6].includes(layout) ? 320 : layout === 3 ? 340 : 310;
+            }
             
             const hColor = body.headlineColor || (body.logoIsLight ? '#ffffff' : '#111111');
             console.log(`Rendering text: "${text}" with color: ${hColor} at center: ${centerX},${centerY}`);

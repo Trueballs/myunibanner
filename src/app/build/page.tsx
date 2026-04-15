@@ -995,13 +995,10 @@ function BuilderContent() {
         try {
             const filename = `linkedin-banner-${brand.name.toLowerCase().replace(/\s+/g, '-')}.png`;
 
-            // Detect iOS — WKWebView powers both Safari and Chrome on iPhone/iPad
-            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-            let blob: Blob | null = null;
-
-            if (isIOS) {
-                // ── SERVER-SIDE RENDER (iOS) ─────────────────────────────────
+            if (isSafari) {
+                // ── SERVER-SIDE RENDER (Safari/iOS Fix) ───────────────────────
                 const activeLogo = brand.logos.length > 0
                     ? brand.logos[logoIndex % brand.logos.length]
                     : null;
@@ -1030,7 +1027,7 @@ function BuilderContent() {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                        imageUrl, logoUrl, primaryHex, layout, text, headlineColor, logoIsLight, photoFilter
+                        imageUrl, logoUrl, primaryHex, layout, text, headlineColor, logoIsLight, photoFilter, logoPos
                     }),
                 });
 
