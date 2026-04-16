@@ -152,6 +152,12 @@ const PALETTES = {
     'Wrexham University': [['#003865', 'Wrexham Navy', 'main', 1], ['#e4002b', 'Red', 'secondary', 2], ['#ffffff', 'White', 'light', 3]],
     'University of York': [['#003865', 'York Navy', 'main', 1], ['#c8a327', 'York Gold', 'secondary', 2], ['#ffffff', 'White', 'light', 3]],
     'York St John University': [['#003865', 'YSJ Navy', 'main', 1], ['#c8a000', 'Gold', 'secondary', 2], ['#ffffff', 'White', 'light', 3]],
+    // Norwegian Universities
+    'UiB': [['#D03C3A', 'UiB Red', 'main', 1], ['#071726', 'UiB Black Pearl', 'dark', 2], ['#FFFFFF', 'White', 'light', 3]],
+    'Universitetet i Bergen': [['#D03C3A', 'UiB Red', 'main', 1], ['#071726', 'UiB Black Pearl', 'dark', 2], ['#FFFFFF', 'White', 'light', 3]],
+    'NTNU': [['#00509e', 'NTNU Blue', 'main', 1], ['#adb1b8', 'NTNU Silver', 'secondary', 2], ['#ffffff', 'White', 'light', 3]],
+    'UiO': [['#ff0000', 'UiO Red', 'main', 1], ['#000000', 'Black', 'dark', 2], ['#ffffff', 'White', 'light', 3]],
+    'Universitetet i Oslo': [['#ff0000', 'UiO Red', 'main', 1], ['#000000', 'Black', 'dark', 2], ['#ffffff', 'White', 'light', 3]],
 };
 
 const DEFAULT = [
@@ -165,33 +171,39 @@ async function exists(p) {
 }
 
 async function main() {
-    const dirs = await readdir(UNI_DIR);
+    const roots = ['uk-universities', 'norske-universiteter', 'universities'];
     let written = 0;
 
-    console.log(`\n🎨 Writing brand colour palettes for ${dirs.length} universities...\n`);
+    console.log(`\n🎨 Writing brand colour palettes...\n`);
 
-    for (const name of dirs) {
-        if (name.startsWith('.')) continue;
-        const colorsDir = join(UNI_DIR, name, 'colors');
-        await mkdir(colorsDir, { recursive: true });
+    for (const root of roots) {
+        const rootPath = join(__dirname, '..', 'public', root);
+        if (!(await exists(rootPath))) continue;
+        
+        const dirs = await readdir(rootPath);
+        for (const name of dirs) {
+            if (name.startsWith('.')) continue;
+            const colorsDir = join(rootPath, name, 'colors');
+            await mkdir(colorsDir, { recursive: true });
 
-        const colors = PALETTES[name] ?? DEFAULT;
+            const colors = PALETTES[name] ?? DEFAULT;
 
-        const palette = {
-            university: name,
-            colors: colors.map(([hex, colorName, role, weight]) => ({
-                hex,
-                name: colorName,
-                role,   // main | secondary | accent | dark | light | neutral
-                weight  // 1 = most prominent brand colour
-            }))
-        };
+            const palette = {
+                university: name,
+                colors: colors.map(([hex, colorName, role, weight]) => ({
+                    hex,
+                    name: colorName,
+                    role,   // main | secondary | accent | dark | light | neutral
+                    weight  // 1 = most prominent brand colour
+                }))
+            };
 
-        const outPath = join(colorsDir, 'palette.json');
-        await writeFile(outPath, JSON.stringify(palette, null, 2));
-        const flag = PALETTES[name] ? '✅' : '⚪';
-        console.log(`${flag} ${name}`);
-        written++;
+            const outPath = join(colorsDir, 'palette.json');
+            await writeFile(outPath, JSON.stringify(palette, null, 2));
+            const flag = PALETTES[name] ? '✅' : '⚪';
+            console.log(`${flag} [${root}] ${name}`);
+            written++;
+        }
     }
 
     console.log(`\n─────────────────────────────────────────`);

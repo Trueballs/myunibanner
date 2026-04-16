@@ -1,0 +1,23 @@
+{
+  "university": "UiO",
+  "colors": [
+    {
+      "hex": "#ff0000",
+      "name": "UiO Red",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#000000",
+      "name": "Black",
+      "role": "dark",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}

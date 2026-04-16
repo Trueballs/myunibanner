@@ -12,7 +12,8 @@ const DEFINITELY_NOT_LOGO = [
 const GOOD_LOGO_KEYWORDS = [
     'tekst', 'text', 'horizontal', 'fullname', 'fullcolour', 'full-colour',
     'full colour', 'manchester - logo', 'logo - tekst', 'imperial_logo - tekst',
-    'logo - tekst', 'logo-tekst',
+    'logo - tekst', 'logo-tekst', '2linjer', '2 lines', 'horisontal', 'eng-logo',
+    'uiblogo', '160-logo', 'positive', 'positiv', 'eng', 'gray', 'left',
 ];
 
 function scoreFile(filename: string): number {

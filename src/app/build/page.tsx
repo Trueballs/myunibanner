@@ -621,14 +621,15 @@ function BannerCanvas({
     logoScale?: number;
     textSize?: number;
     textStyle?: "blocky" | "elegant" | "mono";
+    customImage?: string | null;
     dataUrlCache?: Map<string, string>;
 }) {
     // Use cached Base64 data URL when available (iOS Safari canvas taint fix)
     const resolve = (url: string | undefined): string => url ? (dataUrlCache.get(url) ?? url) : '';
 
-    const img = brand.images.length > 0
+    const img = customImage || (brand.images.length > 0
         ? resolve(brand.images[imgIndex % brand.images.length])
-        : undefined;
+        : undefined);
 
     // Resolve active logo from logoIndex
     const noLogo = logoIndex === -1;
@@ -818,6 +819,7 @@ function BuilderContent() {
     const [logoScale, setLogoScale] = useState(1.0);
     const [textSize, setTextSize] = useState(1.0);
     const [textStyle, setTextStyle] = useState<"blocky" | "elegant" | "mono">("blocky");
+    const [customImage, setCustomImage] = useState<string | null>(null);
 
     const [scale, setScale] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -1126,6 +1128,7 @@ function BuilderContent() {
                                                 logoScale={logoScale}
                                                 textSize={textSize}
                                                 textStyle={textStyle}
+                                                customImage={customImage}
                                                 dataUrlCache={dataUrlCache}
                                             />
                                         </div>
@@ -1155,6 +1158,7 @@ function BuilderContent() {
                                                     logoScale={logoScale}
                                                     textSize={textSize}
                                                     textStyle={textStyle}
+                                                    customImage={customImage}
                                                     dataUrlCache={dataUrlCache}
                                                 />
                                             </div>
@@ -1326,21 +1330,49 @@ function BuilderContent() {
                                     )}
                                     {brand.images.length > 0 && (
                                         <div>
-                                            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2"><span className="w-5 h-5 rounded-full text-white text-[9px] flex items-center justify-center font-black" style={{ background: primary }}>03</span>Photo <span className="normal-case font-medium tracking-normal text-gray-300">· hover to preview</span></label>
-                                            <div className="flex gap-2 flex-wrap">
+                                            <div className="flex gap-2 flex-wrap items-center">
+                                                {/* Upload Button */}
+                                                <label className="w-11 h-7 rounded-lg border-2 border-dashed border-slate-300 flex items-center justify-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-all group active:scale-95">
+                                                    <input 
+                                                        type="file" 
+                                                        accept="image/*" 
+                                                        className="hidden" 
+                                                        onChange={(e) => {
+                                                            const file = e.target.files?.[0];
+                                                            if (file) {
+                                                                const reader = new FileReader();
+                                                                reader.onload = (event) => {
+                                                                    setCustomImage(event.target?.result as string);
+                                                                    setImgIndex(-1); // To indicate custom is active
+                                                                };
+                                                                reader.readAsDataURL(file);
+                                                            }
+                                                        }}
+                                                    />
+                                                    <Upload className="w-4 h-4 text-slate-400 group-hover:text-blue-500" />
+                                                </label>
+
                                                 {brand.images.map((img, i) => (
                                                     <div key={i} className="relative group" style={{ width: 44, height: 28 }}>
                                                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 ease-out scale-95 group-hover:scale-100 w-64 aspect-[4/1] rounded-xl overflow-hidden shadow-2xl border-2 border-white ring-1 ring-black/5">
                                                             <img src={img} alt="" className="w-full h-full object-cover" />
                                                         </div>
-                                                        <button onClick={() => setImgIndex(i)} className="w-full h-full rounded-lg overflow-hidden transition-all hover:scale-110 active:scale-95" style={{ outline: imgIndex === i ? `3px solid #2563EB` : '2px solid transparent', outlineOffset: 2 }}>
+                                                        <button 
+                                                            onClick={() => {
+                                                                setImgIndex(i);
+                                                                setCustomImage(null);
+                                                            }} 
+                                                            className="w-full h-full rounded-lg overflow-hidden transition-all hover:scale-110 active:scale-95" 
+                                                            style={{ outline: imgIndex === i ? `3px solid #2563EB` : '2px solid transparent', outlineOffset: 2 }}>
                                                             <img src={img} alt="" className="w-full h-full object-cover" />
                                                         </button>
                                                     </div>
                                                 ))}
                                             </div>
                                             {brand.images.length > 1 && (
-                                                <p className="text-xs text-gray-400 mt-2">Photo {(imgIndex % brand.images.length) + 1} of {brand.images.length} selected</p>
+                                                <p className="text-xs text-gray-400 mt-2">
+                                                    {customImage ? "Custom image uploaded" : `Photo ${(imgIndex % brand.images.length) + 1} of ${brand.images.length} selected`}
+                                                </p>
                                             )}
                                         </div>
                                     )}

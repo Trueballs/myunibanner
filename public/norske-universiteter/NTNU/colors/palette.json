@@ -1,0 +1,23 @@
+{
+  "university": "NTNU",
+  "colors": [
+    {
+      "hex": "#00509e",
+      "name": "NTNU Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#adb1b8",
+      "name": "NTNU Silver",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 3
+    }
+  ]
+}
