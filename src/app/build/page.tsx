@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback, Suspense } from "react";
-import { Download, RefreshCw, ChevronLeft, ChevronRight, X, Shuffle, CheckCircle, Upload, ChevronDown, Ban } from "lucide-react";
+import { Download, RefreshCw, ChevronLeft, ChevronRight, X, Shuffle, CheckCircle, Upload, ChevronDown, Ban, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toBlob, toPng } from "html-to-image";
 
