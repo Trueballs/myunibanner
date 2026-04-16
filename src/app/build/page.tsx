@@ -1352,6 +1352,25 @@ function BuilderContent() {
                                                     <Upload className="w-4 h-4 text-slate-400 group-hover:text-blue-500" />
                                                 </label>
 
+                                                {/* Custom Image Preview */}
+                                                {customImage && (
+                                                    <div className="relative group" style={{ width: 44, height: 28 }}>
+                                                        <button 
+                                                            onClick={() => {
+                                                                setImgIndex(-1);
+                                                            }} 
+                                                            className="w-full h-full rounded-lg overflow-hidden transition-all hover:scale-110 active:scale-95 relative" 
+                                                            style={{ outline: imgIndex === -1 ? `3px solid #2563EB` : '2px solid transparent', outlineOffset: 2 }}>
+                                                            <img src={customImage} alt="Uploaded" className="w-full h-full object-cover" />
+                                                            {imgIndex === -1 && (
+                                                                <div className="absolute inset-0 bg-blue-600/10 flex items-center justify-center">
+                                                                    <Check className="w-3 h-3 text-blue-600 drop-shadow-sm font-bold" />
+                                                                </div>
+                                                            )}
+                                                        </button>
+                                                    </div>
+                                                )}
+
                                                 {brand.images.map((img, i) => (
                                                     <div key={i} className="relative group" style={{ width: 44, height: 28 }}>
                                                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-150 ease-out scale-95 group-hover:scale-100 w-64 aspect-[4/1] rounded-xl overflow-hidden shadow-2xl border-2 border-white ring-1 ring-black/5">
