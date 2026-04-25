@@ -64,7 +64,7 @@ export async function GET(request: Request) {
                         .resize({ width: 128, height: 128, fit: 'inside', withoutEnlargement: true })
                         .toBuffer();
 
-                    return new Response(trimmed, {
+                    return new Response(new Uint8Array(trimmed), {
                         headers: {
                             'Content-Type': contentType,
                             'Cache-Control': 'no-store',
