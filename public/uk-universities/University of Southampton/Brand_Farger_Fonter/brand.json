@@ -1,0 +1,9 @@
+{
+  "university": "University of Southampton",
+  "colors": [
+    {"hex": "#001726", "name": "Southampton Swamp", "role": "main", "weight": 1},
+    {"hex": "#C58F49", "name": "Tussock", "role": "secondary", "weight": 2},
+    {"hex": "#ffffff", "name": "White", "role": "light", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

@@ -1,0 +1,9 @@
+{
+  "university": "University of Leeds",
+  "colors": [
+    {"hex": "#C70000", "name": "Leeds Red", "role": "main", "weight": 1},
+    {"hex": "#910000", "name": "Dark Leeds Red", "role": "secondary", "weight": 2},
+    {"hex": "#ffffff", "name": "White", "role": "light", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

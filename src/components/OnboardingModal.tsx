@@ -369,7 +369,7 @@ export default function OnboardingModal() {
                           >
                             <div className="w-10 h-10 rounded-xl bg-white shadow-sm border border-slate-100 flex items-center justify-center overflow-hidden flex-shrink-0">
                               <img
-                                src={`/${(uni.root || "").split("/").map(encodeURIComponent).join("/")}/${encodeURIComponent(uni.folder || "")}/logo-search/${encodeURIComponent(uni.logoSearch || "")}`}
+                                src={`/api/logo?domain=${encodeURIComponent(uni.domain)}`}
                                 alt={uni.name}
                                 className="w-6 h-6 object-contain"
                                 onError={(e) => {
@@ -411,7 +411,7 @@ export default function OnboardingModal() {
                         >
                           <div className="w-10 h-10 rounded-xl bg-white shadow-sm border border-slate-100 flex items-center justify-center overflow-hidden flex-shrink-0">
                             <img
-                              src={`/${(uni.root || "").split("/").map(encodeURIComponent).join("/")}/${encodeURIComponent(uni.folder || "")}/logo-search/${encodeURIComponent(uni.logoSearch || "")}`}
+                              src={`/api/logo?domain=${encodeURIComponent(uni.domain)}`}
                               alt={uni.name}
                               className="w-6 h-6 object-contain"
                               onError={(e) => {

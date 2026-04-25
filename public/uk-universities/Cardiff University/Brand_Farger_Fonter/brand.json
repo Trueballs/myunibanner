@@ -1,0 +1,9 @@
+{
+  "university": "Cardiff University",
+  "colors": [
+    {"hex": "#D3374A", "name": "Cardiff Red", "role": "main", "weight": 1},
+    {"hex": "#22211F", "name": "Cardiff Black", "role": "secondary", "weight": 2},
+    {"hex": "#D3D3D2", "name": "Cardiff Grey", "role": "light", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

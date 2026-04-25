@@ -1,0 +1,9 @@
+{
+  "university": "University of Warwick",
+  "colors": [
+    {"hex": "#3C1053", "name": "Aubergine", "role": "main", "weight": 1},
+    {"hex": "#F1BE48", "name": "Bright Gold", "role": "secondary", "weight": 2},
+    {"hex": "#D69A2D", "name": "Dark Gold", "role": "accent", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

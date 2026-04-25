@@ -1,0 +1,9 @@
+{
+  "university": "Queen's University Belfast",
+  "colors": [
+    {"hex": "#002452", "name": "Queens Blue", "role": "main", "weight": 1},
+    {"hex": "#FABD0F", "name": "Queens Gold", "role": "secondary", "weight": 2},
+    {"hex": "#B90E31", "name": "Queens Red", "role": "accent", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

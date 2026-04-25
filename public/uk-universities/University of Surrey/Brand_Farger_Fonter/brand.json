@@ -1,0 +1,9 @@
+{
+  "university": "University of Surrey",
+  "colors": [
+    {"hex": "#991A3E", "name": "Surrey Burgundy", "role": "main", "weight": 1},
+    {"hex": "#004395", "name": "Surrey Blue", "role": "secondary", "weight": 2},
+    {"hex": "#ffffff", "name": "White", "role": "light", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

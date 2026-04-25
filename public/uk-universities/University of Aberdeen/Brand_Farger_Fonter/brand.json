@@ -1,0 +1,9 @@
+{
+  "university": "University of Aberdeen",
+  "colors": [
+    {"hex": "#004080", "name": "Aberdeen Blue", "role": "main", "weight": 1},
+    {"hex": "#C60000", "name": "Aberdeen Red", "role": "secondary", "weight": 2},
+    {"hex": "#FFB81C", "name": "Aberdeen Gold", "role": "accent", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

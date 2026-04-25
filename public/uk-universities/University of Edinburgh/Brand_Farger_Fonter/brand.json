@@ -1,0 +1,9 @@
+{
+  "university": "University of Edinburgh",
+  "colors": [
+    {"hex": "#D50032", "name": "Edinburgh Red", "role": "main", "weight": 1},
+    {"hex": "#041E42", "name": "Edinburgh Blue", "role": "secondary", "weight": 2},
+    {"hex": "#007288", "name": "Bright Blue", "role": "accent", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

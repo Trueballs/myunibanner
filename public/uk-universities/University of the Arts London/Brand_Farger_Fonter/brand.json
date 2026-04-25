@@ -1,0 +1,9 @@
+{
+  "university": "University of the Arts London",
+  "colors": [
+    {"hex": "#000000", "name": "Black", "role": "main", "weight": 1},
+    {"hex": "#E71657", "name": "UAL Pink", "role": "secondary", "weight": 2},
+    {"hex": "#FFD022", "name": "UAL Yellow", "role": "accent", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

@@ -1,0 +1,9 @@
+{
+  "university": "Royal Holloway, University of London",
+  "colors": [
+    {"hex": "#EB641E", "name": "Royal Holloway Orange", "role": "main", "weight": 1},
+    {"hex": "#202A30", "name": "Royal Holloway Grey", "role": "secondary", "weight": 2},
+    {"hex": "#006450", "name": "Sports Green", "role": "accent", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

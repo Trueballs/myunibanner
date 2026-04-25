@@ -1,0 +1,9 @@
+{
+  "university": "Newcastle University",
+  "colors": [
+    {"hex": "#003A65", "name": "Newcastle Rich Blue", "role": "main", "weight": 1},
+    {"hex": "#DA1A35", "name": "Newcastle Red", "role": "secondary", "weight": 2},
+    {"hex": "#00A39B", "name": "Newcastle Teal", "role": "accent", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

@@ -1,0 +1,43 @@
+{
+  "university": "University of Cambridge",
+  "colors": [
+    {
+      "hex": "#003264",
+      "name": "Cambridge Blue",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#6ebfca",
+      "name": "Light Blue",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#a3c1ad",
+      "name": "Pale Teal",
+      "role": "accent",
+      "weight": 3
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 4
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Inter",
+      "role": "primary",
+      "type": "sans-serif",
+      "weight": 1
+    },
+    {
+      "name": "Arial",
+      "role": "fallback",
+      "type": "sans-serif",
+      "weight": 2
+    }
+  ]
+}

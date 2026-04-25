@@ -1,0 +1,9 @@
+{
+  "university": "Heriot-Watt University",
+  "colors": [
+    {"hex": "#46505B", "name": "Heriot-Watt Blue", "role": "main", "weight": 1},
+    {"hex": "#FF1493", "name": "Hot Pink", "role": "secondary", "weight": 2},
+    {"hex": "#808080", "name": "Grey", "role": "light", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

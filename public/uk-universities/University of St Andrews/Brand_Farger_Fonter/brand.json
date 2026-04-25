@@ -1,0 +1,9 @@
+{
+  "university": "University of St Andrews",
+  "colors": [
+    {"hex": "#00539B", "name": "St Andrews Blue", "role": "main", "weight": 1},
+    {"hex": "#C60C46", "name": "St Andrews Burgundy", "role": "secondary", "weight": 2},
+    {"hex": "#00AEEF", "name": "Light Blue", "role": "accent", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

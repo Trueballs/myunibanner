@@ -1,0 +1,43 @@
+{
+  "university": "University of Birmingham",
+  "colors": [
+    {
+      "hex": "#002147",
+      "name": "Birmingham Navy",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#b5a165",
+      "name": "Birmingham Gold",
+      "role": "secondary",
+      "weight": 2
+    },
+    {
+      "hex": "#9c1a00",
+      "name": "Red",
+      "role": "accent",
+      "weight": 3
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 4
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Inter",
+      "role": "primary",
+      "type": "sans-serif",
+      "weight": 1
+    },
+    {
+      "name": "Arial",
+      "role": "fallback",
+      "type": "sans-serif",
+      "weight": 2
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "university": "University of Essex",
+  "colors": [
+    {"hex": "#622567", "name": "Essex Violet", "role": "main", "weight": 1},
+    {"hex": "#CD202C", "name": "Essex Scarlet", "role": "secondary", "weight": 2},
+    {"hex": "#000000", "name": "Black", "role": "dark", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

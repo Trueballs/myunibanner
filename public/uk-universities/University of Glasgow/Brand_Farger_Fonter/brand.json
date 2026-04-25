@@ -1,0 +1,9 @@
+{
+  "university": "University of Glasgow",
+  "colors": [
+    {"hex": "#003865", "name": "Glasgow Blue", "role": "main", "weight": 1},
+    {"hex": "#005C8A", "name": "Glasgow Cobalt", "role": "secondary", "weight": 2},
+    {"hex": "#B30C00", "name": "Glasgow Pillarbox", "role": "accent", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

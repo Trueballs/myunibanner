@@ -1,0 +1,9 @@
+{
+  "university": "Lancaster University",
+  "colors": [
+    {"hex": "#B5121B", "name": "Lancaster Red", "role": "main", "weight": 1},
+    {"hex": "#555656", "name": "Dark Grey", "role": "secondary", "weight": 2},
+    {"hex": "#38614A", "name": "Lancaster Green", "role": "accent", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

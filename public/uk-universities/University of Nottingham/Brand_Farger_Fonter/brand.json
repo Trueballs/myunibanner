@@ -1,0 +1,9 @@
+{
+  "university": "University of Nottingham",
+  "colors": [
+    {"hex": "#405162", "name": "Nottingham Blue", "role": "main", "weight": 1},
+    {"hex": "#B91C2E", "name": "Jubilee Red", "role": "secondary", "weight": 2},
+    {"hex": "#FAF6EF", "name": "Portland Stone", "role": "light", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

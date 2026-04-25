@@ -1,0 +1,9 @@
+{
+  "university": "University of York",
+  "colors": [
+    {"hex": "#087396", "name": "York Blue", "role": "main", "weight": 1},
+    {"hex": "#7B285C", "name": "York Pink", "role": "secondary", "weight": 2},
+    {"hex": "#0F3D4C", "name": "York Teal", "role": "accent", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

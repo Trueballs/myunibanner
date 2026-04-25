@@ -1,0 +1,9 @@
+{
+  "university": "University of Oxford",
+  "colors": [
+    {"hex": "#002147", "name": "Oxford Blue", "role": "main", "weight": 1},
+    {"hex": "#A79D96", "name": "Oxford Stone", "role": "secondary", "weight": 2},
+    {"hex": "#F3F1EE", "name": "Oxford Light", "role": "light", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

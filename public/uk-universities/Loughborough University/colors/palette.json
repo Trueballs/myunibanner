@@ -1,0 +1,23 @@
+{
+  "university": "Loughborough University",
+  "colors": [
+    {
+      "hex": "#6f2383",
+      "name": "Lboro Purple",
+      "role": "main",
+      "weight": 1
+    },
+    {
+      "hex": "#ffffff",
+      "name": "White",
+      "role": "light",
+      "weight": 2
+    },
+    {
+      "hex": "#1a1a1a",
+      "name": "Black",
+      "role": "dark",
+      "weight": 3
+    }
+  ]
+}

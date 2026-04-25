@@ -1,0 +1,9 @@
+{
+  "university": "University of Exeter",
+  "colors": [
+    {"hex": "#022020", "name": "Exeter Night Green", "role": "main", "weight": 1},
+    {"hex": "#007D69", "name": "Exeter Deep Green", "role": "secondary", "weight": 2},
+    {"hex": "#C8A951", "name": "Exeter Gold", "role": "accent", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}

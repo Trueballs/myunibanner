@@ -1,0 +1,9 @@
+{
+  "university": "University of Sheffield",
+  "colors": [
+    {"hex": "#5D196E", "name": "Brand Violet", "role": "main", "weight": 1},
+    {"hex": "#370D45", "name": "Dark Violet", "role": "secondary", "weight": 2},
+    {"hex": "#8B5A9F", "name": "Pale Violet", "role": "accent", "weight": 3}
+  ],
+  "fonts": [{"name": "Inter", "role": "primary", "type": "sans-serif", "weight": 1}]
+}
