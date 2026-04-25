@@ -198,7 +198,10 @@ function getImageFiles(basePath: string, folder: string, campus?: string | null)
             } else if (/\.(jpe?g|png|webp|avif)$/i.test(item.name) && !item.name.toLowerCase().includes('with logo')) {
                 // Get the path relative to rootDir to reconstruct the file param
                 const relPath = fullPath.replace(rootDir + '/', '');
-                results.push(`/api/uni-image?folder=${encodeURIComponent(folder)}&file=${encodeURIComponent(relPath)}&root=${encodeURIComponent(basePath.split('/').pop() || '')}`);
+                const root = basePath.split('/').pop() || '';
+                const encodedFolder = folder.split('/').map(encodeURIComponent).join('/');
+                const encodedRel = relPath.split('/').map(encodeURIComponent).join('/');
+                results.push(`/${root}/${encodedFolder}/Bilder_HighRez/${encodedRel}`);
             }
         }
         return results;
@@ -266,7 +269,7 @@ export async function GET(request: Request) {
         logos: logos.map(l => ({ ...l, url: l.url + "&w=800" })), 
         colors, 
         fonts, 
-        images: images.map(img => img + "&w=2400"),
+        images,
     };
 
     // ── SAVE TO CACHE ───────────────────────────────────────

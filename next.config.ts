@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  experimental: {
+    outputFileTracingExcludes: {
+      '*': [
+        './public/uk-universities/*/Bilder_HighRez/**',
+        './public/norske-universiteter/*/Bilder_HighRez/**',
+      ],
+    },
+  },
 };
 
 export default nextConfig;
