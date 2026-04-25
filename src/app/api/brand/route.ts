@@ -201,12 +201,7 @@ function getImageFiles(basePath: string, folder: string, campus?: string | null)
                 const root = basePath.split('/').pop() || '';
                 const encodedFolder = folder.split('/').map(encodeURIComponent).join('/');
                 const encodedRel = relPath.split('/').map(encodeURIComponent).join('/');
-                const localUrl = `/${root}/${encodedFolder}/Bilder_HighRez/${encodedRel}`;
-                const isProd = process.env.VERCEL === '1';
-                const url = isProd
-                    ? `https://cdn.jsdelivr.net/gh/Trueballs/linkin-idee@main/public/${root}/${encodedFolder}/Bilder_HighRez/${encodedRel}`
-                    : localUrl;
-                results.push(url);
+                results.push(`/${root}/${encodedFolder}/Bilder_HighRez/${encodedRel}`);
             }
         }
         return results;

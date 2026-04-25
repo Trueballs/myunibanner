@@ -7,7 +7,7 @@ export default function HeroVisualization() {
       <div className="absolute inset-0 bg-blue-500/15 blur-[100px] rounded-full scale-90 opacity-80 pointer-events-none" />
       
       {/* STATIC ASSET */}
-      <div className="relative z-10 drop-shadow-[0_25px_50px_rgba(0,0,0,0.08)] glowing-border-wrap overflow-hidden">
+      <div className="relative z-10 drop-shadow-[0_25px_50px_rgba(0,0,0,0.08)] overflow-hidden">
         <img
           src="/banner_hero_v6.webp"
           alt="LinkedIn Banner Comparison"
