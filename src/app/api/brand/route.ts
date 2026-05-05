@@ -223,7 +223,7 @@ function getBrand(basePath: string, folder: string) {
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const query = searchParams.get('domain')?.toLowerCase().trim() || searchParams.get('q')?.toLowerCase().trim() || '';
-    const campus = searchParams.get('campus');
+    const campus = searchParams.get('campus')?.normalize('NFC') ?? null;
     if (!query) return NextResponse.json({ error: 'No query' }, { status: 400 });
 
     const match = ALL_UNIVERSITIES.find(u =>

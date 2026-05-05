@@ -50,7 +50,7 @@ export const UK_UNIVERSITIES: University[] = [
 ];
 
 export const NORWAY_UNIVERSITIES: University[] = [
-    { name: "NTNU", domain: "ntnu.no", short: "NTNU", folder: "NTNU", root: "norske-universiteter", country: "Norway", aliases: ["Norwegian University of Science and Technology", "Norges teknisk-naturvitenskapelige universitet", "Trondheim"], logoSearch: "ntnu_alt_versjon_uten_slagord.png", campuses: ["Ålesund", "Gjøvik", "Trondheim"], },
+    { name: "NTNU", domain: "ntnu.no", short: "NTNU", folder: "NTNU", root: "norske-universiteter", country: "Norway", aliases: ["Norwegian University of Science and Technology", "Norges teknisk-naturvitenskapelige universitet", "Trondheim"], logoSearch: "ntnu_alt_versjon_uten_slagord.png", campuses: ["Ålesund", "Gjøvik", "Trondheim"], },
     { name: "UiT Norges arktiske universitet", domain: "uit.no", short: "UiT", folder: "UiT", root: "norske-universiteter", country: "Norway", aliases: ["The Arctic University of Norway", "University of Tromsø", "Tromsø", "Alta", "Narvik", "Harstad"], logoSearch: "uit-segl-eng-sort-960px1 bla copy.png", campuses: ["Alta", "Bardufoss", "Hammerfest"] },
     { name: "Universitetet i Sørøst-Norge", domain: "usn.no", short: "USN", folder: "USN", root: "norske-universiteter", country: "Norway", aliases: ["University of South-Eastern Norway", "USN", "Drammen", "Vestfold", "Kongsberg", "Porsgrunn", "Bø i Telemark"], logoSearch: "Logo_of_USN.svg 1.png", campuses: ["Bø", "Drammen", "Kongsberg", "Notodden", "Porsgrunn", "Rauland", "Ringerike", "Vestfold"] },
     { name: "Nord universitet", domain: "nord.no", short: "Nord", folder: "Nord", root: "norske-universiteter", country: "Norway", aliases: ["Bodø", "Levanger", "Steinkjer"], logoSearch: "Nord_University_logo.svg.png" },
