@@ -857,6 +857,21 @@ function BuilderContent() {
                                                 customImage={customImage}
                                             />
                                         </div>
+                                        {/* Profile picture overlay — preview only, not included in download */}
+                                        <div style={{
+                                            position: "absolute",
+                                            left: 48,
+                                            top: H - 146,
+                                            width: 292,
+                                            height: 292,
+                                            borderRadius: "50%",
+                                            overflow: "hidden",
+                                            border: "4px solid white",
+                                            pointerEvents: "none",
+                                            zIndex: 10,
+                                        }}>
+                                            <img src="/linkedin-profile-placeholder.svg" style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" />
+                                        </div>
                                     </div>
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center bg-gray-100">
