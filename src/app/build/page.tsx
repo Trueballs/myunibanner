@@ -616,6 +616,42 @@ function L7({ textSize = 1.0, textStyle = "blocky", logoScale = 1.0, brand, text
 
 
 /* ═══════════════════════════════════════════════════════════════
+   LAYOUT 8 — "VERTICAL STRIPES" (UCL-specific)
+═══════════════════════════════════════════════════════════════ */
+const L8_STRIPE_IMAGES: Record<number, string> = {
+    0: "/layout-assets/ucl-stripes-header dark purple.png",
+    1: "/layout-assets/ucl-stripes-header light blue.png",
+    2: "/layout-assets/ucl-stripes-header bright purple.png",
+    3: "/layout-assets/ucl-stripes-header black.png",
+    4: "/layout-assets/ucl-stripes-header white.png",
+};
+
+function L8({ logoScale = 1.0, brand, logoSrc, logoHasBg, logoIsLight, img, photoFilter = "none", tintIndex = 0 }: LayoutProps) {
+    const effectiveTint = tintIndex < 0 ? 0 : tintIndex;
+    const stripeSrc = L8_STRIPE_IMAGES[effectiveTint] ?? L8_STRIPE_IMAGES[0];
+    const panelColor = brand.colors[effectiveTint] ?? "#361A54";
+    const IMG_W = Math.round(672 * (H / 333));
+    const LOGO_LEFT = W - IMG_W + Math.round(IMG_W * 0.53);
+    const LOGO_W = W - LOGO_LEFT;
+    return (
+        <div className="absolute inset-0 overflow-hidden" style={{ width: W, height: H, background: panelColor }}>
+            {img && (
+                <img src={img} alt="" crossOrigin="anonymous"
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", filter: photoFilter }} />
+            )}
+            <img
+                src={stripeSrc}
+                alt=""
+                style={{ position: "absolute", right: 0, top: 0, width: IMG_W, height: H, objectFit: "fill" }}
+            />
+            <div className="absolute flex items-center justify-center" style={{ left: LOGO_LEFT, top: 0, width: LOGO_W, height: H }}>
+                <SmartLogo src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={panelColor} h={200} maxW={360} brandColors={brand.colors} scale={logoScale} />
+            </div>
+        </div>
+    );
+}
+
+/* ═══════════════════════════════════════════════════════════════
    BANNER WRAPPER — routes to the right layout
 ═══════════════════════════════════════════════════════════════ */
 function BannerCanvas({
@@ -705,7 +741,8 @@ function BannerCanvas({
             {layout === 5 && <L5 {...p} />}
             {layout === 6 && <L6 {...p} />}
             {layout === 7 && <L7 {...p} />}
-            
+            {layout === 8 && <L8 {...p} />}
+
             <GrainOverlay />
             <FrameOverlay />
         </div>
@@ -799,12 +836,21 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
             </div>
         ),
     },
+    {
+        label: "Vertical Stripes",
+        preview: (c) => (
+            <div className="w-full h-full overflow-hidden" style={{ position: "relative", background: `${c}33` }}>
+                <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "48%", background: c, opacity: 0.9 }} />
+                <div style={{ position: "absolute", right: "8%", top: "20%", width: "28%", height: "60%", background: "rgba(255,255,255,0.25)", borderRadius: 1 }} />
+            </div>
+        ),
+    },
 ];
 
 /* ═══════════════════════════════════════════════════════════════
    MAIN PAGE
 ═══════════════════════════════════════════════════════════════ */
-const LAYOUTS = [0, 1, 2, 3, 4, 5, 6, 7];
+const LAYOUTS = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 function BuilderContent() {
     const params = useSearchParams();
@@ -1298,9 +1344,9 @@ function BuilderContent() {
                                                 <ChevronLeft className="w-4 h-4" />
                                             </button>
                                             <div className="flex gap-1 flex-1">
-                                                {([0, 1, 2, 3, 4, 5, 6, 7] as Layout[]).map(l => (
+                                                {([0, 1, 2, 3, 4, 5, 6, 7, 8] as Layout[]).map(l => (
                                                     <button key={l}
-                                                        onClick={() => setLayout(l)}
+                                                        onClick={() => { setLayout(l); if (l === 8 && logoScale > 1.0) setLogoScale(1.0); }}
                                                         className="flex-1 aspect-[4/1] rounded-xl overflow-hidden transition-all hover:scale-105 active:scale-95"
                                                         style={{
                                                             outline: layout === l ? `3px solid #2563EB` : "0px solid transparent",
@@ -1480,18 +1526,25 @@ function BuilderContent() {
                                                     { label: 'Small', val: 0.75 },
                                                     { label: 'Normal', val: 1.0 },
                                                     { label: 'Large', val: 1.25 }
-                                                ].map(s => (
-                                                    <button key={s.label}
-                                                        onClick={() => setLogoScale(s.val)}
-                                                        className="flex-1 py-2.5 rounded-xl border-2 text-[10px] font-black uppercase tracking-widest transition-all"
-                                                        style={{
-                                                            borderColor: Math.abs(logoScale - s.val) < 0.01 ? primary : "#f3f4f6",
-                                                            background: Math.abs(logoScale - s.val) < 0.01 ? `${primary}10` : "#f9fafb",
-                                                            color: Math.abs(logoScale - s.val) < 0.01 ? primary : "#9ca3af"
-                                                        }}>
-                                                        {s.label}
-                                                    </button>
-                                                ))}
+                                                ].map(s => {
+                                                    const disabled = layout === 8 && s.val === 1.25;
+                                                    const active = Math.abs(logoScale - s.val) < 0.01;
+                                                    return (
+                                                        <button key={s.label}
+                                                            onClick={() => { if (!disabled) setLogoScale(s.val); }}
+                                                            disabled={disabled}
+                                                            className="flex-1 py-2.5 rounded-xl border-2 text-[10px] font-black uppercase tracking-widest transition-all"
+                                                            style={{
+                                                                borderColor: disabled ? "#e5e7eb" : active ? primary : "#f3f4f6",
+                                                                background: disabled ? "#f3f4f6" : active ? `${primary}10` : "#f9fafb",
+                                                                color: disabled ? "#d1d5db" : active ? primary : "#9ca3af",
+                                                                cursor: disabled ? "not-allowed" : "pointer",
+                                                                opacity: disabled ? 0.5 : 1,
+                                                            }}>
+                                                            {s.label}
+                                                        </button>
+                                                    );
+                                                })}
                                             </div>
                                         </div>
                                     )}
