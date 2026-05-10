@@ -860,10 +860,10 @@ function BuilderContent() {
                                         {/* Profile picture overlay — preview only, not included in download */}
                                         <div style={{
                                             position: "absolute",
-                                            left: 40,
-                                            top: H - 76,
-                                            width: 220,
-                                            height: 220,
+                                            left: 34,
+                                            top: H - 120,
+                                            width: 240,
+                                            height: 240,
                                             borderRadius: "50%",
                                             overflow: "hidden",
                                             border: "3px solid white",
