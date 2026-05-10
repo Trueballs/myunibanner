@@ -861,12 +861,12 @@ function BuilderContent() {
                                         <div style={{
                                             position: "absolute",
                                             left: 34,
-                                            top: H - 120,
-                                            width: 240,
-                                            height: 240,
+                                            top: H - 90,
+                                            width: 320,
+                                            height: 320,
                                             borderRadius: "50%",
                                             overflow: "hidden",
-                                            border: "3px solid white",
+                                            border: "4px solid white",
                                             pointerEvents: "none",
                                             zIndex: 10,
                                         }}>
