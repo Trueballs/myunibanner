@@ -747,8 +747,11 @@ function BuilderContent() {
         router.push(`/build?${newParams.toString()}`);
     };
 
-    const prevLayout = () => setLayout(l => { const n = ((l - 1 + LAYOUTS.length) % LAYOUTS.length) as Layout; if (n === 8 && logoScale > 1.0) setLogoScale(1.0); return n; });
-    const nextLayout = () => setLayout(l => { const n = ((l + 1) % LAYOUTS.length) as Layout; if (n === 8 && logoScale > 1.0) setLogoScale(1.0); return n; });
+    const isUCL = params.get("domain") === "ucl.ac.uk";
+    const availableLayouts = (isUCL ? [0, 1, 2, 3, 4, 5, 6, 7, 8] : [0, 1, 2, 3, 4, 5, 6, 7]) as Layout[];
+
+    const prevLayout = () => setLayout(l => { const idx = availableLayouts.indexOf(l); const n = availableLayouts[(idx - 1 + availableLayouts.length) % availableLayouts.length]; if (n === 8 && logoScale > 1.0) setLogoScale(1.0); return n; });
+    const nextLayout = () => setLayout(l => { const idx = availableLayouts.indexOf(l); const n = availableLayouts[(idx + 1) % availableLayouts.length]; if (n === 8 && logoScale > 1.0) setLogoScale(1.0); return n; });
 
     const uniMetadata = ALL_UNIVERSITIES.find(u => u.domain === params.get("domain"));
 
@@ -875,7 +878,7 @@ function BuilderContent() {
                                     <div>
                                         <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Layout Style</label>
                                         <div className="grid grid-cols-3 gap-2">
-                                            {([0, 1, 2, 3, 4, 5, 6, 7, 8] as Layout[]).map(l => (
+                                            {availableLayouts.map(l => (
                                                 <button key={l}
                                                     onClick={() => { setLayout(l); if (l === 8 && logoScale > 1.0) setLogoScale(1.0); }}
                                                     className="flex flex-col gap-1 active:scale-95 transition-all"
