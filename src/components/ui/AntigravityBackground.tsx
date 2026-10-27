@@ -1,17 +1,9 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useEffect, useState } from "react"
+import { motion } from "framer-motion";
+const noise = (i: number, seed: number) => ((i * 7919 + seed * 104729) % 997) / 997;
 
 export default function AntigravityBackground() {
-    const [mounted, setMounted] = useState(false)
-    
-    useEffect(() => {
-        setMounted(true)
-    }, [])
-
-    if (!mounted) return null
-
     const particles = Array.from({ length: 25 })
 
     return (
@@ -26,19 +18,19 @@ export default function AntigravityBackground() {
                     key={i}
                     className="absolute rounded-full bg-white/[0.03] border border-white/5"
                     style={{
-                        width: Math.random() * 200 + 40,
-                        height: Math.random() * 200 + 40,
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
+                        width: noise(i, 1) * 200 + 40,
+                        height: noise(i, 2) * 200 + 40,
+                        left: `${noise(i, 3) * 100}%`,
+                        top: `${noise(i, 4) * 100}%`,
                     }}
                     animate={{
-                        y: [0, Math.random() * -100 - 50, 0],
-                        x: [0, Math.random() * 50 - 25, 0],
+                        y: [0, noise(i, 5) * -100 - 50, 0],
+                        x: [0, noise(i, 6) * 50 - 25, 0],
                         scale: [1, 1.1, 1],
                         rotate: [0, 45, 0],
                     }}
                     transition={{
-                        duration: Math.random() * 15 + 10,
+                        duration: noise(i, 7) * 15 + 10,
                         repeat: Infinity,
                         ease: "easeInOut",
                     }}
@@ -51,15 +43,15 @@ export default function AntigravityBackground() {
                     key={`micro-${i}`}
                     className="absolute w-1 h-1 rounded-full bg-blue-400/20"
                     style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
+                        left: `${noise(i, 8) * 100}%`,
+                        top: `${noise(i, 9) * 100}%`,
                     }}
                     animate={{
                         opacity: [0.1, 0.5, 0.1],
                         y: [0, -40, 0],
                     }}
                     transition={{
-                        duration: Math.random() * 5 + 3,
+                        duration: noise(i, 10) * 5 + 3,
                         repeat: Infinity,
                         ease: "linear",
                     }}

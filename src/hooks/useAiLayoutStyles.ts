@@ -51,7 +51,7 @@ export function parseTailwindPosition(positioning: string): Record<string, strin
 /**
  * Get contrasting text color based on theme
  */
-export function getTextColorFromTheme(theme: "dark" | "light" | "brand", brandColor?: string): string {
+export function getTextColorFromTheme(theme: "dark" | "light" | "brand"): string {
   switch (theme) {
     case "dark":
       return "#ffffff";

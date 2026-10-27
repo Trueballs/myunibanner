@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 // Removed unused Geist_Mono import
-import "./globals.css";
 import OnboardingModal from "@/components/OnboardingModal";
 import { LanguageProvider } from "@/context/LanguageContext";
-import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
+import "./globals.css";
 
-import { Geist, Lexend, Crimson_Text } from "next/font/google";
+import { Crimson_Text,Geist,Lexend } from "next/font/google";
 
 const geist = Geist({
   variable: "--font-geist",

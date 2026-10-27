@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-27",
+  "deployment": "Not deployed; production build running locally at http://127.0.0.1:3086",
+  "production_build": "passed",
+  "typescript": "passed in production build",
+  "eslint": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "regression_tests": {
+    "passed": 25,
+    "failed": 0
+  },
+  "http_smoke": {
+    "university_campus_records": 85,
+    "pages": "passed",
+    "retired_endpoints": "410 confirmed",
+    "immutable_generated_cache": "confirmed",
+    "path_traversal_rejection": "confirmed"
+  },
+  "npm_advisories": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "assets": {
+    "supported_schools": 27,
+    "awaiting_source_assets": 22,
+    "showcase_original_bytes": 4150110,
+    "showcase_optimized_bytes": 107368,
+    "uia_kristiansand_thumbnail_bytes": 50278
+  },
+  "browser_verification": "Chrome local production: About page at desktop and 390px mobile, no horizontal overflow or visible broken images. About -> generator -> school/campus selection -> About navigation passed. USN Bo purple swatches and Henley separate blue/yellow palette confirmed. Previous export/upload checks remain historical.",
+  "remaining_content": [
+    "Source official logos/photos for the 22 schools shown as coming soon.",
+    "Source campus photos for USN and Innlandet; local uploads and solid banners are available."
+  ],
+  "logo_normalization": {
+    "padding": "transparent and white outer margins trimmed in derivatives; originals preserved",
+    "sizing": "Small 70%, Normal 90%, Large 125% of base box; narrow layouts cap Large width to usable panel space",
+    "sizes": "Small, Normal and Large supported for every layout, including UCL",
+    "preview": "logo-normalization.png is historical, before the Normal-size correction",
+    "checks": "synthetic padding/background tests plus all catalogue variants at all layout size limits",
+    "kcl": "Blurrier Kcl-logo.svg excluded; sharp black wordmark and coloured crest retained"
+  },
+  "generator_ux": {
+    "text": "Removed at user request: editor controls, renderer and draft text fields; legacy draft text ignored",
+    "mobile": "Sticky preview below header; expandable native dialog",
+    "drafts": "Per-school/campus IndexedDB, sequential saves, asset identity validation, reset/undo reset",
+    "upload_test": "Unit validation passed; browser upload blocked by Chrome extension file permission",
+    "screenshots": [
+      "editor-without-text.jpg"
+    ],
+    "download": "ux-export.png",
+    "text_fit": "Historical: text functionality has now been removed"
+  },
+  "colour_audit": {
+    "schools_reviewed": 49,
+    "published_guidance": 26,
+    "official_website_only": 5,
+    "needs_confirmation": 18,
+    "henley": "Separate official-website palette",
+    "records_checked": 85,
+    "report": "colour-audit.md"
+  },
+  "project_story": {
+    "route": "/about",
+    "navigation": "Shared header",
+    "screenshots": [
+      "about-desktop.jpg",
+      "about-mobile.jpg"
+    ],
+    "content": "Problem, short workflow, stack, engineering choices, school-pitch lesson, remaining work"
+  },
+  "auto_logo_contrast": {
+    "unique_images": 243,
+    "rendered_logo_layout_combinations": 1978,
+    "measurement": "Palette-only Auto: use a school colour reaching 4.5:1 when available, otherwise select the highest-contrast school colour. Never add black/white outside the palette. 1978 logo/layout combinations checked.",
+    "lse": "White wordmark previously had stale red-accent metadata; now measured as white and receives red Auto panel.",
+    "photo_layouts": "Auto adds an opaque panel behind the logo for Glass Panels and Centered Logo; Immersive Auto panel is opaque.",
+    "ucl": "Stripe background follows the contrast-selected colour in Auto.",
+    "browser": "Previous white LSE checks remain valid; red LSE correction verified by regression test.",
+    "screenshot": "lse-auto-contrast.jpg",
+    "lse_red": "Exact thumbnail 450c908c71152893a838 verified to choose #FFFFFF."
+  }
+}

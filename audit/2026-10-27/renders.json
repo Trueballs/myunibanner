@@ -1,0 +1,542 @@
+[
+  {
+    "name": "layout-0",
+    "body": {
+      "imageUrl": "/uk-universities/Reading/Bilder_HighRez/Reading%20University/ln.jpg",
+      "logoUrl": "/api/full-logo?domain=reading.ac.uk&file=Reading%20University%2FReading_Logo_Full.png&v=1777154998256&w=800",
+      "layout": 0,
+      "text": "University student",
+      "primaryHex": "#003865",
+      "headlineColor": "#ffffff",
+      "logoIsLight": true,
+      "logoScale": 1,
+      "textSize": 1
+    },
+    "url": "/api/render-banner",
+    "status": 200,
+    "ms": 3053,
+    "headers": {
+      "cache-control": "no-store",
+      "content-disposition": "attachment; filename=\"linkedin-banner.png\"",
+      "content-length": "182704",
+      "content-type": "image/png",
+      "date": "Tue, 27 Oct 2026 17:13:44 GMT",
+      "server": "Vercel",
+      "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+      "x-matched-path": "/api/render-banner",
+      "x-vercel-cache": "MISS",
+      "x-vercel-id": "lhr1::iad1::wvcnw-1793121221581-9004216715cd"
+    },
+    "bytes": 182704,
+    "metadata": {
+      "format": "png",
+      "size": 182704,
+      "width": 1584,
+      "height": 396,
+      "space": "srgb",
+      "channels": 3,
+      "depth": "uchar",
+      "isProgressive": false,
+      "isPalette": true,
+      "bitsPerSample": 8,
+      "paletteBitDepth": 8,
+      "hasProfile": false,
+      "hasAlpha": false,
+      "autoOrient": {
+        "width": 1584,
+        "height": 396
+      }
+    }
+  },
+  {
+    "name": "layout-1",
+    "body": {
+      "imageUrl": "/uk-universities/Reading/Bilder_HighRez/Reading%20University/ln.jpg",
+      "logoUrl": "/api/full-logo?domain=reading.ac.uk&file=Reading%20University%2FReading_Logo_Full.png&v=1777154998256&w=800",
+      "layout": 1,
+      "text": "University student",
+      "primaryHex": "#003865",
+      "headlineColor": "#ffffff",
+      "logoIsLight": true,
+      "logoScale": 1,
+      "textSize": 1
+    },
+    "url": "/api/render-banner",
+    "status": 200,
+    "ms": 4077,
+    "headers": {
+      "cache-control": "no-store",
+      "content-disposition": "attachment; filename=\"linkedin-banner.png\"",
+      "content-length": "293772",
+      "content-type": "image/png",
+      "date": "Tue, 27 Oct 2026 17:13:45 GMT",
+      "server": "Vercel",
+      "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+      "x-matched-path": "/api/render-banner",
+      "x-vercel-cache": "MISS",
+      "x-vercel-id": "lhr1::iad1::zwt72-1793121221582-bdb76e70d746"
+    },
+    "bytes": 293772,
+    "metadata": {
+      "format": "png",
+      "size": 293772,
+      "width": 1584,
+      "height": 396,
+      "space": "srgb",
+      "channels": 3,
+      "depth": "uchar",
+      "isProgressive": false,
+      "isPalette": true,
+      "bitsPerSample": 8,
+      "paletteBitDepth": 8,
+      "hasProfile": false,
+      "hasAlpha": false,
+      "autoOrient": {
+        "width": 1584,
+        "height": 396
+      }
+    }
+  },
+  {
+    "name": "layout-2",
+    "body": {
+      "imageUrl": "/uk-universities/Reading/Bilder_HighRez/Reading%20University/ln.jpg",
+      "logoUrl": "/api/full-logo?domain=reading.ac.uk&file=Reading%20University%2FReading_Logo_Full.png&v=1777154998256&w=800",
+      "layout": 2,
+      "text": "University student",
+      "primaryHex": "#003865",
+      "headlineColor": "#ffffff",
+      "logoIsLight": true,
+      "logoScale": 1,
+      "textSize": 1
+    },
+    "url": "/api/render-banner",
+    "status": 200,
+    "ms": 4690,
+    "headers": {
+      "cache-control": "no-store",
+      "content-disposition": "attachment; filename=\"linkedin-banner.png\"",
+      "content-length": "293919",
+      "content-type": "image/png",
+      "date": "Tue, 27 Oct 2026 17:13:48 GMT",
+      "server": "Vercel",
+      "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+      "x-matched-path": "/api/render-banner",
+      "x-vercel-cache": "MISS",
+      "x-vercel-id": "lhr1::iad1::wvcnw-1793121224648-917ebdb8ba30"
+    },
+    "bytes": 293919,
+    "metadata": {
+      "format": "png",
+      "size": 293919,
+      "width": 1584,
+      "height": 396,
+      "space": "srgb",
+      "channels": 3,
+      "depth": "uchar",
+      "isProgressive": false,
+      "isPalette": true,
+      "bitsPerSample": 8,
+      "paletteBitDepth": 8,
+      "hasProfile": false,
+      "hasAlpha": false,
+      "autoOrient": {
+        "width": 1584,
+        "height": 396
+      }
+    }
+  },
+  {
+    "name": "layout-3",
+    "body": {
+      "imageUrl": "/uk-universities/Reading/Bilder_HighRez/Reading%20University/ln.jpg",
+      "logoUrl": "/api/full-logo?domain=reading.ac.uk&file=Reading%20University%2FReading_Logo_Full.png&v=1777154998256&w=800",
+      "layout": 3,
+      "text": "University student",
+      "primaryHex": "#003865",
+      "headlineColor": "#ffffff",
+      "logoIsLight": true,
+      "logoScale": 1,
+      "textSize": 1
+    },
+    "url": "/api/render-banner",
+    "status": 200,
+    "ms": 6460,
+    "headers": {
+      "cache-control": "no-store",
+      "content-disposition": "attachment; filename=\"linkedin-banner.png\"",
+      "content-length": "401405",
+      "content-type": "image/png",
+      "date": "Tue, 27 Oct 2026 17:13:51 GMT",
+      "server": "Vercel",
+      "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+      "x-matched-path": "/api/render-banner",
+      "x-vercel-cache": "MISS",
+      "x-vercel-id": "lhr1::iad1::8ll6b-1793121225657-28de9c788a43"
+    },
+    "bytes": 401405,
+    "metadata": {
+      "format": "png",
+      "size": 401405,
+      "width": 1584,
+      "height": 396,
+      "space": "srgb",
+      "channels": 3,
+      "depth": "uchar",
+      "isProgressive": false,
+      "isPalette": true,
+      "bitsPerSample": 8,
+      "paletteBitDepth": 8,
+      "hasProfile": false,
+      "hasAlpha": false,
+      "autoOrient": {
+        "width": 1584,
+        "height": 396
+      }
+    }
+  },
+  {
+    "name": "layout-4",
+    "body": {
+      "imageUrl": "/uk-universities/Reading/Bilder_HighRez/Reading%20University/ln.jpg",
+      "logoUrl": "/api/full-logo?domain=reading.ac.uk&file=Reading%20University%2FReading_Logo_Full.png&v=1777154998256&w=800",
+      "layout": 4,
+      "text": "University student",
+      "primaryHex": "#003865",
+      "headlineColor": "#ffffff",
+      "logoIsLight": true,
+      "logoScale": 1,
+      "textSize": 1
+    },
+    "url": "/api/render-banner",
+    "status": 200,
+    "ms": 4749,
+    "headers": {
+      "cache-control": "no-store",
+      "content-disposition": "attachment; filename=\"linkedin-banner.png\"",
+      "content-length": "406318",
+      "content-type": "image/png",
+      "date": "Tue, 27 Oct 2026 17:13:53 GMT",
+      "server": "Vercel",
+      "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+      "x-matched-path": "/api/render-banner",
+      "x-vercel-cache": "MISS",
+      "x-vercel-id": "lhr1::iad1::wvcnw-1793121229345-c9be10c6217b"
+    },
+    "bytes": 406318,
+    "metadata": {
+      "format": "png",
+      "size": 406318,
+      "width": 1584,
+      "height": 396,
+      "space": "srgb",
+      "channels": 3,
+      "depth": "uchar",
+      "isProgressive": false,
+      "isPalette": true,
+      "bitsPerSample": 8,
+      "paletteBitDepth": 8,
+      "hasProfile": false,
+      "hasAlpha": false,
+      "autoOrient": {
+        "width": 1584,
+        "height": 396
+      }
+    }
+  },
+  {
+    "name": "layout-5",
+    "body": {
+      "imageUrl": "/uk-universities/Reading/Bilder_HighRez/Reading%20University/ln.jpg",
+      "logoUrl": "/api/full-logo?domain=reading.ac.uk&file=Reading%20University%2FReading_Logo_Full.png&v=1777154998256&w=800",
+      "layout": 5,
+      "text": "University student",
+      "primaryHex": "#003865",
+      "headlineColor": "#ffffff",
+      "logoIsLight": true,
+      "logoScale": 1,
+      "textSize": 1
+    },
+    "url": "/api/render-banner",
+    "status": 200,
+    "ms": 4049,
+    "headers": {
+      "cache-control": "no-store",
+      "content-disposition": "attachment; filename=\"linkedin-banner.png\"",
+      "content-length": "303409",
+      "content-type": "image/png",
+      "date": "Tue, 27 Oct 2026 17:13:55 GMT",
+      "server": "Vercel",
+      "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+      "x-matched-path": "/api/render-banner",
+      "x-vercel-cache": "MISS",
+      "x-vercel-id": "lhr1::iad1::dkwsr-1793121232127-d6fdc6f93a65"
+    },
+    "bytes": 303409,
+    "metadata": {
+      "format": "png",
+      "size": 303409,
+      "width": 1584,
+      "height": 396,
+      "space": "srgb",
+      "channels": 3,
+      "depth": "uchar",
+      "isProgressive": false,
+      "isPalette": true,
+      "bitsPerSample": 8,
+      "paletteBitDepth": 8,
+      "hasProfile": false,
+      "hasAlpha": false,
+      "autoOrient": {
+        "width": 1584,
+        "height": 396
+      }
+    }
+  },
+  {
+    "name": "layout-6",
+    "body": {
+      "imageUrl": "/uk-universities/Reading/Bilder_HighRez/Reading%20University/ln.jpg",
+      "logoUrl": "/api/full-logo?domain=reading.ac.uk&file=Reading%20University%2FReading_Logo_Full.png&v=1777154998256&w=800",
+      "layout": 6,
+      "text": "University student",
+      "primaryHex": "#003865",
+      "headlineColor": "#ffffff",
+      "logoIsLight": true,
+      "logoScale": 1,
+      "textSize": 1
+    },
+    "url": "/api/render-banner",
+    "status": 200,
+    "ms": 4130,
+    "headers": {
+      "cache-control": "no-store",
+      "content-disposition": "attachment; filename=\"linkedin-banner.png\"",
+      "content-length": "228285",
+      "content-type": "image/png",
+      "date": "Tue, 27 Oct 2026 17:13:57 GMT",
+      "server": "Vercel",
+      "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+      "x-matched-path": "/api/render-banner",
+      "x-vercel-cache": "MISS",
+      "x-vercel-id": "lhr1::iad1::wvcnw-1793121234090-5b790fe371d2"
+    },
+    "bytes": 228285,
+    "metadata": {
+      "format": "png",
+      "size": 228285,
+      "width": 1584,
+      "height": 396,
+      "space": "srgb",
+      "channels": 3,
+      "depth": "uchar",
+      "isProgressive": false,
+      "isPalette": true,
+      "bitsPerSample": 8,
+      "paletteBitDepth": 8,
+      "hasProfile": false,
+      "hasAlpha": false,
+      "autoOrient": {
+        "width": 1584,
+        "height": 396
+      }
+    }
+  },
+  {
+    "name": "layout-7",
+    "body": {
+      "imageUrl": "/uk-universities/Reading/Bilder_HighRez/Reading%20University/ln.jpg",
+      "logoUrl": "/api/full-logo?domain=reading.ac.uk&file=Reading%20University%2FReading_Logo_Full.png&v=1777154998256&w=800",
+      "layout": 7,
+      "text": "University student",
+      "primaryHex": "#003865",
+      "headlineColor": "#ffffff",
+      "logoIsLight": true,
+      "logoScale": 1,
+      "textSize": 1
+    },
+    "url": "/api/render-banner",
+    "status": 200,
+    "ms": 5604,
+    "headers": {
+      "cache-control": "no-store",
+      "content-disposition": "attachment; filename=\"linkedin-banner.png\"",
+      "content-length": "400111",
+      "content-type": "image/png",
+      "date": "Tue, 27 Oct 2026 17:14:01 GMT",
+      "server": "Vercel",
+      "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+      "x-matched-path": "/api/render-banner",
+      "x-vercel-cache": "MISS",
+      "x-vercel-id": "lhr1::iad1::cgjjn-1793121236177-1682fc372fbb"
+    },
+    "bytes": 400111,
+    "metadata": {
+      "format": "png",
+      "size": 400111,
+      "width": 1584,
+      "height": 396,
+      "space": "srgb",
+      "channels": 3,
+      "depth": "uchar",
+      "isProgressive": false,
+      "isPalette": true,
+      "bitsPerSample": 8,
+      "paletteBitDepth": 8,
+      "hasProfile": false,
+      "hasAlpha": false,
+      "autoOrient": {
+        "width": 1584,
+        "height": 396
+      }
+    }
+  },
+  {
+    "name": "layout-8",
+    "body": {
+      "imageUrl": "/uk-universities/Reading/Bilder_HighRez/Reading%20University/ln.jpg",
+      "logoUrl": "/api/full-logo?domain=reading.ac.uk&file=Reading%20University%2FReading_Logo_Full.png&v=1777154998256&w=800",
+      "layout": 8,
+      "text": "University student",
+      "primaryHex": "#003865",
+      "headlineColor": "#ffffff",
+      "logoIsLight": true,
+      "logoScale": 1,
+      "textSize": 1
+    },
+    "url": "/api/render-banner",
+    "status": 200,
+    "ms": 5108,
+    "headers": {
+      "cache-control": "no-store",
+      "content-disposition": "attachment; filename=\"linkedin-banner.png\"",
+      "content-length": "402281",
+      "content-type": "image/png",
+      "date": "Tue, 27 Oct 2026 17:14:02 GMT",
+      "server": "Vercel",
+      "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+      "x-matched-path": "/api/render-banner",
+      "x-vercel-cache": "MISS",
+      "x-vercel-id": "lhr1::iad1::4vtrx-1793121238224-3336bca3eba5"
+    },
+    "bytes": 402281,
+    "metadata": {
+      "format": "png",
+      "size": 402281,
+      "width": 1584,
+      "height": 396,
+      "space": "srgb",
+      "channels": 3,
+      "depth": "uchar",
+      "isProgressive": false,
+      "isPalette": true,
+      "bitsPerSample": 8,
+      "paletteBitDepth": 8,
+      "hasProfile": false,
+      "hasAlpha": false,
+      "autoOrient": {
+        "width": 1584,
+        "height": 396
+      }
+    }
+  },
+  {
+    "name": "missing-assets",
+    "body": {
+      "imageUrl": "/missing-audit-photo.png",
+      "logoUrl": "/missing-audit-logo.png",
+      "layout": 0,
+      "primaryHex": "#003865"
+    },
+    "url": "/api/render-banner",
+    "status": 200,
+    "ms": 438,
+    "headers": {
+      "cache-control": "no-store",
+      "content-disposition": "attachment; filename=\"linkedin-banner.png\"",
+      "content-length": "1722",
+      "content-type": "image/png",
+      "date": "Tue, 27 Oct 2026 17:14:02 GMT",
+      "server": "Vercel",
+      "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+      "x-matched-path": "/api/render-banner",
+      "x-vercel-cache": "MISS",
+      "x-vercel-id": "lhr1::iad1::hnz97-1793121241788-749fb2d864d5"
+    },
+    "bytes": 1722,
+    "metadata": {
+      "format": "png",
+      "size": 1722,
+      "width": 1584,
+      "height": 396,
+      "space": "srgb",
+      "channels": 3,
+      "depth": "uchar",
+      "isProgressive": false,
+      "isPalette": true,
+      "bitsPerSample": 8,
+      "paletteBitDepth": 8,
+      "hasProfile": false,
+      "hasAlpha": false,
+      "autoOrient": {
+        "width": 1584,
+        "height": 396
+      }
+    }
+  },
+  {
+    "name": "ucl-default",
+    "body": {
+      "imageUrl": "/uk-universities/UCL/Bilder_HighRez/161214_UCL_Bartlett_011.jpg",
+      "logoUrl": "/api/full-logo?domain=ucl.ac.uk&file=616172986_1297759015715287_4670572216606312291_n(1).png&v=1777498636438&w=800",
+      "layout": 0,
+      "primaryHex": "#361A54"
+    },
+    "url": "/api/render-banner",
+    "status": 200,
+    "ms": 480,
+    "headers": {
+      "cache-control": "no-store",
+      "content-disposition": "attachment; filename=\"linkedin-banner.png\"",
+      "content-length": "3342",
+      "content-type": "image/png",
+      "date": "Tue, 27 Oct 2026 17:14:02 GMT",
+      "server": "Vercel",
+      "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+      "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+      "x-matched-path": "/api/render-banner",
+      "x-vercel-cache": "MISS",
+      "x-vercel-id": "lhr1::iad1::hnz97-1793121242225-c9c47e702493"
+    },
+    "bytes": 3342,
+    "metadata": {
+      "format": "png",
+      "size": 3342,
+      "width": 1584,
+      "height": 396,
+      "space": "srgb",
+      "channels": 3,
+      "depth": "uchar",
+      "isProgressive": false,
+      "isPalette": true,
+      "bitsPerSample": 8,
+      "paletteBitDepth": 8,
+      "hasProfile": false,
+      "hasAlpha": false,
+      "autoOrient": {
+        "width": 1584,
+        "height": 396
+      }
+    }
+  }
+]

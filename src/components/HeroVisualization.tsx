@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+/* eslint-disable @next/next/no-img-element -- Assets are pre-sized at build time; banner export also needs native image elements. */
 
 export default function HeroVisualization() {
   return (
@@ -10,6 +10,7 @@ export default function HeroVisualization() {
       <div className="relative z-10 drop-shadow-[0_25px_50px_rgba(0,0,0,0.08)] overflow-hidden">
         <img
           src="/banner_hero_v6.webp"
+          fetchPriority="high"
           alt="LinkedIn Banner Comparison"
           className="w-full h-auto block"
         />

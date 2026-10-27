@@ -1,13 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { Shield, Lock, Eye, Mail } from "lucide-react";
-import { motion } from "framer-motion";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import { motion } from "framer-motion";
+import { Eye,Lock,Shield } from "lucide-react";
 
 export default function PrivacyPage() {
-    const router = useRouter();
 
     const sections = [
         {
@@ -18,12 +16,12 @@ export default function PrivacyPage() {
         {
             icon: <Lock className="w-5 h-5" />,
             title: "Image Processing",
-            content: "The banners you generate are processed locally in your browser. When you click 'Export', our system generates the image on your device. We do not upload your generated banners to our servers."
+            content: "Your photos and banner are processed in your browser. Uploading a photo keeps it on your device, and the PNG is generated locally when you download it. We store your most recently selected university and automatically save banner drafts, including design choices and uploaded photos, in your browser on this device. Drafts are saved separately for each school and campus. Reset design replaces the saved draft with a blank design; clearing this site’s browser data removes local drafts."
         },
         {
             icon: <Eye className="w-5 h-5" />,
             title: "Cookies & Tracking",
-            content: "We use minimal analytics to understand how many people are using our tool. This is completely anonymous and does not track you across other websites or identify you personally."
+            content: "We use Vercel Analytics to understand aggregate site usage. The site also loads a Google advertising script, and example avatars are fetched from DiceBear. Those providers receive browser requests and may process technical information such as your IP address. Your uploaded photos are not sent to them."
         }
     ];
 
@@ -38,7 +36,7 @@ export default function PrivacyPage() {
                         className="mb-12 border-b border-slate-200 pb-10"
                     >
                         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">Privacy Policy</h1>
-                        <p className="text-slate-500 font-medium text-sm">Last Updated: April 2026</p>
+                        <p className="text-slate-500 font-medium text-sm">Last Updated: October 2026</p>
                     </motion.div>
  
                     <div className="space-y-12">

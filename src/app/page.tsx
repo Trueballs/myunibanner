@@ -1,30 +1,21 @@
+/* eslint-disable @next/next/no-img-element -- Assets are pre-sized at build time; banner export also needs native image elements. */
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { Download, X, Mail, Heart, Paintbrush, User, Menu } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import HeroVisualization from "@/components/HeroVisualization";
-import { useLanguage } from "@/context/LanguageContext";
+import showcase from "@/data/showcase.json";
+import { AnimatePresence,motion } from "framer-motion";
+import { X } from "lucide-react";
+import { useEffect,useState } from "react";
 
 export default function Home() {
-  const router = useRouter();
-  const { t } = useLanguage();
 
   const [selectedBanner, setSelectedBanner] = useState<string | null>(null);
 
-  const banners = [
-    { id: 1, img: "/showcase-banners/linkedin-banner (3).png" },
-    { id: 2, img: "/showcase-banners/linkedin-banner (4).png" },
-    { id: 3, img: "/showcase-banners/linkedin-banner-reading.png" },
-    { id: 4, img: "/showcase-banners/lnbg-reading (6).png" },
-  ];
+  const banners = showcase.map((img, index) => ({ id: index + 1, img }));
 
   const [placeholdersIndex, setPlaceholdersIndex] = useState(0);
-  const activeIdx = placeholdersIndex % banners.length;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -101,7 +92,7 @@ export default function Home() {
                 <div key={logo.name} className="flex items-center h-24 md:h-48">
                   <img 
                     src={logo.src} 
-                    alt={logo.name} 
+                    alt={logo.name} loading="lazy" decoding="async"
                     className="h-full w-auto object-contain max-w-[500px]" 
                   />
                 </div>
@@ -151,13 +142,13 @@ export default function Home() {
                     ))}
                   </div>
                   <p className="text-slate-600 text-xl font-medium leading-relaxed mb-10 flex-1 group-hover:text-white/90 transition-colors">
-                    "{t.text}"
+                    &ldquo;{t.text}&rdquo;
                   </p>
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-full bg-slate-100 overflow-hidden ring-2 ring-slate-50 group-hover:ring-white/30 transition-all">
                       <img 
                         src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${t.name}`} 
-                        alt={t.name} 
+                        alt={t.name} loading="lazy" decoding="async" width={48} height={48}
                         className="w-full h-full object-cover transition-all" 
                       />
                     </div>
@@ -183,7 +174,7 @@ export default function Home() {
           <div className="flex md:hidden flex-col gap-6 px-6">
             {banners.map((banner) => (
               <div key={banner.id} className="w-full aspect-[4/1] rounded-2xl overflow-hidden shadow-lg border-2 border-white bg-white">
-                <img src={banner.img} alt={`Banner ${banner.id}`} className="w-full h-full object-cover" />
+                <img loading="lazy" decoding="async" width={1000} height={250} src={banner.img} alt={`Banner ${banner.id}`} className="w-full h-full object-cover" />
               </div>
             ))}
           </div>
@@ -215,7 +206,7 @@ export default function Home() {
                       onClick={() => setPlaceholdersIndex(virtualIndex)}
                       className="absolute flex-shrink-0 w-[800px] aspect-[4/1] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white bg-white cursor-pointer transition-shadow hover:shadow-blue-100/50"
                     >
-                      <img src={banner.img} alt={`Banner ${bannerIndex}`} className="w-full h-full object-cover" />
+                      <img loading="lazy" decoding="async" width={1000} height={250} src={banner.img} alt={`Banner ${bannerIndex}`} className="w-full h-full object-cover" />
                     </motion.div>
                   );
                 })}

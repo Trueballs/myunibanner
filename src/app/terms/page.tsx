@@ -1,9 +1,9 @@
 "use client";
 
-import { Scale, Copyright, AlertTriangle, CheckCircle } from "lucide-react";
-import { motion } from "framer-motion";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import { motion } from "framer-motion";
+import { AlertTriangle,Copyright,Scale } from "lucide-react";
 
 export default function TermsPage() {
     const terms = [

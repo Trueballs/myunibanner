@@ -1,0 +1,1186 @@
+[
+  {
+    "university": "Imperial College London",
+    "domain": "imperial.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 4,
+        "photo_count": 5,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 41484345
+      }
+    ]
+  },
+  {
+    "university": "King's College London",
+    "domain": "kcl.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 3,
+        "photo_count": 6,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 1611596
+      }
+    ]
+  },
+  {
+    "university": "London School of Economics",
+    "domain": "lse.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 6,
+        "photo_count": 9,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 2575297
+      }
+    ]
+  },
+  {
+    "university": "University of Manchester",
+    "domain": "manchester.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 4,
+        "photo_count": 10,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 3095146
+      }
+    ]
+  },
+  {
+    "university": "University College London",
+    "domain": "ucl.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 22,
+        "photo_count": 15,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [
+          "/uk-universities/UCL/Bilder_HighRez/161214_UCL_Bartlett_011.jpg",
+          "/uk-universities/UCL/Bilder_HighRez/979_main_quad_press_image_plan_landscape.png",
+          "/uk-universities/UCL/Bilder_HighRez/979_main_quad_press_image_stage_landscape.png",
+          "/uk-universities/UCL/Bilder_HighRez/ATWEB-NickHareArchitects-UCL-phAlanWilliams-10.jpg",
+          "/uk-universities/UCL/Bilder_HighRez/SW_UCL_East_Marshgate_London_HuftonCrow_073_cropped_2_hJq3v6v_medium.webp",
+          "/uk-universities/UCL/Bilder_HighRez/Screenshot 2026-03-05 at 14.14.45.png",
+          "/uk-universities/UCL/Bilder_HighRez/UCL University College London - Federation member of University of London.jpg",
+          "/uk-universities/UCL/Bilder_HighRez/UCL_Bedford_Way.jpg",
+          "/uk-universities/UCL/Bilder_HighRez/University College London Hospitals NHS Foundation Trust (U.jpeg",
+          "/uk-universities/UCL/Bilder_HighRez/marshgate-ucl-east-stanton-williams_4.jpg",
+          "/uk-universities/UCL/Bilder_HighRez/ucl-cancer-institute_content_4f6969eb.webp",
+          "/uk-universities/UCL/Bilder_HighRez/ucl_east_marshgate_exterior_panorama.avif",
+          "/uk-universities/UCL/Bilder_HighRez/wide-fullhd-ucl-university-college-london.jpg"
+        ],
+        "photo_bytes": 102767
+      }
+    ]
+  },
+  {
+    "university": "University of Reading",
+    "domain": "reading.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 18,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=reading.ac.uk&v=1777154998118&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 6596870
+      },
+      {
+        "campus": "Reading University",
+        "logo_variants": 7,
+        "photo_count": 9,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 1934082
+      },
+      {
+        "campus": "Henley Business School",
+        "logo_variants": 7,
+        "photo_count": 9,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 4662788
+      }
+    ]
+  },
+  {
+    "university": "University of Cambridge",
+    "domain": "cam.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 6,
+        "photo_count": 18,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 14216914
+      }
+    ]
+  },
+  {
+    "university": "University of Oxford",
+    "domain": "ox.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/ox.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=ox.ac.uk&v=1777154998711&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "University of St Andrews",
+    "domain": "st-andrews.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/st-andrews.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=st-andrews.ac.uk&v=1777154998714&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "Durham University",
+    "domain": "durham.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/durham.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=durham.ac.uk&v=1777154998718&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "Loughborough University",
+    "domain": "lboro.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 14,
+        "photo_count": 14,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 2352296
+      }
+    ]
+  },
+  {
+    "university": "University of Bath",
+    "domain": "bath.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 9,
+        "photo_count": 15,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 16681399
+      }
+    ]
+  },
+  {
+    "university": "University of Warwick",
+    "domain": "warwick.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/warwick.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=warwick.ac.uk&v=1777154999539&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "Lancaster University",
+    "domain": "lancaster.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/lancaster.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=lancaster.ac.uk&v=1777154999542&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "University of Exeter",
+    "domain": "exeter.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/exeter.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=exeter.ac.uk&v=1777154999545&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "University of York",
+    "domain": "york.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/york.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=york.ac.uk&v=1777154999548&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "University of Birmingham",
+    "domain": "bham.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 10,
+        "photo_count": 17,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 7308050
+      }
+    ]
+  },
+  {
+    "university": "University of Bristol",
+    "domain": "bristol.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 8,
+        "photo_count": 15,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 10450028
+      }
+    ]
+  },
+  {
+    "university": "University of Sheffield",
+    "domain": "sheffield.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/sheffield.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=sheffield.ac.uk&v=1777155000353&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "University of Southampton",
+    "domain": "soton.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/soton.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=soton.ac.uk&v=1777155000356&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "University of Edinburgh",
+    "domain": "ed.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/ed.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=ed.ac.uk&v=1777155000359&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "University of Surrey",
+    "domain": "surrey.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/surrey.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=surrey.ac.uk&v=1777155000362&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "University of Leeds",
+    "domain": "leeds.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/leeds.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=leeds.ac.uk&v=1777155000365&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "Cardiff University",
+    "domain": "cardiff.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/cardiff.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=cardiff.ac.uk&v=1777155000370&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "University of Liverpool",
+    "domain": "liverpool.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 7,
+        "photo_count": 18,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 13540231
+      }
+    ]
+  },
+  {
+    "university": "Queen's University Belfast",
+    "domain": "qub.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/qub.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=qub.ac.uk&v=1777155000917&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "Heriot-Watt University",
+    "domain": "hw.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/hw.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=hw.ac.uk&v=1777155000920&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "University of East Anglia",
+    "domain": "uea.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 12,
+        "photo_count": 8,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 10624720
+      }
+    ]
+  },
+  {
+    "university": "University of Nottingham",
+    "domain": "nottingham.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/nottingham.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=nottingham.ac.uk&v=1777155001309&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "University of Essex",
+    "domain": "essex.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/essex.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=essex.ac.uk&v=1777155001312&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "University of Aberdeen",
+    "domain": "abdn.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/abdn.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=abdn.ac.uk&v=1777155001315&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "University of Glasgow",
+    "domain": "gla.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/gla.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=gla.ac.uk&v=1777155001319&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "Newcastle University",
+    "domain": "ncl.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/ncl.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=ncl.ac.uk&v=1777155001322&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "University of Leicester",
+    "domain": "le.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 13,
+        "photo_count": 14,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 6334718
+      }
+    ]
+  },
+  {
+    "university": "University of the Arts London",
+    "domain": "arts.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/arts.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=arts.ac.uk&v=1777155001782&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "Royal Holloway, University of London",
+    "domain": "rhul.ac.uk",
+    "country": "United Kingdom",
+    "icon_status": 307,
+    "icon_redirect": "https://logo.clearbit.com/rhul.ac.uk",
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 0,
+        "photo_count": 0,
+        "failed_logo_urls": [
+          "/api/full-logo?domain=rhul.ac.uk&v=1777155001779&w=800"
+        ],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "NTNU",
+    "domain": "ntnu.no",
+    "country": "Norway",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 6,
+        "photo_count": 23,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 5635929
+      },
+      {
+        "campus": "Ålesund",
+        "logo_variants": 6,
+        "photo_count": 8,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 1967210
+      },
+      {
+        "campus": "Gjøvik",
+        "logo_variants": 6,
+        "photo_count": 7,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 1628122
+      },
+      {
+        "campus": "Trondheim",
+        "logo_variants": 6,
+        "photo_count": 8,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 2040597
+      }
+    ]
+  },
+  {
+    "university": "UiT Norges arktiske universitet",
+    "domain": "uit.no",
+    "country": "Norway",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 3,
+        "photo_count": 15,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 2674186
+      },
+      {
+        "campus": "Alta",
+        "logo_variants": 3,
+        "photo_count": 7,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 1091219
+      },
+      {
+        "campus": "Bardufoss",
+        "logo_variants": 3,
+        "photo_count": 3,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 243160
+      },
+      {
+        "campus": "Hammerfest",
+        "logo_variants": 3,
+        "photo_count": 5,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 1339807
+      }
+    ]
+  },
+  {
+    "university": "Universitetet i Sørøst-Norge",
+    "domain": "usn.no",
+    "country": "Norway",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 4,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      },
+      {
+        "campus": "Bø",
+        "logo_variants": 4,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      },
+      {
+        "campus": "Drammen",
+        "logo_variants": 4,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      },
+      {
+        "campus": "Kongsberg",
+        "logo_variants": 4,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      },
+      {
+        "campus": "Notodden",
+        "logo_variants": 4,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      },
+      {
+        "campus": "Porsgrunn",
+        "logo_variants": 4,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      },
+      {
+        "campus": "Rauland",
+        "logo_variants": 4,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      },
+      {
+        "campus": "Ringerike",
+        "logo_variants": 4,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      },
+      {
+        "campus": "Vestfold",
+        "logo_variants": 4,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "Nord universitet",
+    "domain": "nord.no",
+    "country": "Norway",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 3,
+        "photo_count": 20,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 5933948
+      }
+    ]
+  },
+  {
+    "university": "OsloMet",
+    "domain": "oslomet.no",
+    "country": "Norway",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 7,
+        "photo_count": 22,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 6043643
+      },
+      {
+        "campus": "Kjeller",
+        "logo_variants": 7,
+        "photo_count": 4,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 1055411
+      },
+      {
+        "campus": "Oslo and Pilestredet",
+        "logo_variants": 7,
+        "photo_count": 13,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 3917925
+      },
+      {
+        "campus": "Sandvika",
+        "logo_variants": 7,
+        "photo_count": 5,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 1070307
+      }
+    ]
+  },
+  {
+    "university": "Universitetet i Innlandet",
+    "domain": "inn.no",
+    "country": "Norway",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 6,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      },
+      {
+        "campus": "Blæstad",
+        "logo_variants": 6,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      },
+      {
+        "campus": "Elverum",
+        "logo_variants": 6,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      },
+      {
+        "campus": "Evenstad",
+        "logo_variants": 6,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      },
+      {
+        "campus": "Hamar",
+        "logo_variants": 6,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      },
+      {
+        "campus": "Lillehammer",
+        "logo_variants": 6,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      },
+      {
+        "campus": "Rena",
+        "logo_variants": 6,
+        "photo_count": 0,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 0
+      }
+    ]
+  },
+  {
+    "university": "BI - Handelshøyskolen",
+    "domain": "bi.no",
+    "country": "Norway",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 7,
+        "photo_count": 30,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [
+          "/norske-universiteter/BI/Bilder_HighRez/Bergen/Bergen.jpg",
+          "/norske-universiteter/BI/Bilder_HighRez/Bergen/hardangerfjorden.jpeg"
+        ],
+        "photo_bytes": 8179994
+      },
+      {
+        "campus": "Oslo",
+        "logo_variants": 7,
+        "photo_count": 10,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 2601107
+      },
+      {
+        "campus": "Bergen",
+        "logo_variants": 7,
+        "photo_count": 14,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 2393642
+      },
+      {
+        "campus": "Trondheim",
+        "logo_variants": 7,
+        "photo_count": 6,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 828791
+      },
+      {
+        "campus": "Stavanger",
+        "logo_variants": 7,
+        "photo_count": 8,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 3877951
+      }
+    ]
+  },
+  {
+    "university": "Universitetet i Oslo",
+    "domain": "uio.no",
+    "country": "Norway",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 10,
+        "photo_count": 16,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 3972370
+      },
+      {
+        "campus": "Blindern",
+        "logo_variants": 10,
+        "photo_count": 6,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 1948874
+      },
+      {
+        "campus": "Oslo",
+        "logo_variants": 10,
+        "photo_count": 10,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 2023496
+      }
+    ]
+  },
+  {
+    "university": "Universitetet i Bergen",
+    "domain": "uib.no",
+    "country": "Norway",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 14,
+        "photo_count": 18,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 10014396
+      },
+      {
+        "campus": "Bergen",
+        "logo_variants": 14,
+        "photo_count": 18,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 10014396
+      }
+    ]
+  },
+  {
+    "university": "Universitetet i Stavanger",
+    "domain": "uis.no",
+    "country": "Norway",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 9,
+        "photo_count": 10,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 2204473
+      },
+      {
+        "campus": "Stavanger",
+        "logo_variants": 9,
+        "photo_count": 10,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 2204473
+      }
+    ]
+  },
+  {
+    "university": "Universitetet i Agder",
+    "domain": "uia.no",
+    "country": "Norway",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 12,
+        "photo_count": 26,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 133600735
+      },
+      {
+        "campus": "Grimstad",
+        "logo_variants": 12,
+        "photo_count": 12,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 43701175
+      },
+      {
+        "campus": "Kristiansand",
+        "logo_variants": 12,
+        "photo_count": 14,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 89899560
+      }
+    ]
+  },
+  {
+    "university": "Norges miljø- og biovitenskapelige universitet",
+    "domain": "nmbu.no",
+    "country": "Norway",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 7,
+        "photo_count": 13,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 3242270
+      },
+      {
+        "campus": "Ås",
+        "logo_variants": 7,
+        "photo_count": 13,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 3242270
+      }
+    ]
+  },
+  {
+    "university": "NHH Norwegian School of Economics",
+    "domain": "nhh.no",
+    "country": "Norway",
+    "icon_status": 200,
+    "icon_redirect": null,
+    "records": [
+      {
+        "campus": null,
+        "logo_variants": 19,
+        "photo_count": 9,
+        "failed_logo_urls": [],
+        "failed_photo_urls": [],
+        "photo_bytes": 2156501
+      }
+    ]
+  }
+]

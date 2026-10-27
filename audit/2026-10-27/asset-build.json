@@ -1,0 +1,26 @@
+{
+  "records": 85,
+  "supportedSchools": 27,
+  "excluded": [
+    {
+      "file": "uk-universities/Imperial/Bilder_HighRez/Victor_Meirelles_–_Juramento_da_Princesa_Isabel,_1875_–_Museu_Imperial,_Petrópolis.jpg",
+      "reason": "Excluded: unrelated painting or pre-branded image"
+    },
+    {
+      "file": "uk-universities/KCL/Logo/Kcl-logo.svg",
+      "reason": "Duplicate black wordmark; sharper logo - tekst black.png retained"
+    },
+    {
+      "file": "uk-universities/LSE/Logo/lse-logo(1).jpg",
+      "reason": "Logo variant removed at user request (thumbnail 83e3e42c5cb89bb0213c)"
+    },
+    {
+      "file": "uk-universities/LSE/Bilder_HighRez/London School of Economics image 7 with logo.jpg",
+      "reason": "Excluded: unrelated painting or pre-branded image"
+    },
+    {
+      "file": "uk-universities/Manchester/Bilder_HighRez/University of Manchester image 7 with logo.jpg",
+      "reason": "Excluded: unrelated painting or pre-branded image"
+    }
+  ]
+}

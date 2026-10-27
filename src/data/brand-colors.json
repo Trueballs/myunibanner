@@ -1,0 +1,543 @@
+{
+  "reviewedAt": "2026-10-27",
+  "policy": "source-verified: selected colours supported by published guidance. website-verified: values corroborated in the current official website, with brand-manual confirmation still outstanding. Neither is university approval or full brand compliance. White/black may be app neutrals. Pending entries retain legacy colours except known shared placeholder palettes, which use neutral backgrounds until evidence is available.",
+  "schools": {
+    "manchester.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#660099",
+        "#FFCC33",
+        "#999999",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.staffnet.manchester.ac.uk/brand/visual-identity/colour/"
+      ],
+      "notes": "Published web HEX values; purple RGB and HEX differ in source."
+    },
+    "ucl.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#361A54",
+        "#30D6FF",
+        "#993BFF",
+        "#000000",
+        "#FAFAFA"
+      ],
+      "sources": [
+        "https://www.ucl.ac.uk/brand-and-experience/brand/visual-guidelines/colour"
+      ],
+      "notes": "Current purple palette and heritage blue; black is an app neutral. Retain order for existing stripe assets."
+    },
+    "cam.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#8EE8D8",
+        "#D1F9F1",
+        "#00BDB6",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.cam.ac.uk/brand-resources/guidelines/colour"
+      ],
+      "notes": "Core background colours. Excludes accent-only dark blue and restricted heritage/Judge colours."
+    },
+    "ox.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#002147",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.ox.ac.uk/about/the-university/brand/guidelines"
+      ],
+      "notes": "Oxford blue and white."
+    },
+    "st-andrews.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#00539B",
+        "#EE312A",
+        "#FFDF00",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.st-andrews.ac.uk/about/brand/colours/"
+      ],
+      "notes": "Core published palette."
+    },
+    "lancaster.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#B5121B",
+        "#555656",
+        "#FFFFFF",
+        "#000000"
+      ],
+      "sources": [
+        "https://www.lancaster.ac.uk/external-relations/marketing-office/brand/visual-identity/colours/index.php"
+      ],
+      "notes": "Core palette; unsupported green removed."
+    },
+    "exeter.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#003C3C",
+        "#00C896",
+        "#00DCA5",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://brand.exeter.ac.uk/uoe.pdf?v=20260324"
+      ],
+      "notes": "2026 guide; excludes website-only 022020 and text-only 007D69."
+    },
+    "bham.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#1B1B1B",
+        "#FAFAFA"
+      ],
+      "sources": [
+        "https://brand.birmingham.ac.uk/guidelines/colour/"
+      ],
+      "notes": "Digital primary backgrounds. C59A00 gold is restricted to block graphics; secondary colours to data visualisation."
+    },
+    "leeds.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#C70000",
+        "#910000",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://designsystem.leeds.ac.uk/docs/colours.html"
+      ],
+      "notes": "Published online brand palette; existing reds confirmed."
+    },
+    "hw.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#0A3E65",
+        "#031B39",
+        "#6A5B49",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.hw.ac.uk/document-library/mrac/HWU-Brand-Guidelines-2024.pdf"
+      ],
+      "notes": "Page 32; published HEX preferred over inconsistent RGB triplets."
+    },
+    "essex.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#622567",
+        "#CD202C",
+        "#000000",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.essex.ac.uk/staff/brand/colour-palette"
+      ],
+      "notes": "Published digital HEX values; source scarlet RGB differs. Graduation gold excluded."
+    },
+    "gla.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#011451",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://special.lib.gla.ac.uk/myglasgow/staff/brandtoolkit/colour/"
+      ],
+      "notes": "Current official university brand toolkit; replaces older navy."
+    },
+    "ncl.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#051435",
+        "#003A65",
+        "#0073BC",
+        "#29B7EA",
+        "#8ED8F8",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.ncl.ac.uk/brand-hub/visual-identity/colour-palette/"
+      ],
+      "notes": "Primary blues only. Accent red/teal excluded as dominant backgrounds. White source typo corrected to six-digit hex."
+    },
+    "le.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#E4042C",
+        "#3C3C3C",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://le.ac.uk/-/media/uol/docs/recruitment/brand-guidelines/uol-citizens-of-change-guidelines-2020.pdf"
+      ],
+      "notes": "Published Citizens of Change guide; source dated 2020."
+    },
+    "arts.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#000000",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.arts.ac.uk/brand/visual-identity/colour"
+      ],
+      "notes": "Core monochrome identity."
+    },
+    "rhul.ac.uk": {
+      "status": "source-verified",
+      "colors": [
+        "#EB641E",
+        "#202A30",
+        "#FFF1DF",
+        "#B4C4D0"
+      ],
+      "sources": [
+        "https://venue.royalholloway.ac.uk/about-us/our-brand/colours/"
+      ],
+      "notes": "Current primary palette; removes unsupported green."
+    },
+    "ntnu.no": {
+      "status": "source-verified",
+      "colors": [
+        "#00509E",
+        "#575756",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://i.ntnu.no/wiki/-/wiki/Norsk/Farger%2Bi%2Bgrafisk%2Bprofil"
+      ],
+      "notes": "Main blue and neutral grey confirmed."
+    },
+    "uit.no": {
+      "status": "source-verified",
+      "colors": [
+        "#003349",
+        "#007396",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://uit.no/ansatte/kommunikasjonstips/grafisk/profilmanual/sub?p_document_id=861335"
+      ],
+      "notes": "Updated primary navy; blue support."
+    },
+    "usn.no": {
+      "status": "source-verified",
+      "colors": [
+        "#7800F0",
+        "#9359EF",
+        "#CDB9FC",
+        "#2F0B63",
+        "#DAD9FF",
+        "#FFF5EE"
+      ],
+      "sources": [
+        "https://brandpad.io/usn/"
+      ],
+      "notes": "Brandpad linked by official USN press page. Purple/soft backgrounds; excludes strong orange, pink and acid green from large areas."
+    },
+    "oslomet.no": {
+      "status": "source-verified",
+      "colors": [
+        "#FFDC00",
+        "#000000",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://ansatt.oslomet.no/en/logo-visual-profile"
+      ],
+      "notes": "Main yellow corrected from FDDC34."
+    },
+    "uio.no": {
+      "status": "source-verified",
+      "colors": [
+        "#DD0000",
+        "#3E31D6",
+        "#E6ECFF",
+        "#CEFFDF",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.uio.no/om/designmanual/profilelementer/fargepalett/index.html"
+      ],
+      "notes": "Published HEX preferred; B60000 seal red removed (reserved for diplomas)."
+    },
+    "uib.no": {
+      "status": "source-verified",
+      "colors": [
+        "#761A19",
+        "#EC3D3C",
+        "#00417D",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://manual.uib.no/en/brand-guide/profile-components/"
+      ],
+      "notes": "Core colours. Bright blue omitted because published HEX and RGB conflict."
+    },
+    "uia.no": {
+      "status": "source-verified",
+      "colors": [
+        "#C8102E",
+        "#F8EDDD",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.uia.no/om-uia/designmanual/fargepalett.html"
+      ],
+      "notes": "Main red/warm neutral; blue reserved for functional systems/signage. Uses published HEX where RGB differs."
+    },
+    "nmbu.no": {
+      "status": "source-verified",
+      "colors": [
+        "#008571",
+        "#025C4F",
+        "#DBF8F4",
+        "#53143A",
+        "#E7E3D1",
+        "#F6F6EE"
+      ],
+      "sources": [
+        "https://www.nmbu.no/om/designhandbok"
+      ],
+      "notes": "Linked NMBU_fargepalett.pdf (2024-09), page 1 primary backgrounds."
+    },
+    "nhh.no": {
+      "status": "source-verified",
+      "colors": [
+        "#00395A",
+        "#3B6E8F",
+        "#C4DFE0",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.nhh.no/globalassets/paraplyen/kommunikasjonsavdelingen/fomidlingsstotte/merkevare/nhh_designmanual_rev_tm_web.pdf"
+      ],
+      "notes": "Page 37 RGB converted exactly to hex; public guide dated 2013, newer confirmation still desirable."
+    },
+    "imperial.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://www.imperial.ac.uk/staff/tools-and-reference/brand-style-guide/visual-identity/"
+      ],
+      "notes": "Current guidelines require SSO. Old 2022/2023 palettes predate 2024 rebrand; do not use them."
+    },
+    "kcl.ac.uk": {
+      "status": "website-verified",
+      "colors": [
+        "#E22319",
+        "#0A2D50",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.kcl.ac.uk",
+        "https://www.kcl.ac.uk/siteelements/2017/css/style.min.css?version=8033303?version=8033303"
+      ],
+      "notes": "Current university stylesheet: Kings/red button E22319 and blue 0A2D50. Historic guide copy says E2231A; one-channel discrepancy remains, using current website colour rather than claiming brand-manual confirmation."
+    },
+    "lse.ac.uk": {
+      "status": "website-verified",
+      "colors": [
+        "#E0112B",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.lse.ac.uk"
+      ],
+      "notes": "Current official homepage inline styles consistently use E0112B for its primary CTA and navigation accents. Website corroboration only; full brand portal remains restricted."
+    },
+    "reading.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://www.reading.ac.uk/brand/colours"
+      ],
+      "notes": "Official print palette is CMYK/Pantone only; linked Adobe XD digital palette did not expose values. No single signature colour."
+    },
+    "lboro.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://www.imagovenues.co.uk/assets/docs/Imago-Venues_Brand-Guidelines_2021_compressed.pdf"
+      ],
+      "notes": "University-owned venue guide identifies 361163 as a university palette colour; current institutional primary/background use not confirmed."
+    },
+    "bath.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://www.bath.ac.uk/announcements/a-refreshed-visual-identity-for-the-university-of-bath/"
+      ],
+      "notes": "New identity announced; older PDF does not establish current digital colours."
+    },
+    "durham.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://webspace.durham.ac.uk/getting-started/wordpress-themes/"
+      ],
+      "notes": "Official colour themes located; exact current brand specifications not established."
+    },
+    "warwick.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://brand.warwick.ac.uk/en/brand-guidelines/visual-identity/"
+      ],
+      "notes": "2025 refresh; visual-identity guide redirects to login."
+    },
+    "york.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://www.york.ac.uk/media/staffhome/marketing/brand/UoY_Guidelines_060323_Web-Final.pdf"
+      ],
+      "notes": "Official guide fetch returned 403."
+    },
+    "bristol.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://www.bristol.ac.uk/style-guides/brand-identity/"
+      ],
+      "notes": "Current detailed guidance links to staff SharePoint. Historic 2013 red not accepted as current."
+    },
+    "sheffield.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://www.sheffield.ac.uk/brand-toolkit/introducing-our-brand-identity"
+      ],
+      "notes": "Violet identity confirmed; public wayfinding guide gives print colours, not current digital primary HEX."
+    },
+    "soton.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "http://go.soton.ac.uk/uosbrand"
+      ],
+      "notes": "Accessibility matrix located externally; current university-hosted colour specification not confirmed."
+    },
+    "ed.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://information-services.ed.ac.uk/design-system/brand"
+      ],
+      "notes": "Brand resources located; exact current palette not established from accessible primary evidence."
+    },
+    "surrey.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://www.surrey.ac.uk"
+      ],
+      "notes": "Only historic 2006 brand guide found; current official digital specification unresolved."
+    },
+    "cardiff.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://www.onlystudio.com/work/cardiff-university"
+      ],
+      "notes": "Identity designer confirms refresh; no exact current digital codes published in case study. Old 2013 web guide unsuitable."
+    },
+    "liverpool.ac.uk": {
+      "status": "website-verified",
+      "colors": [
+        "#212B58",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.liverpool.ac.uk",
+        "https://www.liverpool.ac.uk/rb/latest/assets/redbrick.css"
+      ],
+      "notes": "Current official website: --rb--color--primary resolves to blue RGB 33 43 88. Digital website evidence, not a complete brand manual."
+    },
+    "qub.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://www.qub.ac.uk/brand/file-store/Filetoupload%2C774702%2Cen.pdf"
+      ],
+      "notes": "Official brand PDF returned 403; exact current codes unresolved."
+    },
+    "uea.ac.uk": {
+      "status": "website-verified",
+      "colors": [
+        "#B6DA26",
+        "#000000",
+        "#F6F6F6"
+      ],
+      "sources": [
+        "https://rbl-brandagency.com/work/university-of-east-anglia/",
+        "https://www.uea.ac.uk/_next/static/css/987512c58a0888b3.css"
+      ],
+      "notes": "Identity designer names Bulrush Green as primary; current official stylesheet defines --bulrushGreen as B6DA26 and provides background--bulrushGreen. Off-white is F6F6F6. Old blue/gold removed."
+    },
+    "nottingham.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://www.nottingham.edu.cn/en/brand/documents/nottingham-brand-book-en-240313.pdf"
+      ],
+      "notes": "Official guide search excerpt identifies 10263B as main navy; full guide fetch timed out. Requires full check."
+    },
+    "abdn.ac.uk": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://www.abdn.ac.uk/media/site/staffnet/documents/UoA-Brand-Guidelines-2023.pdf"
+      ],
+      "notes": "Full guide inspected; foundation colours identified by names but no HEX/RGB specifications in PDF text. Old palette not substantiated."
+    },
+    "nord.no": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://www.nord.no/om/trykk-og-grafiske-tjenester"
+      ],
+      "notes": "Official page fetch returned 403; exact digital codes unresolved."
+    },
+    "inn.no": {
+      "status": "website-verified",
+      "colors": [
+        "#105422",
+        "#003F01",
+        "#E9F5E7",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.inn.no",
+        "https://www.inn.no/vrtx/dist/resources/x1/css/local.css"
+      ],
+      "notes": "Current official website primary/primary-accent/secondary tokens; old HINN 2018 manual not treated as current."
+    },
+    "bi.no": {
+      "status": "source-verified",
+      "colors": [
+        "#002341",
+        "#093F82",
+        "#9EC0F1",
+        "#D9E6F9",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://design.bi.no/colour-2"
+      ],
+      "notes": "Current BI manual, updated 7 August 2025; direct HTTP retrieval succeeded. Main blue spectrum; gold omitted because displayed HEX and RGB disagree."
+    },
+    "uis.no": {
+      "status": "needs-confirmation",
+      "sources": [
+        "https://www.uis.no"
+      ],
+      "notes": "Exact university-wide digital colour specification not located; unrelated US institution and museum sub-brand excluded."
+    }
+  },
+  "campuses": {
+    "reading.ac.uk-Henley Business School": {
+      "status": "website-verified",
+      "colors": [
+        "#0A3B85",
+        "#FFCD00",
+        "#FFFFFF"
+      ],
+      "sources": [
+        "https://www.henley.ac.uk",
+        "https://static.henley.ac.uk/v4/production/css/app.5451178506a27a6408c6.css"
+      ],
+      "notes": "Official homepage uses bg-brand-blue and text-brand-yellow; corresponding CSS values recorded. Website evidence, not full brand manual. Separate from Reading."
+    }
+  }
+}

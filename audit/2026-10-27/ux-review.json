@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-27",
+  "scope": "Local generator, BI Oslo; desktop and 390x844 responsive viewport; synthetic text; no application code changed",
+  "method": "Hands-on Chrome interaction plus source inspection; expert usability review, not a study with real students",
+  "observed": [
+    {
+      "test": "74-character student headline, Elegant Stripe, Large logo",
+      "result": "Text renders as three heavy centred lines; input stays single-line, no line-break/size/alignment controls"
+    },
+    {
+      "test": "Switch to Centered Logo",
+      "result": "Headline hidden from preview and input disabled with explanation; text preserved when switching back"
+    },
+    {
+      "test": "390x844 mobile editing",
+      "result": "Headline input below logo controls; preview outside viewport while editing; tiny text in scaled preview"
+    },
+    {
+      "test": "Reload after editing headline/layout/size",
+      "result": "Headline cleared, layout reset to Split and size to Normal"
+    },
+    {
+      "test": "PNG download",
+      "result": "Unconfirmed: browser tool call timed out; do not classify as an app export failure"
+    }
+  ],
+  "source_confirmed": [
+    "Headline single-line input maxLength=100, no character counter",
+    "Headline font weight 900 and sizes fixed by layout",
+    "No focal-point/crop control in current editor"
+  ],
+  "priorities": [
+    {
+      "priority": 1,
+      "feature": "Two-line text editor: main line and optional supporting line; live count, presets, 3 sizes, alignment, safe text positioning",
+      "value": "Readable personal identity with less trial and error"
+    },
+    {
+      "priority": 2,
+      "feature": "Sticky compact preview on mobile, with expand button",
+      "value": "See edits while typing"
+    },
+    {
+      "priority": 3,
+      "feature": "Autosave per-school draft and restore/reset; undo/redo",
+      "value": "Avoid losing work"
+    },
+    {
+      "priority": 4,
+      "feature": "LinkedIn-style profile preview with avatar overlap and desktop/mobile approximations",
+      "value": "Inspect text placement before download; label as approximation"
+    },
+    {
+      "priority": 5,
+      "feature": "Photo focal point and zoom/crop",
+      "value": "Keep recognisable campus details visible"
+    },
+    {
+      "priority": 6,
+      "feature": "Three complete starting designs using actual school assets and a few student text presets",
+      "value": "Faster first good result; validate with student testing"
+    }
+  ],
+  "next_validation": "Five students: create a banner with study/interest text, change layout, recover draft, download; record time, hesitation, visibility mistakes and completion."
+}

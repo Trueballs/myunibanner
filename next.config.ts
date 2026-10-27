@@ -1,17 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  outputFileTracingExcludes: {
-    '*': [
-      './public/uk-universities/*/Bilder_HighRez/**',
-      './public/norske-universiteter/*/Bilder_HighRez/**',
-    ],
-  },
-  outputFileTracingIncludes: {
-    '/api/brand': ['./src/data/cache/**/*.json'],
-    '/api/full-logo': ['./src/data/cache/**/*.json'],
-    '/api/logo': ['./src/data/cache/**/*.json'],
+  async headers() {
+    return [{ source: '/generated/:path*', headers: [
+      { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+      { key: 'X-Content-Type-Options', value: 'nosniff' },
+    ] }];
   },
 };
-
 export default nextConfig;

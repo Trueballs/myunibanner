@@ -1,76 +1,17 @@
-import { existsSync, readFileSync } from 'fs';
+import { assetCacheHeaders,catalogue } from '@/lib/catalogue';
+import { NextResponse } from 'next/server';
 
-export const dynamic = 'force-dynamic';
-import { join } from 'path';
-import sharp from 'sharp';
-
-export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-    const folder = searchParams.get('folder') || '';
-    const file = searchParams.get('file') || '';
-    const root = searchParams.get('root') || 'uk-universities';
-
-    if (!folder || !file) return new Response('Missing params', { status: 400 });
-
-    const basePath = join(process.cwd(), 'public', root);
-    let filePath = join(basePath, folder, 'Bilder_HighRez', file);
-    
-    // Support both NFC and NFD normalizations (for special characters like Å, Ø, Æ)
-    if (!existsSync(filePath)) {
-        const nfc = filePath.normalize('NFC');
-        const nfd = filePath.normalize('NFD');
-        if (existsSync(nfc)) filePath = nfc;
-        else if (existsSync(nfd)) filePath = nfd;
-    }
-    
-    // SIKKERHETSFIKS: Sikre at path-en faktsik starter med basePath for å forhindre Directory Traversal (LFI)
-    if (!filePath.startsWith(basePath)) {
-        return new Response('Forbidden', { status: 403 });
-    }
-    
-    if (!existsSync(filePath)) return new Response('Not found', { status: 404 });
-
-    const ext = file.split('.').pop()!.toLowerCase();
-    const contentType =
-        ext === 'webp' ? 'image/webp' :
-            ext === 'avif' ? 'image/avif' :
-                ext === 'png' ? 'image/png' :
-                    'image/jpeg';
-
-    const buf = readFileSync(filePath);
-
-    // OPTIMIZATION: If width is provided, resize the image for faster loading
-    const w = searchParams.get('w');
-    if (w) {
-        try {
-            const width = parseInt(w);
-            if (!isNaN(width) && width > 0) {
-                const optimized = await sharp(buf)
-                    .resize(width, null, { withoutEnlargement: true })
-                    .sharpen(0.5) // Simplified sharpening to fix lint/type error
-                    .webp({ quality: 95, lossless: false, smartSubsample: true })
-                    .toBuffer();
-                
-                return new Response(new Uint8Array(optimized), {
-                    headers: {
-                        'Content-Type': 'image/webp',
-                        'Cache-Control': 'public, max-age=3600',
-                        'Access-Control-Allow-Origin': '*',
-                        'Access-Control-Allow-Methods': 'GET, OPTIONS',
-                    },
-                });
-            }
-        } catch (e) {
-            console.error('Image optimization failed:', e);
-        }
-    }
-
-    return new Response(new Uint8Array(buf), {
-        headers: {
-            'Content-Type': contentType,
-            'Cache-Control': 'public, max-age=3600',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, OPTIONS',
-        },
-    });
+// Legacy URL compatibility: resolve only known manifest entries, never user-supplied filesystem paths.
+export function GET(request: Request) {
+  const params = new URL(request.url).searchParams;
+  const root = params.get('root') || 'uk-universities';
+  const folder = params.get('folder');
+  const file = params.get('file');
+  if (!['uk-universities', 'norske-universiteter'].includes(root) || !folder || !file) return new Response('Invalid image', { status: 400 });
+  const source = `/${root}/${folder}/Bilder_HighRez/${file}`.normalize('NFC');
+  for (const brand of Object.values(catalogue)) {
+    const image = Object.entries(brand.imageSources).find(([, original]) => original.normalize('NFC') === source);
+    if (image) return NextResponse.redirect(new URL(image[0], request.url), { status: 307, headers: assetCacheHeaders });
+  }
+  return new Response('Image unavailable', { status: 404 });
 }

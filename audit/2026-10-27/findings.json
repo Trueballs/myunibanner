@@ -1,0 +1,204 @@
+{
+  "date": "2026-10-27",
+  "site": "https://myunibanner.vercel.app/",
+  "source_commit": "b71bae8",
+  "scope": {
+    "universities": 49,
+    "uk": 36,
+    "norway": 13,
+    "brand_records": 85,
+    "icons": 49,
+    "asset_url_strings": 858,
+    "logo_GET_checks": 458,
+    "photo_HEAD_checks": 400,
+    "all_404s_rechecked_GET": true,
+    "image_decode": "all successful logo responses; local listed photos plus live failing Bristol file",
+    "export_tests": 11,
+    "browser_available": false,
+    "source_modified": false,
+    "deployed": false
+  },
+  "limitations": [
+    "No connected browser: visual interaction, mobile layout, keyboard navigation, actual browser downloads and Core Web Vitals not measured.",
+    "HTTP200 photo availability does not prove correct subject matter; only targeted content inspection performed.",
+    "Local and deployed key manifests match; deployed client bundle contains audited loading/export logic; complete server-source identity not independently attested.",
+    "Security source findings not exploited; advisory applicability needs triage."
+  ],
+  "findings": [
+    {
+      "priority": "P1",
+      "title": "22 listed universities have no assets",
+      "evidence": "Live icon APIs redirect to retired Clearbit; brand APIs return zero logos and photos; full-logo endpoints return404. Matching local asset folders contain no files.",
+      "source": "src/data/universities.ts:19",
+      "recommendation": "Add verified assets or clearly mark unsupported schools; do not route users into empty builders."
+    },
+    {
+      "priority": "P1",
+      "title": "Retired Clearbit fallback",
+      "evidence": "27 of49 icons decode; remaining22 redirect to logo.clearbit.com. Public service DNS fails and vendor confirms retirement on2025-12-01.",
+      "source": "src/app/api/logo/route.ts:107",
+      "recommendation": "Use curated local school icons and an initials fallback."
+    },
+    {
+      "priority": "P1",
+      "title": "Reading root record has broken logo",
+      "evidence": "General Reading record has zero variants and fullLogo returns404. Reading University and Henley Business School each have seven valid variants. Root logo discovery is not recursive.",
+      "source": "src/app/api/brand/route.ts:125",
+      "recommendation": "Select explicit default campus or merge campus-aware manifests; regenerate cache."
+    },
+    {
+      "priority": "P1",
+      "title": "UCL stale photo manifest",
+      "evidence": "13of15 cached photos return404; six local photos exist, including four absent from cached listing. Default cached photo is broken.",
+      "source": "src/data/cache/ucl.ac.uk.json:1",
+      "recommendation": "Rebuild manifest from existing approved images; validate URLs at build time."
+    },
+    {
+      "priority": "P1",
+      "title": "USN and Innlandet lack all campus photos",
+      "evidence": "All eight USN campus records and all six Innlandet campus records return no photos, as do their general records. Logos work.",
+      "source": "src/data/cache/usn.no.json:1",
+      "recommendation": "Add campus photos and expose upload even when no gallery exists."
+    },
+    {
+      "priority": "P2",
+      "title": "BI general record has stale images",
+      "evidence": "Bergen.jpg and hardangerfjorden.jpeg return404 in general BI record; campus-specific lists passed HTTP availability.",
+      "source": "src/data/cache/bi.no.json:1",
+      "recommendation": "Regenerate the general manifest from current campus records."
+    },
+    {
+      "priority": "P1",
+      "title": "Bristol AVIF fails export decoder",
+      "evidence": "University-of-Bristol-Takes-the-Top-Spot-for-Student-Satisfaction.avif returns200 but Sharp fails decoding. Live bytes equal local bytes. Browser decoding was not tested.",
+      "source": "public/uk-universities/University of Bristol/Bilder_HighRez/University-of-Bristol-Takes-the-Top-Spot-for-Student-Satisfaction.avif",
+      "recommendation": "Replace or re-encode from a healthy original and add image-decoding validation."
+    },
+    {
+      "priority": "P1",
+      "title": "Incorrect Imperial photo",
+      "evidence": "40,119,787-byte painting named Victor_Meirelles…Museu_Imperial… is exposed as an Imperial College campus image. Visually inspected.",
+      "source": "src/data/cache/imperial.ac.uk.json:1",
+      "recommendation": "Remove irrelevant image and manually curate institution/campus accuracy."
+    },
+    {
+      "priority": "P1",
+      "title": "Logo failure persists after source change",
+      "evidence": "SmartLogo sets err=true and returns null thereafter; no reset when src changes.",
+      "source": "src/app/build/page.tsx:165",
+      "recommendation": "Reset error on source change; show recoverable fallback; test switching from broken to valid campus/logo."
+    },
+    {
+      "priority": "P1",
+      "title": "Downloads silently omit failed assets",
+      "evidence": "Controlled request with missing image and logo returned200 and plain PNG. UCL default export also returned200 despite missing photo.",
+      "source": "src/app/api/render-banner/route.ts:98",
+      "recommendation": "Validate required assets, return clear422 error, and show actionable recovery."
+    },
+    {
+      "priority": "P1",
+      "title": "Preview/export layout divergence",
+      "evidence": "Live controlled render tests across layouts0–8 all produced1584x396 PNGs. Layout3 renders a photo although preview has solid brand background. Layout8 lacks UCL stripe implementation. Layout4/7 omit preview dark overlays. Text positioning/fonts differ in API tests, but text editor is currently absent in UI.",
+      "source": "src/app/api/render-banner/route.ts:83",
+      "recommendation": "Use one shared layout definition; add rendered-output regression tests for all layouts."
+    },
+    {
+      "priority": "P1",
+      "title": "Heavy full-resolution gallery loading",
+      "evidence": "Builder eagerly loads originals into44x28 thumbnails and hidden hover previews. UiA Kristiansand14 images total89.9MB; Grimstad12 total43.7MB; Imperial5 total41.48MB. Totals are payload sizes, not browser timing measurements.",
+      "source": "src/app/build/page.tsx:961",
+      "recommendation": "Create88–160px thumbnails and1600–2000px preview/export derivatives; lazy-load gallery and defer hover images."
+    },
+    {
+      "priority": "P2",
+      "title": "Homepage showcase payload",
+      "evidence": "Four eager showcase PNGs total4,150,110bytes. Local1000px WebP quality80 trial totals107,368bytes (97.4% reduction). Trial not deployed and visual quality still needs acceptance.",
+      "source": "src/app/page.tsx:186",
+      "recommendation": "Serve responsive WebP/AVIF with dimensions; lazy-load below-fold gallery; prioritize hero only."
+    },
+    {
+      "priority": "P2",
+      "title": "Avoidable dynamic logo work",
+      "evidence": "Icon route resizes on every request with no-store. Full logos run file discovery/background analysis and Sharp transforms; brand route forced dynamic though serving fixed JSON.",
+      "source": "src/app/api/logo/route.ts:78",
+      "recommendation": "Precompute versioned icons/logos/manifests and serve from CDN; remove timestamp cache-busting."
+    },
+    {
+      "priority": "P2",
+      "title": "Unnecessary onboarding before core action",
+      "evidence": "Country, degree/year, industry steps precede school search; Skip exists, but each manual opening starts at step1. Several one-campus universities still require campus step.",
+      "source": "src/components/OnboardingModal.tsx:69",
+      "recommendation": "Lead with school search; make profile questions optional; auto-select sole campus; remember school."
+    },
+    {
+      "priority": "P2",
+      "title": "Empty galleries also hide upload",
+      "evidence": "Upload control is nested inside brand.images.length>0.",
+      "source": "src/app/build/page.tsx:922",
+      "recommendation": "Always expose upload and show honest empty-state messaging."
+    },
+    {
+      "priority": "P2",
+      "title": "Advertised headline editor absent",
+      "evidence": "setText is declared but never used and no headline input is rendered, while homepage/how-to copy advertises personalised text.",
+      "source": "src/app/build/page.tsx:669",
+      "recommendation": "Restore editor with shared export typography or update promises."
+    },
+    {
+      "priority": "P2",
+      "title": "Weak error/accessibility handling",
+      "evidence": "Brand fetch errors only log to console; invalid manual school input reaches empty builder. Modal lacks dialog semantics, Escape handler and focus management; photo/logo/color buttons lack accessible names. Browser/keyboard verification pending.",
+      "source": "src/components/OnboardingModal.tsx:165",
+      "recommendation": "Add accessible dialog/search controls, visible errors/retry and reject unsupported freeform submissions."
+    },
+    {
+      "priority": "P2",
+      "title": "Campus switch retains custom photo and styling",
+      "evidence": "Changing campus resets photo/logo indices but leaves customImage and tint/layout state. A previously uploaded photo can override newly selected campus photos.",
+      "source": "src/app/build/page.tsx:713",
+      "recommendation": "Reset or explicitly preserve customization with clear UI indication."
+    },
+    {
+      "priority": "P1",
+      "title": "Dependency advisory findings",
+      "evidence": "npm audit reports15 affected dependency entries:1critical,11high,2moderate,1low; includes Next16.1.6 and Sharp. Counts include development/transitive dependencies and do not establish exploitability of each advisory in production.",
+      "source": "package-lock.json:1",
+      "recommendation": "Update dependencies with migration review and targeted build/export validation; inspect npm-audit.json."
+    },
+    {
+      "priority": "P1",
+      "title": "Render endpoint accepts arbitrary fetch destinations",
+      "evidence": "Source review: imageUrl/logoUrl passed to server fetch without host allowlist, request timeout, image byte limits or rate limiting. No exploit attempted.",
+      "source": "src/app/api/render-banner/route.ts:19",
+      "recommendation": "Accept manifest asset IDs or validated uploads; restrict destinations and redirects; bound bytes/dimensions/time and rate-limit."
+    },
+    {
+      "priority": "P1",
+      "title": "Image endpoint path validation inadequate",
+      "evidence": "root parameter controls basePath, and startsWith(basePath) does not prove containment beneath an immutable approved asset root. No nonpublic-file retrieval attempted.",
+      "source": "src/app/api/uni-image/route.ts:9",
+      "recommendation": "Allowlist roots and validate resolved paths with path.relative against fixed roots, plus file type and size checks."
+    },
+    {
+      "priority": "P1",
+      "title": "Shopify route lacks authentication",
+      "evidence": "Source review: GET accepts customerId and can return email using admin token; POST can update customer data. Impact depends on whether production credentials remain configured; not tested against customer data.",
+      "source": "src/app/api/shopify-sync/route.ts:51",
+      "recommendation": "Remove unused integration or require authentication and per-customer authorization."
+    },
+    {
+      "priority": "P2",
+      "title": "Privacy description contradicts processing",
+      "evidence": "Policy states banners processed locally, while builder posts assets to server; custom image becomes base64 request body and render route logs body. Ads script also loads globally.",
+      "source": "src/app/privacy/page.tsx:24",
+      "recommendation": "Describe actual processing and retention accurately; remove full-body logging and review third-party disclosure."
+    },
+    {
+      "priority": "P2",
+      "title": "Quality checks",
+      "evidence": "TypeScript noEmit passed; ESLint reported39errors and137warnings. No build or interactive browser test performed.",
+      "source": "eslint.config.mjs:1",
+      "recommendation": "Resolve lint failures and add manifest, decoding, fallback and export consistency checks."
+    }
+  ]
+}

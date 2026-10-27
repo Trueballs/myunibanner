@@ -1,0 +1,296 @@
+{
+  "imperial.ac.uk": {
+    "icon": "/generated/icon-9f88a98d239eb0b161e5.png",
+    "available": true,
+    "photoCount": 4,
+    "logoCount": 4
+  },
+  "kcl.ac.uk": {
+    "icon": "/generated/icon-7bc1820fa798d56ee273.png",
+    "available": true,
+    "photoCount": 6,
+    "logoCount": 2
+  },
+  "lse.ac.uk": {
+    "icon": "/generated/icon-f4c1a170976f52dbac01.png",
+    "available": true,
+    "photoCount": 9,
+    "logoCount": 5
+  },
+  "manchester.ac.uk": {
+    "icon": "/generated/icon-1406b4d03d005fe78e9e.png",
+    "available": true,
+    "photoCount": 10,
+    "logoCount": 6
+  },
+  "ucl.ac.uk": {
+    "icon": "/generated/icon-e6d3aad570669fe19542.png",
+    "available": true,
+    "photoCount": 6,
+    "logoCount": 26
+  },
+  "reading.ac.uk": {
+    "icon": "/generated/icon-d45e2ea0346ecaea32cd.png",
+    "available": true,
+    "photoCount": 9,
+    "logoCount": 7
+  },
+  "cam.ac.uk": {
+    "icon": "/generated/icon-2a1a1562e5d0744fe00a.png",
+    "available": true,
+    "photoCount": 18,
+    "logoCount": 6
+  },
+  "ox.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "st-andrews.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "durham.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "lboro.ac.uk": {
+    "icon": "/generated/icon-ee040d858d23f9f540fe.png",
+    "available": true,
+    "photoCount": 14,
+    "logoCount": 14
+  },
+  "bath.ac.uk": {
+    "icon": "/generated/icon-119152c4c1adc94a7f5c.png",
+    "available": true,
+    "photoCount": 14,
+    "logoCount": 9
+  },
+  "warwick.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "lancaster.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "exeter.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "york.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "bham.ac.uk": {
+    "icon": "/generated/icon-b0c9619951939fc7264b.png",
+    "available": true,
+    "photoCount": 17,
+    "logoCount": 10
+  },
+  "bristol.ac.uk": {
+    "icon": "/generated/icon-08ef3ef5b0ae58834324.png",
+    "available": true,
+    "photoCount": 15,
+    "logoCount": 8
+  },
+  "sheffield.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "soton.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "ed.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "surrey.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "leeds.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "cardiff.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "liverpool.ac.uk": {
+    "icon": "/generated/icon-1c536f9ef6e267e608ad.png",
+    "available": true,
+    "photoCount": 18,
+    "logoCount": 7
+  },
+  "qub.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "hw.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "uea.ac.uk": {
+    "icon": "/generated/icon-5957ff9e28491e9b274d.png",
+    "available": true,
+    "photoCount": 8,
+    "logoCount": 12
+  },
+  "nottingham.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "essex.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "abdn.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "gla.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "ncl.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "le.ac.uk": {
+    "icon": "/generated/icon-5312a82e579fed587b38.png",
+    "available": true,
+    "photoCount": 14,
+    "logoCount": 14
+  },
+  "arts.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "rhul.ac.uk": {
+    "icon": null,
+    "available": false,
+    "photoCount": 0,
+    "logoCount": 0
+  },
+  "ntnu.no": {
+    "icon": "/generated/icon-315be30e49452ee9faed.png",
+    "available": true,
+    "photoCount": 23,
+    "logoCount": 6
+  },
+  "uit.no": {
+    "icon": "/generated/icon-9ce140784ee713c302c7.png",
+    "available": true,
+    "photoCount": 15,
+    "logoCount": 3
+  },
+  "usn.no": {
+    "icon": "/generated/icon-bd5f62fad0eae7954db0.png",
+    "available": true,
+    "photoCount": 0,
+    "logoCount": 4
+  },
+  "nord.no": {
+    "icon": "/generated/icon-1da62561ab24b28198d9.png",
+    "available": true,
+    "photoCount": 20,
+    "logoCount": 3
+  },
+  "oslomet.no": {
+    "icon": "/generated/icon-9ca268e740c9186f5c28.png",
+    "available": true,
+    "photoCount": 22,
+    "logoCount": 7
+  },
+  "inn.no": {
+    "icon": "/generated/icon-fe5b2e064eceba72dfcf.png",
+    "available": true,
+    "photoCount": 0,
+    "logoCount": 6
+  },
+  "bi.no": {
+    "icon": "/generated/icon-e3c0eab4e6f59d9bb40e.png",
+    "available": true,
+    "photoCount": 37,
+    "logoCount": 7
+  },
+  "uio.no": {
+    "icon": "/generated/icon-16842d349837ce84d0a2.png",
+    "available": true,
+    "photoCount": 16,
+    "logoCount": 10
+  },
+  "uib.no": {
+    "icon": "/generated/icon-fe6eac68139044e65ed5.png",
+    "available": true,
+    "photoCount": 18,
+    "logoCount": 14
+  },
+  "uis.no": {
+    "icon": "/generated/icon-41a56b72407aea31837b.png",
+    "available": true,
+    "photoCount": 10,
+    "logoCount": 9
+  },
+  "uia.no": {
+    "icon": "/generated/icon-38ebd9a92b7e694c4231.png",
+    "available": true,
+    "photoCount": 26,
+    "logoCount": 12
+  },
+  "nmbu.no": {
+    "icon": "/generated/icon-c2274a82156c9030b315.png",
+    "available": true,
+    "photoCount": 13,
+    "logoCount": 7
+  },
+  "nhh.no": {
+    "icon": "/generated/icon-9d0128726bfcb4674095.png",
+    "available": true,
+    "photoCount": 9,
+    "logoCount": 19
+  }
+}

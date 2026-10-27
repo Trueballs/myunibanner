@@ -80,7 +80,7 @@ export function searchUniversities(query: string, country?: string, limit = 6): 
                         currentCountry = parsed.country;
                     }
                 }
-            } catch (e) {
+            } catch {
                 console.debug("Failed to parse user data from localStorage");
             }
         }

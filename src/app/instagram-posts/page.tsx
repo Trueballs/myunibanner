@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
-import html2canvas from 'html2canvas';
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import html2canvas from 'html2canvas';
+import { useState } from 'react';
 
 export default function InstagramPostsPage() {
   const [downloading, setDownloading] = useState<string | null>(null);
@@ -128,7 +128,7 @@ export default function InstagramPostsPage() {
             <div className="bg-blue-50 border-l-4 border-[#0A66C2] p-8 rounded-3xl">
               <h3 className="font-bold text-[#111827] mb-3 text-lg">📥 How to Download</h3>
               <ol className="text-gray-700 space-y-3 font-medium">
-                <li>✅ Click "Download" button on any post</li>
+                <li>✅ Click &quot;Download&quot; button on any post</li>
                 <li>✅ Image saves automatically</li>
                 <li>✅ Upload to Instagram Stories or Feed</li>
                 <li>✅ Watch engagement grow! 📈</li>

@@ -1,0 +1,26 @@
+{
+  "count": 384,
+  "bad": [
+    {
+      "url": "/uk-universities/University%20of%20Bristol/Bilder_HighRez/University-of-Bristol-Takes-the-Top-Spot-for-Student-Satisfaction.avif",
+      "error": "Error: public/uk-universities/University of Bristol/Bilder_HighRez/University-of-Bristol-Takes-the-Top-Spot-for-Student-Satisfaction.avif: bad seek to 67360\npublic/uk-universities/University of Bristol/Bilder_HighRez/University-of-Bristol-Takes-the-Top-Spot-for-Student-Satisfaction.avif: bad seek to 67343\npublic/uk-universities/University of Bristol/Bilder_HighRez/University-of-Bristol-Takes-the-Top-Spot-for-Student-Satisfaction.avif: bad seek to 67335\npublic/uk-universities/University of Bristol/Bilder_HighRez/University-of-Bristol-Takes-the-Top-Spot-for-Student-Satisfaction.avif: bad seek to 67331\npublic/uk-universities/University of Bristol/Bilder_HighRez/University-of-Bristol-Takes-the-Top-Spot-for-Student-Satisfaction.avif: bad seek to 67329\nheif: Invalid input: Unspecified: Bitstream not supported by this decoder (2.0)"
+    }
+  ],
+  "missing": [
+    "/uk-universities/UCL/Bilder_HighRez/161214_UCL_Bartlett_011.jpg",
+    "/uk-universities/UCL/Bilder_HighRez/979_main_quad_press_image_plan_landscape.png",
+    "/uk-universities/UCL/Bilder_HighRez/979_main_quad_press_image_stage_landscape.png",
+    "/uk-universities/UCL/Bilder_HighRez/ATWEB-NickHareArchitects-UCL-phAlanWilliams-10.jpg",
+    "/uk-universities/UCL/Bilder_HighRez/SW_UCL_East_Marshgate_London_HuftonCrow_073_cropped_2_hJq3v6v_medium.webp",
+    "/uk-universities/UCL/Bilder_HighRez/Screenshot 2026-03-05 at 14.14.45.png",
+    "/uk-universities/UCL/Bilder_HighRez/UCL University College London - Federation member of University of London.jpg",
+    "/uk-universities/UCL/Bilder_HighRez/UCL_Bedford_Way.jpg",
+    "/uk-universities/UCL/Bilder_HighRez/University College London Hospitals NHS Foundation Trust (U.jpeg",
+    "/uk-universities/UCL/Bilder_HighRez/marshgate-ucl-east-stanton-williams_4.jpg",
+    "/uk-universities/UCL/Bilder_HighRez/ucl-cancer-institute_content_4f6969eb.webp",
+    "/uk-universities/UCL/Bilder_HighRez/ucl_east_marshgate_exterior_panorama.avif",
+    "/uk-universities/UCL/Bilder_HighRez/wide-fullhd-ucl-university-college-london.jpg",
+    "/norske-universiteter/BI/Bilder_HighRez/Bergen/Bergen.jpg",
+    "/norske-universiteter/BI/Bilder_HighRez/Bergen/hardangerfjorden.jpeg"
+  ]
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext,ReactNode,useContext } from "react";
 
 type Language = "English" | "Norwegian";
 
@@ -124,7 +124,7 @@ const LanguageContext = createContext<LanguageContextType>({
 export function LanguageProvider({ children }: { children: ReactNode }) {
   // Language switching removed — always use English
   const language: Language = "English";
-  const setLanguage = (_lang: Language) => {};
+  const setLanguage = () => {};
 
   const t = (key: string): string => {
     return translations["English"][key] ?? key;
