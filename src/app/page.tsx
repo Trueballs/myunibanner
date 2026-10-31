@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import HeroVisualization from "@/components/HeroVisualization";
 import showcase from "@/data/showcase.json";
 import { AnimatePresence,motion } from "framer-motion";
-import { X } from "lucide-react";
+import { X, ImageOff, Search, Scissors, Sparkles } from "lucide-react";
 import { useEffect,useState } from "react";
 
 export default function Home() {
@@ -98,6 +98,71 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ── THE PROBLEM ── */}
+        <section className="bg-transparent w-full pt-16 pb-24 md:pt-20 md:pb-32">
+          <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
+            <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
+              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
+                Doing it yourself is a <span className="text-blue-600">grind</span>.
+              </h2>
+              <p className="text-slate-500 text-xl md:text-2xl font-medium mt-6 leading-relaxed">
+                To make one decent LinkedIn banner by hand, you have to:
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                { icon: ImageOff, title: "Hunt for a campus photo", text: "Dig through Google Images for a high-resolution shot of your university that isn't blurry, watermarked or random." },
+                { icon: Search, title: "Track down the official logo", text: "Find a clean, correctly-coloured version of your school's logo, usually buried somewhere on their website." },
+                { icon: Scissors, title: "Fight with Photoshop", text: "Crop, layer and align everything to LinkedIn's exact banner size, then hope it actually looks professional." },
+              ].map((step, i) => {
+                const Icon = step.icon;
+                return (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="bg-white/80 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-white flex flex-col items-start text-left"
+                  >
+                    <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center mb-8">
+                      <Icon className="w-7 h-7 text-slate-700" />
+                    </div>
+                    <h3 className="font-bold text-slate-900 text-2xl mb-4">{step.title}</h3>
+                    <p className="text-slate-600 text-lg font-medium leading-relaxed">{step.text}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-12 md:mt-16 bg-blue-600 rounded-[2.5rem] p-10 md:p-16 text-center flex flex-col items-center"
+            >
+              <div className="flex items-center gap-2 text-blue-100 font-semibold mb-5">
+                <Sparkles className="w-5 h-5" />
+                <span>One search. No Photoshop.</span>
+              </div>
+              <h3 className="text-3xl md:text-4xl font-extrabold text-white leading-tight max-w-2xl">
+                Myunibanner does all of it in about a minute.
+              </h3>
+              <p className="text-blue-100 text-xl font-medium mt-5 max-w-xl leading-relaxed">
+                Search your school, pick a layout, and download a professional banner. The photo and the logo are already built in.
+              </p>
+              <button
+                onClick={handleOpenOnboarding}
+                className="mt-10 bg-white text-blue-600 font-bold text-lg px-10 py-4 rounded-full hover:scale-[1.03] transition-transform"
+              >
+                Create your banner
+              </button>
+            </motion.div>
           </div>
         </section>
 
