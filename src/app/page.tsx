@@ -101,67 +101,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── TESTIMONIALS ── */}
-        <section className="bg-transparent w-full pt-16 pb-24 md:pt-20 md:pb-32">
-          <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
-            {/* Header Content */}
-            <div className="flex flex-col md:flex-row justify-between items-center md:items-center gap-8 mb-16 md:mb-24 text-center md:text-left">
-              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
-                Loved by many <br />
-                <span className="text-blue-600">Worldwide.</span>
-              </h2>
-              <p className="text-slate-500 text-xl md:text-2xl font-medium max-w-md md:text-right leading-relaxed">
-                Join other students building <br />
-                truly professional LinkedIn profiles.
-              </p>
-            </div>
-
-            {/* Testimonials Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                { name: "Sarah J.", role: "LSE Graduate", text: "Great for my LinkedIn before internship applications! Took literally 30 seconds." },
-                { name: "Marcus L.", role: "NTNU Student", text: "Finally a way to show my uni colors without having to use Photoshop. Professional results." },
-                { name: "Emma W.", role: "Uni Reading", text: "So easy to use. Highly recommend to all students looking to polish their profile." },
-                { name: "Lars B.", role: "OsloMet", text: "The only way to get a high-res uni banner without the hassle. Perfect for careers week." },
-                { name: "Javier M.", role: "Business Admin", text: "Increíble. No necesitas ser diseñador para tener un perfil top. Muy recomendable." },
-                { name: "Sophie T.", role: "Marketing Major", text: "Best tool I've used this year. My LinkedIn profile views spiked after the update!" }
-              ].map((t, i) => (
-                <motion.div
-                  key={i} 
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="group bg-white/80 backdrop-blur-md p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-white flex flex-col items-start text-left transition-all duration-500 hover:bg-blue-600 hover:scale-[1.03] hover:z-20 hover:shadow-xl hover:border-blue-500 cursor-default"
-                >
-                  <div className="flex gap-1 mb-8">
-                    {[1,2,3,4,5].map(star => (
-                      <svg key={star} className="w-5 h-5 fill-yellow-400" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <p className="text-slate-600 text-xl font-medium leading-relaxed mb-10 flex-1 group-hover:text-white/90 transition-colors">
-                    &ldquo;{t.text}&rdquo;
-                  </p>
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-slate-100 overflow-hidden ring-2 ring-slate-50 group-hover:ring-white/30 transition-all">
-                      <img 
-                        src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${t.name}`} 
-                        alt={t.name} loading="lazy" decoding="async" width={48} height={48}
-                        className="w-full h-full object-cover transition-all" 
-                      />
-                    </div>
-                    <div>
-                      <p className="font-bold text-slate-900 text-base group-hover:text-white transition-colors">{t.name}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* ── BANNERS SHOWCASE ── */}
         <section className="bg-transparent w-full py-12 md:py-24 overflow-hidden">
           <div className="w-full max-w-7xl mx-auto px-6 md:px-12 text-center mb-16">
