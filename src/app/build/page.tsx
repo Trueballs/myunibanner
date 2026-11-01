@@ -23,8 +23,10 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
         label: "Split",
         preview: (c) => (
             <div className="w-full h-full flex overflow-hidden">
-                <div style={{ width: "40%", background: c }} />
-                <div style={{ flex: 1, background: PHOTO }} />
+                <div style={{ width: "40%", background: PHOTO }} />
+                <div style={{ flex: 1, background: c, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <div style={{ width: "50%", height: "22%", background: "rgba(255,255,255,0.35)", borderRadius: 2 }} />
+                </div>
             </div>
         ),
     },
@@ -47,33 +49,28 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
     },
     {
         label: "Centred Brand",
-        preview: (c, a) => (
-            <div className="w-full h-full flex overflow-hidden">
-                <div style={{ width: "48%", background: c, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <div style={{ width: "55%", height: "28%", background: `rgba(255,255,255,0.3)`, borderRadius: 2 }} />
-                </div>
-                <div style={{ flex: 1, background: a + "55", display: "flex", alignItems: "center", paddingLeft: 8 }}>
-                    <div style={{ width: "60%", height: "12%", background: `${a}99`, borderRadius: 1 }} />
-                </div>
+        preview: (c) => (
+            <div className="w-full h-full flex items-center justify-center overflow-hidden" style={{ background: c }}>
+                <div style={{ width: "46%", height: "30%", background: "rgba(255,255,255,0.35)", borderRadius: 2 }} />
             </div>
         ),
     },
     {
-        label: "Glass Panels",
-        preview: (c) => (
+        label: "Corner Logo",
+        preview: () => (
             <div className="w-full h-full overflow-hidden" style={{ position: "relative", background: PHOTO }}>
-                <div style={{ position: "absolute", left: "6%", top: "18%", width: "36%", height: "64%", background: `${c}cc`, borderRadius: 2 }} />
-                <div style={{ position: "absolute", right: "6%", top: "18%", width: "36%", height: "64%", background: "rgba(255,255,255,0.28)", borderRadius: 2 }} />
+                <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.15)" }} />
+                <div style={{ position: "absolute", right: "7%", bottom: "16%", width: "34%", height: "26%", background: "rgba(255,255,255,0.85)", borderRadius: 2 }} />
             </div>
         ),
     },
     {
         label: "Elegant Stripe",
         preview: (c) => (
-            <div className="w-full h-full overflow-hidden flex" style={{ background: c }}>
-                <div style={{ flex: 1 }} />
-                <div style={{ width: "45%", background: "white", clipPath: "polygon(8px 0, 100% 0, 100% 100%, 0 100%)", display: "flex", alignItems: "center", paddingLeft: 14 }}>
-                    <div style={{ width: "55%", height: "22%", background: `${c}55`, borderRadius: 1 }} />
+            <div className="w-full h-full overflow-hidden flex" style={{ background: "white" }}>
+                <div style={{ flex: 1, background: PHOTO }} />
+                <div style={{ width: "32%", background: c, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <div style={{ width: "55%", height: "22%", background: "rgba(255,255,255,0.35)", borderRadius: 1 }} />
                 </div>
             </div>
         ),
@@ -82,7 +79,8 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
         label: "Diagonal",
         preview: (c) => (
             <div className="w-full h-full overflow-hidden" style={{ position: "relative", background: PHOTO }}>
-                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(125deg, transparent 35%, ${c}f0 52%, ${c} 62%)` }} />
+                <div style={{ position: "absolute", inset: 0, background: c, clipPath: "polygon(55% 0, 100% 0, 100% 100%, 42% 100%)" }} />
+                <div style={{ position: "absolute", right: "9%", top: "40%", width: "30%", height: "20%", background: "rgba(255,255,255,0.35)", borderRadius: 1 }} />
             </div>
         ),
     },
