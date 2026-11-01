@@ -1,8 +1,36 @@
-# Myunibanner
+# myunibanner
 
-LinkedIn banners for UK and Norwegian university students. The editor and PNG download use the same `BannerCanvas` component at 1584 × 396 pixels. Custom photos and exports stay in the browser.
+A web app that gives university students a professional, on-brand LinkedIn banner in about a minute, with no design skills and no Photoshop.
 
-## Run and check
+**Live:** https://myunibanner.vercel.app &nbsp;·&nbsp; **Case study:** [/about](https://myunibanner.vercel.app/about)
+
+## What it does
+
+Pick your university, choose a layout, and download a high-resolution LinkedIn banner built from your school's real brand assets: campus photography, logos and colours. It replaces the empty grey default banner most students have.
+
+## The interesting part
+
+Not the banner itself, the brand-data pipeline behind it.
+
+- **Brand asset pipeline.** A build step (`npm run assets`) checks, trims and normalises each school's identity: logos (with automatic contrast detection so the mark stays legible on any background), verified colour palettes and campus photography, then writes a content-hashed catalogue.
+- **Pixel-accurate export.** The editor and the PNG download share one `BannerCanvas` component at LinkedIn's exact 1584 × 396, captured client-side with `html-to-image`, with every layout respecting the avatar safe-zone so nothing important sits under the profile picture.
+- **Nine layout structures**, each covered by automated structure checks.
+
+## Stack
+
+Next.js · TypeScript · Sharp (asset pipeline) · Tailwind · Framer Motion · Vercel
+
+## Status
+
+Shelved as a business. The product worked, but the institutional-buyer thesis (schools paying so they could offer it to their students) didn't hold. I kept it live because the build, especially the brand-data pipeline and the accurate client-side rendering, is work I'm happy to show. The lesson I took away: validate who actually pays before building the full product.
+
+Built by Oscar Wold Skaarderud.
+
+---
+
+## Technical notes
+
+### Run and check
 
 ```sh
 npm ci
@@ -17,7 +45,7 @@ node tests/http-smoke.mjs
 
 `npm run build` regenerates assets automatically. The scripts invoke Node explicitly because this checkout's parent folder contains a colon, which breaks npm's usual executable PATH lookup.
 
-## University assets
+### University assets
 
 School definitions live in `src/data/universities.ts`. Original assets live beneath the school's `public/<root>/<folder>/` directory:
 
@@ -31,13 +59,13 @@ Add properly sourced institution/campus assets to the original directories and r
 
 Generated filenames are immutable and served with long-lived cache headers. Keep generated files with source control for reproducible deploys. Do not delete old hashes from a running deployment while an older page may still reference them.
 
-## Export and legacy endpoints
+### Export and legacy endpoints
 
 `src/lib/export-banner.ts` checks images and fonts before capturing the preview with `html-to-image`. Uploads accept JPG, PNG, WebP or AVIF up to 10 MB / 40 megapixels and resize locally. Gallery thumbnails never load full-resolution originals.
 
 `/api/brand`, `/api/logo`, `/api/full-logo` and `/api/uni-image` resolve only known catalogue entries. The old server-render, download-proxy and Shopify endpoints return HTTP 410. No Shopify credentials are required by the application. The mock `/api/generate-layout` route is unrelated to the active editor.
 
-## Verification and remaining content work
+### Verification and remaining content work
 
 Automated checks cover all university/campus records, generated-image decoding and size budgets, all nine layout structures, failed-image export prevention, upload validation and retired/traversal routes. HTTP smoke tests target a local production server only.
 
@@ -49,7 +77,7 @@ Production deployment is separate from the local build; no automatic push or Ver
 
 Custom text has been removed from the editor and renderer. Legacy text fields are ignored when restoring drafts, while layout, logo, colours and photos are preserved. Mobile previews stay below the sticky header and can expand into a native dialog. Drafts (including prepared JPEG uploads) are saved per school/campus in IndexedDB; saves are serialized, assets are restored by URL, storage failures are surfaced, and reset can be undone during the session. Drafts are local to the browser and origin.
 
-## Colour sources and project story
+### Colour sources and project story
 
 `src/data/brand-colors.json` is the canonical colour registry. It distinguishes published-guidance evidence, current official-website evidence, and pending confirmation. The asset build applies verified palettes to every campus and removes stale per-logo background overrides. Known copied blue/gold placeholders fall back to neutrals. See `audit/2026-10-27/colour-audit.md` for all 49 schools, before/after values, sources and remaining confirmation work. Do not overwrite generated catalogue colours manually.
 
