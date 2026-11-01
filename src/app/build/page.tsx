@@ -104,15 +104,6 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
             </div>
         ),
     },
-    {
-        label: "Minimal",
-        preview: (c) => (
-            <div className="w-full h-full overflow-hidden flex items-center justify-center" style={{ position: "relative", background: "white" }}>
-                <div style={{ width: "40%", height: "26%", background: "rgba(0,0,0,0.18)", borderRadius: 2 }} />
-                <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: "14%", background: c }} />
-            </div>
-        ),
-    },
 ];
 
 /* ═══════════════════════════════════════════════════════════════
@@ -234,7 +225,7 @@ function BuilderContent() {
     }, [brand, draftKey, draft]);
 
     const isUCL = params.get("domain") === "ucl.ac.uk";
-    const availableLayouts = (isUCL ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] : [0, 1, 2, 3, 4, 5, 6, 7, 9]) as Layout[];
+    const availableLayouts = (isUCL ? [0, 1, 2, 3, 4, 5, 6, 7, 8] : [0, 1, 2, 3, 4, 5, 6, 7]) as Layout[];
 
 
 

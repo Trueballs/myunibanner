@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import { logoDisplaySize, type LogoMetrics } from "@/lib/logo-size";
 
-export type Layout = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+export type Layout = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 /* ═══════════════════════════════════════════════════════════════
    LINKEDIN CANVAS CONSTANTS
@@ -309,23 +309,6 @@ function L8({ logoScale = 1.0, brand, logoSrc, logoHasBg, logoIsLight, img, phot
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   LAYOUT 9 — "MINIMAL"
-   Clean white background, centred logo, with a slim brand-colour
-   accent bar along the bottom. No photo.
-═══════════════════════════════════════════════════════════════ */
-function L9({ logoScale = 1.0, brand, logoSrc, logoHasBg, logoIsLight, primary }: LayoutProps) {
-
-    return (
-        <div className="absolute inset-0 overflow-hidden flex flex-col items-center justify-center bg-white">
-            <div className="flex flex-col items-center gap-8" style={{ width: 660 }}>
-                <SmartLogo metrics={brand.logos.find(logo => logo.url === logoSrc)} src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#ffffff" h={140} maxW={380} brandColors={brand.colors} scale={logoScale} />
-            </div>
-            <div className="absolute left-0 right-0 bottom-0" style={{ height: 16, background: primary }} />
-        </div>
-    );
-}
-
-/* ═══════════════════════════════════════════════════════════════
    BANNER WRAPPER — routes to the right layout
 ═══════════════════════════════════════════════════════════════ */
 export default function BannerCanvas({
@@ -370,7 +353,6 @@ export default function BannerCanvas({
             {layout === 6 && <L6 {...p} />}
             {layout === 7 && <L7 {...p} />}
             {layout === 8 && <L8 {...p} />}
-            {layout === 9 && <L9 {...p} />}
 
             <GrainOverlay />
             <FrameOverlay />
