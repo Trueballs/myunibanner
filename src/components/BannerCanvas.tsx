@@ -209,8 +209,6 @@ function L4({ logoScale = 1.0, brand, logoSrc, logoHasBg, logoIsLight, logoPos =
             )}
             <div className={`absolute z-20 flex flex-row-reverse gap-8 ${logoPos === "top" ? "items-start" : (logoPos === "center" ? "items-center" : "items-end")}`}
                 style={{
-                    background: tintIndex === -1 ? primary : undefined,
-                    padding: tintIndex === -1 ? 16 : 0,
                     right: 40,
                     top: logoPos === 'center' ? '50%' : (logoPos === 'top' ? 40 : 'auto'),
                     bottom: logoPos === 'bottom' ? 40 : 'auto',
@@ -269,7 +267,7 @@ function L7({ logoScale = 1.0, brand, img, logoSrc, logoHasBg, logoIsLight, prim
                     <div className="absolute inset-0 bg-black/10" />
                 </div>
             )}
-            <div className="relative z-10 flex flex-col items-center justify-center" style={{ background: tintIndex === -1 ? primary : undefined, padding: tintIndex === -1 ? 16 : 0 }}>
+            <div className="relative z-10 flex flex-col items-center justify-center">
                 <SmartLogo metrics={brand.logos.find(logo => logo.url === logoSrc)} src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor={tintIndex === -1 ? primary : "#000000"} h={180} maxW={400} brandColors={brand.colors} scale={logoScale} />
             </div>
         </div>
