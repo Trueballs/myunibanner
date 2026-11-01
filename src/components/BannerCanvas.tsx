@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import { logoDisplaySize, type LogoMetrics } from "@/lib/logo-size";
 
-export type Layout = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type Layout = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 /* ═══════════════════════════════════════════════════════════════
    LINKEDIN CANVAS CONSTANTS
@@ -311,6 +311,24 @@ function L8({ logoScale = 1.0, brand, logoSrc, logoHasBg, logoIsLight, img, phot
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   LAYOUT 9 — "DIAGONAL WHITE"
+   Photo on the left, diagonal cut into a clean white panel on the
+   right holding the logo (e.g. BI navy mark on white).
+═══════════════════════════════════════════════════════════════ */
+function L9({ logoScale = 1.0, brand, img, logoSrc, logoHasBg, logoIsLight, photoFilter = "none" }: LayoutProps) {
+
+    return (
+        <div className="absolute inset-0 overflow-hidden bg-white">
+            {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-3/5 h-full object-cover" style={{ filter: photoFilter }} />}
+            <div className="absolute top-0 bottom-0 right-0 flex flex-col items-center justify-center gap-8 p-16 overflow-hidden"
+                style={{ width: "55%", background: "#ffffff", zIndex: 10, clipPath: 'polygon(120px 0, 100% 0, 100% 100%, 0 100%)' }}>
+                <SmartLogo metrics={brand.logos.find(logo => logo.url === logoSrc)} src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#ffffff" h={120} maxW={360} brandColors={brand.colors} scale={logoScale} />
+            </div>
+        </div>
+    );
+}
+
+/* ═══════════════════════════════════════════════════════════════
    BANNER WRAPPER — routes to the right layout
 ═══════════════════════════════════════════════════════════════ */
 export default function BannerCanvas({
@@ -355,6 +373,7 @@ export default function BannerCanvas({
             {layout === 6 && <L6 {...p} />}
             {layout === 7 && <L7 {...p} />}
             {layout === 8 && <L8 {...p} />}
+            {layout === 9 && <L9 {...p} />}
 
             <GrainOverlay />
             <FrameOverlay />

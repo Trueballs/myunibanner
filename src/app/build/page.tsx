@@ -106,6 +106,15 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
             </div>
         ),
     },
+    {
+        label: "Diagonal White",
+        preview: (c) => (
+            <div className="w-full h-full overflow-hidden" style={{ position: "relative", background: PHOTO }}>
+                <div style={{ position: "absolute", inset: 0, background: "white", clipPath: "polygon(55% 0, 100% 0, 100% 100%, 42% 100%)" }} />
+                <div style={{ position: "absolute", right: "9%", top: "40%", width: "30%", height: "20%", background: `${c}cc`, borderRadius: 1 }} />
+            </div>
+        ),
+    },
 ];
 
 /* ═══════════════════════════════════════════════════════════════
@@ -227,7 +236,7 @@ function BuilderContent() {
     }, [brand, draftKey, draft]);
 
     const isUCL = params.get("domain") === "ucl.ac.uk";
-    const availableLayouts = (isUCL ? [0, 1, 2, 3, 4, 5, 6, 7, 8] : [0, 1, 2, 3, 4, 5, 6, 7]) as Layout[];
+    const availableLayouts = (isUCL ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] : [0, 1, 2, 3, 4, 5, 6, 7, 9]) as Layout[];
 
 
 
