@@ -309,19 +309,18 @@ function L8({ logoScale = 1.0, brand, logoSrc, logoHasBg, logoIsLight, img, phot
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   LAYOUT 9 — "DIAGONAL WHITE"
-   Photo on the left, diagonal cut into a clean white panel on the
-   right holding the logo (e.g. BI navy mark on white).
+   LAYOUT 9 — "MINIMAL"
+   Clean white background, centred logo, with a slim brand-colour
+   accent bar along the bottom. No photo.
 ═══════════════════════════════════════════════════════════════ */
-function L9({ logoScale = 1.0, brand, img, logoSrc, logoHasBg, logoIsLight, photoFilter = "none" }: LayoutProps) {
+function L9({ logoScale = 1.0, brand, logoSrc, logoHasBg, logoIsLight, primary }: LayoutProps) {
 
     return (
-        <div className="absolute inset-0 overflow-hidden bg-white">
-            {img && <img src={img} alt="" crossOrigin="anonymous" className="absolute inset-0 w-3/5 h-full object-cover" style={{ filter: photoFilter }} />}
-            <div className="absolute top-0 bottom-0 right-0 flex flex-col items-center justify-center gap-8 p-16 overflow-hidden"
-                style={{ width: "55%", background: "#ffffff", zIndex: 10, clipPath: 'polygon(120px 0, 100% 0, 100% 100%, 0 100%)' }}>
-                <SmartLogo metrics={brand.logos.find(logo => logo.url === logoSrc)} src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#ffffff" h={120} maxW={360} brandColors={brand.colors} scale={logoScale} />
+        <div className="absolute inset-0 overflow-hidden flex flex-col items-center justify-center bg-white">
+            <div className="flex flex-col items-center gap-8" style={{ width: 660 }}>
+                <SmartLogo metrics={brand.logos.find(logo => logo.url === logoSrc)} src={logoSrc} hasBg={logoHasBg} isLight={logoIsLight} panelColor="#ffffff" h={140} maxW={380} brandColors={brand.colors} scale={logoScale} />
             </div>
+            <div className="absolute left-0 right-0 bottom-0" style={{ height: 16, background: primary }} />
         </div>
     );
 }

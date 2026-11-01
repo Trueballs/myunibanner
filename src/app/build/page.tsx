@@ -105,11 +105,11 @@ const THUMB_CONFIGS: { label: string; preview: (color: string, accent: string) =
         ),
     },
     {
-        label: "Diagonal White",
+        label: "Minimal",
         preview: (c) => (
-            <div className="w-full h-full overflow-hidden" style={{ position: "relative", background: PHOTO }}>
-                <div style={{ position: "absolute", inset: 0, background: "white", clipPath: "polygon(55% 0, 100% 0, 100% 100%, 42% 100%)" }} />
-                <div style={{ position: "absolute", right: "9%", top: "40%", width: "30%", height: "20%", background: `${c}cc`, borderRadius: 1 }} />
+            <div className="w-full h-full overflow-hidden flex items-center justify-center" style={{ position: "relative", background: "white" }}>
+                <div style={{ width: "40%", height: "26%", background: "rgba(0,0,0,0.18)", borderRadius: 2 }} />
+                <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: "14%", background: c }} />
             </div>
         ),
     },
